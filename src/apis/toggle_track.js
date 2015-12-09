@@ -13,7 +13,9 @@ export { SmoothScrollbar };
 /**
  * @method
  * @api
- * Get scroll content element
+ * show scrollbar track on given direction
+ *
+ * @param {String} direction: which direction of tracks to show, default is 'both'
  */
 SmoothScrollbar.prototype.showTrack = function(direction = 'both') {
     const { container, xAxis, yAxis } = this.targets;
@@ -35,6 +37,11 @@ SmoothScrollbar.prototype.showTrack = function(direction = 'both') {
     }
 };
 
+/**
+ * @method
+ * @api
+ * hide track with 300ms debounce
+ */
 SmoothScrollbar.prototype.hideTrack = function() {
     const { targets, __timerID } = this;
     const { container, xAxis, yAxis } = targets;
