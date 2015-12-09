@@ -1,53 +1,54 @@
-(function(angular) {
+(function(document, Scrollbar) {
     'use strict';
 
-    var app = angular.module('demo', ['SmoothScrollbar']);
+    Scrollbar.initAll();
 
-    app.controller('GetDataCtrl', function($scope, $timeout, ScrollbarService) {
-        $scope.offset = {
-            x: 0,
-            y: 0
-        };
-        $scope.limit = {
-            x: 0,
-            y: 0
-        };
-        $scope.velocity = {
-            x: 0,
-            y: 0
-        };
+    var toggle = document.querySelector('#toggle'),
+        curSB = document.querySelector('#cur-sb'),
+        compare = document.querySelector('#compare');
 
-        $scope.loading = 'pending...';
-        var paragraphTmpl = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam, accusamus laudantium nostrum minima possimus optio voluptates id dignissimos, libero voluptas nesciunt. Consequatur deleniti corporis recusandae nesciunt. Maiores dignissimos praesentium tempore.';
-        var article = $scope.article = [paragraphTmpl];
-
-        var scrollbarPromise = ScrollbarService.getInstance('getData');
-
-
-        scrollbarPromise.then(function (scrollbar) {
-            $scope.offset = scrollbar.offset;
-
-            scrollbar.addListener(function(status) {
-                $scope.offset = status.offset;
-                $scope.velocity = status.velocity;
-            });
-        });
-
-        scrollbarPromise.then(function (scrollbar) {
-            var count = 0;
-            scrollbar.infiniteScroll(function() {
-                if (count++ > 10) {
-                    $scope.loading = 'the end';
-                } else {
-                    $scope.loading = 'loading...';
-
-                    $timeout(function() {
-                        $scope.loading = 'pending...';
-                        article.push(paragraphTmpl, paragraphTmpl);
-                        scrollbar.update();
-                    }, 500);
-                }
-            });
-        });
+    toggle.addEventListener('click', function() {
+        if (Scrollbar.has(compare)) {
+            Scrollbar.destroy(compare);
+            curSB.textContent = 'Native Scrollbar';
+        } else {
+            Scrollbar.init(compare);
+            curSB.textContent = 'Smooth Scrollbar'
+        }
     });
-})(angular);
+
+
+    var infinite = Scrollbar.init(document.querySelector('#infinite'));
+
+    var x = document.querySelector('#x'),
+        y = document.querySelector('#y'),
+        status = document.querySelector('#status');
+
+    var createPara = function() {
+        var p = document.createElement('p');
+        p.textContent = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam, accusamus laudantium nostrum minima possimus optio voluptates id dignissimos, libero voluptas nesciunt. Consequatur deleniti corporis recusandae nesciunt. Maiores dignissimos praesentium tempore.';
+
+        return p;
+    };
+
+    infinite.addListener(function(status) {
+        var offset = status.offset;
+        x.textContent = offset.x.toFixed(2);
+        y.textContent = offset.y.toFixed(2);
+    });
+
+    var count = 0;
+    infinite.infiniteScroll(function() {
+        if (count++ > 10) {
+            status.textContent = 'the end';
+        } else {
+            status.textContent = 'loading...';
+
+            setTimeout(function() {
+                status.textContent = 'pending...';
+                infinite.appendChild(createPara()).appendChild(createPara());
+                infinite.update();
+            }, 500);
+        }
+    });
+})(document, window.Scrollbar);

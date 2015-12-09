@@ -6,43 +6,39 @@
     <link rel="stylesheet" href="../dist/smooth_scrollbar.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body ng-app="demo">
+<body>
 
 <main>
-    <h1>Angular Smooth Scrollbar</h1>
-    <h2>Smooth Scrolling with Hardware Acceleration</h2>
+    <h1>Smooth Scrollbar</h1>
+    <h2>Scrolling with Hardware Acceleration</h2>
 
-    <article id="compare">
-        <h3>Native Scrolling Demo</h3>
-        <section class="scroll native">
+    <article>
+        <h3>Native Scrolling vs Smooth Scrolling</h3>
+        <h4>Current: <strong id="cur-sb">Native Scrollbar</strong> <button id="toggle">toggle</button></h4>
+        <section class="scroll native" id="compare">
             <img src="your_diary.jpg" height="1080" width="1920">
         </section>
-        <h3>Smooth Scrolling Demo</h3>
-        <scrollbar class="scroll">
-            <img src="your_diary.jpg" height="1080" width="1920">
-        </scrollbar>
     </article>
 
-    <article ng-controller="GetDataCtrl" id="get-data">
+    <article>
         <h3>Get Data With 10x Infinite Scroll</h3>
         <header>
-            <span ng-bind="'offset.x: ' + offset.x.toFixed(2)"></span>
-            <span ng-bind="'offset.y: ' + offset.y.toFixed(2)"></span>
-            <span ng-bind="'infinite scroll: ' + loading"></span>
+            <span>offset.x: <em id="x">0.00</em></span>
+            <span>offset.y: <em id="y">0.00</em></span>
+            <span>infinite scroll: <em id="status">pending...</em></span>
         </header>
-        <section scrollbar="getData" class="scroll">
+        <section class="scroll" id="infinite" data-scrollbar>
             <img src="your_diary.jpg" height="1080" width="1920">
-            <div ng-repeat="paragraph in article track by $index">
-                <p ng-bind="paragraph"></p>
-            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam, accusamus laudantium nostrum minima possimus optio voluptates id dignissimos, libero voluptas nesciunt. Consequatur deleniti corporis recusandae nesciunt. Maiores dignissimos praesentium tempore.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam, accusamus laudantium nostrum minima possimus optio voluptates id dignissimos, libero voluptas nesciunt. Consequatur deleniti corporis recusandae nesciunt. Maiores dignissimos praesentium tempore.</p>
         </section>
     </article>
 
-    <article id="nest">
+    <article>
         <h3>Nest Scrollbar</h3>
-        <scrollbar name="outer" class="scroll">
+        <section class="scroll" id="nest" scrollbar>
             <img src="your_diary.jpg" height="1080" width="1920">
-            <scrollbar name="inner" class="inner">
+            <scrollbar class="scroll inner">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste voluptates esse, repellat soluta, quaerat vero omnis perferendis, est libero earum, consectetur excepturi. Autem quos cum facere, in eveniet deserunt quas.</p>
                 <p>Placeat laboriosam quae, voluptas veritatis facilis hic sapiente voluptatibus illo, laborum non itaque iste. Nisi ab laboriosam repellendus ipsa architecto quos molestias consequuntur! Autem optio sed hic adipisci dignissimos soluta.</p>
                 <p>Labore sint quasi tempore debitis saepe, dolore laboriosam eveniet quos nam ab molestiae sapiente voluptate exercitationem sed sequi inventore, error reiciendis deleniti optio rem, soluta temporibus officia quo nemo. Voluptatibus.</p>
@@ -54,11 +50,10 @@
                 <p>Quod numquam molestias odio eaque a, placeat nobis quasi, nihil voluptatum vero voluptas eligendi molestiae in alias minima ut adipisci officia provident ratione autem, facilis tenetur ad? Tempora, distinctio, dolor.</p>
                 <p>Repellat voluptate, velit saepe natus. Quia soluta est consectetur, sunt tempore voluptatibus ut adipisci iusto labore obcaecati amet quisquam numquam nostrum quod nam a commodi, nemo ea harum neque voluptatum.</p>
             </scrollbar>
-        </scrollbar>
+        </section>
     </article>
 </main>
 
-<script src="../bower_components/angular/angular.js"></script>
 <script src="../dist/smooth_scrollbar.js"></script>
 <script src="main.js"></script>
 </body>
