@@ -41,7 +41,7 @@ let __touchHandler = function({ easingDuration }) {
     };
 
     this.$on('touchstart', container, (evt) => {
-        cancelAnimationFrame(this.scrollAnimation);
+        cancelAnimationFrame(this.__timerID.scrollAnimation);
         updateRecords(evt);
 
         lastTouchID = getTouchID(evt);
