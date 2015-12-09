@@ -26,7 +26,9 @@ SmoothScrollbar.init = (elem, options) => {
 
     const children = [...elem.children];
 
-    elem.innerHTML = `
+    const div = document.createElement('div');
+
+    div.innerHTML = `
         <article class="scroll-content"></article>
         <aside class="scrollbar-track scrollbar-track-x">
             <div class="scrollbar-thumb scrollbar-thumb-x"></div>
@@ -35,6 +37,8 @@ SmoothScrollbar.init = (elem, options) => {
             <div class="scrollbar-thumb scrollbar-thumb-y"></div>
         </aside>
     `;
+
+    [...div.children].forEach((el) => elem.appendChild(el));
 
     const content = elem.querySelector('.scroll-content');
 
