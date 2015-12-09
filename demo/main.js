@@ -38,6 +38,7 @@
     });
 
     var count = 0;
+    var scrollContent = infinite.getContentElem();
     infinite.infiniteScroll(function() {
         if (count++ > 10) {
             status.textContent = 'the end';
@@ -46,7 +47,9 @@
 
             setTimeout(function() {
                 status.textContent = 'pending...';
-                infinite.appendChild(createPara()).appendChild(createPara());
+                scrollContent.appendChild(createPara());
+                scrollContent.appendChild(createPara());
+
                 infinite.update();
             }, 500);
         }
