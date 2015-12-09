@@ -21,7 +21,7 @@ export { SmoothScrollbar };
  * @param {Function} [cb]: callback
  */
 SmoothScrollbar.prototype.scrollTo = function(x = this.offset.x, y = this.offset.y, duration = 0, cb = null) {
-    let { offset, limit } = this;
+    let { offset, limit, __timerID } = this;
     let destX = pickInRange(x, 0, limit.x);
     let destY = pickInRange(y, 0, limit.y);
 
@@ -43,7 +43,7 @@ SmoothScrollbar.prototype.scrollTo = function(x = this.offset.x, y = this.offset
 
         i++;
 
-        this.__scrollAnimation = requestAnimationFrame(scroll);
+        __timerID.scrollAnimation = requestAnimationFrame(scroll);
     };
 
     scroll();

@@ -16,7 +16,7 @@ export { SmoothScrollbar };
  */
 function __setThumbPosition() {
     let { x, y } = this.offset;
-    let { xAxis, yAxis } = this.__targets;
+    let { xAxis, yAxis } = this.targets;
 
     let styleX = `translate3d(${x / this.size.content.width * this.size.container.width}px, 0, 0)`;
     let styleY = `translate3d(0, ${y / this.size.content.height * this.size.container.height}px, 0)`;

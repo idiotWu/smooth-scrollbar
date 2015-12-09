@@ -27,7 +27,7 @@ const KEYMAPS = {
  */
 let __keyboardHandler = function({ speed, stepLength }) {
     let isFocused = false;
-    let { container } = this.__targets;
+    let { container } = this.targets;
 
     this.$on('focus', container, () => {
         isFocused = true;

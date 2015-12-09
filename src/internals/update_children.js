@@ -1,19 +1,17 @@
 /**
  * @module
  * @prototype {Function} __updateChildren
- * @dependencies [ SmoothScrollbar ]
+ * @dependencies [ SmoothScrollbar, selectors, #__readonly ]
  */
 
+import '../internals';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 import { selectors } from '../shared/selectors';
 
 export { SmoothScrollbar };
 
 function __updateChildren() {
-    Object.defineProperty(this, '__children', {
-        value: [...this.__targets.content.querySelectorAll(selectors)],
-        writable: true
-    });
+    this.__readonly('children', [...this.targets.content.querySelectorAll(selectors)]);
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__updateChildren', {

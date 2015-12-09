@@ -23,7 +23,7 @@ const WHEEL_EVENT = 'onwheel' in window ? 'wheel' : 'mousewheel';
  * @return {Function}: event handler
  */
 let __wheelHandler = function({ speed, stepLength }) {
-    let { container } = this.__targets;
+    let { container } = this.targets;
 
     this.$on(WHEEL_EVENT, container, (evt) => {
         let { offset, limit } = this;

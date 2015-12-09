@@ -33,7 +33,7 @@ let getTrackDir = (className) => {
  */
 let __mouseHandler = function({ speed }) {
     let isMouseDown, isMouseMove, startOffsetToThumb, startTrackDirection, containerRect;
-    let { container } = this.__targets;
+    let { container } = this.targets;
 
     this.$on('click', container, (evt) => {
         if (isMouseMove || !/track/.test(evt.target.className) || this.__fromChild(evt)) return;
@@ -84,7 +84,7 @@ let __mouseHandler = function({ speed }) {
         };
 
         // container bounding rectangle
-        containerRect = this.__targets.container.getBoundingClientRect();
+        containerRect = this.targets.container.getBoundingClientRect();
     });
 
     this.$on('mousemove', window, (evt) => {

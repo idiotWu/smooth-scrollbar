@@ -4,5 +4,6 @@ export * from './get_size';
 export * from './listener';
 export * from './scroll_to';
 export * from './set_position';
+export * from './toggle_track';
 export * from './infinite_scroll';
 export * from './get_content_elem';

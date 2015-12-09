@@ -1,11 +1,11 @@
 /**
  * @module
  * @prototype {Function} update
- * @dependencies [ SmoothScrollbar, #getSize, #__setThumbPosition, pickInRange, setStyle ]
+ * @dependencies [ SmoothScrollbar, #getSize, #__setThumbPosition, #__readyonly pickInRange, setStyle ]
  */
 
 import './get_size';
-import '../internals/set_thumb_position';
+import '../internals';
 import { pickInRange, setStyle } from '../utils/index';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
@@ -20,7 +20,10 @@ export { SmoothScrollbar };
  */
 SmoothScrollbar.prototype.update = function(cb) {
     requestAnimationFrame(() => {
-        let size = this.size = this.getSize();
+        let size = this.getSize();
+
+        this.__readonly('size', size);
+
         let newLimit = {
             x: size.content.width - size.container.width,
             y: size.content.height - size.container.height
@@ -30,9 +33,9 @@ SmoothScrollbar.prototype.update = function(cb) {
             newLimit.x === this.limit.x &&
             newLimit.y === this.limit.y) return;
 
-        this.limit = newLimit;
+        this.__readonly('limit', newLimit);
 
-        let { xAxis, yAxis } = this.__targets;
+        let { xAxis, yAxis } = this.targets;
 
         // hide scrollbar if content size less than container
         setStyle(xAxis.track, {

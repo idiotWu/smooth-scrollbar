@@ -22,7 +22,7 @@ export { SmoothScrollbar };
  * @return {Object}: a set of event handlers
  */
 let __touchHandler = function({ easingDuration }) {
-    let { container } = this.__targets;
+    let { container } = this.targets;
 
     let lastTouchTime, lastTouchID;
     let moveVelocity = {}, lastTouchPos = {}, touchRecords = {};

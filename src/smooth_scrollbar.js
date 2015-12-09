@@ -34,78 +34,53 @@ export class SmoothScrollbar {
             outline: 'none'
         });
 
-        let trackX = findChild(container, 'scrollbar-track-x');
-        let trackY = findChild(container, 'scrollbar-track-y');
+        const trackX = findChild(container, 'scrollbar-track-x');
+        const trackY = findChild(container, 'scrollbar-track-y');
 
+        // readonly properties
+        this.__readonly('targets', Object.freeze({
+            container,
+            content: findChild(container, 'scroll-content'),
+            xAxis: Object.freeze({
+                track: trackX,
+                thumb: findChild(trackX, 'scrollbar-thumb-x')
+            }),
+            yAxis: Object.freeze({
+                track: trackY,
+                thumb: findChild(trackY, 'scrollbar-thumb-y')
+            })
+        }))
+        .__readonly('offset', {
+            x: 0,
+            y: 0
+        })
+        .__readonly('limit', {
+            x: Infinity,
+            y: Infinity
+        })
+        .__readonly('size', this.getSize());
+
+        // non-enmurable properties
         Object.defineProperties(this, {
-            __targets: {
-                value: {
-                    container,
-                    content: findChild(container, 'scroll-content'),
-                    xAxis: {
-                        track: trackX,
-                        thumb: findChild(trackX, 'scrollbar-thumb-x')
-                    },
-                    yAxis: {
-                        track: trackY,
-                        thumb: findChild(trackY, 'scrollbar-thumb-y')
-                    }
-                }
-            },
-            __listeners: {
-                value: [],
-                writable: true
-            },
-            __handlers: {
-                value: [],
-                writable: true
-            },
             __motionBuilder: {
                 value: motionBuilder(easingCurve)
             },
             __updateThrottle: {
                 value: debounce(::this.update)
             },
-            __scrollAnimation: {
-                writable: true
+            __listeners: {
+                value: []
+            },
+            __handlers: {
+                value: []
+            },
+            __children: {
+                value: []
+            },
+            __timerID: {
+                value: {}
             }
         });
-
-        this.offset = {
-            x: 0,
-            y: 0
-        };
-
-        this.limit = {
-            x: Infinity,
-            y: Infinity
-        };
-
-        this.size = this.getSize();
-
-        this.showTrack = (direction = 'both') => {
-            direction = direction.toLowerCase();
-            container.classList.add('scrolling');
-
-            if (direction === 'both') {
-                trackX.classList.add('show');
-                trackY.classList.add('show');
-            }
-
-            if (direction === 'x') {
-                trackX.classList.add('show');
-            }
-
-            if (direction === 'y') {
-                trackY.classList.add('show');
-            }
-        };
-
-        this.hideTrack = debounce(() => {
-            container.classList.remove('scrolling');
-            trackX.classList.remove('show');
-            trackY.classList.remove('show');
-        }, 300, false);
 
         this.__initScrollbar({
             speed: parseFloat(speed) || DEFAULT_OPTIONS.SPEED,

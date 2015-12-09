@@ -14,5 +14,5 @@ export { SmoothScrollbar };
  * Get scroll content element
  */
 SmoothScrollbar.prototype.getContentElem = function() {
-    return this.__targets.content;
+    return this.targets.content;
 };

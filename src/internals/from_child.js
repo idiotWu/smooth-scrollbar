@@ -14,7 +14,7 @@ function __fromChild(evt = {}) {
 
     if (!target) return false;
 
-    return this.__children.some((sb) => sb.contains(target));
+    return this.children.some((sb) => sb.contains(target));
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__fromChild', {

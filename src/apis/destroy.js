@@ -17,8 +17,8 @@ export { SmoothScrollbar };
  * Reset
  */
 SmoothScrollbar.prototype.destroy = function() {
-    const { __listeners, __handlers, __targets } = this;
-    const { container, content } = __targets;
+    const { __listeners, __handlers, targets } = this;
+    const { container, content } = targets;
 
     __handlers.forEach(({ evt, elem, handler }) => {
         elem.removeEventListener(evt, handler);
