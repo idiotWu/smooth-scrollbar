@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smooth Scrollbar</title>
+    <link rel="stylesheet" href="../dist/smooth_scrollbar.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body ng-app="demo">
+
+<main>
+    <h1>Angular Smooth Scrollbar</h1>
+    <h2>Smooth Scrolling with Hardware Acceleration</h2>
+
+    <article id="compare">
+        <h3>Native Scrolling Demo</h3>
+        <section class="scroll native">
+            <img src="your_diary.jpg" height="1080" width="1920">
+        </section>
+        <h3>Smooth Scrolling Demo</h3>
+        <scrollbar class="scroll">
+            <img src="your_diary.jpg" height="1080" width="1920">
+        </scrollbar>
+    </article>
+
+    <article ng-controller="GetDataCtrl" id="get-data">
+        <h3>Get Data With 10x Infinite Scroll</h3>
+        <header>
+            <span ng-bind="'offset.x: ' + offset.x.toFixed(2)"></span>
+            <span ng-bind="'offset.y: ' + offset.y.toFixed(2)"></span>
+            <span ng-bind="'infinite scroll: ' + loading"></span>
+        </header>
+        <section scrollbar="getData" class="scroll">
+            <img src="your_diary.jpg" height="1080" width="1920">
+            <div ng-repeat="paragraph in article track by $index">
+                <p ng-bind="paragraph"></p>
+            </div>
+        </section>
+    </article>
+
+    <article id="nest">
+        <h3>Nest Scrollbar</h3>
+        <scrollbar name="outer" class="scroll">
+            <img src="your_diary.jpg" height="1080" width="1920">
+            <scrollbar name="inner" class="inner">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste voluptates esse, repellat soluta, quaerat vero omnis perferendis, est libero earum, consectetur excepturi. Autem quos cum facere, in eveniet deserunt quas.</p>
+                <p>Placeat laboriosam quae, voluptas veritatis facilis hic sapiente voluptatibus illo, laborum non itaque iste. Nisi ab laboriosam repellendus ipsa architecto quos molestias consequuntur! Autem optio sed hic adipisci dignissimos soluta.</p>
+                <p>Labore sint quasi tempore debitis saepe, dolore laboriosam eveniet quos nam ab molestiae sapiente voluptate exercitationem sed sequi inventore, error reiciendis deleniti optio rem, soluta temporibus officia quo nemo. Voluptatibus.</p>
+                <p>Tempore doloremque, quis deserunt rem. Maiores asperiores vel facilis rerum. Fuga officiis et debitis adipisci quidem ipsum unde, commodi, sequi illum tenetur dicta culpa rerum accusantium consequuntur delectus sint quibusdam!</p>
+                <p>Vel pariatur tempore voluptatum doloremque officiis esse nostrum ipsum aperiam, a fugiat sint quae magni ipsam reprehenderit! Voluptas facilis, numquam fuga modi dolore, consequuntur corrupti, nisi et accusamus earum provident!</p>
+                <p>Dolorem, eius nostrum, error tempora deleniti pariatur earum, harum numquam dicta voluptas placeat quis non corporis, at magnam facere sunt beatae vitae veniam. Mollitia suscipit earum dignissimos praesentium accusantium placeat.</p>
+                <p>Laborum aperiam quod autem fugit ullam, facilis error officia quia numquam ducimus, minima eaque perferendis eveniet voluptates rerum iste illo itaque quos quo deserunt nesciunt delectus dicta cupiditate. Facilis, doloribus.</p>
+                <p>Minus at magni harum dolore qui ea excepturi cumque esse porro voluptatem rerum nostrum iusto, reiciendis facilis dolor sapiente perferendis. Consectetur placeat odio quasi qui ducimus, numquam? Reiciendis, distinctio, quo.</p>
+                <p>Quod numquam molestias odio eaque a, placeat nobis quasi, nihil voluptatum vero voluptas eligendi molestiae in alias minima ut adipisci officia provident ratione autem, facilis tenetur ad? Tempora, distinctio, dolor.</p>
+                <p>Repellat voluptate, velit saepe natus. Quia soluta est consectetur, sunt tempore voluptatibus ut adipisci iusto labore obcaecati amet quisquam numquam nostrum quod nam a commodi, nemo ea harum neque voluptatum.</p>
+            </scrollbar>
+        </scrollbar>
+    </article>
+</main>
+
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../dist/smooth_scrollbar.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{
+    "parser": "babel-eslint",
+    "ecmaFeatures": {
+        "arrowFunctions": true,
+        "blockBindings": true,
+        "classes": true,
+        "defaultParams": true,
+        "modules": true,
+        "objectLiteralShorthandMethods": true,
+        "objectLiteralShorthandProperties": true,
+        "restParams": true,
+        "spread": true,
+        "superInFunctions": true,
+        "templateStrings": true
+    },
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "rules": {
+        "accessor-pairs": 1,
+        "camelcase": [2, {"properties": "always"}],
+        "curly": [2, "multi-line"],
+        "quotes": [1, "single"],
+        "new-cap": [2, {"newIsCap": true, "capIsNew": false}],
+        "no-this-before-super": 2,
+        "no-var": 2,
+        "semi": 2,
+        "no-underscore-dangle": 0
+    }
+}
