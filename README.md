@@ -16,8 +16,16 @@ Customize scrollbar in modern browsers with smooth scrolling experience.
 
 ## Install
 
+Via npm:
+
 ```
-bower install angular-smooth-scrollbar --save
+npm install smooth-scrollbar --save
+```
+
+Via bower:
+
+```
+bower install smooth-scrollbar --save
 ```
 
 
