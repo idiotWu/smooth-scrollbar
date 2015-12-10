@@ -149,6 +149,10 @@ Following is the DOM structure that Scrollbar generated:
 - [instance#hideTrack()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancehidetrack)
 
 
+## Relate
+
+- [angular-smooth-scrollbar](https://github.com/idiotWu/angular-smooth-scrollbar)
+
 ## License
 
 MIT.
