@@ -41,7 +41,7 @@
         }, duration);
     };
 
-    this.addEvent(document, 'drag dragover mousemove touchmove', (evt) => {
+    this.addEvent(document, 'dragover mousemove touchmove', (evt) => {
         if (!isDrag || this.__fromChild(evt)) return;
         clearTimeout(animation);
         evt.preventDefault();
