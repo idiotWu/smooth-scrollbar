@@ -5,8 +5,15 @@
  */
 
 import { motionBuilder, debounce, findChild, setStyle } from './utils/index';
-import { DEFAULT_OPTIONS } from './shared/options';
 import { sbList } from './shared/sb_list';
+
+const DEFAULT_OPTIONS = {
+    SPEED: 1, // scroll speed scale
+    DRAG_EDGE: 50, // container's drag edge offset (px)
+    STEP_LENGTH: 50, // wheel scroll step length (px/delta)
+    EASING_DURATION: 1e3, // swipe easing duration (ms)
+    EASING_CURVE: 'cubic-bezier(0.1, 0.57, 0.1, 1)' // cubic bezier easing function
+};
 
 /**
  * @constructor
@@ -18,10 +25,9 @@ import { sbList } from './shared/sb_list';
  *          {Number} [stepLength]: scroll length per delta/keydown, default is 50
  *          {Number} [easingDuration]: swipe easing duration, default is 1000(ms)
  *          {String} [easingCurve]: easing timing function, defalut is cubic-bezier(0.1, 0.57, 0.1, 1)
- *          {Number} [dragEdge]: container's drag edge offset, default is 50(px)
  */
 export class SmoothScrollbar {
-    constructor(container, { speed, stepLength, easingDuration, easingCurve, dragEdge } = {}) {
+    constructor(container, { speed, stepLength, easingDuration, easingCurve } = {}) {
         sbList.set(container, this);
 
         // make container focusable
@@ -64,7 +70,7 @@ export class SmoothScrollbar {
         // non-enmurable properties
         Object.defineProperties(this, {
             __motionBuilder: {
-                value: motionBuilder(easingCurve)
+                value: motionBuilder(easingCurve || DEFAULT_OPTIONS.EASING_CURVE)
             },
             __updateThrottle: {
                 value: debounce(::this.update)
@@ -85,7 +91,6 @@ export class SmoothScrollbar {
 
         this.__initScrollbar({
             speed: parseFloat(speed) || DEFAULT_OPTIONS.SPEED,
-            dragEdge: parseFloat(dragEdge) || DEFAULT_OPTIONS.DRAG_EDGE,
             stepLength: parseFloat(stepLength) || DEFAULT_OPTIONS.STEP_LENGTH,
             easingDuration: parseFloat(easingDuration) || DEFAULT_OPTIONS.EASING_DURATION
         });

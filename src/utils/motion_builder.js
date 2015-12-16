@@ -5,7 +5,6 @@
  */
 
 import BezierEasing from 'bezier-easing';
-import { DEFAULT_OPTIONS } from '../shared/options';
 
 // prefer using TypedArray to improve performance
 const ARRAY_CONSTRUCTOR = typeof Float32Array === 'function' ? Float32Array : Array;
@@ -46,8 +45,6 @@ const EASING_CURVES = {
  * @return {Function} easing function
  */
 let bezierBuilder = (str) => {
-    str = str || DEFAULT_OPTIONS.EASING_CURVE;
-
     if (CSS_TIMING_FUNCTIONS.indexOf(str) !== -1) {
         return BezierEasing[str.replace(/\-[a-z]/g, (m) => m[1].toUpperCase())];
     }
