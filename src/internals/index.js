@@ -1,4 +1,4 @@
-export * from './on';
+export * from './addEvent';
 export * from './readonly';
 export * from './from_child';
 export * from './init_scrollbar';

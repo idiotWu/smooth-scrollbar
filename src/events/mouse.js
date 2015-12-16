@@ -35,7 +35,7 @@ let __mouseHandler = function({ speed }) {
     let isMouseDown, isMouseMove, startOffsetToThumb, startTrackDirection, containerRect;
     let { container } = this.targets;
 
-    this.$on('click', container, (evt) => {
+    this.addEvent(container, 'click', (evt) => {
         if (isMouseMove || !/track/.test(evt.target.className) || this.__fromChild(evt)) return;
 
         let track = evt.target;
@@ -68,7 +68,7 @@ let __mouseHandler = function({ speed }) {
         );
     });
 
-    this.$on('mousedown', container, (evt) => {
+    this.addEvent(container, 'mousedown', (evt) => {
         if (!/thumb/.test(evt.target.className) || this.__fromChild(evt)) return;
         isMouseDown = true;
 
@@ -87,7 +87,7 @@ let __mouseHandler = function({ speed }) {
         containerRect = this.targets.container.getBoundingClientRect();
     });
 
-    this.$on('mousemove', window, (evt) => {
+    this.addEvent(window, 'mousemove', (evt) => {
         if (!isMouseDown) return;
 
         isMouseMove = true;
@@ -115,7 +115,7 @@ let __mouseHandler = function({ speed }) {
     });
 
     // release mousemove spy on window lost focus
-    this.$on('mouseup blur', window, () => {
+    this.addEvent(window, 'mouseup blur', () => {
         isMouseDown = isMouseMove = false;
     });
 };

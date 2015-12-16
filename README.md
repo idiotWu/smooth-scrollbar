@@ -153,6 +153,10 @@ Following is the DOM structure that Scrollbar generated:
 
 - [angular-smooth-scrollbar](https://github.com/idiotWu/angular-smooth-scrollbar)
 
+## Todo
+
+1. text selection with scrolling on touch screens.
+
 ## License
 
 MIT.

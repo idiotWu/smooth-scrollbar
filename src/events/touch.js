@@ -40,7 +40,7 @@ let __touchHandler = function({ easingDuration }) {
         });
     };
 
-    this.$on('touchstart', container, (evt) => {
+    this.addEvent(container, 'touchstart', (evt) => {
         cancelAnimationFrame(this.__timerID.scrollAnimation);
         updateRecords(evt);
 
@@ -50,7 +50,7 @@ let __touchHandler = function({ easingDuration }) {
         moveVelocity.x = moveVelocity.y = 0;
     });
 
-    this.$on('touchmove', container, (evt) => {
+    this.addEvent(container, 'touchmove', (evt) => {
         if (this.__fromChild(evt)) return;
 
         updateRecords(evt);
@@ -94,7 +94,7 @@ let __touchHandler = function({ easingDuration }) {
         this.setPosition(destX, destY);
     });
 
-    this.$on('touchend', container, (evt) => {
+    this.addEvent(container, 'touchend', (evt) => {
         if (this.__fromChild(evt)) return;
 
         // release current touch

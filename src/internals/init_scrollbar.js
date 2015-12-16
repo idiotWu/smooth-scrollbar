@@ -24,8 +24,9 @@ function __initScrollbar(options) {
     this.update(); // initialize thumb position
 
     this.__keyboardHandler(options);
-    this.__mouseHandler(options);
     this.__resizeHandler(options);
+    this.__selectHandler(options);
+    this.__mouseHandler(options);
     this.__touchHandler(options);
     this.__wheelHandler(options);
 };

@@ -10,9 +10,9 @@ import { getOriginalEvent } from '../utils/index';
 export { SmoothScrollbar };
 
 function __fromChild(evt = {}) {
-    let { target } = getOriginalEvent(evt);
+    const { target } = getOriginalEvent(evt);
 
-    if (!target) return false;
+    if (!target || !this.children) return false;
 
     return this.children.some((sb) => sb.contains(target));
 };
