@@ -16,18 +16,8 @@
     let animation = undefined;
 
     const { container } = this.targets;
-    const bounding = container.getBoundingClientRect();
 
-    let getDir = (evt) => {
-        const { x, y } = getPosition(evt);
-
-        return [
-            x > bounding.right ? 1 : (x < bounding.left ? -1 : 0),
-            y > bounding.bottom ? 1 : (y < bounding.top ? -1 : 0)
-        ]
-    };
-
-    let scroll = ([x, y]) => {
+    let scroll = ({ x, y }) => {
         const { offset } = this;
         this.scrollTo(offset.x + x * speed * stepLength, offset.y + y * speed * stepLength, 100);
     };
@@ -51,18 +41,20 @@
         clearInterval(animation);
         setSelect('auto');
 
-        const dir = getDir(evt);
+        const dir = this.__getOverflowDir(evt);
 
-        if (!x && !y) return;
+        if (!dir.x && !dir.y) return;
 
         scroll(dir);
         animation = setInterval(() => {
             scroll(dir);
-        }, 1000);
+        }, 100);
     });
 
     this.addEvent(container, 'selectstart', (evt) => {
         evt.stopPropagation();
+
+        this.__updateBounding();
         isSelected = true;
     });
 
@@ -71,6 +63,12 @@
         setSelect('auto');
 
         isSelected = false;
+    });
+
+    // temp patch for touch devices
+    this.addEvent(container, 'scroll', (evt) => {
+        evt.preventDefault();
+        container.scrollTop = container.scrollLeft = 0;
     });
  };
 

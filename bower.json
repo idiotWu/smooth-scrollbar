@@ -27,5 +27,8 @@
     "test",
     "build",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "Sortable": "~1.4.2"
+  }
 }

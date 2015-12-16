@@ -22,25 +22,27 @@ export { SmoothScrollbar };
  * @return {Object}: a set of event handlers
  */
 let __touchHandler = function({ easingDuration }) {
-    let { container } = this.targets;
+    const { container } = this.targets;
 
     let lastTouchTime, lastTouchID;
     let moveVelocity = {}, lastTouchPos = {}, touchRecords = {};
 
     let updateRecords = (evt) => {
-        let touchList = getOriginalEvent(evt).touches;
+        const touchList = getOriginalEvent(evt).touches;
 
         Object.keys(touchList).forEach((key) => {
             // record all touches that will be restored
             if (key === 'length') return;
 
-            let touch = touchList[key];
+            const touch = touchList[key];
 
             touchRecords[touch.identifier] = getPosition(touch);
         });
     };
 
     this.addEvent(container, 'touchstart', (evt) => {
+        if (this.__isDrag) return;
+
         cancelAnimationFrame(this.__timerID.scrollAnimation);
         updateRecords(evt);
 
@@ -51,7 +53,7 @@ let __touchHandler = function({ easingDuration }) {
     });
 
     this.addEvent(container, 'touchmove', (evt) => {
-        if (this.__fromChild(evt)) return;
+        if (this.__fromChild(evt) || this.__isDrag) return;
 
         updateRecords(evt);
 
@@ -95,7 +97,7 @@ let __touchHandler = function({ easingDuration }) {
     });
 
     this.addEvent(container, 'touchend', (evt) => {
-        if (this.__fromChild(evt)) return;
+        if (this.__fromChild(evt) || this.__isDrag) return;
 
         // release current touch
         delete touchRecords[lastTouchID];

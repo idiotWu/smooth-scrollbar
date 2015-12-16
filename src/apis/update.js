@@ -20,6 +20,8 @@ export { SmoothScrollbar };
  */
 SmoothScrollbar.prototype.update = function(cb) {
     requestAnimationFrame(() => {
+        this.__updateBounding();
+
         let size = this.getSize();
 
         this.__readonly('size', size);

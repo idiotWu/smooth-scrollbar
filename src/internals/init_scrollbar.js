@@ -29,6 +29,7 @@ function __initScrollbar(options) {
     this.__mouseHandler(options);
     this.__touchHandler(options);
     this.__wheelHandler(options);
+    this.__dragHandler(options);
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__initScrollbar', {

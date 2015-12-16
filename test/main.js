@@ -3,6 +3,47 @@
 
     Scrollbar.initAll();
 
+    var sortOpts = {
+        scroll: false,
+        animation: 150,
+        ghostClass: 'onsort'
+    };
+
+    if ('ontouchstart' in document) {
+        // touch screen
+        var isDrag = false;
+
+        sortOpts.onStart = function(evt) {
+            isDrag = true;
+            var dragEvt = document.createEvent('Event');
+            dragEvt.initEvent('dragstart', true, true);
+            evt.from.dispatchEvent(dragEvt);
+        };
+
+        sortOpts.onEnd = function(evt) {
+            isDrag = false;
+            var dragEvt = document.createEvent('Event');
+            dragEvt.initEvent('dragend', true, true);
+            evt.from.dispatchEvent(dragEvt);
+        };
+
+        window.addEventListener('touchmove', function(evt) {
+            if (!isDrag) return;
+
+            var touchList = evt.touches;
+            var finger = touchList[touchList.length - 1];
+
+            var dragEvt = document.createEvent('Event');
+            dragEvt.initEvent('drag', true, true);
+            dragEvt.clientX= finger.clientX;
+            dragEvt.clientY = finger.clientY;
+
+            evt.target.dispatchEvent(dragEvt);
+        });
+    }
+
+    Sortable.create(document.querySelector('#sortable ul'), sortOpts);
+
     var toggle = document.querySelector('#toggle'),
         curSB = document.querySelector('#cur-sb'),
         compare = document.querySelector('#compare');
