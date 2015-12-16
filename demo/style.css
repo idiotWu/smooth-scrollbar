@@ -18,7 +18,7 @@ h3 {
   font-size: 1.2em;
 }
 
-.scroll {
+.scroll, scrollbar {
   position: relative;
   width: 600px;
   height: 400px;
@@ -91,4 +91,28 @@ em {
   color: #ccc;
   background: rgba(0, 0, 0, .5);
   border: none;
+}
+
+#sortable {
+  margin-bottom: 500px;
+}
+
+#sortable ul {
+  width: 200px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+#sortable li {
+  width: 200px;
+  line-height: 30px;
+  background: #72b8ff;
+  color: #fff;
+  border: 1px solid #fff;
+  cursor: move;
+}
+
+#sortable li.onsort {
+  opacity: 0.7;
 }
