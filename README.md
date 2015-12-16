@@ -148,8 +148,11 @@ Following is the DOM structure that Scrollbar generated:
 - [instance#showTrack( direction )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceshowtrack-direction-)
 - [instance#hideTrack()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancehidetrack)
 
+## Work with [RubaXa/Sortable](https://github.com/RubaXa/Sortable)
 
-## Relate
+Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Work-with-RubaXa-Sortable).
+
+## Related
 
 - [angular-smooth-scrollbar](https://github.com/idiotWu/angular-smooth-scrollbar)
 
