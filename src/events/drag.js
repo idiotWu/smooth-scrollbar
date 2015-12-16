@@ -11,10 +11,11 @@
  export { SmoothScrollbar };
 
  let __dragHandler = function({ speed, stepLength }) {
-    const { container } = this.targets;
+    const { container, content } = this.targets;
 
     let isDrag = false;
     let animation = undefined;
+    let targetHeight = undefined;
 
     Object.defineProperty(this, '__isDrag', {
         get() {
@@ -24,35 +25,47 @@
     });
 
     let scroll = ({ x, y }) => {
+        if (!x && !y) return;
+
         const { offset } = this;
-        this.scrollTo(offset.x + x * speed * stepLength, offset.y + y * speed * stepLength, 100);
+        const duration = Math.sqrt(Math.abs(x) + Math.abs(y)) * 60;
+
+        this.scrollTo(
+            offset.x + x * speed * stepLength,
+            offset.y + y * speed * stepLength,
+            duration
+        );
+
+        animation = setTimeout(() => {
+            scroll({ x, y });
+        }, duration);
     };
 
-    this.addEvent(container, 'drag', (evt) => {
-        if (this.__fromChild(evt)) return;
+    this.addEvent(document, 'drag dragover mousemove touchmove', (evt) => {
+        if (!isDrag || this.__fromChild(evt)) return;
+        clearTimeout(animation);
 
-        clearInterval(animation);
-
-        const dir = this.__getOverflowDir(evt, evt.target.clientHeight);
-
-        if (!dir.x && !dir.y) return;
+        const dir = this.__getOverflowDir(evt, targetHeight);
 
         scroll(dir);
-        animation = setInterval(() => {
-            scroll(dir);
-        }, 100);
     });
 
     this.addEvent(container, 'dragstart', (evt) => {
         if (this.__fromChild(evt)) return;
 
-        clearInterval(animation);
+        setStyle(content, {
+            'pointer-events': 'auto'
+        });
+
+        targetHeight = evt.target.clientHeight;
+        clearTimeout(animation);
         this.__updateBounding();
         isDrag = true;
     });
-    this.addEvent(container, 'dragend', (evt) => {
+    this.addEvent(document, 'dragend mouseup touchend blur', (evt) => {
         if (this.__fromChild(evt)) return;
-        clearInterval(animation);
+        evt.preventDefault();
+        clearTimeout(animation);
         isDrag = false;
     });
  };

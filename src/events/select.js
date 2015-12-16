@@ -17,9 +17,22 @@
 
     const { container } = this.targets;
 
+
     let scroll = ({ x, y }) => {
+        if (!x && !y) return;
+
         const { offset } = this;
-        this.scrollTo(offset.x + x * speed * stepLength, offset.y + y * speed * stepLength, 100);
+        const duration = Math.sqrt(Math.abs(x) + Math.abs(y)) * 60;
+
+        this.scrollTo(
+            offset.x + x * speed * stepLength,
+            offset.y + y * speed * stepLength,
+            duration
+        );
+
+        animation = setTimeout(() => {
+            scroll({ x, y });
+        }, duration);
     };
 
     let setSelect = (value = 'auto') => {
@@ -36,30 +49,25 @@
             return setSelect('none');
         }
 
-        if (!isSelected) return;
-
-        clearInterval(animation);
+        clearTimeout(animation);
         setSelect('auto');
+
+        if (!isSelected) return;
 
         const dir = this.__getOverflowDir(evt);
 
-        if (!dir.x && !dir.y) return;
-
         scroll(dir);
-        animation = setInterval(() => {
-            scroll(dir);
-        }, 100);
     });
 
     this.addEvent(container, 'selectstart', (evt) => {
         evt.stopPropagation();
-
+        clearTimeout(animation);
         this.__updateBounding();
         isSelected = true;
     });
 
     this.addEvent(window, 'mouseup blur', () => {
-        clearInterval(animation);
+        clearTimeout(animation);
         setSelect('auto');
 
         isSelected = false;

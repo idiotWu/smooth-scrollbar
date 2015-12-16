@@ -12,7 +12,7 @@ export { SmoothScrollbar };
 function __fromChild(evt = {}) {
     const { target } = getOriginalEvent(evt);
 
-    if (!target || !this.children) return false;
+    if (!target || target === window || !this.children) return false;
 
     return this.children.some((sb) => sb.contains(target));
 };
