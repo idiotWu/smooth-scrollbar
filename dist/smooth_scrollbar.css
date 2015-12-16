@@ -4,10 +4,6 @@ scrollbar,
   display: block;
   position: relative;
   overflow: hidden;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
 }
 scrollbar .scroll-content,
 [scrollbar] .scroll-content,
@@ -20,6 +16,11 @@ scrollbar.scrolling .scroll-content,
 [scrollbar].scrolling .scroll-content,
 [data-scrollbar].scrolling .scroll-content {
   pointer-events: none;
+}
+scrollbar.scrolling .scroll-content .scroll-content,
+[scrollbar].scrolling .scroll-content .scroll-content,
+[data-scrollbar].scrolling .scroll-content .scroll-content {
+  pointer-events: auto;
 }
 scrollbar .scrollbar-track,
 [scrollbar] .scrollbar-track,
