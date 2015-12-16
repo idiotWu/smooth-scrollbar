@@ -44,6 +44,7 @@
     this.addEvent(document, 'drag dragover mousemove touchmove', (evt) => {
         if (!isDrag || this.__fromChild(evt)) return;
         clearTimeout(animation);
+        evt.preventDefault();
 
         const dir = this.__getOverflowDir(evt, targetHeight);
 
@@ -64,7 +65,6 @@
     });
     this.addEvent(document, 'dragend mouseup touchend blur', (evt) => {
         if (this.__fromChild(evt)) return;
-        evt.preventDefault();
         clearTimeout(animation);
         isDrag = false;
     });
