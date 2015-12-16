@@ -6,6 +6,7 @@
     var sortOpts = {
         scroll: false,
         animation: 150,
+        dragoverBubble: true,
         ghostClass: 'onsort'
     };
 
