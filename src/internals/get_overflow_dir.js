@@ -8,9 +8,7 @@ import { getPosition } from '../utils/index';
 
 export { SmoothScrollbar };
 
-const edge = 20;
-
-function __getOverflowDir(evt) {
+function __getOverflowDir(evt, edge = 0) {
     const { bounding } = this;
     const { x, y } = getPosition(evt);
 

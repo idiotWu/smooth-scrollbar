@@ -10,7 +10,7 @@
 
  export { SmoothScrollbar };
 
- let __dragHandler = function({ speed, stepLength }) {
+ let __dragHandler = function({ speed, stepLength, dragEdge }) {
     const { container } = this.targets;
 
     let isDrag = false;
@@ -33,7 +33,7 @@
 
         clearInterval(animation);
 
-        const dir = this.__getOverflowDir(evt);
+        const dir = this.__getOverflowDir(evt, dragEdge);
 
         if (!dir.x && !dir.y) return;
 

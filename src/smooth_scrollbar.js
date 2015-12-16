@@ -18,9 +18,10 @@ import { sbList } from './shared/sb_list';
  *          {Number} [stepLength]: scroll length per delta/keydown, default is 50
  *          {Number} [easingDuration]: swipe easing duration, default is 1000(ms)
  *          {String} [easingCurve]: easing timing function, defalut is cubic-bezier(0.1, 0.57, 0.1, 1)
+ *          {Number} [dragEdge]: container's drag edge offset, default is 50(px)
  */
 export class SmoothScrollbar {
-    constructor(container, { speed, stepLength, easingDuration, easingCurve } = {}) {
+    constructor(container, { speed, stepLength, easingDuration, easingCurve, dragEdge } = {}) {
         sbList.set(container, this);
 
         // make container focusable
@@ -84,6 +85,7 @@ export class SmoothScrollbar {
 
         this.__initScrollbar({
             speed: parseFloat(speed) || DEFAULT_OPTIONS.SPEED,
+            dragEdge: parseFloat(dragEdge) || DEFAULT_OPTIONS.DRAG_EDGE,
             stepLength: parseFloat(stepLength) || DEFAULT_OPTIONS.STEP_LENGTH,
             easingDuration: parseFloat(easingDuration) || DEFAULT_OPTIONS.EASING_DURATION
         });
