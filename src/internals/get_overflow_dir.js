@@ -6,27 +6,31 @@
 import { SmoothScrollbar } from '../smooth_scrollbar';
 import { getPosition } from '../utils/index';
 
-
 export { SmoothScrollbar };
+
+const edge = 20;
 
 function __getOverflowDir(evt) {
     const { bounding } = this;
     const { x, y } = getPosition(evt);
+
     const res = {
         x: 0,
         y: 0
     };
 
-    if (x > bounding.right) {
-        res.x = (x - bounding.right) / 100;
-    } else if (x < bounding.left) {
-        res.x = (x - bounding.left) / 100;
+    if (x === 0 && y === 0) return res;
+
+    if (x > bounding.right - edge) {
+        res.x = (x - bounding.right + edge) / 100;
+    } else if (x < bounding.left + edge) {
+        res.x = (x - bounding.left - edge) / 100;
     }
 
-    if (y > bounding.bottom) {
-        res.y = (y - bounding.bottom) / 100;
-    } else if (y < bounding.top) {
-        res.y = (y - bounding.top) / 100;
+    if (y > bounding.bottom - edge) {
+        res.y = (y - bounding.bottom + edge) / 100;
+    } else if (y < bounding.top + edge) {
+        res.y = (y - bounding.top - edge) / 100;
     }
 
     return res;
