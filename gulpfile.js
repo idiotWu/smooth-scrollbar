@@ -17,7 +17,7 @@ var compile = function(watch, done) {
     var options = {
         watch: watch,
         output: {
-            filename: 'smooth_scrollbar.js',
+            filename: 'smooth-scrollbar.js',
             library: 'Scrollbar',
             libraryTarget: 'umd'
         },
