@@ -1,3 +1,4 @@
+var fs = require('fs');
 var gulp = require('gulp');
 var util = require('gulp-util');
 var stylus = require('gulp-stylus');
@@ -7,6 +8,10 @@ var webpack = require('webpack-stream');
 var sizereport = require('gulp-sizereport');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
+
+var getVersion = function() {
+    return JSON.parse(fs.readFileSync('./package.json').toString()).version;
+};
 
 var compile = function(watch, done) {
     var options = {
@@ -56,12 +61,14 @@ var compile = function(watch, done) {
 gulp.task('scripts:watch', function(done) {
     return gulp.src('src/index.js')
         .pipe(compile(true, done))
+        .pipe(replace(/<%= version %>/, getVersion()))
         .pipe(gulp.dest('build/'));
 });
 
 gulp.task('scripts:build', function() {
     return gulp.src('src/index.js')
         .pipe(compile(false))
+        .pipe(replace(/<%= version %>/, getVersion()))
         .pipe(gulp.dest('build/'));
 });
 

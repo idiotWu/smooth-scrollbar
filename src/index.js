@@ -7,6 +7,8 @@ import './internals/index';
 
 export default SmoothScrollbar;
 
+SmoothScrollbar.version = '<%= version %>';
+
 /**
  * init scrollbar on given element
  *
