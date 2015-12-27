@@ -83,6 +83,7 @@ gulp.task('styles:build', function() {
 gulp.task('scripts:release', ['scripts:build'], function() {
     return gulp.src('src/index.js')
         .pipe(compile(false))
+        .pipe(replace(/<%= version %>/, getVersion()))
         .pipe(uglify())
         .pipe(gulp.dest('dist/'));
 });
