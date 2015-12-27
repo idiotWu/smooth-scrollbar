@@ -28,7 +28,7 @@ SmoothScrollbar.prototype.destroy = function() {
 
     // reset scroll position
     setStyle(container, {
-        overflow: 'auto'
+        overflow: ''
     });
 
     container.scrollTop = container.scrollLeft = 0;
