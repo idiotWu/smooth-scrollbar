@@ -35,7 +35,7 @@
         }, duration);
     };
 
-    let setSelect = (value = 'auto') => {
+    let setSelect = (value = '') => {
         setStyle(container, {
             '-webkit-user-select': value,
                '-moz-user-select': value,
@@ -47,12 +47,7 @@
     this.addEvent(window, 'mousemove', (evt) => {
         if (!isSelected) return;
 
-        if (this.__fromChild(evt)) {
-            return setSelect('none');
-        }
-
         clearTimeout(animation);
-        setSelect('auto');
 
         const dir = this.__getOverflowDir(evt);
 
@@ -60,17 +55,20 @@
     });
 
     this.addEvent(container, 'selectstart', (evt) => {
-        evt.stopPropagation();
+        if (this.__fromChild(evt)) {
+            return setSelect('none');
+        }
+
         clearTimeout(animation);
+        setSelect('auto');
+
         this.__updateBounding();
         isSelected = true;
     });
 
     this.addEvent(window, 'mouseup blur', () => {
-        if (!isSelected) return;
-
         clearTimeout(animation);
-        setSelect('auto');
+        setSelect();
 
         isSelected = false;
     });
