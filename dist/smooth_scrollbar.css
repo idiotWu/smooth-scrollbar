@@ -4,6 +4,10 @@ scrollbar,
   display: block;
   position: relative;
   overflow: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 scrollbar .scroll-content,
 [scrollbar] .scroll-content,
