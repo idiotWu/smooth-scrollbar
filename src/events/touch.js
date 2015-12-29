@@ -40,7 +40,7 @@ let __touchHandler = function({ easingDuration }) {
         });
     };
 
-    this.addEvent(container, 'touchstart', (evt) => {
+    this.__addEvent(container, 'touchstart', (evt) => {
         if (this.__isDrag) return;
 
         cancelAnimationFrame(this.__timerID.scrollAnimation);
@@ -52,7 +52,7 @@ let __touchHandler = function({ easingDuration }) {
         moveVelocity.x = moveVelocity.y = 0;
     });
 
-    this.addEvent(container, 'touchmove', (evt) => {
+    this.__addEvent(container, 'touchmove', (evt) => {
         if (this.__fromChild(evt) || this.__isDrag) return;
 
         updateRecords(evt);
@@ -96,7 +96,7 @@ let __touchHandler = function({ easingDuration }) {
         this.setPosition(destX, destY);
     });
 
-    this.addEvent(container, 'touchend', (evt) => {
+    this.__addEvent(container, 'touchend', (evt) => {
         if (this.__fromChild(evt) || this.__isDrag) return;
 
         // release current touch

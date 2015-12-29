@@ -29,15 +29,15 @@ let __keyboardHandler = function({ speed, stepLength }) {
     let isFocused = false;
     let { container } = this.targets;
 
-    this.addEvent(container, 'focus', () => {
+    this.__addEvent(container, 'focus', () => {
         isFocused = true;
     });
 
-    this.addEvent(container, 'blur', () => {
+    this.__addEvent(container, 'blur', () => {
         isFocused = false;
     });
 
-    this.addEvent(container, 'keydown', (evt) => {
+    this.__addEvent(container, 'keydown', (evt) => {
         if (!isFocused) return;
 
         evt = getOriginalEvent(evt);

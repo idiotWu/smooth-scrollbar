@@ -44,7 +44,7 @@
         });
     };
 
-    this.addEvent(window, 'mousemove', (evt) => {
+    this.__addEvent(window, 'mousemove', (evt) => {
         if (!isSelected) return;
 
         clearTimeout(animation);
@@ -54,7 +54,7 @@
         scroll(dir);
     });
 
-    this.addEvent(container, 'selectstart', (evt) => {
+    this.__addEvent(container, 'selectstart', (evt) => {
         if (this.__fromChild(evt)) {
             return setSelect('none');
         }
@@ -66,7 +66,7 @@
         isSelected = true;
     });
 
-    this.addEvent(window, 'mouseup blur', () => {
+    this.__addEvent(window, 'mouseup blur', () => {
         clearTimeout(animation);
         setSelect();
 
@@ -74,7 +74,7 @@
     });
 
     // temp patch for touch devices
-    this.addEvent(container, 'scroll', (evt) => {
+    this.__addEvent(container, 'scroll', (evt) => {
         evt.preventDefault();
         container.scrollTop = container.scrollLeft = 0;
     });

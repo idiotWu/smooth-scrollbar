@@ -41,7 +41,7 @@
         }, duration);
     };
 
-    this.addEvent(document, 'dragover mousemove touchmove', (evt) => {
+    this.__addEvent(document, 'dragover mousemove touchmove', (evt) => {
         if (!isDrag || this.__fromChild(evt)) return;
         clearTimeout(animation);
         evt.preventDefault();
@@ -51,7 +51,7 @@
         scroll(dir);
     });
 
-    this.addEvent(container, 'dragstart', (evt) => {
+    this.__addEvent(container, 'dragstart', (evt) => {
         if (this.__fromChild(evt)) return;
 
         setStyle(content, {
@@ -63,7 +63,7 @@
         this.__updateBounding();
         isDrag = true;
     });
-    this.addEvent(document, 'dragend mouseup touchend blur', (evt) => {
+    this.__addEvent(document, 'dragend mouseup touchend blur', (evt) => {
         if (this.__fromChild(evt)) return;
         clearTimeout(animation);
         isDrag = false;

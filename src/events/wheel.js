@@ -25,7 +25,7 @@ const WHEEL_EVENT = 'onwheel' in window ? 'wheel' : 'mousewheel';
 let __wheelHandler = function({ speed, stepLength }) {
     let { container } = this.targets;
 
-    this.addEvent(container, WHEEL_EVENT, (evt) => {
+    this.__addEvent(container, WHEEL_EVENT, (evt) => {
         let { offset, limit } = this;
         let { x, y } = getDelta(evt);
 

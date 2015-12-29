@@ -18,7 +18,7 @@ export { SmoothScrollbar };
  * @return {Function}: event handler
  */
 let __resizeHandler = function() {
-    this.addEvent(window, 'resize', this.__updateThrottle);
+    this.__addEvent(window, 'resize', this.__updateThrottle);
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__resizeHandler', {

@@ -1,6 +1,6 @@
 /**
  * @module
- * @prototype {Function} addEvent
+ * @prototype {Function} __addEvent
  * @dependencies [ SmoothScrollbar ]
  */
 
@@ -8,7 +8,7 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
 
-function addEvent(elem, events, handler) {
+function __addEvent(elem, events, handler) {
     if (!elem || typeof elem.addEventListener !== 'function') {
         throw new TypeError(`expect elem to be a DOM element, but got ${elem}`);
     }
@@ -20,8 +20,8 @@ function addEvent(elem, events, handler) {
     });
 };
 
-Object.defineProperty(SmoothScrollbar.prototype, 'addEvent', {
-    value: addEvent,
+Object.defineProperty(SmoothScrollbar.prototype, '__addEvent', {
+    value: __addEvent,
     writable: true,
     configurable: true
 });

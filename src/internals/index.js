@@ -1,5 +1,5 @@
-export * from './addEvent';
 export * from './readonly';
+export * from './add_event';
 export * from './from_child';
 export * from './init_scrollbar';
 export * from './update_children';
