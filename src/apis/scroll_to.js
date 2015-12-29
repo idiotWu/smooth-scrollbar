@@ -21,13 +21,15 @@ export { SmoothScrollbar };
  * @param {Function} [cb]: callback
  */
 SmoothScrollbar.prototype.scrollTo = function(x = this.offset.x, y = this.offset.y, duration = 0, cb = null) {
-    let { offset, limit, __timerID } = this;
-    let destX = pickInRange(x, 0, limit.x);
-    let destY = pickInRange(y, 0, limit.y);
+    cb = typeof cb === 'function' ? cb : () => {};
 
-    if (destX === offset.x && destY === offset.y) return;
+    const { offset, limit, __timerID } = this;
+    const destX = pickInRange(x, 0, limit.x);
+    const destY = pickInRange(y, 0, limit.y);
 
-    let frames = {
+    if (destX === offset.x && destY === offset.y) return cb(this);
+
+    const frames = {
         x: this.__motionBuilder(offset.x, destX - offset.x, duration),
         y: this.__motionBuilder(offset.y, destY - offset.y, duration)
     };
@@ -36,7 +38,7 @@ SmoothScrollbar.prototype.scrollTo = function(x = this.offset.x, y = this.offset
 
     let scroll = () => {
         if (i === length) {
-            return typeof cb === 'function' && cb(this);
+            return cb(this);
         }
 
         this.setPosition(frames.x[i], frames.y[i]);
