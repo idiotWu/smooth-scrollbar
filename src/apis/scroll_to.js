@@ -27,7 +27,11 @@ SmoothScrollbar.prototype.scrollTo = function(x = this.offset.x, y = this.offset
     const destX = pickInRange(x, 0, limit.x);
     const destY = pickInRange(y, 0, limit.y);
 
-    if (destX === offset.x && destY === offset.y) return cb(this);
+    if (destX === offset.x && destY === offset.y) {
+        return requestAnimationFrame(() => {
+            cb(this);
+        });
+    }
 
     const frames = {
         x: this.__motionBuilder(offset.x, destX - offset.x, duration),
