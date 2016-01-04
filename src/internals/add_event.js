@@ -16,7 +16,13 @@ function __addEvent(elem, events, handler) {
     events.split(/\s+/g).forEach((evt) => {
         this.__handlers.push({ evt, elem, handler });
 
-        elem.addEventListener(evt, handler);
+        elem.addEventListener(evt, (e, ...args) => {
+            if (!this.eventPropagation) {
+                e.stopPropagation();
+            }
+
+            handler(e, ...args);
+        });
     });
 };
 

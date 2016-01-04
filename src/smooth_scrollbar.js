@@ -10,6 +10,7 @@ import { sbList } from './shared/sb_list';
 const DEFAULT_OPTIONS = {
     SPEED: 1, // scroll speed scale
     STEP_LENGTH: 50, // wheel scroll step length (px/delta)
+    PROPAGATION: true, // event propagation
     EASING_DURATION: 1e3, // swipe easing duration (ms)
     EASING_CURVE: 'cubic-bezier(0.1, 0.57, 0.1, 1)' // cubic bezier easing function
 };
@@ -24,9 +25,10 @@ const DEFAULT_OPTIONS = {
  *          {Number} [stepLength]: scroll length per delta/keydown, default is 50
  *          {Number} [easingDuration]: swipe easing duration, default is 1000(ms)
  *          {String} [easingCurve]: easing timing function, defalut is cubic-bezier(0.1, 0.57, 0.1, 1)
+ *          {Boolean} [propagation]: event propagation, default is true
  */
 export class SmoothScrollbar {
-    constructor(container, { speed, stepLength, easingDuration, easingCurve } = {}) {
+    constructor(container, { speed, stepLength, easingDuration, easingCurve, propagation } = {}) {
         sbList.set(container, this);
 
         // make container focusable
@@ -64,7 +66,8 @@ export class SmoothScrollbar {
             x: Infinity,
             y: Infinity
         })
-        .__readonly('size', this.getSize());
+        .__readonly('size', this.getSize())
+        .__readonly('eventPropagation', propagation === undefined ? DEFAULT_OPTIONS.PROPAGATION : propagation);
 
         // non-enmurable properties
         Object.defineProperties(this, {
