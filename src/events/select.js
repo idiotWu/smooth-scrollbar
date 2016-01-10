@@ -15,8 +15,7 @@
     let isSelected = false;
     let animation = undefined;
 
-    const { container } = this.targets;
-
+    const { container, content } = this.targets;
 
     let scroll = ({ x, y }) => {
         if (!x && !y) return;
@@ -54,7 +53,7 @@
         scroll(dir);
     });
 
-    this.__addEvent(container, 'selectstart', (evt) => {
+    this.__addEvent(content, 'selectstart', (evt) => {
         if (this.__fromChild(evt)) {
             return setSelect('none');
         }
