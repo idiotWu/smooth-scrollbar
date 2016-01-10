@@ -71,13 +71,6 @@ export class SmoothScrollbar {
 
         // non-enmurable properties
         Object.defineProperties(this, {
-            __roundOffset: {
-                value: debounce(() => {
-                    const { x, y } = this.offset;
-
-                    this.setPosition(Math.round(x), Math.round(y));
-                })
-            },
             __motionBuilder: {
                 value: motionBuilder(easingCurve || DEFAULT_OPTIONS.EASING_CURVE)
             },

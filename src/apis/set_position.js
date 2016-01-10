@@ -21,10 +21,9 @@ export { SmoothScrollbar };
 SmoothScrollbar.prototype.setPosition = function(x = this.offset.x, y = this.offset.y) {
     cancelAnimationFrame(this.__timerID.scrollAnimation);
     this.__updateThrottle();
-    this.__roundOffset();
 
-    const status = {};
-    const { offset, limit, targets, __listeners } = this;
+    let status = {};
+    let { offset, limit, targets, __listeners } = this;
 
     if (Math.abs(x - offset.x) > 1) this.showTrack('x');
     if (Math.abs(y - offset.y) > 1) this.showTrack('y');
@@ -50,7 +49,7 @@ SmoothScrollbar.prototype.setPosition = function(x = this.offset.x, y = this.off
     // reset thumb position after offset update
     this.__setThumbPosition();
 
-    const style = `translate3d(${-x}px, ${-y}px, 0)`;
+    let style = `translate3d(${-x}px, ${-y}px, 0)`;
 
     setStyle(targets.content, {
         '-webkit-transform': style,
