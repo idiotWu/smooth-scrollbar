@@ -54,7 +54,7 @@ let bezierBuilder = (str) => {
     }
 
     if (/^cubic\-bezier/i.test(str)) {
-        let easingCurve = str.match(/-?[0-9.]+/g) || defaultCurve;
+        const easingCurve = str.match(/-?[0-9.]+/g) || defaultCurve;
         return new BezierEasing(...easingCurve.map((v) => parseFloat(v)));
     }
 
@@ -68,7 +68,7 @@ let bezierBuilder = (str) => {
  * @return {function}: builder function
  */
 export let motionBuilder = (easingCurve) => {
-    let easingFn = bezierBuilder(easingCurve);
+    const easingFn = bezierBuilder(easingCurve);
 
     /**
      * Create transition frames
@@ -79,12 +79,16 @@ export let motionBuilder = (easingCurve) => {
      * @return {TypedArray | Array}: frames
      */
     return (begin, change, duration) => {
-        let framesCount = Math.floor(duration / 1000 * 60 + 1); // 60fps
-        let frames = new ARRAY_CONSTRUCTOR(framesCount);
+        const framesCount = Math.floor(duration / 1000 * 60 + 1); // 60fps
+        const frames = new ARRAY_CONSTRUCTOR(framesCount);
 
         for (let i = 1; i <= framesCount; i++) {
             frames[i - 1] = begin + change * easingFn.get(i / framesCount);
         }
+
+        frames[framesCount - 1] = frames[framesCount - 1] > frames[framesCount - 2] ?
+                                Math.ceil(frames[framesCount - 1]) :
+                                Math.floor(frames[framesCount - 1]);
 
         return frames;
     };
