@@ -7,7 +7,7 @@
 import BezierEasing from 'bezier-easing';
 
 // prefer using TypedArray to improve performance
-const ARRAY_CONSTRUCTOR = typeof Uint32Array === 'function' ? Uint32Array : Array;
+const ARRAY_CONSTRUCTOR = typeof Float32Array === 'function' ? Float32Array : Array;
 
 // pre-defined easing curves
 const CSS_TIMING_FUNCTIONS = ['ease', 'linear', 'ease-in', 'ease-out', 'ease-in-out'];
@@ -54,7 +54,7 @@ let bezierBuilder = (str) => {
     }
 
     if (/^cubic\-bezier/i.test(str)) {
-        const easingCurve = str.match(/-?[0-9.]+/g) || defaultCurve;
+        let easingCurve = str.match(/-?[0-9.]+/g) || defaultCurve;
         return new BezierEasing(...easingCurve.map((v) => parseFloat(v)));
     }
 
@@ -68,7 +68,7 @@ let bezierBuilder = (str) => {
  * @return {function}: builder function
  */
 export let motionBuilder = (easingCurve) => {
-    const easingFn = bezierBuilder(easingCurve);
+    let easingFn = bezierBuilder(easingCurve);
 
     /**
      * Create transition frames
@@ -79,11 +79,11 @@ export let motionBuilder = (easingCurve) => {
      * @return {TypedArray | Array}: frames
      */
     return (begin, change, duration) => {
-        const framesCount = Math.floor(duration / 1000 * 60 + 1); // 60fps
-        const frames = new ARRAY_CONSTRUCTOR(framesCount);
+        let framesCount = Math.floor(duration / 1000 * 60 + 1); // 60fps
+        let frames = new ARRAY_CONSTRUCTOR(framesCount);
 
         for (let i = 1; i <= framesCount; i++) {
-            frames[i - 1] = Math.floor(begin + change * easingFn.get(i / framesCount));
+            frames[i - 1] = begin + change * easingFn.get(i / framesCount);
         }
 
         return frames;
