@@ -79,16 +79,15 @@ export let motionBuilder = (easingCurve) => {
      * @return {TypedArray | Array}: frames
      */
     return (begin, change, duration) => {
+        begin = Math.round(begin);
+        change = Math.round(change);
+
         const framesCount = Math.floor(duration / 1000 * 60 + 1); // 60fps
         const frames = new ARRAY_CONSTRUCTOR(framesCount);
 
         for (let i = 1; i <= framesCount; i++) {
             frames[i - 1] = begin + change * easingFn.get(i / framesCount);
         }
-
-        frames[framesCount - 1] = frames[framesCount - 1] > frames[framesCount - 2] ?
-                                Math.ceil(frames[framesCount - 1]) :
-                                Math.floor(frames[framesCount - 1]);
 
         return frames;
     };
