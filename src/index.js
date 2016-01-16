@@ -40,11 +40,11 @@ SmoothScrollbar.init = (elem, options) => {
         </aside>
     `;
 
+    const scrollContent = div.querySelector('.scroll-content');
+
     [...div.children].forEach((el) => elem.appendChild(el));
 
-    const content = elem.querySelector('.scroll-content');
-
-    children.forEach((el) => content.appendChild(el));
+    children.forEach((el) => scrollContent.appendChild(el));
 
     return new SmoothScrollbar(elem, options);
 };
