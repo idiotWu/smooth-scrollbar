@@ -24,22 +24,24 @@ SmoothScrollbar.prototype.destroy = function() {
         elem.removeEventListener(evt, handler);
     });
 
-    __handlers.length = __listeners.length = 0;
+    this.scrollTo(0, 0, 300, () => {
+        __handlers.length = __listeners.length = 0;
 
-    // reset scroll position
-    setStyle(container, {
-        overflow: ''
+        // reset scroll position
+        setStyle(container, {
+            overflow: ''
+        });
+
+        container.scrollTop = container.scrollLeft = 0;
+
+        // reset content
+        const children = [...content.children];
+
+        container.innerHTML = '';
+
+        children.forEach((el) => container.appendChild(el));
+
+        // remove form sbList
+        sbList.delete(container);
     });
-
-    container.scrollTop = container.scrollLeft = 0;
-
-    // reset content
-    const children = [...content.children];
-
-    container.innerHTML = '';
-
-    children.forEach((el) => container.appendChild(el));
-
-    // remove form sbList
-    sbList.delete(container);
 };
