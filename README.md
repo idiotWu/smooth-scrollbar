@@ -137,7 +137,7 @@ Following is the DOM structure that Scrollbar generated:
 
 ### Instance
 
-- [instance#update()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceupdate-callback-)
+- [instance#update( [async] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceupdate-callback-)
 - [instance#getSize()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancegetsize)
 - [instance#setPosition( x, y )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancesetposition-x-y-)
 - [instance#scrollTo( x, y, [duration], [callback] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancescrollto-x-y-duration-callback-)
