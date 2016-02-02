@@ -1,13 +1,15 @@
 /**
  * @module
  * @prototype {Function} __touchHandler
- * @dependencies [ SmoothScrollbar, #scrollTo, #setPosition, getOriginalEvent, getPosition, getTouchID, pickInRange ]
  */
 
-import '../apis/scroll_to';
-import '../apis/set_position';
 import { SmoothScrollbar } from '../smooth_scrollbar';
-import { getOriginalEvent, getPosition, getTouchID, pickInRange } from '../utils/index';
+import {
+    getOriginalEvent,
+    getPosition,
+    getTouchID,
+    pickInRange
+} from '../utils/index';
 
 export { SmoothScrollbar };
 

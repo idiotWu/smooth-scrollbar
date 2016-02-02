@@ -1,7 +1,6 @@
 /**
  * @module
  * @prototype {Function} destroy
- * @dependencies [ SmoothScrollbar, sbList, setStyle ]
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';

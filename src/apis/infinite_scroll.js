@@ -1,10 +1,8 @@
 /**
  * @module
  * @prototype {Function} infiniteScroll
- * @dependencies [ SmoothScrollbar, #addListener ]
  */
 
-import './listener';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };

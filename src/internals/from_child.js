@@ -1,7 +1,6 @@
 /**
  * @module
  * @prototype {Function} __fromChild
- * @dependencies [ SmoothScrollbar, getOriginalEvent ]
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';

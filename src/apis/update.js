@@ -1,11 +1,8 @@
 /**
  * @module
  * @prototype {Function} update
- * @dependencies [ SmoothScrollbar, #getSize, #__setThumbPosition, #__readyonly pickInRange, setStyle ]
  */
 
-import './get_size';
-import '../internals';
 import { pickInRange, setStyle } from '../utils/index';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 

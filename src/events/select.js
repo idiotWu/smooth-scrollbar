@@ -3,10 +3,14 @@
  * @prototype {Function} __selectHandler
  */
 
- import '../apis/';
- import '../internals/';
  import { SmoothScrollbar } from '../smooth_scrollbar';
- import { getOriginalEvent, getPosition, getTouchID, pickInRange, setStyle } from '../utils/index';
+ import {
+    getOriginalEvent,
+    getPosition,
+    getTouchID,
+    pickInRange,
+    setStyle
+} from '../utils/index';
 
  export { SmoothScrollbar };
 

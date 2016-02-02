@@ -1,7 +1,6 @@
 /**
  * @module
  * @prototype {Function} __resizeHandler
- * @dependencies [ SmoothScrollbar ]
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';

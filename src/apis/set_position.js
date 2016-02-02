@@ -1,10 +1,8 @@
 /**
  * @module
  * @prototype {Function} setPosition
- * @dependencies [ SmoothScrollbar, #__updateThrottle, #__setThumbPosition, pickInRange, setStyle ]
  */
 
-import '../internals/set_thumb_position';
 import { pickInRange, setStyle } from '../utils/index';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 

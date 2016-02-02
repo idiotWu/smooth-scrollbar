@@ -1,7 +1,6 @@
 /**
  * @module
  * @prototype {Function} getSize
- * @dependencies [ SmoothScrollbar ]
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';

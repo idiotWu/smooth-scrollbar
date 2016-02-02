@@ -1,12 +1,8 @@
 /**
  * @module
  * @prototype {Function} __mouseHandler
- * @dependencies [ SmoothScrollbar, #getSize, #scrollTo, #setPosition, getPosition, getTouchID, pickInRange ]
  */
 
-import '../apis/get_size';
-import '../apis/scroll_to';
-import '../apis/set_position';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 import { getPosition, getTouchID, pickInRange } from '../utils/index';
 

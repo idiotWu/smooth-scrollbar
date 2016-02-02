@@ -1,10 +1,8 @@
 /**
  * @module
  * @prototype {Function} __keyboardHandler
- * @dependencies [ SmoothScrollbar, #scrollTo, getOriginalEvent, pickInRange ]
  */
 
-import '../apis/scroll_to';
 import { getOriginalEvent, pickInRange } from '../utils/index';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 

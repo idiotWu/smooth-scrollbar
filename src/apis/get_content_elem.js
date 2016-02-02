@@ -1,7 +1,6 @@
 /**
  * @module
  * @prototype {Function} getContentElem
- * @dependencies [ SmoothScrollbar ]
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';

@@ -1,10 +1,8 @@
 /**
  * @module
  * @prototype {Function} __wheelHandler
- * @dependencies [ SmoothScrollbar, #scrollTo, getDelta, pickInRange ]
  */
 
-import '../apis/scroll_to';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 import { getDelta, pickInRange } from '../utils/index';
 

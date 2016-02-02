@@ -1,7 +1,6 @@
 /**
  * @module
  * @prototype {Function} __setThumbPosition
- * @dependencies [ SmoothScrollbar, #showTrack, #addTrack, setStyle ]
  */
 
 import { setStyle } from '../utils/index';

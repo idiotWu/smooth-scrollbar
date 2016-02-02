@@ -2,8 +2,6 @@
  * @module
  * @prototype {Function} showTrack
  * @prototype {Function} hideTrack
- *
- * @dependencies [ SmoothScrollbar ]
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';

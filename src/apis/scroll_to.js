@@ -1,10 +1,8 @@
 /**
  * @module
  * @prototype {Function} scrollTo
- * @dependencies [ SmoothScrollbar, #showTrack, #hideTrack, pickInRange ]
  */
 
-import './set_position';
 import { pickInRange } from '../utils/index';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 

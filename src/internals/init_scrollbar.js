@@ -1,10 +1,8 @@
 /**
  * @module
  * @prototype {Function} __initScrollbar
- * @dependencies [ SmoothScrollbar, '../events' ]
  */
 
-import '../events/index';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };

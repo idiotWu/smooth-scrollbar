@@ -1,10 +1,8 @@
 /**
  * @module
  * @prototype {Function} __updateChildren
- * @dependencies [ SmoothScrollbar, selectors, #__readonly ]
  */
 
-import '../internals';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 import { selectors } from '../shared/selectors';
 

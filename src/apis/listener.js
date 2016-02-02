@@ -2,7 +2,6 @@
  * @module
  * @prototype {Function} addListener
  *            {Function} removeListener
- * @dependencies [ SmoothScrollbar ]
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
