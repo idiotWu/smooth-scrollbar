@@ -22,8 +22,7 @@ let getTrackDir = (className) => {
 /**
  * @method
  * @internal
- * Mouse event handlers builder,
- * include `click`, `mousedown`, `mousemove` and `mouseup`
+ * Mouse event handlers builder
  *
  * @param {Object} option
  */

@@ -16,8 +16,7 @@ export { SmoothScrollbar };
 /**
  * @method
  * @internal
- * Touch event handlers builder,
- * include `touchstart`, `touchmove` and `touchend`
+ * Touch event handlers builder
  *
  * @param {Object} option
  *
