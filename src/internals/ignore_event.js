@@ -1,6 +1,6 @@
 /**
  * @module
- * @prototype {Function} __fromChild
+ * @prototype {Function} __ignoreEvent
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
@@ -8,16 +8,17 @@ import { getOriginalEvent } from '../utils/index';
 
 export { SmoothScrollbar };
 
-function __fromChild(evt = {}) {
+function __ignoreEvent(evt = {}) {
     const { target } = getOriginalEvent(evt);
 
     if (!target || target === window || !this.children) return false;
 
-    return this.children.some((sb) => sb.contains(target));
+    return evt.defaultPrevented ||
+        this.children.some((sb) => sb.contains(target));
 };
 
-Object.defineProperty(SmoothScrollbar.prototype, '__fromChild', {
-    value: __fromChild,
+Object.defineProperty(SmoothScrollbar.prototype, '__ignoreEvent', {
+    value: __ignoreEvent,
     writable: true,
     configurable: true
 });

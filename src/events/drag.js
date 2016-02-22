@@ -46,7 +46,7 @@
     };
 
     this.__addEvent(document, 'dragover mousemove touchmove', (evt) => {
-        if (!isDrag || this.__fromChild(evt)) return;
+        if (!isDrag || this.__ignoreEvent(evt)) return;
         clearTimeout(animation);
         evt.preventDefault();
 
@@ -56,7 +56,7 @@
     });
 
     this.__addEvent(container, 'dragstart', (evt) => {
-        if (this.__fromChild(evt)) return;
+        if (this.__ignoreEvent(evt)) return;
 
         setStyle(content, {
             'pointer-events': 'auto'
@@ -68,7 +68,7 @@
         isDrag = true;
     });
     this.__addEvent(document, 'dragend mouseup touchend blur', (evt) => {
-        if (this.__fromChild(evt)) return;
+        if (this.__ignoreEvent(evt)) return;
         clearTimeout(animation);
         isDrag = false;
     });

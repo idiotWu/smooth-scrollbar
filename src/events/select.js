@@ -58,7 +58,7 @@
     });
 
     this.__addEvent(content, 'selectstart', (evt) => {
-        if (this.__fromChild(evt)) {
+        if (this.__ignoreEvent(evt)) {
             return setSelect('none');
         }
 

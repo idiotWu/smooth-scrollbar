@@ -31,7 +31,7 @@ let __mouseHandler = function({ speed }) {
     let { container } = this.targets;
 
     this.__addEvent(container, 'click', (evt) => {
-        if (isMouseMove || !/track/.test(evt.target.className) || this.__fromChild(evt)) return;
+        if (isMouseMove || !/track/.test(evt.target.className) || this.__ignoreEvent(evt)) return;
 
         let track = evt.target;
         let direction = getTrackDir(track.className);
@@ -64,7 +64,7 @@ let __mouseHandler = function({ speed }) {
     });
 
     this.__addEvent(container, 'mousedown', (evt) => {
-        if (!/thumb/.test(evt.target.className) || this.__fromChild(evt)) return;
+        if (!/thumb/.test(evt.target.className) || this.__ignoreEvent(evt)) return;
         isMouseDown = true;
 
         let cursorPos = getPosition(evt);

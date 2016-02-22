@@ -24,6 +24,8 @@ let __wheelHandler = function({ speed, stepLength }) {
     let { container } = this.targets;
 
     this.__addEvent(container, WHEEL_EVENT, (evt) => {
+        if (evt.defaultPrevented) return;
+
         let { offset, limit } = this;
         let { x, y } = getDelta(evt);
 

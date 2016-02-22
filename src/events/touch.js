@@ -54,7 +54,7 @@ let __touchHandler = function({ easingDuration }) {
     });
 
     this.__addEvent(container, 'touchmove', (evt) => {
-        if (this.__fromChild(evt) || this.__isDrag) return;
+        if (this.__ignoreEvent(evt) || this.__isDrag) return;
 
         updateRecords(evt);
 
@@ -98,7 +98,7 @@ let __touchHandler = function({ easingDuration }) {
     });
 
     this.__addEvent(container, 'touchend', (evt) => {
-        if (this.__fromChild(evt) || this.__isDrag) return;
+        if (this.__ignoreEvent(evt) || this.__isDrag) return;
 
         // release current touch
         delete touchRecords[lastTouchID];
