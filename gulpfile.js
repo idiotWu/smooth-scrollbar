@@ -101,7 +101,11 @@ gulp.task('replace', function() {
 
 gulp.task('serve', ['scripts:watch', 'styles:build'], function() {
     browserSync.init({
-        server: ['./test', '.']
+        server: ['./test', '.'],
+        routes: {
+            '/build': 'build',
+            '/bower_components': 'bower_components'
+        }
     });
 
     gulp.watch('src/style/*.styl', ['styles:build']);
