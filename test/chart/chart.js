@@ -381,7 +381,7 @@
     addEvent(track, 'click touchstart', function(e) {
         var pointer = getPointer(e);
         var rect = track.getBoundingClientRect();
-        var offset = (e.clientX - rect.left) / rect.width;
+        var offset = (pointer.clientX - rect.left) / rect.width;
         endOffset = Math.min(1 - thumbWidth, Math.max(0, 1 - (offset + thumbWidth / 2)));
     });
 })();
