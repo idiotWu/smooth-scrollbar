@@ -1,6 +1,8 @@
 (function() {
     'use strict';
 
+    var DPR = window.devicePixelRatio;
+
     var scrollbar = Scrollbar.init(document.getElementById('content'));
     var thumb = document.getElementById('thumb');
     var track = document.getElementById('track');
@@ -26,8 +28,9 @@
     var hoverPointerX = undefined;
     var pointerDownOnTrack = undefined;
 
-    canvas.width = size.width;
-    canvas.height = size.height;
+    canvas.width = size.width * DPR;
+    canvas.height = size.height * DPR;
+    ctx.scale(DPR, DPR);
 
     function sliceRecord() {
         var source = records;
@@ -95,12 +98,14 @@
 
         assignOptions(options);
 
-        ctx.setTransform(1, 0, 0, -1, 0, size.height);
+        ctx.save();
+        ctx.transform(1, 0, 0, -1, 0, size.height);
         ctx.beginPath();
         ctx.moveTo(x0, y0);
         ctx.lineTo(x1, y1);
         ctx.stroke();
         ctx.closePath();
+        ctx.restore()
     };
 
     function fillText(content, p, options) {
@@ -108,8 +113,10 @@
             y = p[1];
 
         assignOptions(options);
-        ctx.setTransform(1, 0, 0, 1, 0, size.height);
+        ctx.save();
+        ctx.transform(1, 0, 0, 1, 0, size.height);
         ctx.fillText(content, x, -y);
+        ctx.restore();
     };
 
     function drawMain() {
@@ -130,7 +137,8 @@
         grd.addColorStop(0, 'rgb(170, 215, 255)');
         grd.addColorStop(1, 'rgba(170, 215, 255, 0.2)');
 
-        ctx.setTransform(1, 0, 0, -1, 0, size.height);
+        ctx.save();
+        ctx.transform(1, 0, 0, -1, 0, size.height);
 
         ctx.lineWidth = 1;
         ctx.fillStyle = grd;
@@ -165,6 +173,7 @@
         ctx.lineTo(lastPoint[0], 0);
         ctx.fill();
         ctx.closePath();
+        ctx.restore();
 
         drawLine([0, lastPoint[1]], lastPoint, {
             strokeStyle: '#f60'
