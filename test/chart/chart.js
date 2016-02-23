@@ -3,11 +3,13 @@
 
     var scrollbar = Scrollbar.init(document.getElementById('content'));
     var thumb = document.getElementById('thumb');
+    var track = document.getElementById('track');
     var canvas = document.getElementById('chart');
     var ctx = canvas.getContext('2d');
 
-    var thumbWidth = 0, endOffset = 0;
-    var pointerX = 0;
+    var thumbWidth = 0
+    var endOffset = 0;
+
     var duration = 5 * 1e3;
     var MAX_DURATION = 20 * 1e3;
 
@@ -17,9 +19,12 @@
         height: 200
     };
 
-    var locked = false;
-    var hoverPoint = null;
-    var hoverPointPre = null;
+    var tangentPoint = null;
+    var tangentPointPre = null;
+
+    var hoverLocked = false;
+    var hoverPointerX = undefined;
+    var pointerDownOnTrack = undefined;
 
     canvas.width = size.width;
     canvas.height = size.height;
@@ -114,8 +119,12 @@
         var start = points[0];
         var end = points[points.length - 1];
 
-        var totalX = duration;
+        var totalX = end.time - start.time;
         var totalY = (limit.max - limit.min) || 1;
+
+        if (totalX < duration * 0.9) {
+            totalX = duration * 0.9;
+        }
 
         var grd = ctx.createLinearGradient(0, size.height, 0, 0);
         grd.addColorStop(0, 'rgb(170, 215, 255)');
@@ -137,13 +146,13 @@
 
             ctx.lineTo(x, y);
 
-            if (pointerX && Math.abs(pointerX - x) < 1) {
-                hoverPoint = {
+            if (hoverPointerX && Math.abs(hoverPointerX - x) < 1) {
+                tangentPoint = {
                     coord: [x, y],
                     point: cur
                 };
 
-                hoverPointPre = {
+                tangentPointPre = {
                     coord: pre,
                     point: points[idx - 1]
                 };
@@ -176,8 +185,8 @@
     };
 
     function drawTangentLine() {
-        var coord = hoverPoint.coord,
-            coordPre = hoverPointPre.coord;
+        var coord = tangentPoint.coord,
+            coordPre = tangentPointPre.coord;
 
         var k = (coord[1] - coordPre[1]) / (coord[0] - coordPre[0]) || 0;
         var b = coord[1] - k * coord[0];
@@ -196,12 +205,12 @@
     };
 
     function drawHover() {
-        if (!hoverPoint) return;
+        if (!tangentPoint) return;
 
         drawTangentLine();
 
-        var coord = hoverPoint.coord,
-            point = hoverPoint.point;
+        var coord = tangentPoint.coord,
+            point = tangentPoint.point;
 
         var coordStyle = {
             lineWidth: 1,
@@ -243,7 +252,7 @@
             drawHover();
         }
 
-        if (locked) {
+        if (hoverLocked) {
             fillText('LOCKED', [10, size.height], {
                 fillStyle: '#f00',
                 textAlign: 'left',
@@ -264,7 +273,7 @@
         reduceAmount = 0;
 
     scrollbar.addListener(function() {
-        if (locked) return;
+        if (hoverLocked) return;
 
         var current = Date.now(),
             offset = scrollbar.offset.y,
@@ -290,12 +299,15 @@
         return e.touches ? e.touches[e.touches.length - 1] : e;
     };
 
-    function addEvent(el, evt, handler) {
+    function addEvent(elems, evt, handler) {
         evt.split(/\s+/).forEach(function(name) {
-            el.addEventListener(name, handler);
+            [].concat(elems).forEach(function(el) {
+                el.addEventListener(name, handler);
+            });
         });
     };
 
+    // range
     var input = document.getElementById('duration');
     var label = document.querySelector('label');
     input.max = MAX_DURATION / 1e3;
@@ -307,54 +319,60 @@
         var val = parseFloat(e.target.value);
         label.textContent = val + 's';
         duration = val * 1e3;
+        endOffset = 0;
     });
 
-    addEvent(canvas, 'mousemove touchmove', function(e) {
-        if (locked) return;
-
-        var pointer = getPointer(e);
-
-        pointerX = pointer.clientX - canvas.getBoundingClientRect().left;
-    });
-
-    addEvent(canvas, 'mouseleave', function() {
-        if (locked) return;
-        pointerX = 0;
-        hoverPoint = null;
-    });
-
-    addEvent(window, 'touchend', function() {
-        if (locked) return;
-        pointerX = 0;
-        hoverPoint = null;
-    });
-
-    addEvent(canvas, 'click', function() {
-        locked = !locked;
-    });
-
-    document.getElementById('reset').addEventListener('click', function() {
+    addEvent(document.getElementById('reset'), 'click', function() {
         records.length = 0;
     });
 
-    var pointerDownX = undefined;
+    // hover
+    addEvent(canvas, 'mousemove touchmove', function(e) {
+        if (hoverLocked || pointerDownOnTrack) return;
 
+        var pointer = getPointer(e);
+
+        hoverPointerX = pointer.clientX - canvas.getBoundingClientRect().left;
+    });
+
+    addEvent([canvas, window], 'mouseleave touchend', function() {
+        if (hoverLocked) return;
+        hoverPointerX = 0;
+        tangentPoint = null;
+    });
+
+    addEvent(canvas, 'click', function() {
+        hoverLocked = !hoverLocked;
+    });
+
+    // track
     addEvent(thumb, 'mousedown touchstart', function(e) {
         var pointer = getPointer(e);
-        pointerDownX = pointer.clientX;
+        pointerDownOnTrack = pointer.clientX;
     });
 
     addEvent(window, 'mousemove touchmove', function(e) {
-        if (!pointerDownX) return;
+        if (!pointerDownOnTrack) return;
 
         var pointer = getPointer(e);
-        var moved = (pointer.clientX - pointerDownX) / size.width;
+        var moved = (pointer.clientX - pointerDownOnTrack) / size.width;
 
-        pointerDownX = pointer.clientX;
+        pointerDownOnTrack = pointer.clientX;
         endOffset = Math.min(1 - thumbWidth, Math.max(0, endOffset - moved));
     });
 
-    addEvent(window, 'mouseup touchend blur', function() {
-        pointerDownX = undefined;
+    addEvent(window, 'mouseup touchend blur', function(e) {
+        pointerDownOnTrack = undefined;
+    });
+
+    addEvent(thumb, 'click touchstart', function(e) {
+        e.stopPropagation();
+    });
+
+    addEvent(track, 'click touchstart', function(e) {
+        var pointer = getPointer(e);
+        var rect = track.getBoundingClientRect();
+        var offset = (e.clientX - rect.left) / rect.width;
+        endOffset = Math.min(1 - thumbWidth, Math.max(0, 1 - (offset + thumbWidth / 2)));
     });
 })();
