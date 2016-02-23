@@ -109,7 +109,7 @@ gulp.task('serve', ['scripts:watch', 'styles:build'], function() {
     });
 
     gulp.watch('src/style/*.styl', ['styles:build']);
-    gulp.watch('test/*.*').on('change', browserSync.reload);
+    gulp.watch('test/**/*').on('change', browserSync.reload);
 });
 
 gulp.task('copy:release', function() {
