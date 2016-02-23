@@ -27,6 +27,7 @@
     var hoverLocked = false;
     var hoverPointerX = undefined;
     var pointerDownOnTrack = undefined;
+    var hoverPrecision = 'ontouchstart' in document ? 5 : 1;
 
     canvas.width = size.width * DPR;
     canvas.height = size.height * DPR;
@@ -57,7 +58,7 @@
 
         var result = source.slice(sliceIdx, endIdx);
 
-        thumbWidth = result.length / records.length;
+        thumbWidth = result.length ? result.length / records.length : 1;
 
         thumb.style.width = thumbWidth * 100 + '%';
         thumb.style.right = endOffset * 100 + '%';
@@ -75,11 +76,11 @@
         }, { max: -Infinity, min: Infinity });
     };
 
-    function assignOptions(options) {
-        if (!options) return;
+    function assignProps(props) {
+        if (!props) return;
 
-        Object.keys(options).forEach(function(prop) {
-            ctx[prop] = options[prop];
+        Object.keys(props).forEach(function(name) {
+            ctx[name] = props[name];
         });
     };
 
@@ -89,18 +90,12 @@
             x1 = p1[0],
             y1 = p1[1];
 
-        if (options.dashed) {
-            ctx.setLineDash(options.dashed);
-            delete options.dashed;
-        } else {
-            ctx.setLineDash([]);
-        }
-
-        assignOptions(options);
+        assignProps(options.props);
 
         ctx.save();
         ctx.transform(1, 0, 0, -1, 0, size.height);
         ctx.beginPath();
+        ctx.setLineDash(options.dashed ? options.dashed : []);
         ctx.moveTo(x0, y0);
         ctx.lineTo(x1, y1);
         ctx.stroke();
@@ -108,19 +103,36 @@
         ctx.restore()
     };
 
-    function fillText(content, p, options) {
+    function adjustText(content, p, options) {
         var x = p[0],
             y = p[1];
 
-        assignOptions(options);
+        var width = ctx.measureText(content).width;
+
+        if (x + width > size.width) {
+            ctx.textAlign = 'right';
+        } else if (x - width < 0) {
+            ctx.textAlign = 'left';
+        } else {
+            ctx.textAlign = options.textAlign;
+        }
+
+        ctx.fillText(content, x, -y);
+    };
+
+    function fillText(content, p, options) {
+        assignProps(options.props);
+
         ctx.save();
         ctx.transform(1, 0, 0, 1, 0, size.height);
-        ctx.fillText(content, x, -y);
+        adjustText(content, p, options);
         ctx.restore();
     };
 
     function drawMain() {
         var points = sliceRecord();
+        if (!points.length) return;
+
         var limit = getLimit(points);
 
         var start = points[0];
@@ -154,7 +166,7 @@
 
             ctx.lineTo(x, y);
 
-            if (hoverPointerX && Math.abs(hoverPointerX - x) < 1) {
+            if (hoverPointerX && Math.abs(hoverPointerX - x) < hoverPrecision) {
                 tangentPoint = {
                     coord: [x, y],
                     point: cur
@@ -176,20 +188,26 @@
         ctx.restore();
 
         drawLine([0, lastPoint[1]], lastPoint, {
-            strokeStyle: '#f60'
+            props: {
+                strokeStyle: '#f60'
+            }
         });
 
         fillText('↙' + limit.min.toFixed(2), [0, 0], {
-            fillStyle: '#000',
-            textAlign: 'left',
-            textBaseline: 'bottom',
-            font: '12px sans-serif'
+            props: {
+                fillStyle: '#000',
+                textAlign: 'left',
+                textBaseline: 'bottom',
+                font: '12px sans-serif'
+            }
         });
         fillText(end.offset.toFixed(2), lastPoint, {
-            fillStyle: '#f60',
-            textAlign: 'right',
-            textBaseline: 'bottom',
-            font: '16px sans-serif'
+            props: {
+                fillStyle: '#f60',
+                textAlign: 'center',
+                textBaseline: 'bottom',
+                font: '16px sans-serif'
+            }
         });
     };
 
@@ -201,15 +219,19 @@
         var b = coord[1] - k * coord[0];
 
         drawLine([0, b], [size.width, k * size.width + b], {
-            lineWidth: 1,
-            strokeStyle: '#f00'
+            props: {
+                lineWidth: 1,
+                strokeStyle: '#f00'
+            }
         });
 
         fillText('v: ' + k.toFixed(2), [size.width, 0], {
-            fillStyle: '#f00',
-            textAlign: 'right',
-            textBaseline: 'bottom',
-            font: 'bold 12px sans-serif'
+            props: {
+                fillStyle: '#f00',
+                textAlign: 'right',
+                textBaseline: 'bottom',
+                font: 'bold 12px sans-serif'
+            }
         });
     };
 
@@ -222,13 +244,15 @@
             point = tangentPoint.point;
 
         var coordStyle = {
-            lineWidth: 1,
-            strokeStyle: 'rgb(64, 165, 255)',
-            dashed: [8, 4]
+            dashed: [8, 4],
+            props: {
+                lineWidth: 1,
+                strokeStyle: 'rgb(64, 165, 255)'
+            }
         };
 
-        drawLine([0, coord[1]], [size.width, coord[1]], Object.assign({}, coordStyle));
-        drawLine([coord[0], 0], [coord[0], size.height], Object.assign({}, coordStyle));
+        drawLine([0, coord[1]], [size.width, coord[1]], coordStyle);
+        drawLine([coord[0], 0], [coord[0], size.height], coordStyle);
 
         var date = new Date(point.time + point.reduce);
 
@@ -245,10 +269,12 @@
         ].join('');
 
         fillText(pointInfo, coord, {
-            fillStyle: '#000',
-            textAlign: 'left',
-            textBaseline: 'bottom',
-            font: 'bold 12px sans-serif'
+            props: {
+                fillStyle: '#000',
+                textAlign: 'left',
+                textBaseline: 'bottom',
+                font: 'bold 12px sans-serif'
+            }
         });
     };
 
@@ -256,17 +282,17 @@
         ctx.save();
         ctx.clearRect(0, 0, size.width, size.height);
 
-        if (records.length > 2) {
-            drawMain();
-            drawHover();
-        }
+        drawMain();
+        drawHover();
 
         if (hoverLocked) {
             fillText('LOCKED', [10, size.height], {
-                fillStyle: '#f00',
-                textAlign: 'left',
-                textBaseline: 'top',
-                font: 'bold 14px sans-serif'
+                props: {
+                    fillStyle: '#f00',
+                    textAlign: 'left',
+                    textBaseline: 'top',
+                    font: 'bold 14px sans-serif'
+                }
             });
         }
 
@@ -288,10 +314,10 @@
             offset = scrollbar.offset.y,
             duration = current - lastTime;
 
-        if (offset === lastOffset) return;
+        if (!duration || offset === lastOffset) return;
 
         if (duration > 50) {
-            reduceAmount += duration;
+            reduceAmount += (duration - 1);
         }
 
         lastTime = current;
@@ -332,7 +358,12 @@
     });
 
     addEvent(document.getElementById('reset'), 'click', function() {
-        records.length = 0;
+        records.length = endOffset = reduceAmount = 0;
+        hoverLocked = false;
+        hoverPointerX = undefined;
+        tangentPoint = null;
+        tangentPointPre = null;
+        sliceRecord();
     });
 
     // hover
