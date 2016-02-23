@@ -2,8 +2,14 @@
     'use strict';
 
     var scrollbar = Scrollbar.init(document.getElementById('content'));
+    var thumb = document.getElementById('thumb');
     var canvas = document.getElementById('chart');
     var ctx = canvas.getContext('2d');
+
+    var thumbWidth = 0, endOffset = 0;
+    var pointerX = 0;
+    var duration = 5 * 1e3;
+    var MAX_DURATION = 20 * 1e3;
 
     var records = [];
     var size = {
@@ -12,14 +18,17 @@
     };
 
     var locked = false;
+    var hoverPoint = null;
+    var hoverPointPre = null;
 
     canvas.width = size.width;
     canvas.height = size.height;
 
     function sliceRecord() {
         var source = records;
+        var endIdx = Math.floor(source.length * (1 - endOffset));
         var start = source[0];
-        var end = source[source.length - 1];
+        var end = source[endIdx - 1];
         var sliceIdx = 0,
             dropIdx = 0;
 
@@ -38,7 +47,14 @@
 
         records = source.slice(dropIdx);
 
-        return source.slice(sliceIdx);
+        var result = source.slice(sliceIdx, endIdx);
+
+        thumbWidth = result.length / records.length;
+
+        thumb.style.width = thumbWidth * 100 + '%';
+        thumb.style.right = endOffset * 100 + '%';
+
+        return result;
     };
 
     function getLimit(points) {
@@ -90,10 +106,6 @@
         ctx.setTransform(1, 0, 0, 1, 0, size.height);
         ctx.fillText(content, x, -y);
     };
-
-    var pointerX = 0;
-    var duration = 5 * 1e3;
-    var MAX_DURATION = 20 * 1e3;
 
     function drawMain() {
         var points = sliceRecord();
@@ -162,9 +174,6 @@
             font: '16px sans-serif'
         });
     };
-
-    var hoverPoint = null;
-    var hoverPointPre = null;
 
     function drawTangentLine() {
         var coord = hoverPoint.coord,
@@ -277,6 +286,16 @@
         });
     });
 
+    function getPointer(e) {
+        return e.touches ? e.touches[e.touches.length - 1] : e;
+    };
+
+    function addEvent(el, evt, handler) {
+        evt.split(/\s+/).forEach(function(name) {
+            el.addEventListener(name, handler);
+        });
+    };
+
     var input = document.getElementById('duration');
     var label = document.querySelector('label');
     input.max = MAX_DURATION / 1e3;
@@ -284,28 +303,58 @@
     input.value = duration / 1e3;
     label.textContent = input.value + 's';
 
-    input.addEventListener('input', function(e) {
+    addEvent(input, 'input', function(e) {
         var val = parseFloat(e.target.value);
         label.textContent = val + 's';
         duration = val * 1e3;
     });
 
-    canvas.addEventListener('mousemove', function(e) {
+    addEvent(canvas, 'mousemove touchmove', function(e) {
         if (locked) return;
-        pointerX = e.clientX - canvas.getBoundingClientRect().left;
+
+        var pointer = getPointer(e);
+
+        pointerX = pointer.clientX - canvas.getBoundingClientRect().left;
     });
 
-    canvas.addEventListener('mouseleave', function() {
+    addEvent(canvas, 'mouseleave', function() {
         if (locked) return;
         pointerX = 0;
         hoverPoint = null;
     });
 
-    canvas.addEventListener('click', function() {
+    addEvent(window, 'touchend', function() {
+        if (locked) return;
+        pointerX = 0;
+        hoverPoint = null;
+    });
+
+    addEvent(canvas, 'click', function() {
         locked = !locked;
     });
 
     document.getElementById('reset').addEventListener('click', function() {
         records.length = 0;
+    });
+
+    var pointerDownX = undefined;
+
+    addEvent(thumb, 'mousedown touchstart', function(e) {
+        var pointer = getPointer(e);
+        pointerDownX = pointer.clientX;
+    });
+
+    addEvent(window, 'mousemove touchmove', function(e) {
+        if (!pointerDownX) return;
+
+        var pointer = getPointer(e);
+        var moved = (pointer.clientX - pointerDownX) / size.width;
+
+        pointerDownX = pointer.clientX;
+        endOffset = Math.min(1 - thumbWidth, Math.max(0, endOffset - moved));
+    });
+
+    addEvent(window, 'mouseup touchend blur', function() {
+        pointerDownX = undefined;
     });
 })();
