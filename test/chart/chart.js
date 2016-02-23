@@ -105,11 +105,15 @@
         var totalX = duration;
         var totalY = (limit.max - limit.min) || 1;
 
+        var grd = ctx.createLinearGradient(0, size.height, 0, 0);
+        grd.addColorStop(0, 'rgb(170, 215, 255)');
+        grd.addColorStop(1, 'rgba(170, 215, 255, 0.2)');
+
         ctx.setTransform(1, 0, 0, -1, 0, size.height);
 
-        ctx.lineWidth = 2;
-        ctx.fillStyle = '#bbb';
-        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 1;
+        ctx.fillStyle = grd;
+        ctx.strokeStyle = 'rgb(64, 165, 255)';
         ctx.beginPath();
         ctx.moveTo(0, 0);
 
@@ -145,6 +149,12 @@
             strokeStyle: '#f60'
         });
 
+        fillText('↙' + limit.min.toFixed(2), [0, 0], {
+            fillStyle: '#000',
+            textAlign: 'left',
+            textBaseline: 'bottom',
+            font: '12px sans-serif'
+        });
         fillText(end.offset.toFixed(2), lastPoint, {
             fillStyle: '#f60',
             textAlign: 'right',
@@ -186,12 +196,12 @@
 
         var coordStyle = {
             lineWidth: 1,
-            strokeStyle: '#87ceeb',
-            dashed: [10, 5]
+            strokeStyle: 'rgb(64, 165, 255)',
+            dashed: [8, 4]
         };
 
-        drawLine([0, coord[1]], [size.width, coord[1]], coordStyle);
-        drawLine([coord[0], 0], [coord[0], size.height], coordStyle);
+        drawLine([0, coord[1]], [size.width, coord[1]], Object.assign({}, coordStyle));
+        drawLine([coord[0], 0], [coord[0], size.height], Object.assign({}, coordStyle));
 
         var date = new Date(point.time + point.reduce);
 
