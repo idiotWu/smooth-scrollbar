@@ -21,6 +21,8 @@
         height: 200
     };
 
+    var shouldUpdate = false;
+
     var tangentPoint = null;
     var tangentPointPre = null;
 
@@ -266,6 +268,8 @@
     };
 
     function render() {
+        if (!shouldUpdate) return requestAnimationFrame(render);
+
         ctx.save();
         ctx.clearRect(0, 0, size.width, size.height);
 
@@ -285,6 +289,8 @@
 
         ctx.restore();
 
+        shouldUpdate = false;
+
         requestAnimationFrame(render);
     };
 
@@ -295,8 +301,6 @@
         reduceAmount = 0;
 
     scrollbar.addListener(function() {
-        if (hoverLocked) return;
-
         var current = Date.now(),
             offset = scrollbar.offset.y,
             duration = current - lastTime;
@@ -315,16 +319,21 @@
             reduce: reduceAmount,
             offset: offset
         });
+
+        shouldUpdate = true;
     });
 
     function getPointer(e) {
         return e.touches ? e.touches[e.touches.length - 1] : e;
     };
 
-    function addEvent(elems, evt, handler) {
-        evt.split(/\s+/).forEach(function(name) {
+    function addEvent(elems, evts, handler) {
+        evts.split(/\s+/).forEach(function(name) {
             [].concat(elems).forEach(function(el) {
-                el.addEventListener(name, handler);
+                el.addEventListener(name, function() {
+                    handler.apply(this, [].slice.call(arguments));
+                    shouldUpdate = true;
+                });
             });
         });
     };
@@ -366,10 +375,16 @@
         if (hoverLocked) return;
         hoverPointerX = 0;
         tangentPoint = null;
+        tangentPointPre = null;
     });
 
     addEvent(canvas, 'click', function() {
         hoverLocked = !hoverLocked;
+
+        if (!hoverLocked) {
+            tangentPoint = null;
+            tangentPointPre = null;
+        }
     });
 
     // track
