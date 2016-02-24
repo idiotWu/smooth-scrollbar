@@ -2,10 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Smooth Scrollbar</title>
+    <title>Offset Chart</title>
     <link rel="stylesheet" href="/build/smooth-scrollbar.css">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <style>
+        * {
+          -webkit-tap-highlight-color: transparent;
+          -webkit-user-select: none;
+             -moz-user-select: none;
+              -ms-user-select: none;
+                  user-select: none;
+        }
         div {
           margin: 1em 0;
         }
@@ -39,10 +46,6 @@
           background: #fff;
           text-align: center;
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-          -webkit-user-select: none;
-             -moz-user-select: none;
-              -ms-user-select: none;
-                  user-select: none;
         }
 
         canvas {
@@ -1088,7 +1091,6 @@
     <div>Ipsam, culpa quam illum distinctio odio fugiat quidem ducimus assumenda hic aliquam voluptas suscipit molestias eveniet optio tempore provident voluptatum consequuntur natus. Nihil fuga placeat quisquam quos, libero, dolorum quo.</div>
     <div>Voluptatum similique odit vitae sit expedita. Deleniti quisquam molestias voluptatibus illo tempora, aut iusto cumque, nisi illum ab odio neque ex, explicabo beatae consequuntur! Laudantium fugit nostrum rem, ducimus repellendus!</div>
 </main>
-<script src="/bower_components/Sortable/Sortable.js"></script>
 <script src="/build/smooth-scrollbar.js"></script>
 <script src="chart.js"></script>
 </body>
