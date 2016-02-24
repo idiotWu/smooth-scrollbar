@@ -371,20 +371,21 @@
         hoverPointerX = pointer.clientX - canvas.getBoundingClientRect().left;
     });
 
-    addEvent([canvas, window], 'mouseleave touchend', function() {
-        if (hoverLocked) return;
+    function resetHover() {
         hoverPointerX = 0;
         tangentPoint = null;
         tangentPointPre = null;
+    };
+
+    addEvent([canvas, window], 'mouseleave touchend', function() {
+        if (hoverLocked) return;
+        resetHover();
     });
 
     addEvent(canvas, 'click', function() {
         hoverLocked = !hoverLocked;
 
-        if (!hoverLocked) {
-            tangentPoint = null;
-            tangentPointPre = null;
-        }
+        if (!hoverLocked) resetHover();
     });
 
     // track
