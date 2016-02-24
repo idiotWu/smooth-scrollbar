@@ -105,9 +105,9 @@ gulp.task('serve', ['scripts:build', 'styles:build'], function() {
     gulp.watch('test/**/*.html').on('change', browserSync.reload);
 });
 
-gulp.task('release', ['scripts:release', 'styles:release'], function() {
+gulp.task('dist', ['scripts:dist', 'styles:dist'], function() {
     return gulp.src('dist/**/*.*')
         .pipe(sizereport());
 });
 
-gulp.task('default', ['release']);
+gulp.task('default', ['dist']);
