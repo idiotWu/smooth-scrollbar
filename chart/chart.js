@@ -38,25 +38,16 @@
         var endIdx = Math.floor(source.length * (1 - endOffset));
         var start = source[0];
         var end = source[endIdx - 1];
-        var sliceIdx = 0,
-            dropIdx = 0;
 
-        source.some(function(pt, idx) {
+        var result = source.filter(function(pt, idx) {
             var d = end.time - pt.time;
 
             if (d > MAX_DURATION) {
-                dropIdx = idx;
+                records.shift();
             }
 
-            if (d < duration) {
-                sliceIdx = idx - dropIdx;
-                return true;
-            }
+            return d <= duration;
         });
-
-        records = source.slice(dropIdx);
-
-        var result = source.slice(sliceIdx, endIdx);
 
         thumbWidth = result.length ? result.length / records.length : 1;
 
@@ -138,12 +129,8 @@
         var start = points[0];
         var end = points[points.length - 1];
 
-        var totalX = end.time - start.time;
+        var totalX = Math.max(duration * 0.9, end.time - start.time);
         var totalY = (limit.max - limit.min) || 1;
-
-        if (totalX < duration * 0.9) {
-            totalX = duration * 0.9;
-        }
 
         var grd = ctx.createLinearGradient(0, size.height, 0, 0);
         grd.addColorStop(0, 'rgb(170, 215, 255)');
@@ -204,7 +191,7 @@
         fillText(end.offset.toFixed(2), lastPoint, {
             props: {
                 fillStyle: '#f60',
-                textAlign: 'center',
+                textAlign: 'right',
                 textBaseline: 'bottom',
                 font: '16px sans-serif'
             }
