@@ -12,8 +12,8 @@
     var thumbWidth = 0
     var endOffset = 0;
 
-    var duration = 5 * 1e3;
-    var MAX_DURATION = 20 * 1e3;
+    var timeRange = 5 * 1e3;
+    var TIME_RANGE_MAX = 20 * 1e3;
 
     var records = [];
     var size = {
@@ -42,11 +42,11 @@
         var result = source.filter(function(pt, idx) {
             var d = end.time - pt.time;
 
-            if (d > MAX_DURATION) {
+            if (d > TIME_RANGE_MAX) {
                 records.shift();
             }
 
-            return d <= duration;
+            return d <= timeRange && idx <= endIdx;
         });
 
         thumbWidth = result.length ? result.length / records.length : 1;
@@ -129,7 +129,7 @@
         var start = points[0];
         var end = points[points.length - 1];
 
-        var totalX = Math.max(duration * 0.9, end.time - start.time);
+        var totalX = thumbWidth === 1 ? timeRange : end.time - start.time;
         var totalY = (limit.max - limit.min) || 1;
 
         var grd = ctx.createLinearGradient(0, size.height, 0, 0);
@@ -332,15 +332,15 @@
     // range
     var input = document.getElementById('duration');
     var label = document.querySelector('label');
-    input.max = MAX_DURATION / 1e3;
+    input.max = TIME_RANGE_MAX / 1e3;
     input.min = 1;
-    input.value = duration / 1e3;
+    input.value = timeRange / 1e3;
     label.textContent = input.value + 's';
 
     addEvent(input, 'input', function(e) {
         var val = parseFloat(e.target.value);
         label.textContent = val + 's';
-        duration = val * 1e3;
+        timeRange = val * 1e3;
         endOffset = 0;
     });
 
