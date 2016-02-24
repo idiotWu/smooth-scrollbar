@@ -7,24 +7,13 @@
 import { getOriginalEvent } from './get_original_event';
 
 const DELTA_SCALE = {
-    STANDARD: 40,
-    OTHERS: -120
+    STANDARD: 1,
+    OTHERS: -3
 };
 
-const DELTA_MODE = {
-    // todo: accurate line/page mode value
-    DOM_DELTA_PIXEL: 1,
-    DOM_DELTA_LINE: 20,
-    DOM_DELTA_PAGE: window.innerHeight
-};
+const DELTA_MODE = [1.0, 28.0, 500.0];
 
-const DOM_DELTA_MAP = {
-    0: 'DOM_DELTA_PIXEL',
-    1: 'DOM_DELTA_LINE',
-    2: 'DOM_DELTA_PAGE'
-};
-
-let getDeltaMode = (mode) => DELTA_MODE[ DOM_DELTA_MAP[mode] ] || DELTA_MODE.DOM_DELTA_PIXEL;
+let getDeltaMode = (mode) => DELTA_MODE[mode] || DELTA_MODE[0];
 
 /**
  * Normalizing wheel delta

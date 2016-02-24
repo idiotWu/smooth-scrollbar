@@ -19,35 +19,40 @@ export { SmoothScrollbar };
  * @param {Function} [cb]: callback
  */
 SmoothScrollbar.prototype.scrollTo = function(x = this.offset.x, y = this.offset.y, duration = 0, cb = null) {
+    const {
+        options,
+        offset,
+        limit,
+        velocity,
+        __timerID
+    } = this;
+
+    cancelAnimationFrame(__timerID.scrollTo);
     cb = typeof cb === 'function' ? cb : () => {};
 
-    const { offset, limit, __timerID } = this;
-    const destX = pickInRange(x, 0, limit.x);
-    const destY = pickInRange(y, 0, limit.y);
+    const disX = pickInRange(x, 0, limit.x) - offset.x;
+    const disY = pickInRange(y, 0, limit.y) - offset.y;
 
-    if (destX === offset.x && destY === offset.y) {
-        return requestAnimationFrame(() => {
-            cb(this);
-        });
-    }
-
-    const frames = {
-        x: this.__motionBuilder(offset.x, destX - offset.x, duration),
-        y: this.__motionBuilder(offset.y, destY - offset.y, duration)
-    };
-
-    let i = 0, length = frames.x.length;
+    let frameCount = (disX || disY) && duration / 1000 * 60;
+    let eachX = disX / frameCount, eachY = disY / frameCount;
 
     let scroll = () => {
-        if (i === length) {
-            return cb(this);
+        if (!frameCount) {
+            this.setPosition(x, y);
+
+            return requestAnimationFrame(() => {
+                cb(this);
+            });
         }
 
-        this.setPosition(frames.x[i], frames.y[i]);
+        this.setPosition(
+            offset.x + eachX,
+            offset.y + eachY
+        );
 
-        i++;
+        frameCount--;
 
-        __timerID.scrollAnimation = requestAnimationFrame(scroll);
+        __timerID.scrollTo = requestAnimationFrame(scroll);
     };
 
     scroll();

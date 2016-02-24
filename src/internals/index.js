@@ -1,4 +1,6 @@
+export * from './render';
 export * from './readonly';
+export * from './speed_up';
 export * from './add_event';
 export * from './ignore_event';
 export * from './init_scrollbar';

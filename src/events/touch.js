@@ -17,12 +17,8 @@ export { SmoothScrollbar };
  * @method
  * @internal
  * Touch event handlers builder
- *
- * @param {Object} option
- *
- * @return {Object}: a set of event handlers
  */
-let __touchHandler = function({ easingDuration }) {
+let __touchHandler = function() {
     const { container } = this.targets;
 
     let lastTouchTime, lastTouchID;
@@ -44,13 +40,16 @@ let __touchHandler = function({ easingDuration }) {
     this.__addEvent(container, 'touchstart', (evt) => {
         if (this.__isDrag) return;
 
-        cancelAnimationFrame(this.__timerID.scrollAnimation);
+        const { velocity } = this;
+
         updateRecords(evt);
 
+        lastTouchTime = Date.now();
         lastTouchID = getTouchID(evt);
         lastTouchPos = getPosition(evt);
-        lastTouchTime = (new Date()).getTime();
-        moveVelocity.x = moveVelocity.y = 0;
+
+        // reset velocity
+        velocity.x = velocity.y = moveVelocity.x = moveVelocity.y = 0;
     });
 
     this.__addEvent(container, 'touchmove', (evt) => {
@@ -58,16 +57,16 @@ let __touchHandler = function({ easingDuration }) {
 
         updateRecords(evt);
 
-        let touchID = getTouchID(evt);
-        let { offset, limit } = this;
+        const touchID = getTouchID(evt);
+        const { offset, limit } = this;
 
         if (lastTouchID === undefined) {
             // reset last touch info from records
             lastTouchID = touchID;
 
             // don't need error handler
+            lastTouchTime = Date.now();
             lastTouchPos = touchRecords[touchID];
-            lastTouchTime = (new Date()).getTime();
         } else if (touchID !== lastTouchID) {
             // prevent multi-touch bouncing
             return;
@@ -75,7 +74,7 @@ let __touchHandler = function({ easingDuration }) {
 
         if (!lastTouchPos) return;
 
-        let duration = (new Date()).getTime() - lastTouchTime;
+        let duration = Date.now() - lastTouchTime;
         let { x: lastX, y: lastY } = lastTouchPos;
         let { x: curX, y: curY } = lastTouchPos = getPosition(evt);
 
@@ -93,7 +92,6 @@ let __touchHandler = function({ easingDuration }) {
 
         evt.preventDefault();
 
-        // don't need easing too
         this.setPosition(destX, destY);
     });
 
@@ -105,16 +103,8 @@ let __touchHandler = function({ easingDuration }) {
         lastTouchID = undefined;
 
         let { x, y } = moveVelocity;
-        let threshold = 10 / 1e3; // 10 px/s
 
-        if (Math.abs(x) > threshold ||
-            Math.abs(y) > threshold) {
-            this.scrollTo(
-                x * easingDuration + this.offset.x,
-                y * easingDuration + this.offset.y,
-                easingDuration
-            );
-        }
+        this.__speedUp(x * 100, y * 100);
 
         moveVelocity.x = moveVelocity.y = 0;
     });

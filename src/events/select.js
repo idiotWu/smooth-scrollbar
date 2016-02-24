@@ -15,7 +15,7 @@
  export { SmoothScrollbar };
 
 // todo: select handler for touch screen
- let __selectHandler = function({ speed, stepLength }) {
+ let __selectHandler = function() {
     let isSelected = false;
     let animation = undefined;
 
@@ -24,18 +24,13 @@
     let scroll = ({ x, y }) => {
         if (!x && !y) return;
 
-        const { offset } = this;
-        const duration = Math.sqrt(Math.abs(x) + Math.abs(y)) * 60;
+        const { speed } = this.options;
 
-        this.scrollTo(
-            offset.x + x * speed * stepLength,
-            offset.y + y * speed * stepLength,
-            duration
-        );
+        this.__speedUp(x * speed * 2, y * speed * 2);
 
         animation = setTimeout(() => {
             scroll({ x, y });
-        }, duration);
+        }, 100);
     };
 
     let setSelect = (value = '') => {

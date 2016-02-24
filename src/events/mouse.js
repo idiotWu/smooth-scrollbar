@@ -26,7 +26,7 @@ let getTrackDir = (className) => {
  *
  * @param {Object} option
  */
-let __mouseHandler = function({ speed }) {
+let __mouseHandler = function() {
     let isMouseDown, isMouseMove, startOffsetToThumb, startTrackDirection, containerRect;
     let { container } = this.targets;
 
@@ -39,7 +39,6 @@ let __mouseHandler = function({ speed }) {
         let clickPos = getPosition(evt);
 
         let { size, offset } = this;
-        let duration = 1e3 / speed;
 
         if (direction === 'x') {
             // use percentage value
@@ -49,7 +48,7 @@ let __mouseHandler = function({ speed }) {
             return this.scrollTo(
                 (clickOffset - thumbSize / 2) * size.content.width,
                 offset.y,
-                duration
+                1e3
             );
         }
 
@@ -59,7 +58,7 @@ let __mouseHandler = function({ speed }) {
         this.scrollTo(
             offset.x,
             (clickOffset - thumbSize / 2) * size.content.height,
-            duration
+            1e3
         );
     });
 

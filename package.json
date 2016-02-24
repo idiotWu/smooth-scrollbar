@@ -39,8 +39,7 @@
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.6",
     "webpack-stream": "^3.1.0",
-    "babel-runtime": "^5.8.20",
-    "bezier-easing": "^1.1.1"
+    "babel-runtime": "^5.8.20"
   },
   "ignore": [
     "**/.*",

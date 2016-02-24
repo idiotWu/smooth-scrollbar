@@ -3,97 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <title>Smooth Scrollbar</title>
-    <link rel="stylesheet" href="build/smooth-scrollbar.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="build/index.css">
 </head>
 <body>
 
 <main>
     <h1>Smooth Scrollbar</h1>
-    <h2>Scrolling with Hardware Acceleration</h2>
+    <header id="debug">
+        <canvas id="preview"></canvas>
+        <table>
+            <tbody>
+                <tr>
+                    <td>speed</td>
+                    <td>
+                        <input type="range" name="speed" class="options" min="0.1" max="10" step="0.1" value="1">
+                    </td>
+                    <td>
+                        <label for="speed" class="option-value option-speed">1</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Scrolling speed scale.</td>
+                    <td></td>
+                </tr>
 
-    <article>
-        <h3>Native Scrolling vs Smooth Scrolling</h3>
-        <h4>Current: <strong id="cur-sb">Native Scrollbar</strong> <button id="toggle">toggle</button></h4>
-        <section class="scroll native" id="compare">
-            <img src="your_diary.jpg" height="1080" width="1920">
+                <tr>
+                    <td>fricton</td>
+                    <td>
+                        <input type="range" name="fricton" class="options" min="1" max="100" step="1" value="10">
+                    </td>
+                    <td>
+                        <label for="fricton" class="option-value option-fricton" data-unit="%">10</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Scrolling fricton, a percentage value within (1, 100)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>inflection</td>
+                    <td>
+                        <input type="range" name="inflection" class="options" min="10" max="100" step="1" value="10">
+                    </td>
+                    <td>
+                        <label for="inflection" class="option-value option-inflection">10</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>When scrolling speed is lower than infleciton point, sensitivity will be scaled to 10x. </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>sensitivity</td>
+                    <td>
+                        <input type="range" name="sensitivity" class="options" min="0.1" max="1" step="0.1" value="0.1">
+                    </td>
+                    <td>
+                        <label for="sensitivity" class="option-value option-sensitivity">0.1</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Wheel sensitivity, lower is accurate.</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </header>
+
+    <aside id="monitor">
+        <h4>Scrollbar Monitor</h4>
+        <div class="controller">
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <input type="range" id="duration" min="1" max="20" step="1" value="5">
+                  </td>
+                  <td><label for="duration" id="duration-value">5s</label></td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label>
+                      <input type="radio" name="chartType" class="chart-type" value="offset" checked>
+                      offset
+                    </label>
+                    <label><input type="radio" name="chartType" class="chart-type" value="speed">
+                      speed
+                    </label>
+                  </td>
+                  <td><button id="reset">reset</button></td>
+                </tr>
+              </tbody>
+            </table>
+
+        </div>
+        <canvas id="chart"></canvas>
+        <footer id="track">
+            <div id="thumb"></div>
+        </footer>
+    </aside>
+
+    <article id="content" data-scrollbar>
+        <section class="inner-scrollbar" data-scrollbar>
+            <img src="images/your_diary.jpg" height="1080" width="1920">
         </section>
-    </article>
-
-    <article>
-        <h3>Get Data With 10x Infinite Scroll</h3>
-        <header>
-            <span>offset.x: <em id="x">0.00</em></span>
-            <span>offset.y: <em id="y">0.00</em></span>
-            <span>infinite scroll: <em id="status">pending...</em></span>
-        </header>
-        <section class="scroll" id="infinite" data-scrollbar>
-            <img src="your_diary.jpg" height="1080" width="1920">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam, accusamus laudantium nostrum minima possimus optio voluptates id dignissimos, libero voluptas nesciunt. Consequatur deleniti corporis recusandae nesciunt. Maiores dignissimos praesentium tempore.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam, accusamus laudantium nostrum minima possimus optio voluptates id dignissimos, libero voluptas nesciunt. Consequatur deleniti corporis recusandae nesciunt. Maiores dignissimos praesentium tempore.</p>
-        </section>
-    </article>
-
-    <article>
-        <h3>Nest Scrollbar</h3>
-        <section class="scroll" id="nest" scrollbar>
-            <img src="your_diary.jpg" height="1080" width="1920">
-            <scrollbar class="scroll inner">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste voluptates esse, repellat soluta, quaerat vero omnis perferendis, est libero earum, consectetur excepturi. Autem quos cum facere, in eveniet deserunt quas.</p>
-                <p>Placeat laboriosam quae, voluptas veritatis facilis hic sapiente voluptatibus illo, laborum non itaque iste. Nisi ab laboriosam repellendus ipsa architecto quos molestias consequuntur! Autem optio sed hic adipisci dignissimos soluta.</p>
-                <p>Labore sint quasi tempore debitis saepe, dolore laboriosam eveniet quos nam ab molestiae sapiente voluptate exercitationem sed sequi inventore, error reiciendis deleniti optio rem, soluta temporibus officia quo nemo. Voluptatibus.</p>
-                <p>Tempore doloremque, quis deserunt rem. Maiores asperiores vel facilis rerum. Fuga officiis et debitis adipisci quidem ipsum unde, commodi, sequi illum tenetur dicta culpa rerum accusantium consequuntur delectus sint quibusdam!</p>
-                <p>Vel pariatur tempore voluptatum doloremque officiis esse nostrum ipsum aperiam, a fugiat sint quae magni ipsam reprehenderit! Voluptas facilis, numquam fuga modi dolore, consequuntur corrupti, nisi et accusamus earum provident!</p>
-                <p>Dolorem, eius nostrum, error tempora deleniti pariatur earum, harum numquam dicta voluptas placeat quis non corporis, at magnam facere sunt beatae vitae veniam. Mollitia suscipit earum dignissimos praesentium accusantium placeat.</p>
-                <p>Laborum aperiam quod autem fugit ullam, facilis error officia quia numquam ducimus, minima eaque perferendis eveniet voluptates rerum iste illo itaque quos quo deserunt nesciunt delectus dicta cupiditate. Facilis, doloribus.</p>
-                <p>Minus at magni harum dolore qui ea excepturi cumque esse porro voluptatem rerum nostrum iusto, reiciendis facilis dolor sapiente perferendis. Consectetur placeat odio quasi qui ducimus, numquam? Reiciendis, distinctio, quo.</p>
-                <p>Quod numquam molestias odio eaque a, placeat nobis quasi, nihil voluptatum vero voluptas eligendi molestiae in alias minima ut adipisci officia provident ratione autem, facilis tenetur ad? Tempora, distinctio, dolor.</p>
-                <p>Repellat voluptate, velit saepe natus. Quia soluta est consectetur, sunt tempore voluptatibus ut adipisci iusto labore obcaecati amet quisquam numquam nostrum quod nam a commodi, nemo ea harum neque voluptatum.</p>
-            </scrollbar>
-        </section>
-    </article>
-
-    <article>
-        <h3>Work with <a href="https://github.com/RubaXa/Sortable" target="_blank">Sortable</a></h3>
-        <scrollbar id="sortable">
-            <ul>
-                <li>item 1</li>
-                <li>item 2</li>
-                <li>item 3</li>
-                <li>item 4</li>
-                <li>item 5</li>
-                <li>item 6</li>
-                <li>item 7</li>
-                <li>item 8</li>
-                <li>item 9</li>
-                <li>item 10</li>
-                <li>item 11</li>
-                <li>item 12</li>
-                <li>item 13</li>
-                <li>item 14</li>
-                <li>item 15</li>
-                <li>item 16</li>
-                <li>item 17</li>
-                <li>item 18</li>
-                <li>item 19</li>
-                <li>item 20</li>
-                <li>item 21</li>
-                <li>item 22</li>
-                <li>item 23</li>
-                <li>item 24</li>
-                <li>item 25</li>
-                <li>item 26</li>
-                <li>item 27</li>
-                <li>item 28</li>
-                <li>item 29</li>
-                <li>item 30</li>
-            </ul>
-        </scrollbar>
     </article>
 </main>
-
-<script src="bower_components/Sortable/Sortable.js"></script>
-<script src="build/smooth-scrollbar.js"></script>
-<script src="main.js"></script>
+<script src="build/app.js"></script>
 </body>
 </html>

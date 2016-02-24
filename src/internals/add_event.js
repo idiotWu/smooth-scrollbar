@@ -12,19 +12,10 @@ function __addEvent(elem, events, fn) {
         throw new TypeError(`expect elem to be a DOM element, but got ${elem}`);
     }
 
-    let handler = fn;
-
-    if (!this.eventPropagation) {
-        handler = (e, ...args) => {
-            e.stopPropagation();
-            fn(e, ...args);
-        };
-    }
-
     events.split(/\s+/g).forEach((evt) => {
-        this.__handlers.push({ evt, elem, handler });
+        this.__handlers.push({ evt, elem, fn });
 
-        elem.addEventListener(evt, handler);
+        elem.addEventListener(evt, fn);
     });
 };
 

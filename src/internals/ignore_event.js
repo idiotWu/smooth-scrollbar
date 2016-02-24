@@ -13,7 +13,7 @@ function __ignoreEvent(evt = {}) {
 
     if (!target || target === window || !this.children) return false;
 
-    return evt.defaultPrevented ||
+    return (!evt.type.match(/drag/) && evt.defaultPrevented)||
         this.children.some((sb) => sb.contains(target));
 };
 

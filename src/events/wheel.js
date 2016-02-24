@@ -20,17 +20,24 @@ const WHEEL_EVENT = 'onwheel' in window ? 'wheel' : 'mousewheel';
  *
  * @return {Function}: event handler
  */
-let __wheelHandler = function({ speed, stepLength }) {
-    let { container } = this.targets;
+let __wheelHandler = function() {
+    const { container } = this.targets;
+
+    let lastUpdateTime = Date.now();
 
     this.__addEvent(container, WHEEL_EVENT, (evt) => {
         if (evt.defaultPrevented) return;
 
-        let { offset, limit } = this;
-        let { x, y } = getDelta(evt);
+        const { offset, limit } = this;
 
-        let destX = pickInRange(x * speed * stepLength + offset.x, 0, limit.x);
-        let destY = pickInRange(y * speed * stepLength + offset.y, 0, limit.y);
+        const now = Date.now();
+        const delta = getDelta(evt);
+        const duration = Math.max(16, now - lastUpdateTime); // at least one frame
+
+        lastUpdateTime = now;
+
+        let destX = pickInRange(delta.x + offset.x, 0, limit.x);
+        let destY = pickInRange(delta.y + offset.y, 0, limit.y);
 
         if (Math.abs(destX - offset.x) < 1 && Math.abs(destY - offset.y) < 1) {
             return this.__updateThrottle();
@@ -39,9 +46,7 @@ let __wheelHandler = function({ speed, stepLength }) {
         evt.preventDefault();
         evt.stopPropagation();
 
-        let duration = 120 * Math.sqrt(Math.max(Math.abs(x), Math.abs(y)));
-
-        this.scrollTo(destX, destY, duration / speed);
+        this.__speedUp(delta.x / duration, delta.y / duration);
     });
 };
 

@@ -18,16 +18,18 @@ export { SmoothScrollbar };
  *
  * @param {Object} option: as is explained in constructor
  */
-function __initScrollbar(options) {
+function __initScrollbar() {
     this.update(); // initialize thumb position
 
-    this.__keyboardHandler(options);
-    this.__resizeHandler(options);
-    this.__selectHandler(options);
-    this.__mouseHandler(options);
-    this.__touchHandler(options);
-    this.__wheelHandler(options);
-    this.__dragHandler(options);
+    this.__keyboardHandler();
+    this.__resizeHandler();
+    this.__selectHandler();
+    this.__mouseHandler();
+    this.__touchHandler();
+    this.__wheelHandler();
+    this.__dragHandler();
+
+    this.__render();
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__initScrollbar', {
