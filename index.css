@@ -142,10 +142,10 @@ main {
   padding: 5px 1em;
 }
 #debug td:nth-child(1) {
-  width: 100px;
+  width: 20%;
 }
 #debug td:nth-child(2) {
-  width: 300px;
+  width: 60%;
 }
 #content {
   margin-top: 20px;
