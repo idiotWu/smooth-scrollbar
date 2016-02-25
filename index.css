@@ -121,6 +121,10 @@ main {
   height: 150px;
   border: 1px solid #ccc;
   margin: 0 1em;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 250px;
+      -ms-flex: 0 0 250px;
+          flex: 0 0 250px;
 }
 #debug table {
   width: 100%;
@@ -138,10 +142,10 @@ main {
   padding: 5px 1em;
 }
 #debug td:nth-child(1) {
-  width: 10em;
+  width: 100px;
 }
 #debug td:nth-child(2) {
-  width: 20em;
+  width: 300px;
 }
 #content {
   margin-top: 20px;
