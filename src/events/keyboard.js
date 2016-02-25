@@ -49,7 +49,7 @@ let __keyboardHandler = function() {
         const { speed } = this.options;
         const [x, y] = KEYMAPS[keyCode];
 
-        this.__speedUp(x * speed * 10, y * speed * 10);
+        this.__addMovement(x * 40, y * 40);
     });
 };
 
