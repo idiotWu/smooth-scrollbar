@@ -10,9 +10,9 @@ export { SmoothScrollbar };
 function nextTick(options, current, movement) {
     const { fricton } = options;
 
-    let q = fricton / 100;
-    let next = current + movement * q;
-    let remain = movement * (1 - q);
+    let q = 1 - fricton / 100;
+    let next = current + movement * (1 - q);
+    let remain = movement * q;
 
     if (Math.abs(remain) < 1) {
         remain = 0;
