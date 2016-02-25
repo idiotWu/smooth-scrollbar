@@ -35,7 +35,7 @@ function render() {
     ctx.beginPath();
     ctx.moveTo(0, 0);
 
-    let scaleX = Math.max(size.width / dots.length, 1);
+    let scaleX = (size.width / dots.length) * (options.speed / 20 + 0.5);
     dots.forEach(([x, y]) => {
         ctx.lineTo(x * scaleX, y);
     });
@@ -66,7 +66,7 @@ function calcDots() {
     let dots = [];
 
     let x = 0;
-    let y = Math.sin(speed / 20 * Math.PI) * size.height;
+    let y = (speed / 20 + 0.5) * size.height;
 
     while(y > 0.1) {
         dots.push([x, y]);

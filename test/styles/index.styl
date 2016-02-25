@@ -17,15 +17,8 @@ main
   display: flex
   flex-flow: column
 
-h1
-  text-align: center
-  margin: 0
-  padding: 0.5em 0
-  background: #abc
-  color: #fff
-
 #debug
-  margin: 1em 0
+  margin-top: 1em
   display: flex
   flex: 0 0 auto
   align-items: center
@@ -37,11 +30,19 @@ h1
     border: 1px solid #ccc
     margin: 0 1em
 
+  table
+    width: 100%
+    border-collapse: collapse
+
+    input
+      width: 100%
+
   tr:nth-child(even)
     background: #f8f8f8
     font-size: 12px
 
   td
+    padding: 5px 1em
     &:nth-child(1)
       width: 10em
     &:nth-child(2)
@@ -63,10 +64,6 @@ h4
   text-transform: uppercase
   font-weight: bold
 
-table
-  width: 80%
-  margin: 0 auto
-
 #monitor
   display: flex
   flex-flow: column
@@ -77,6 +74,10 @@ table
   background: #fff
   text-align: center
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8)
+
+  table
+    width: 80%
+    margin: 0 auto
 
 #chart
   width: 300px
