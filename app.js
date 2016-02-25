@@ -4666,7 +4666,7 @@
 	    ctx.beginPath();
 	    ctx.moveTo(0, 0);
 
-	    var scaleX = Math.max(size.width / dots.length, 1);
+	    var scaleX = (size.width / dots.length) * (options.speed / 20 + 0.5);
 	    dots.forEach(function (_ref) {
 	        var _ref2 = _slicedToArray(_ref, 2);
 
