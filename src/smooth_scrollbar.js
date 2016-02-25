@@ -57,7 +57,7 @@ export class SmoothScrollbar {
             x: Infinity,
             y: Infinity
         })
-        .__readonly('velocity', {
+        .__readonly('movement', {
             x: 0,
             y: 0
         })

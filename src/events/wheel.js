@@ -32,21 +32,18 @@ let __wheelHandler = function() {
 
         const now = Date.now();
         const delta = getDelta(evt);
-        const duration = Math.max(16, now - lastUpdateTime); // at least one frame
-
-        lastUpdateTime = now;
 
         let destX = pickInRange(delta.x + offset.x, 0, limit.x);
         let destY = pickInRange(delta.y + offset.y, 0, limit.y);
 
-        if (Math.abs(destX - offset.x) < 1 && Math.abs(destY - offset.y) < 1) {
+        if (destX === offset.x && destY === offset.y) {
             return this.__updateThrottle();
         }
 
         evt.preventDefault();
         evt.stopPropagation();
 
-        this.__speedUp(delta.x / duration, delta.y / duration);
+        this.__addMovement(delta.x, delta.y);
     });
 };
 

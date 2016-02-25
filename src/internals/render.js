@@ -7,55 +7,38 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
 
-function nextTick(options, curPos, curV) {
-    const {
-        fricton,
-        inflection,
-        sensitivity
-    } = options;
+function nextTick(options, current, movement) {
+    const { fricton } = options;
 
-    let reduceAmout = curV / Math.abs(curV) * sensitivity || 0;
+    let q = fricton / 100;
+    let next = current + movement * q;
+    let remain = movement * (1 - q);
 
-    if (Math.abs(curV) <= inflection) {
-        // slow down
-        reduceAmout /= 10;
-    }
-
-    let nextV = curV * (1 - fricton / 100) - reduceAmout;
-    let nextPos = curPos + curV;
-
-    if (curV * nextV < 0) {
-        // stop at integer position
-        if (curV > nextV) {
-            nextPos = Math.ceil(nextPos);
-        } else {
-            nextPos = Math.floor(nextPos);
-        }
-
-        nextV = 0;
+    if (Math.abs(remain) < 1) {
+        remain = 0;
+        next = current > next ? Math.ceil(next) : Math.floor(next); // stop at integer position
     }
 
     return {
-        position: nextPos,
-        velocity: nextV
+        position: next,
+        movement: remain
     };
 };
-
 
 function __render() {
     const {
         options,
         offset,
-        velocity,
+        movement,
         __timerID
     } = this;
 
-    if (velocity.x || velocity.y) {
-        let nextX = nextTick(options, offset.x, velocity.x);
-        let nextY = nextTick(options, offset.y, velocity.y);
+    if (movement.x || movement.y) {
+        let nextX = nextTick(options, offset.x, movement.x);
+        let nextY = nextTick(options, offset.y, movement.y);
 
-        velocity.x = nextX.velocity;
-        velocity.y = nextY.velocity;
+        movement.x = nextX.movement;
+        movement.y = nextY.movement;
 
         this.setPosition(nextX.position, nextY.position);
     }

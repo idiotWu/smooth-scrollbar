@@ -31,9 +31,7 @@
     let scroll = ({ x, y }) => {
         if (!x && !y) return;
 
-        const { speed } = this.options;
-
-        this.__speedUp(x * speed * 2, y * speed * 2);
+        this.__addMovement(x, y);
 
         animation = setTimeout(() => {
             scroll({ x, y });

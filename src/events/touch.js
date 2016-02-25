@@ -13,6 +13,8 @@ import {
 
 export { SmoothScrollbar };
 
+const EASING_DURATION = navigator.userAgent.match(/android/i) ? 1500 : 750;
+
 /**
  * @method
  * @internal
@@ -40,7 +42,7 @@ let __touchHandler = function() {
     this.__addEvent(container, 'touchstart', (evt) => {
         if (this.__isDrag) return;
 
-        const { velocity } = this;
+        const { movement } = this;
 
         updateRecords(evt);
 
@@ -48,8 +50,9 @@ let __touchHandler = function() {
         lastTouchID = getTouchID(evt);
         lastTouchPos = getPosition(evt);
 
-        // reset velocity
-        velocity.x = velocity.y = moveVelocity.x = moveVelocity.y = 0;
+        // stop scrolling
+        movement.x = movement.y = 0;
+        moveVelocity.x = moveVelocity.y = 0;
     });
 
     this.__addEvent(container, 'touchmove', (evt) => {
@@ -104,7 +107,7 @@ let __touchHandler = function() {
 
         let { x, y } = moveVelocity;
 
-        this.__speedUp(x * 100, y * 100);
+        this.__addMovement(x * EASING_DURATION, y * EASING_DURATION);
 
         moveVelocity.x = moveVelocity.y = 0;
     });

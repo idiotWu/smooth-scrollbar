@@ -20,15 +20,15 @@ function __getOverflowDir(evt, edge = 0) {
     if (x === 0 && y === 0) return res;
 
     if (x > right - edge) {
-        res.x = (x - right + edge) / 100;
+        res.x = (x - right + edge);
     } else if (x < left + edge) {
-        res.x = (x - left - edge) / 100;
+        res.x = (x - left - edge);
     }
 
     if (y > bottom - edge) {
-        res.y = (y - bottom + edge) / 100;
+        res.y = (y - bottom + edge);
     } else if (y < top + edge) {
-        res.y = (y - top - edge) / 100;
+        res.y = (y - top - edge);
     }
 
     return res;
