@@ -1,11 +1,11 @@
 {
   "name": "smooth-scrollbar",
-  "version": "1.4.4",
+  "version": "3.0.0",
   "description": "Customize scrollbar in modern browsers with smooth scrolling experience.",
   "main": "dist/smooth-scrollbar.js",
   "style": "dist/smooth-scrollbar.css",
   "scripts": {
-    "test": "gulp release"
+    "test": "gulp dist"
   },
   "repository": {
     "type": "git",

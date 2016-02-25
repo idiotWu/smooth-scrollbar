@@ -3,7 +3,7 @@ scrollbar,
 [data-scrollbar] {
   display: block;
   position: relative;
-  overflow: hidden;
+  overflow: scroll;
 }
 scrollbar .scroll-content,
 [scrollbar] .scroll-content,
