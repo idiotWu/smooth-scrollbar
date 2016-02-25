@@ -74,7 +74,7 @@ gulp.task('scripts:dist', function() {
         .pipe(compile(false))
         .pipe(replace(/<%= version %>/, getVersion()))
         .pipe(uglify())
-        .pipe(gulp.dest('build/'));
+        .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('styles:build', function() {
@@ -86,7 +86,7 @@ gulp.task('styles:build', function() {
 });
 
 gulp.task('styles:dist', function() {
-    return gulp.src('src/**/*.styl')
+    return gulp.src('src/style/*.styl')
         .pipe(stylus())
         .pipe(autoprefixer('> 1%, last 2 versions, Firefox ESR, Opera 12.1, ie >= 10'))
         .pipe(gulp.dest('dist/'));
