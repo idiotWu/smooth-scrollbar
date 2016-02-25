@@ -2,6 +2,7 @@ export * from './debounce';
 export * from './set_style';
 export * from './get_delta';
 export * from './find_child';
+export * from './build_curve';
 export * from './get_touch_id';
 export * from './get_position';
 export * from './pick_in_range';

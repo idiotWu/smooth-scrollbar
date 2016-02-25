@@ -3,7 +3,7 @@
  * @prototype {Function} scrollTo
  */
 
-import { pickInRange } from '../utils/index';
+import { pickInRange, buildCurve } from '../utils/index';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
@@ -30,14 +30,19 @@ SmoothScrollbar.prototype.scrollTo = function(x = this.offset.x, y = this.offset
     cancelAnimationFrame(__timerID.scrollTo);
     cb = typeof cb === 'function' ? cb : () => {};
 
-    const disX = pickInRange(x, 0, limit.x) - offset.x;
-    const disY = pickInRange(y, 0, limit.y) - offset.y;
+    const startX = offset.x;
+    const startY = offset.y;
 
-    let frameCount = (disX || disY) && duration / 1000 * 60;
-    let eachX = disX / frameCount, eachY = disY / frameCount;
+    const disX = pickInRange(x, 0, limit.x) - startX;
+    const disY = pickInRange(y, 0, limit.y) - startY;
+
+    const curveX = buildCurve(disX, duration);
+    const curveY = buildCurve(disY, duration);
+
+    let frame = 0, totalFrame = curveX.length;
 
     let scroll = () => {
-        if (!frameCount) {
+        if (frame === totalFrame) {
             this.setPosition(x, y);
 
             return requestAnimationFrame(() => {
@@ -45,12 +50,9 @@ SmoothScrollbar.prototype.scrollTo = function(x = this.offset.x, y = this.offset
             });
         }
 
-        this.setPosition(
-            offset.x + eachX,
-            offset.y + eachY
-        );
+        this.setPosition(startX + curveX[frame], startY + curveY[frame]);
 
-        frameCount--;
+        frame++;
 
         __timerID.scrollTo = requestAnimationFrame(scroll);
     };
