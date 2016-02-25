@@ -105,8 +105,6 @@ Or you can call `Scrollbar.init(elem, options)` to manually init the scrollbar.
 | :--------: | :--: | :-----: | :----------: |
 | speed | Number | 1 | Scrolling speed scale.|
 | fricton | Number | 10 | Scrolling fricton, a percentage value within (1, 100) |
-| inflection | Number | 10 | When scrolling speed is lower than infleciton point, sensitivity will be scaled to 10x. |
-| sensitivity | Number | 0.1 | Wheel sensitivity, lower is accurate. |
 
 Confusing with the option field? Try editor tool [here](http://idiotwu.github.io/smooth-scrollbar/)!
 
@@ -163,10 +161,23 @@ Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Work-with-RubaXa
 ## Related
 
 - [angular-smooth-scrollbar](https://github.com/idiotWu/angular-smooth-scrollbar)
+- [react-smooth-scrollbar](https://github.com/idiotWu/react-smooth-scrollbar)
 
-## Todo
+## Changelog
 
-1. text selection with scrolling on touch screens.
+### 4.0.0
+
+- Movement based scrolling algrithm.
+- Reduce options, simple is better :)
+
+### 3.1.0
+
+- Use quadratic curve to perform `scrollTo` method.
+
+### 3.0.0
+
+- New easing algrithm.
+- Dependencies free!
 
 ## License
 
