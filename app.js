@@ -45,9 +45,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	__webpack_require__(1);
-	
+
 	__webpack_require__(138);
 
 /***/ },
@@ -55,60 +55,60 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	var _Object$keys = __webpack_require__(2)['default'];
-	
+
 	var _interopRequireDefault = __webpack_require__(14)['default'];
-	
+
 	var _src = __webpack_require__(15);
-	
+
 	var _src2 = _interopRequireDefault(_src);
-	
+
 	var DPR = window.devicePixelRatio;
 	var TIME_RANGE_MAX = 20 * 1e3;
-	
+
 	var content = document.getElementById('content');
 	var thumb = document.getElementById('thumb');
 	var track = document.getElementById('track');
 	var canvas = document.getElementById('chart');
 	var ctx = canvas.getContext('2d');
-	
+
 	var div = document.createElement('div');
-	div.innerHTML = '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita eaque debitis, dolorem doloribus, voluptatibus minima illo est, atque aliquid ipsum necessitatibus cumque veritatis beatae, ratione repudiandae quos! Omnis hic, animi.</p>'.repeat(100);
-	
+	div.innerHTML = Array(100).join('<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita eaque debitis, dolorem doloribus, voluptatibus minima illo est, atque aliquid ipsum necessitatibus cumque veritatis beatae, ratione repudiandae quos! Omnis hic, animi.</p>');
+
 	content.appendChild(div);
-	
+
 	_src2['default'].initAll();
-	
+
 	var scrollbar = _src2['default'].get(content);
-	
+
 	var chartType = 'offset';
-	
+
 	var thumbWidth = 0;
 	var endOffset = 0;
-	
+
 	var timeRange = 5 * 1e3;
-	
+
 	var records = [];
 	var size = {
 	    width: 300,
 	    height: 200
 	};
-	
+
 	var shouldUpdate = true;
-	
+
 	var tangentPoint = null;
 	var tangentPointPre = null;
-	
+
 	var hoverLocked = false;
 	var hoverPointerX = undefined;
 	var pointerDownOnTrack = undefined;
 	var hoverPrecision = 'ontouchstart' in document ? 5 : 1;
-	
+
 	canvas.width = size.width * DPR;
 	canvas.height = size.height * DPR;
 	ctx.scale(DPR, DPR);
-	
+
 	function addEvent(elems, evts, handler) {
 	    evts.split(/\s+/).forEach(function (name) {
 	        [].concat(elems).forEach(function (el) {
@@ -119,31 +119,31 @@
 	        });
 	    });
 	};
-	
+
 	function sliceRecord() {
 	    var source = records;
 	    var endIdx = Math.floor(source.length * (1 - endOffset));
 	    var start = source[0];
 	    var end = source[endIdx - 1];
-	
+
 	    var result = source.filter(function (pt, idx) {
 	        var d = end.time - pt.time;
-	
+
 	        if (d > TIME_RANGE_MAX) {
 	            records.shift();
 	        }
-	
+
 	        return d <= timeRange && idx <= endIdx;
 	    });
-	
+
 	    thumbWidth = result.length ? result.length / records.length : 1;
-	
+
 	    thumb.style.width = thumbWidth * 100 + '%';
 	    thumb.style.right = endOffset * 100 + '%';
-	
+
 	    return result;
 	};
-	
+
 	function getLimit(points) {
 	    return points.reduce(function (pre, cur) {
 	        var val = cur[chartType];
@@ -153,23 +153,23 @@
 	        };
 	    }, { max: -Infinity, min: Infinity });
 	};
-	
+
 	function assignProps(props) {
 	    if (!props) return;
-	
+
 	    _Object$keys(props).forEach(function (name) {
 	        ctx[name] = props[name];
 	    });
 	};
-	
+
 	function drawLine(p0, p1, options) {
 	    var x0 = p0[0],
 	        y0 = p0[1],
 	        x1 = p1[0],
 	        y1 = p1[1];
-	
+
 	    assignProps(options.props);
-	
+
 	    ctx.save();
 	    ctx.transform(1, 0, 0, -1, 0, size.height);
 	    ctx.beginPath();
@@ -180,13 +180,13 @@
 	    ctx.closePath();
 	    ctx.restore();
 	};
-	
+
 	function adjustText(content, p, options) {
 	    var x = p[0],
 	        y = p[1];
-	
+
 	    var width = ctx.measureText(content).width;
-	
+
 	    if (x + width > size.width) {
 	        ctx.textAlign = 'right';
 	    } else if (x - width < 0) {
@@ -194,79 +194,79 @@
 	    } else {
 	        ctx.textAlign = options.textAlign;
 	    }
-	
+
 	    ctx.fillText(content, x, -y);
 	};
-	
+
 	function fillText(content, p, options) {
 	    assignProps(options.props);
-	
+
 	    ctx.save();
 	    ctx.transform(1, 0, 0, 1, 0, size.height);
 	    adjustText(content, p, options);
 	    ctx.restore();
 	};
-	
+
 	function drawMain() {
 	    var points = sliceRecord();
 	    if (!points.length) return;
-	
+
 	    var limit = getLimit(points);
-	
+
 	    var start = points[0];
 	    var end = points[points.length - 1];
-	
+
 	    var totalX = thumbWidth === 1 ? timeRange : end.time - start.time;
 	    var totalY = limit.max - limit.min || 1;
-	
+
 	    var grd = ctx.createLinearGradient(0, size.height, 0, 0);
 	    grd.addColorStop(0, 'rgb(170, 215, 255)');
 	    grd.addColorStop(1, 'rgba(170, 215, 255, 0.2)');
-	
+
 	    ctx.save();
 	    ctx.transform(1, 0, 0, -1, 0, size.height);
-	
+
 	    ctx.lineWidth = 1;
 	    ctx.fillStyle = grd;
 	    ctx.strokeStyle = 'rgb(64, 165, 255)';
 	    ctx.beginPath();
 	    ctx.moveTo(0, 0);
-	
+
 	    var lastPoint = points.reduce(function (pre, cur, idx) {
 	        var time = cur.time,
 	            value = cur[chartType];
 	        var x = (time - start.time) / totalX * size.width,
 	            y = (value - limit.min) / totalY * (size.height - 20);
-	
+
 	        ctx.lineTo(x, y);
-	
+
 	        if (hoverPointerX && Math.abs(hoverPointerX - x) < hoverPrecision) {
 	            tangentPoint = {
 	                coord: [x, y],
 	                point: cur
 	            };
-	
+
 	            tangentPointPre = {
 	                coord: pre,
 	                point: points[idx - 1]
 	            };
 	        }
-	
+
 	        return [x, y];
 	    }, []);
-	
+
 	    ctx.stroke();
 	    ctx.lineTo(lastPoint[0], 0);
 	    ctx.fill();
 	    ctx.closePath();
 	    ctx.restore();
-	
+
 	    drawLine([0, lastPoint[1]], lastPoint, {
 	        props: {
 	            strokeStyle: '#f60'
 	        }
 	    });
-	
+
 	    fillText('↙' + limit.min.toFixed(2), [0, 0], {
 	        props: {
 	            fillStyle: '#000',
@@ -284,21 +284,21 @@
 	        }
 	    });
 	};
-	
+
 	function drawTangentLine() {
 	    var coord = tangentPoint.coord,
 	        coordPre = tangentPointPre.coord;
-	
+
 	    var k = (coord[1] - coordPre[1]) / (coord[0] - coordPre[0]) || 0;
 	    var b = coord[1] - k * coord[0];
-	
+
 	    drawLine([0, b], [size.width, k * size.width + b], {
 	        props: {
 	            lineWidth: 1,
 	            strokeStyle: '#f00'
 	        }
 	    });
-	
+
 	    fillText('k: ' + k.toFixed(2), [size.width / 2, 0], {
 	        props: {
 	            fillStyle: '#f00',
@@ -308,15 +308,15 @@
 	        }
 	    });
 	};
-	
+
 	function drawHover() {
 	    if (!tangentPoint) return;
-	
+
 	    drawTangentLine();
-	
+
 	    var coord = tangentPoint.coord,
 	        point = tangentPoint.point;
-	
+
 	    var coordStyle = {
 	        dashed: [8, 4],
 	        props: {
@@ -324,14 +324,14 @@
 	            strokeStyle: 'rgb(64, 165, 255)'
 	        }
 	    };
-	
+
 	    drawLine([0, coord[1]], [size.width, coord[1]], coordStyle);
 	    drawLine([coord[0], 0], [coord[0], size.height], coordStyle);
-	
+
 	    var date = new Date(point.time + point.reduce);
-	
+
 	    var pointInfo = ['(', date.getMinutes(), ':', date.getSeconds(), '.', date.getMilliseconds(), ', ', point[chartType].toFixed(2), ')'].join('');
-	
+
 	    fillText(pointInfo, coord, {
 	        props: {
 	            fillStyle: '#000',
@@ -341,13 +341,13 @@
 	        }
 	    });
 	};
-	
+
 	function render() {
 	    if (!shouldUpdate) return requestAnimationFrame(render);
-	
+
 	    ctx.save();
 	    ctx.clearRect(0, 0, size.width, size.height);
-	
+
 	    fillText(chartType.toUpperCase(), [0, size.height], {
 	        props: {
 	            fillStyle: '#f00',
@@ -356,10 +356,10 @@
 	            font: 'bold 14px sans-serif'
 	        }
 	    });
-	
+
 	    drawMain();
 	    drawHover();
-	
+
 	    if (hoverLocked) {
 	        fillText('LOCKED', [size.width, size.height], {
 	            props: {
@@ -370,49 +370,49 @@
 	            }
 	        });
 	    }
-	
+
 	    ctx.restore();
-	
+
 	    shouldUpdate = false;
-	
+
 	    requestAnimationFrame(render);
 	};
-	
+
 	requestAnimationFrame(render);
-	
+
 	var lastTime = Date.now(),
 	    lastOffset = 0,
 	    reduceAmount = 0;
-	
+
 	scrollbar.addListener(function () {
 	    var current = Date.now(),
 	        offset = scrollbar.offset.y,
 	        duration = current - lastTime,
 	        velocity = (offset - lastOffset) / duration;
-	
+
 	    if (!duration || offset === lastOffset) return;
-	
+
 	    if (duration > 50) {
 	        reduceAmount += duration - 1;
 	    }
-	
+
 	    lastTime = current;
 	    lastOffset = offset;
-	
+
 	    records.push({
 	        time: current - reduceAmount,
 	        reduce: reduceAmount,
 	        offset: offset,
 	        speed: Math.abs(velocity)
 	    });
-	
+
 	    shouldUpdate = true;
 	});
-	
+
 	function getPointer(e) {
 	    return e.touches ? e.touches[e.touches.length - 1] : e;
 	};
-	
+
 	// range
 	var input = document.getElementById('duration');
 	var label = document.getElementById('duration-value');
@@ -420,14 +420,14 @@
 	input.min = 1;
 	input.value = timeRange / 1e3;
 	label.textContent = input.value + 's';
-	
+
 	addEvent(input, 'input', function (e) {
 	    var val = parseFloat(e.target.value);
 	    label.textContent = val + 's';
 	    timeRange = val * 1e3;
 	    endOffset = 0;
 	});
-	
+
 	addEvent(document.getElementById('reset'), 'click', function () {
 	    records.length = endOffset = reduceAmount = 0;
 	    hoverLocked = false;
@@ -436,64 +436,64 @@
 	    tangentPointPre = null;
 	    sliceRecord();
 	});
-	
+
 	// hover
 	addEvent(canvas, 'mousemove touchmove', function (e) {
 	    if (hoverLocked || pointerDownOnTrack) return;
-	
+
 	    var pointer = getPointer(e);
-	
+
 	    hoverPointerX = pointer.clientX - canvas.getBoundingClientRect().left;
 	});
-	
+
 	function resetHover() {
 	    hoverPointerX = 0;
 	    tangentPoint = null;
 	    tangentPointPre = null;
 	};
-	
+
 	addEvent([canvas, window], 'mouseleave touchend', function () {
 	    if (hoverLocked) return;
 	    resetHover();
 	});
-	
+
 	addEvent(canvas, 'click', function () {
 	    hoverLocked = !hoverLocked;
-	
+
 	    if (!hoverLocked) resetHover();
 	});
-	
+
 	// track
 	addEvent(thumb, 'mousedown touchstart', function (e) {
 	    var pointer = getPointer(e);
 	    pointerDownOnTrack = pointer.clientX;
 	});
-	
+
 	addEvent(window, 'mousemove touchmove', function (e) {
 	    if (!pointerDownOnTrack) return;
-	
+
 	    var pointer = getPointer(e);
 	    var moved = (pointer.clientX - pointerDownOnTrack) / size.width;
-	
+
 	    pointerDownOnTrack = pointer.clientX;
 	    endOffset = Math.min(1 - thumbWidth, Math.max(0, endOffset - moved));
 	});
-	
+
 	addEvent(window, 'mouseup touchend blur', function (e) {
 	    pointerDownOnTrack = undefined;
 	});
-	
+
 	addEvent(thumb, 'click touchstart', function (e) {
 	    e.stopPropagation();
 	});
-	
+
 	addEvent(track, 'click touchstart', function (e) {
 	    var pointer = getPointer(e);
 	    var rect = track.getBoundingClientRect();
 	    var offset = (pointer.clientX - rect.left) / rect.width;
 	    endOffset = Math.min(1 - thumbWidth, Math.max(0, 1 - (offset + thumbWidth / 2)));
 	});
-	
+
 	// switch chart
 	addEvent([].slice.call(document.querySelectorAll('.chart-type')), 'change', function () {
 	    if (this.checked) {
@@ -520,7 +520,7 @@
 
 	// 19.1.2.14 Object.keys(O)
 	var toObject = __webpack_require__(5);
-	
+
 	__webpack_require__(7)('keys', function($keys){
 	  return function keys(it){
 	    return $keys(toObject(it));
@@ -570,7 +570,7 @@
 	  , core      = __webpack_require__(10)
 	  , ctx       = __webpack_require__(11)
 	  , PROTOTYPE = 'prototype';
-	
+
 	var $export = function(type, name, source){
 	  var IS_FORCED = type & $export.F
 	    , IS_GLOBAL = type & $export.G
@@ -680,13 +680,13 @@
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	exports["default"] = function (obj) {
 	  return obj && obj.__esModule ? obj : {
 	    "default": obj
 	  };
 	};
-	
+
 	exports.__esModule = true;
 
 /***/ },
@@ -694,27 +694,27 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	var _toConsumableArray = __webpack_require__(16)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	var _shared = __webpack_require__(101);
-	
+
 	__webpack_require__(103);
-	
+
 	__webpack_require__(115);
-	
+
 	__webpack_require__(127);
-	
+
 	exports['default'] = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	_smooth_scrollbar.SmoothScrollbar.version = '1.4.4';
-	
+
 	/**
 	 * init scrollbar on given element
 	 *
@@ -727,30 +727,30 @@
 	    if (!elem || elem.nodeType !== 1) {
 	        throw new TypeError('expect element to be DOM Element, but got ' + typeof elem);
 	    }
-	
+
 	    if (_shared.sbList.has(elem)) return _shared.sbList.get(elem);
-	
+
 	    elem.setAttribute('data-scrollbar', '');
-	
+
 	    var children = [].concat(_toConsumableArray(elem.children));
-	
+
 	    var div = document.createElement('div');
-	
+
 	    div.innerHTML = '\n        <article class="scroll-content"></article>\n        <aside class="scrollbar-track scrollbar-track-x">\n            <div class="scrollbar-thumb scrollbar-thumb-x"></div>\n        </aside>\n        <aside class="scrollbar-track scrollbar-track-y">\n            <div class="scrollbar-thumb scrollbar-thumb-y"></div>\n        </aside>\n    ';
-	
+
 	    var scrollContent = div.querySelector('.scroll-content');
-	
+
 	    [].concat(_toConsumableArray(div.children)).forEach(function (el) {
 	        return elem.appendChild(el);
 	    });
-	
+
 	    children.forEach(function (el) {
 	        return scrollContent.appendChild(el);
 	    });
-	
+
 	    return new _smooth_scrollbar.SmoothScrollbar(elem, options);
 	};
-	
+
 	/**
 	 * init scrollbars on pre-defined selectors
 	 *
@@ -763,7 +763,7 @@
 	        return _smooth_scrollbar.SmoothScrollbar.init(el, options);
 	    });
 	};
-	
+
 	/**
 	 * check if scrollbar exists on given element
 	 *
@@ -772,7 +772,7 @@
 	_smooth_scrollbar.SmoothScrollbar.has = function (elem) {
 	    return _shared.sbList.has(elem);
 	};
-	
+
 	/**
 	 * get scrollbar instance through given element
 	 *
@@ -783,7 +783,7 @@
 	_smooth_scrollbar.SmoothScrollbar.get = function (elem) {
 	    return _shared.sbList.get(elem);
 	};
-	
+
 	/**
 	 * get all scrollbar instances
 	 *
@@ -792,7 +792,7 @@
 	_smooth_scrollbar.SmoothScrollbar.getAll = function () {
 	    return [].concat(_toConsumableArray(_shared.sbList.values()));
 	};
-	
+
 	/**
 	 * destroy scrollbar on given element
 	 *
@@ -801,7 +801,7 @@
 	_smooth_scrollbar.SmoothScrollbar.destroy = function (elem) {
 	    return _smooth_scrollbar.SmoothScrollbar.has(elem) && _smooth_scrollbar.SmoothScrollbar.get(elem).destroy();
 	};
-	
+
 	/**
 	 * destroy all scrollbars in scrollbar instances
 	 */
@@ -817,19 +817,19 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	var _Array$from = __webpack_require__(17)["default"];
-	
+
 	exports["default"] = function (arr) {
 	  if (Array.isArray(arr)) {
 	    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-	
+
 	    return arr2;
 	  } else {
 	    return _Array$from(arr);
 	  }
 	};
-	
+
 	exports.__esModule = true;
 
 /***/ },
@@ -852,7 +852,7 @@
 
 	'use strict';
 	var $at  = __webpack_require__(20)(true);
-	
+
 	// 21.1.3.27 String.prototype[@@iterator]()
 	__webpack_require__(22)(String, 'String', function(iterated){
 	  this._t = String(iterated); // target
@@ -920,9 +920,9 @@
 	  , FF_ITERATOR    = '@@iterator'
 	  , KEYS           = 'keys'
 	  , VALUES         = 'values';
-	
+
 	var returnThis = function(){ return this; };
-	
+
 	module.exports = function(Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED){
 	  $iterCreate(Constructor, NAME, next);
 	  var getMethod = function(kind){
@@ -1061,10 +1061,10 @@
 	  , descriptor     = __webpack_require__(27)
 	  , setToStringTag = __webpack_require__(32)
 	  , IteratorPrototype = {};
-	
+
 	// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
 	__webpack_require__(25)(IteratorPrototype, __webpack_require__(33)('iterator'), function(){ return this; });
-	
+
 	module.exports = function(Constructor, NAME, next){
 	  Constructor.prototype = $.create(IteratorPrototype, {next: descriptor(1, next)});
 	  setToStringTag(Constructor, NAME + ' Iterator');
@@ -1077,7 +1077,7 @@
 	var def = __webpack_require__(26).setDesc
 	  , has = __webpack_require__(29)
 	  , TAG = __webpack_require__(33)('toStringTag');
-	
+
 	module.exports = function(it, tag, stat){
 	  if(it && !has(it = stat ? it : it.prototype, TAG))def(it, TAG, {configurable: true, value: tag});
 	};
@@ -1200,7 +1200,7 @@
 	var Iterators  = __webpack_require__(30)
 	  , ITERATOR   = __webpack_require__(33)('iterator')
 	  , ArrayProto = Array.prototype;
-	
+
 	module.exports = function(it){
 	  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
 	};
@@ -1238,7 +1238,7 @@
 	  , TAG = __webpack_require__(33)('toStringTag')
 	  // ES3 wrong here
 	  , ARG = cof(function(){ return arguments; }()) == 'Arguments';
-	
+
 	module.exports = function(it){
 	  var O, T, B;
 	  return it === undefined ? 'Undefined' : it === null ? 'Null'
@@ -1255,7 +1255,7 @@
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
-	
+
 	module.exports = function(it){
 	  return toString.call(it).slice(8, -1);
 	};
@@ -1266,13 +1266,13 @@
 
 	var ITERATOR     = __webpack_require__(33)('iterator')
 	  , SAFE_CLOSING = false;
-	
+
 	try {
 	  var riter = [7][ITERATOR]();
 	  riter['return'] = function(){ SAFE_CLOSING = true; };
 	  Array.from(riter, function(){ throw 2; });
 	} catch(e){ /* empty */ }
-	
+
 	module.exports = function(exec, skipClosing){
 	  if(!skipClosing && !SAFE_CLOSING)return false;
 	  var safe = false;
@@ -1294,27 +1294,27 @@
 	 * @module
 	 * @export {Class} SmoothScrollbar
 	 */
-	
+
 	'use strict';
-	
+
 	var _classCallCheck = __webpack_require__(47)['default'];
-	
+
 	var _Object$freeze = __webpack_require__(48)['default'];
-	
+
 	var _Object$assign = __webpack_require__(51)['default'];
-	
+
 	var _Object$defineProperties = __webpack_require__(56)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _options = __webpack_require__(58);
-	
+
 	var _sharedSb_list = __webpack_require__(59);
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	/**
 	 * @constructor
 	 * Create scrollbar instance
@@ -1322,28 +1322,28 @@
 	 * @param {Element} container: target element
 	 * @param {Object} [options]: options
 	 */
-	
+
 	var SmoothScrollbar = function SmoothScrollbar(container) {
 	    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-	
+
 	    _classCallCheck(this, SmoothScrollbar);
-	
+
 	    _sharedSb_list.sbList.set(container, this);
-	
+
 	    // make container focusable
 	    container.setAttribute('tabindex', '1');
-	
+
 	    // reset scroll position
 	    container.scrollTop = container.scrollLeft = 0;
-	
+
 	    (0, _utilsIndex.setStyle)(container, {
 	        overflow: 'hidden',
 	        outline: 'none'
 	    });
-	
+
 	    var trackX = (0, _utilsIndex.findChild)(container, 'scrollbar-track-x');
 	    var trackY = (0, _utilsIndex.findChild)(container, 'scrollbar-track-y');
-	
+
 	    // readonly properties
 	    this.__readonly('targets', _Object$freeze({
 	        container: container,
@@ -1366,7 +1366,7 @@
 	        x: 0,
 	        y: 0
 	    }).__readonly('size', this.getSize()).__readonly('options', _Object$assign({}, _options.DEFAULT_OPTIONS));
-	
+
 	    // non-enmurable properties
 	    _Object$defineProperties(this, {
 	        __updateThrottle: {
@@ -1385,11 +1385,11 @@
 	            value: {}
 	        }
 	    });
-	
+
 	    this.setOptions(options);
 	    this.__initScrollbar();
 	};
-	
+
 	exports.SmoothScrollbar = SmoothScrollbar;
 
 /***/ },
@@ -1397,13 +1397,13 @@
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	exports["default"] = function (instance, Constructor) {
 	  if (!(instance instanceof Constructor)) {
 	    throw new TypeError("Cannot call a class as a function");
 	  }
 	};
-	
+
 	exports.__esModule = true;
 
 /***/ },
@@ -1425,7 +1425,7 @@
 
 	// 19.1.2.5 Object.freeze(O)
 	var isObject = __webpack_require__(39);
-	
+
 	__webpack_require__(7)('freeze', function($freeze){
 	  return function freeze(it){
 	    return $freeze && isObject(it) ? $freeze(it) : it;
@@ -1451,7 +1451,7 @@
 
 	// 19.1.3.1 Object.assign(target, source)
 	var $export = __webpack_require__(8);
-	
+
 	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(54)});
 
 /***/ },
@@ -1462,7 +1462,7 @@
 	var $        = __webpack_require__(26)
 	  , toObject = __webpack_require__(5)
 	  , IObject  = __webpack_require__(55);
-	
+
 	// should work with symbols and should have deterministic property order (V8 bug)
 	module.exports = __webpack_require__(13)(function(){
 	  var a = Object.assign
@@ -1522,7 +1522,7 @@
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -1532,7 +1532,7 @@
 	    inflection: 10, // inflection point
 	    sensitivity: 0.1 // wheel sensitivity, [0.1, 1]
 	};
-	
+
 	exports.DEFAULT_OPTIONS = DEFAULT_OPTIONS;
 	var OPTION_LIMIT = {
 	    fricton: [1, 99],
@@ -1550,18 +1550,18 @@
 	 * @module
 	 * @export {Map} sbList
 	 */
-	
+
 	"use strict";
-	
+
 	var _Map = __webpack_require__(60)["default"];
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	var sbList = new _Map();
-	
+
 	var originSet = sbList.set.bind(sbList);
-	
+
 	sbList.update = function () {
 	    sbList.forEach(function (sb) {
 	        requestAnimationFrame(function () {
@@ -1569,15 +1569,15 @@
 	        });
 	    });
 	};
-	
+
 	// patch #set with #update method
 	sbList.set = function () {
 	    var res = originSet.apply(undefined, arguments);
 	    sbList.update();
-	
+
 	    return res;
 	};
-	
+
 	exports.sbList = sbList;
 
 /***/ },
@@ -1620,7 +1620,7 @@
 	  , step             = __webpack_require__(66)
 	  , Iterators        = __webpack_require__(30)
 	  , toIObject        = __webpack_require__(67);
-	
+
 	// 22.1.3.4 Array.prototype.entries()
 	// 22.1.3.13 Array.prototype.keys()
 	// 22.1.3.29 Array.prototype.values()
@@ -1642,10 +1642,10 @@
 	  if(kind == 'values')return step(0, O[index]);
 	  return step(0, [index, O[index]]);
 	}, 'values');
-	
+
 	// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
 	Iterators.Arguments = Iterators.Array;
-	
+
 	addToUnscopables('keys');
 	addToUnscopables('values');
 	addToUnscopables('entries');
@@ -1681,7 +1681,7 @@
 
 	'use strict';
 	var strong = __webpack_require__(69);
-	
+
 	// 23.1 Map Objects
 	__webpack_require__(74)('Map', function(get){
 	  return function Map(){ return get(this, arguments.length > 0 ? arguments[0] : undefined); };
@@ -1719,7 +1719,7 @@
 	  , isExtensible = Object.isExtensible || isObject
 	  , SIZE         = DESCRIPTORS ? '_s' : 'size'
 	  , id           = 0;
-	
+
 	var fastKey = function(it, create){
 	  // return primitive with prefix
 	  if(!isObject(it))return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
@@ -1733,7 +1733,7 @@
 	  // return object id with prefix
 	  } return 'O' + it[ID];
 	};
-	
+
 	var getEntry = function(that, key){
 	  // fast case
 	  var index = fastKey(key), entry;
@@ -1743,7 +1743,7 @@
 	    if(entry.k == key)return entry;
 	  }
 	};
-	
+
 	module.exports = {
 	  getConstructor: function(wrapper, NAME, IS_MAP, ADDER){
 	    var C = wrapper(function(that, iterable){
@@ -1855,7 +1855,7 @@
 	      if(kind == 'values')return step(0, entry.v);
 	      return step(0, [entry.k, entry.v]);
 	    }, IS_MAP ? 'entries' : 'values' , !IS_MAP, true);
-	
+
 	    // add [@@species], 23.1.2.2, 23.2.2.2
 	    setSpecies(NAME);
 	  }
@@ -1913,7 +1913,7 @@
 	  , $           = __webpack_require__(26)
 	  , DESCRIPTORS = __webpack_require__(28)
 	  , SPECIES     = __webpack_require__(33)('species');
-	
+
 	module.exports = function(KEY){
 	  var C = core[KEY];
 	  if(DESCRIPTORS && C && !C[SPECIES])$.setDesc(C, SPECIES, {
@@ -1938,7 +1938,7 @@
 	  , isObject       = __webpack_require__(39)
 	  , setToStringTag = __webpack_require__(32)
 	  , DESCRIPTORS    = __webpack_require__(28);
-	
+
 	module.exports = function(NAME, wrapper, methods, common, IS_MAP, IS_WEAK){
 	  var Base  = global[NAME]
 	    , C     = Base
@@ -1971,14 +1971,14 @@
 	      }
 	    });
 	  }
-	
+
 	  setToStringTag(C, NAME);
-	
+
 	  O[NAME] = C;
 	  $export($export.G + $export.W + $export.F, O);
-	
+
 	  if(!IS_WEAK)common.setStrong(C, NAME, IS_MAP);
-	
+
 	  return C;
 	};
 
@@ -1988,7 +1988,7 @@
 
 	// https://github.com/DavidBruant/Map-Set.prototype.toJSON
 	var $export  = __webpack_require__(8);
-	
+
 	$export($export.P, 'Map', {toJSON: __webpack_require__(76)('Map')});
 
 /***/ },
@@ -2012,49 +2012,49 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	var _defaults = __webpack_require__(78)['default'];
-	
+
 	var _interopExportWildcard = __webpack_require__(88)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _debounce = __webpack_require__(89);
-	
+
 	_defaults(exports, _interopExportWildcard(_debounce, _defaults));
-	
+
 	var _set_style = __webpack_require__(90);
-	
+
 	_defaults(exports, _interopExportWildcard(_set_style, _defaults));
-	
+
 	var _get_delta = __webpack_require__(91);
-	
+
 	_defaults(exports, _interopExportWildcard(_get_delta, _defaults));
-	
+
 	var _find_child = __webpack_require__(93);
-	
+
 	_defaults(exports, _interopExportWildcard(_find_child, _defaults));
-	
+
 	var _get_touch_id = __webpack_require__(97);
-	
+
 	_defaults(exports, _interopExportWildcard(_get_touch_id, _defaults));
-	
+
 	var _get_position = __webpack_require__(99);
-	
+
 	_defaults(exports, _interopExportWildcard(_get_position, _defaults));
-	
+
 	var _pick_in_range = __webpack_require__(100);
-	
+
 	_defaults(exports, _interopExportWildcard(_pick_in_range, _defaults));
-	
+
 	var _get_pointer_data = __webpack_require__(98);
-	
+
 	_defaults(exports, _interopExportWildcard(_get_pointer_data, _defaults));
-	
+
 	var _get_original_event = __webpack_require__(92);
-	
+
 	_defaults(exports, _interopExportWildcard(_get_original_event, _defaults));
 
 /***/ },
@@ -2062,29 +2062,29 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	var _Object$getOwnPropertyNames = __webpack_require__(79)["default"];
-	
+
 	var _Object$getOwnPropertyDescriptor = __webpack_require__(83)["default"];
-	
+
 	var _Object$defineProperty = __webpack_require__(86)["default"];
-	
+
 	exports["default"] = function (obj, defaults) {
 	  var keys = _Object$getOwnPropertyNames(defaults);
-	
+
 	  for (var i = 0; i < keys.length; i++) {
 	    var key = keys[i];
-	
+
 	    var value = _Object$getOwnPropertyDescriptor(defaults, key);
-	
+
 	    if (value && value.configurable && obj[key] === undefined) {
 	      _Object$defineProperty(obj, key, value);
 	    }
 	  }
-	
+
 	  return obj;
 	};
-	
+
 	exports.__esModule = true;
 
 /***/ },
@@ -2120,10 +2120,10 @@
 	var toIObject = __webpack_require__(67)
 	  , getNames  = __webpack_require__(26).getNames
 	  , toString  = {}.toString;
-	
+
 	var windowNames = typeof window == 'object' && Object.getOwnPropertyNames
 	  ? Object.getOwnPropertyNames(window) : [];
-	
+
 	var getWindowNames = function(it){
 	  try {
 	    return getNames(it);
@@ -2131,7 +2131,7 @@
 	    return windowNames.slice();
 	  }
 	};
-	
+
 	module.exports.get = function getOwnPropertyNames(it){
 	  if(windowNames && toString.call(it) == '[object Window]')return getWindowNames(it);
 	  return getNames(toIObject(it));
@@ -2159,7 +2159,7 @@
 
 	// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
 	var toIObject = __webpack_require__(67);
-	
+
 	__webpack_require__(7)('getOwnPropertyDescriptor', function($getOwnPropertyDescriptor){
 	  return function getOwnPropertyDescriptor(it, key){
 	    return $getOwnPropertyDescriptor(toIObject(it), key);
@@ -2186,13 +2186,13 @@
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	exports["default"] = function (obj, defaults) {
 	  var newObj = defaults({}, obj);
 	  delete newObj["default"];
 	  return newObj;
 	};
-	
+
 	exports.__esModule = true;
 
 /***/ },
@@ -2203,15 +2203,15 @@
 	 * @module
 	 * @export {Function} debounce
 	 */
-	
+
 	// debounce timers reset wait
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
 	var RESET_WAIT = 100;
-	
+
 	/**
 	 * Call fn if it isn't be called in a period
 	 *
@@ -2224,24 +2224,24 @@
 	var debounce = function debounce(fn) {
 	    var wait = arguments.length <= 1 || arguments[1] === undefined ? RESET_WAIT : arguments[1];
 	    var immediate = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
-	
+
 	    if (typeof fn !== 'function') return;
-	
+
 	    var timer = undefined;
-	
+
 	    return function () {
 	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	            args[_key] = arguments[_key];
 	        }
-	
+
 	        if (!timer && immediate) {
 	            setTimeout(function () {
 	                return fn.apply(undefined, args);
 	            });
 	        }
-	
+
 	        clearTimeout(timer);
-	
+
 	        timer = setTimeout(function () {
 	            timer = undefined;
 	            fn.apply(undefined, args);
@@ -2258,7 +2258,7 @@
 	 * @module
 	 * @export {Function} setStyle
 	 */
-	
+
 	/**
 	 * set css style for target element
 	 *
@@ -2266,9 +2266,9 @@
 	 * @param {Object} styles: css styles to apply
 	 */
 	'use strict';
-	
+
 	var _Object$keys = __webpack_require__(2)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
@@ -2291,26 +2291,26 @@
 	 * @export {Function} getDelta
 	 * @dependencies [ getOriginalEvent ]
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _get_original_event = __webpack_require__(92);
-	
+
 	var DELTA_SCALE = {
 	    STANDARD: 1,
 	    OTHERS: -3
 	};
-	
+
 	var DELTA_MODE = [1.0, 28.0, 500.0];
-	
+
 	var getDeltaMode = function getDeltaMode(mode) {
 	    return DELTA_MODE[mode] || DELTA_MODE[0];
 	};
-	
+
 	/**
 	 * Normalizing wheel delta
 	 *
@@ -2319,23 +2319,23 @@
 	var getDelta = function getDelta(evt) {
 	    // get original DOM event
 	    evt = (0, _get_original_event.getOriginalEvent)(evt);
-	
+
 	    if ('deltaX' in evt) {
 	        var mode = getDeltaMode(evt.deltaMode);
-	
+
 	        return {
 	            x: evt.deltaX / DELTA_SCALE.STANDARD * mode,
 	            y: evt.deltaY / DELTA_SCALE.STANDARD * mode
 	        };
 	    }
-	
+
 	    if ('wheelDeltaX' in evt) {
 	        return {
 	            x: evt.wheelDeltaX / DELTA_SCALE.OTHERS,
 	            y: evt.wheelDeltaY / DELTA_SCALE.OTHERS
 	        };
 	    }
-	
+
 	    // ie with touchpad
 	    return {
 	        x: 0,
@@ -2352,7 +2352,7 @@
 	 * @module
 	 * @export {Function} getOriginalEvent
 	 */
-	
+
 	/**
 	 * Get original DOM event
 	 *
@@ -2361,7 +2361,7 @@
 	 * @return {EventObject}
 	 */
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -2378,7 +2378,7 @@
 	 * @module
 	 * @export {Function} findChild
 	 */
-	
+
 	/**
 	 * Find element with specific class name within children
 	 *
@@ -2388,25 +2388,25 @@
 	 * @return {Element}: first matched child
 	 */
 	"use strict";
-	
+
 	var _getIterator = __webpack_require__(94)["default"];
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	var findChild = function findChild(parentElem, className) {
 	  var children = parentElem.children;
-	
+
 	  if (!children) return null;
-	
+
 	  var _iteratorNormalCompletion = true;
 	  var _didIteratorError = false;
 	  var _iteratorError = undefined;
-	
+
 	  try {
 	    for (var _iterator = _getIterator(children), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	      var elem = _step.value;
-	
+
 	      if (elem.className.match(className)) return elem;
 	    }
 	  } catch (err) {
@@ -2423,7 +2423,7 @@
 	      }
 	    }
 	  }
-	
+
 	  return null;
 	};
 	exports.findChild = findChild;
@@ -2463,17 +2463,17 @@
 	 * @export {Function} getTouchID
 	 * @dependencies [ getOriginalEvent, getPointerData ]
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _get_original_event = __webpack_require__(92);
-	
+
 	var _get_pointer_data = __webpack_require__(98);
-	
+
 	/**
 	 * Get touch identifier
 	 *
@@ -2483,9 +2483,9 @@
 	 */
 	var getTouchID = function getTouchID(evt) {
 	  evt = (0, _get_original_event.getOriginalEvent)(evt);
-	
+
 	  var data = (0, _get_pointer_data.getPointerData)(evt);
-	
+
 	  return data.identifier;
 	};
 	exports.getTouchID = getTouchID;
@@ -2499,15 +2499,15 @@
 	 * @export {Function} getPointerData
 	 * @dependencies [ getOriginalEvent ]
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _get_original_event = __webpack_require__(92);
-	
+
 	/**
 	 * Get pointer/touch data
 	 * @param {Object} evt: event object
@@ -2516,7 +2516,7 @@
 	  // if is touch event, return last item in touchList
 	  // else return original event
 	  evt = (0, _get_original_event.getOriginalEvent)(evt);
-	
+
 	  return evt.touches ? evt.touches[evt.touches.length - 1] : evt;
 	};
 	exports.getPointerData = getPointerData;
@@ -2530,17 +2530,17 @@
 	 * @export {Function} getPosition
 	 * @dependencies [ getOriginalEvent, getPointerData ]
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _get_original_event = __webpack_require__(92);
-	
+
 	var _get_pointer_data = __webpack_require__(98);
-	
+
 	/**
 	 * Get pointer/finger position
 	 * @param {Object} evt: event object
@@ -2549,9 +2549,9 @@
 	 */
 	var getPosition = function getPosition(evt) {
 	  evt = (0, _get_original_event.getOriginalEvent)(evt);
-	
+
 	  var data = (0, _get_pointer_data.getPointerData)(evt);
-	
+
 	  return {
 	    x: data.clientX,
 	    y: data.clientY
@@ -2567,7 +2567,7 @@
 	 * @module
 	 * @export {Function} pickInRange
 	 */
-	
+
 	/**
 	 * Pick value in range [min, max]
 	 * @param {Number} value
@@ -2577,7 +2577,7 @@
 	 * @return {Number}
 	 */
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -2593,21 +2593,21 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	var _defaults = __webpack_require__(78)['default'];
-	
+
 	var _interopExportWildcard = __webpack_require__(88)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _sb_list = __webpack_require__(59);
-	
+
 	_defaults(exports, _interopExportWildcard(_sb_list, _defaults));
-	
+
 	var _selectors = __webpack_require__(102);
-	
+
 	_defaults(exports, _interopExportWildcard(_selectors, _defaults));
 
 /***/ },
@@ -2618,9 +2618,9 @@
 	 * @module
 	 * @export {String} selectors
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
@@ -2632,53 +2632,53 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	var _defaults = __webpack_require__(78)['default'];
-	
+
 	var _interopExportWildcard = __webpack_require__(88)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _update = __webpack_require__(104);
-	
+
 	_defaults(exports, _interopExportWildcard(_update, _defaults));
-	
+
 	var _destroy = __webpack_require__(105);
-	
+
 	_defaults(exports, _interopExportWildcard(_destroy, _defaults));
-	
+
 	var _get_size = __webpack_require__(106);
-	
+
 	_defaults(exports, _interopExportWildcard(_get_size, _defaults));
-	
+
 	var _listener = __webpack_require__(107);
-	
+
 	_defaults(exports, _interopExportWildcard(_listener, _defaults));
-	
+
 	var _scroll_to = __webpack_require__(108);
-	
+
 	_defaults(exports, _interopExportWildcard(_scroll_to, _defaults));
-	
+
 	var _set_options = __webpack_require__(109);
-	
+
 	_defaults(exports, _interopExportWildcard(_set_options, _defaults));
-	
+
 	var _set_position = __webpack_require__(110);
-	
+
 	_defaults(exports, _interopExportWildcard(_set_position, _defaults));
-	
+
 	var _toggle_track = __webpack_require__(112);
-	
+
 	_defaults(exports, _interopExportWildcard(_toggle_track, _defaults));
-	
+
 	var _infinite_scroll = __webpack_require__(113);
-	
+
 	_defaults(exports, _interopExportWildcard(_infinite_scroll, _defaults));
-	
+
 	var _get_content_elem = __webpack_require__(114);
-	
+
 	_defaults(exports, _interopExportWildcard(_get_content_elem, _defaults));
 
 /***/ },
@@ -2689,19 +2689,19 @@
 	 * @module
 	 * @prototype {Function} update
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @api
@@ -2711,29 +2711,29 @@
 	 */
 	_smooth_scrollbar.SmoothScrollbar.prototype.update = function () {
 	    var _this = this;
-	
+
 	    var async = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
-	
+
 	    var update = function update() {
 	        _this.__updateBounding();
-	
+
 	        var size = _this.getSize();
-	
+
 	        _this.__readonly('size', size);
-	
+
 	        var newLimit = {
 	            x: size.content.width - size.container.width,
 	            y: size.content.height - size.container.height
 	        };
-	
+
 	        if (_this.limit && newLimit.x === _this.limit.x && newLimit.y === _this.limit.y) return;
-	
+
 	        _this.__readonly('limit', newLimit);
-	
+
 	        var _targets = _this.targets;
 	        var xAxis = _targets.xAxis;
 	        var yAxis = _targets.yAxis;
-	
+
 	        // hide scrollbar if content size less than container
 	        (0, _utilsIndex.setStyle)(xAxis.track, {
 	            'display': size.content.width <= size.container.width ? 'none' : 'block'
@@ -2741,7 +2741,7 @@
 	        (0, _utilsIndex.setStyle)(yAxis.track, {
 	            'display': size.content.height <= size.container.height ? 'none' : 'block'
 	        });
-	
+
 	        // use percentage value for thumb
 	        (0, _utilsIndex.setStyle)(xAxis.thumb, {
 	            'width': (0, _utilsIndex.pickInRange)(size.container.width / size.content.width, 0, 1) * 100 + '%'
@@ -2749,10 +2749,10 @@
 	        (0, _utilsIndex.setStyle)(yAxis.thumb, {
 	            'height': (0, _utilsIndex.pickInRange)(size.container.height / size.content.height, 0, 1) * 100 + '%'
 	        });
-	
+
 	        _this.__setThumbPosition();
 	    };
-	
+
 	    if (async) {
 	        requestAnimationFrame(update);
 	    } else {
@@ -2768,23 +2768,23 @@
 	 * @module
 	 * @prototype {Function} destroy
 	 */
-	
+
 	'use strict';
-	
+
 	var _toConsumableArray = __webpack_require__(16)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	var _utils = __webpack_require__(77);
-	
+
 	var _shared = __webpack_require__(101);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @api
@@ -2793,41 +2793,41 @@
 	 */
 	_smooth_scrollbar.SmoothScrollbar.prototype.destroy = function () {
 	    var _this = this;
-	
+
 	    var __listeners = this.__listeners;
 	    var __handlers = this.__handlers;
 	    var targets = this.targets;
 	    var container = targets.container;
 	    var content = targets.content;
-	
+
 	    __handlers.forEach(function (_ref) {
 	        var evt = _ref.evt;
 	        var elem = _ref.elem;
 	        var handler = _ref.handler;
-	
+
 	        elem.removeEventListener(evt, handler);
 	    });
-	
+
 	    this.scrollTo(0, 0, 300, function () {
 	        cancelAnimationFrame(_this.__timerID.scrollAnimation);
 	        __handlers.length = __listeners.length = 0;
-	
+
 	        // reset scroll position
 	        (0, _utils.setStyle)(container, {
 	            overflow: ''
 	        });
-	
+
 	        container.scrollTop = container.scrollLeft = 0;
-	
+
 	        // reset content
 	        var children = [].concat(_toConsumableArray(content.children));
-	
+
 	        container.innerHTML = '';
-	
+
 	        children.forEach(function (el) {
 	            return container.appendChild(el);
 	        });
-	
+
 	        // remove form sbList
 	        _shared.sbList['delete'](container);
 	    });
@@ -2841,17 +2841,17 @@
 	 * @module
 	 * @prototype {Function} getSize
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @api
@@ -2862,7 +2862,7 @@
 	_smooth_scrollbar.SmoothScrollbar.prototype.getSize = function () {
 	    var container = this.targets.container;
 	    var content = this.targets.content;
-	
+
 	    return {
 	        container: {
 	            // requires `overflow: hidden`
@@ -2886,17 +2886,17 @@
 	 * @prototype {Function} addListener
 	 *            {Function} removeListener
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @api
@@ -2906,10 +2906,10 @@
 	 */
 	_smooth_scrollbar.SmoothScrollbar.prototype.addListener = function (cb) {
 	  if (typeof cb !== 'function') return;
-	
+
 	  this.__listeners.push(cb);
 	};
-	
+
 	/**
 	 * @method
 	 * @api
@@ -2918,7 +2918,7 @@
 	 */
 	_smooth_scrollbar.SmoothScrollbar.prototype.removeListener = function (cb) {
 	  if (typeof cb !== 'function') return;
-	
+
 	  this.__listeners.some(function (fn, idx, all) {
 	    return fn === cb && all.splice(idx, 1);
 	  });
@@ -2932,19 +2932,19 @@
 	 * @module
 	 * @prototype {Function} scrollTo
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @api
@@ -2958,9 +2958,9 @@
 	_smooth_scrollbar.SmoothScrollbar.prototype.scrollTo = function () {
 	    var x = arguments.length <= 0 || arguments[0] === undefined ? this.offset.x : arguments[0];
 	    var y = arguments.length <= 1 || arguments[1] === undefined ? this.offset.y : arguments[1];
-	
+
 	    var _this = this;
-	
+
 	    var duration = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
 	    var cb = arguments.length <= 3 || arguments[3] === undefined ? null : arguments[3];
 	    var options = this.options;
@@ -2968,33 +2968,33 @@
 	    var limit = this.limit;
 	    var velocity = this.velocity;
 	    var __timerID = this.__timerID;
-	
+
 	    cancelAnimationFrame(__timerID.scrollTo);
 	    cb = typeof cb === 'function' ? cb : function () {};
-	
+
 	    var disX = (0, _utilsIndex.pickInRange)(x, 0, limit.x) - offset.x;
 	    var disY = (0, _utilsIndex.pickInRange)(y, 0, limit.y) - offset.y;
-	
+
 	    var frameCount = (disX || disY) && duration / 1000 * 60;
 	    var eachX = disX / frameCount,
 	        eachY = disY / frameCount;
-	
+
 	    var scroll = function scroll() {
 	        if (!frameCount) {
 	            _this.setPosition(x, y);
-	
+
 	            return requestAnimationFrame(function () {
 	                cb(_this);
 	            });
 	        }
-	
+
 	        _this.setPosition(offset.x + eachX, offset.y + eachY);
-	
+
 	        frameCount--;
-	
+
 	        __timerID.scrollTo = requestAnimationFrame(scroll);
 	    };
-	
+
 	    scroll();
 	};
 
@@ -3006,27 +3006,27 @@
 	 * @module
 	 * @prototype {Function} setOptions
 	 */
-	
+
 	'use strict';
-	
+
 	var _toConsumableArray = __webpack_require__(16)['default'];
-	
+
 	var _Object$keys = __webpack_require__(2)['default'];
-	
+
 	var _Object$assign = __webpack_require__(51)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _utils = __webpack_require__(77);
-	
+
 	var _options = __webpack_require__(58);
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @api
@@ -3036,13 +3036,13 @@
 	 */
 	_smooth_scrollbar.SmoothScrollbar.prototype.setOptions = function () {
 	  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	
+
 	  _Object$keys(options).forEach(function (prop) {
 	    if (!_options.OPTION_LIMIT.hasOwnProperty(prop)) return;
-	
+
 	    options[prop] = _utils.pickInRange.apply(undefined, [options[prop]].concat(_toConsumableArray(_options.OPTION_LIMIT[prop])));
 	  });
-	
+
 	  _Object$assign(this.options, options);
 	};
 
@@ -3054,21 +3054,21 @@
 	 * @module
 	 * @prototype {Function} setPosition
 	 */
-	
+
 	'use strict';
-	
+
 	var _extends = __webpack_require__(111)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @api
@@ -3080,46 +3080,46 @@
 	_smooth_scrollbar.SmoothScrollbar.prototype.setPosition = function () {
 	    var x = arguments.length <= 0 || arguments[0] === undefined ? this.offset.x : arguments[0];
 	    var y = arguments.length <= 1 || arguments[1] === undefined ? this.offset.y : arguments[1];
-	
+
 	    this.__updateThrottle();
-	
+
 	    var status = {};
 	    var offset = this.offset;
 	    var limit = this.limit;
 	    var targets = this.targets;
 	    var __listeners = this.__listeners;
-	
+
 	    if (Math.abs(x - offset.x) > 1) this.showTrack('x');
 	    if (Math.abs(y - offset.y) > 1) this.showTrack('y');
-	
+
 	    x = (0, _utilsIndex.pickInRange)(x, 0, limit.x);
 	    y = (0, _utilsIndex.pickInRange)(y, 0, limit.y);
-	
+
 	    this.hideTrack();
-	
+
 	    if (x === offset.x && y === offset.y) return;
-	
+
 	    status.direction = {
 	        x: x === offset.x ? 'none' : x > offset.x ? 'right' : 'left',
 	        y: y === offset.y ? 'none' : y > offset.y ? 'down' : 'up'
 	    };
-	
+
 	    status.limit = _extends({}, limit);
-	
+
 	    offset.x = x;
 	    offset.y = y;
 	    status.offset = _extends({}, offset);
-	
+
 	    // reset thumb position after offset update
 	    this.__setThumbPosition();
-	
+
 	    var style = 'translate3d(' + -x + 'px, ' + -y + 'px, 0)';
-	
+
 	    (0, _utilsIndex.setStyle)(targets.content, {
 	        '-webkit-transform': style,
 	        'transform': style
 	    });
-	
+
 	    // invoke all listeners
 	    __listeners.forEach(function (fn) {
 	        requestAnimationFrame(function () {
@@ -3133,23 +3133,23 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	var _Object$assign = __webpack_require__(51)["default"];
-	
+
 	exports["default"] = _Object$assign || function (target) {
 	  for (var i = 1; i < arguments.length; i++) {
 	    var source = arguments[i];
-	
+
 	    for (var key in source) {
 	      if (Object.prototype.hasOwnProperty.call(source, key)) {
 	        target[key] = source[key];
 	      }
 	    }
 	  }
-	
+
 	  return target;
 	};
-	
+
 	exports.__esModule = true;
 
 /***/ },
@@ -3161,17 +3161,17 @@
 	 * @prototype {Function} showTrack
 	 * @prototype {Function} hideTrack
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @api
@@ -3185,24 +3185,24 @@
 	    var container = _targets.container;
 	    var xAxis = _targets.xAxis;
 	    var yAxis = _targets.yAxis;
-	
+
 	    direction = direction.toLowerCase();
 	    container.classList.add('scrolling');
-	
+
 	    if (direction === 'both') {
 	        xAxis.track.classList.add('show');
 	        yAxis.track.classList.add('show');
 	    }
-	
+
 	    if (direction === 'x') {
 	        xAxis.track.classList.add('show');
 	    }
-	
+
 	    if (direction === 'y') {
 	        yAxis.track.classList.add('show');
 	    }
 	};
-	
+
 	/**
 	 * @method
 	 * @api
@@ -3214,9 +3214,9 @@
 	    var container = targets.container;
 	    var xAxis = targets.xAxis;
 	    var yAxis = targets.yAxis;
-	
+
 	    clearTimeout(__timerID.track);
-	
+
 	    __timerID.track = setTimeout(function () {
 	        container.classList.remove('scrolling');
 	        xAxis.track.classList.remove('show');
@@ -3232,17 +3232,17 @@
 	 * @module
 	 * @prototype {Function} infiniteScroll
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @api
@@ -3253,31 +3253,31 @@
 	 */
 	_smooth_scrollbar.SmoothScrollbar.prototype.infiniteScroll = function (cb) {
 	    var threshold = arguments.length <= 1 || arguments[1] === undefined ? 50 : arguments[1];
-	
+
 	    if (typeof cb !== 'function') return;
-	
+
 	    var lastOffset = {
 	        x: 0,
 	        y: 0
 	    };
-	
+
 	    var entered = false;
-	
+
 	    this.addListener(function (status) {
 	        var offset = status.offset;
 	        var limit = status.limit;
-	
+
 	        if (limit.y - offset.y <= threshold && offset.y > lastOffset.y && !entered) {
 	            entered = true;
 	            setTimeout(function () {
 	                return cb(status);
 	            });
 	        }
-	
+
 	        if (limit.y - offset.y > threshold) {
 	            entered = false;
 	        }
-	
+
 	        lastOffset = offset;
 	    });
 	};
@@ -3290,17 +3290,17 @@
 	 * @module
 	 * @prototype {Function} getContentElem
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @api
@@ -3315,41 +3315,41 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	var _defaults = __webpack_require__(78)['default'];
-	
+
 	var _interopExportWildcard = __webpack_require__(88)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _drag = __webpack_require__(116);
-	
+
 	_defaults(exports, _interopExportWildcard(_drag, _defaults));
-	
+
 	var _touch = __webpack_require__(117);
-	
+
 	_defaults(exports, _interopExportWildcard(_touch, _defaults));
-	
+
 	var _mouse = __webpack_require__(118);
-	
+
 	_defaults(exports, _interopExportWildcard(_mouse, _defaults));
-	
+
 	var _wheel = __webpack_require__(119);
-	
+
 	_defaults(exports, _interopExportWildcard(_wheel, _defaults));
-	
+
 	var _resize = __webpack_require__(120);
-	
+
 	_defaults(exports, _interopExportWildcard(_resize, _defaults));
-	
+
 	var _select = __webpack_require__(121);
-	
+
 	_defaults(exports, _interopExportWildcard(_select, _defaults));
-	
+
 	var _keyboard = __webpack_require__(122);
-	
+
 	_defaults(exports, _interopExportWildcard(_keyboard, _defaults));
 
 /***/ },
@@ -3360,69 +3360,69 @@
 	 * @module
 	 * @prototype {Function} __dragHandler
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	var __dragHandler = function __dragHandler() {
 	    var _this = this;
-	
+
 	    var _targets = this.targets;
 	    var container = _targets.container;
 	    var content = _targets.content;
-	
+
 	    var isDrag = false;
 	    var animation = undefined;
 	    var targetHeight = undefined;
-	
+
 	    Object.defineProperty(this, '__isDrag', {
 	        get: function get() {
 	            return isDrag;
 	        },
 	        enumerable: false
 	    });
-	
+
 	    var scroll = function scroll(_ref) {
 	        var x = _ref.x;
 	        var y = _ref.y;
-	
+
 	        if (!x && !y) return;
-	
+
 	        var speed = _this.options.speed;
-	
+
 	        _this.__speedUp(x * speed * 2, y * speed * 2);
-	
+
 	        animation = setTimeout(function () {
 	            scroll({ x: x, y: y });
 	        }, 100);
 	    };
-	
+
 	    this.__addEvent(document, 'dragover mousemove touchmove', function (evt) {
 	        if (!isDrag || _this.__ignoreEvent(evt)) return;
 	        clearTimeout(animation);
 	        evt.preventDefault();
-	
+
 	        var dir = _this.__getOverflowDir(evt, targetHeight);
-	
+
 	        scroll(dir);
 	    });
-	
+
 	    this.__addEvent(container, 'dragstart', function (evt) {
 	        if (_this.__ignoreEvent(evt)) return;
-	
+
 	        (0, _utilsIndex.setStyle)(content, {
 	            'pointer-events': 'auto'
 	        });
-	
+
 	        targetHeight = evt.target.clientHeight;
 	        clearTimeout(animation);
 	        _this.__updateBounding();
@@ -3434,7 +3434,7 @@
 	        isDrag = false;
 	    });
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__dragHandler', {
 	    value: __dragHandler,
 	    writable: true,
@@ -3449,21 +3449,21 @@
 	 * @module
 	 * @prototype {Function} __touchHandler
 	 */
-	
+
 	'use strict';
-	
+
 	var _Object$keys = __webpack_require__(2)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @internal
@@ -3471,56 +3471,56 @@
 	 */
 	var __touchHandler = function __touchHandler() {
 	    var _this = this;
-	
+
 	    var container = this.targets.container;
-	
+
 	    var lastTouchTime = undefined,
 	        lastTouchID = undefined;
 	    var moveVelocity = {},
 	        lastTouchPos = {},
 	        touchRecords = {};
-	
+
 	    var updateRecords = function updateRecords(evt) {
 	        var touchList = (0, _utilsIndex.getOriginalEvent)(evt).touches;
-	
+
 	        _Object$keys(touchList).forEach(function (key) {
 	            // record all touches that will be restored
 	            if (key === 'length') return;
-	
+
 	            var touch = touchList[key];
-	
+
 	            touchRecords[touch.identifier] = (0, _utilsIndex.getPosition)(touch);
 	        });
 	    };
-	
+
 	    this.__addEvent(container, 'touchstart', function (evt) {
 	        if (_this.__isDrag) return;
-	
+
 	        var velocity = _this.velocity;
-	
+
 	        updateRecords(evt);
-	
+
 	        lastTouchTime = Date.now();
 	        lastTouchID = (0, _utilsIndex.getTouchID)(evt);
 	        lastTouchPos = (0, _utilsIndex.getPosition)(evt);
-	
+
 	        // reset velocity
 	        velocity.x = velocity.y = moveVelocity.x = moveVelocity.y = 0;
 	    });
-	
+
 	    this.__addEvent(container, 'touchmove', function (evt) {
 	        if (_this.__ignoreEvent(evt) || _this.__isDrag) return;
-	
+
 	        updateRecords(evt);
-	
+
 	        var touchID = (0, _utilsIndex.getTouchID)(evt);
 	        var offset = _this.offset;
 	        var limit = _this.limit;
-	
+
 	        if (lastTouchID === undefined) {
 	            // reset last touch info from records
 	            lastTouchID = touchID;
-	
+
 	            // don't need error handler
 	            lastTouchTime = Date.now();
 	            lastTouchPos = touchRecords[touchID];
@@ -3528,52 +3528,52 @@
 	            // prevent multi-touch bouncing
 	            return;
 	        }
-	
+
 	        if (!lastTouchPos) return;
-	
+
 	        var duration = Date.now() - lastTouchTime;
 	        var _lastTouchPos = lastTouchPos;
 	        var lastX = _lastTouchPos.x;
 	        var lastY = _lastTouchPos.y;
-	
+
 	        var _lastTouchPos2 = lastTouchPos = (0, _utilsIndex.getPosition)(evt);
-	
+
 	        var curX = _lastTouchPos2.x;
 	        var curY = _lastTouchPos2.y;
-	
+
 	        duration = duration || 1; // fix Infinity error
-	
+
 	        moveVelocity.x = (lastX - curX) / duration;
 	        moveVelocity.y = (lastY - curY) / duration;
-	
+
 	        var destX = (0, _utilsIndex.pickInRange)(lastX - curX + offset.x, 0, limit.x);
 	        var destY = (0, _utilsIndex.pickInRange)(lastY - curY + offset.y, 0, limit.y);
-	
+
 	        if (Math.abs(destX - offset.x) < 1 && Math.abs(destY - offset.y) < 1) {
 	            return _this.__updateThrottle();
 	        }
-	
+
 	        evt.preventDefault();
-	
+
 	        _this.setPosition(destX, destY);
 	    });
-	
+
 	    this.__addEvent(container, 'touchend', function (evt) {
 	        if (_this.__ignoreEvent(evt) || _this.__isDrag) return;
-	
+
 	        // release current touch
 	        delete touchRecords[lastTouchID];
 	        lastTouchID = undefined;
-	
+
 	        var x = moveVelocity.x;
 	        var y = moveVelocity.y;
-	
+
 	        _this.__speedUp(x * 100, y * 100);
-	
+
 	        moveVelocity.x = moveVelocity.y = 0;
 	    });
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__touchHandler', {
 	    value: __touchHandler,
 	    writable: true,
@@ -3588,30 +3588,30 @@
 	 * @module
 	 * @prototype {Function} __mouseHandler
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	var TRACK_DIRECTION = {
 	    x: [0, 1],
 	    y: [1, 0]
 	};
-	
+
 	var getTrackDir = function getTrackDir(className) {
 	    var matches = className.match(/scrollbar\-(?:track|thumb)\-([xy])/);
-	
+
 	    return matches && matches[1];
 	};
-	
+
 	/**
 	 * @method
 	 * @internal
@@ -3621,87 +3621,87 @@
 	 */
 	var __mouseHandler = function __mouseHandler() {
 	    var _this = this;
-	
+
 	    var isMouseDown = undefined,
 	        isMouseMove = undefined,
 	        startOffsetToThumb = undefined,
 	        startTrackDirection = undefined,
 	        containerRect = undefined;
 	    var container = this.targets.container;
-	
+
 	    this.__addEvent(container, 'click', function (evt) {
 	        if (isMouseMove || !/track/.test(evt.target.className) || _this.__ignoreEvent(evt)) return;
-	
+
 	        var track = evt.target;
 	        var direction = getTrackDir(track.className);
 	        var rect = track.getBoundingClientRect();
 	        var clickPos = (0, _utilsIndex.getPosition)(evt);
-	
+
 	        var size = _this.size;
 	        var offset = _this.offset;
-	
+
 	        if (direction === 'x') {
 	            // use percentage value
 	            var _thumbSize = (0, _utilsIndex.pickInRange)(size.container.width / size.content.width, 0, 1);
 	            var _clickOffset = (clickPos.x - rect.left) / size.container.width;
-	
+
 	            return _this.scrollTo((_clickOffset - _thumbSize / 2) * size.content.width, offset.y, 1e3);
 	        }
-	
+
 	        var thumbSize = (0, _utilsIndex.pickInRange)(size.container.height / size.content.height, 0, 1);
 	        var clickOffset = (clickPos.y - rect.top) / size.container.height;
-	
+
 	        _this.scrollTo(offset.x, (clickOffset - thumbSize / 2) * size.content.height, 1e3);
 	    });
-	
+
 	    this.__addEvent(container, 'mousedown', function (evt) {
 	        if (!/thumb/.test(evt.target.className) || _this.__ignoreEvent(evt)) return;
 	        isMouseDown = true;
-	
+
 	        var cursorPos = (0, _utilsIndex.getPosition)(evt);
 	        var thumbRect = evt.target.getBoundingClientRect();
-	
+
 	        startTrackDirection = getTrackDir(evt.target.className);
-	
+
 	        // pointer offset to thumb
 	        startOffsetToThumb = {
 	            x: cursorPos.x - thumbRect.left,
 	            y: cursorPos.y - thumbRect.top
 	        };
-	
+
 	        // container bounding rectangle
 	        containerRect = _this.targets.container.getBoundingClientRect();
 	    });
-	
+
 	    this.__addEvent(window, 'mousemove', function (evt) {
 	        if (!isMouseDown) return;
-	
+
 	        isMouseMove = true;
 	        evt.preventDefault();
-	
+
 	        var size = _this.size;
 	        var offset = _this.offset;
-	
+
 	        var cursorPos = (0, _utilsIndex.getPosition)(evt);
-	
+
 	        if (startTrackDirection === 'x') {
 	            // get percentage of pointer position in track
 	            // then tranform to px
 	            _this.setPosition((cursorPos.x - startOffsetToThumb.x - containerRect.left) / (containerRect.right - containerRect.left) * size.content.width, offset.y);
-	
+
 	            return;
 	        }
-	
+
 	        // don't need easing
 	        _this.setPosition(offset.x, (cursorPos.y - startOffsetToThumb.y - containerRect.top) / (containerRect.bottom - containerRect.top) * size.content.height);
 	    });
-	
+
 	    // release mousemove spy on window lost focus
 	    this.__addEvent(window, 'mouseup blur', function () {
 	        isMouseDown = isMouseMove = false;
 	    });
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__mouseHandler', {
 	    value: __mouseHandler,
 	    writable: true,
@@ -3716,22 +3716,22 @@
 	 * @module
 	 * @prototype {Function} __wheelHandler
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	// is standard `wheel` event supported check
 	var WHEEL_EVENT = 'onwheel' in window ? 'wheel' : 'mousewheel';
-	
+
 	/**
 	 * @method
 	 * @internal
@@ -3743,37 +3743,37 @@
 	 */
 	var __wheelHandler = function __wheelHandler() {
 	    var _this = this;
-	
+
 	    var container = this.targets.container;
-	
+
 	    var lastUpdateTime = Date.now();
-	
+
 	    this.__addEvent(container, WHEEL_EVENT, function (evt) {
 	        if (evt.defaultPrevented) return;
-	
+
 	        var offset = _this.offset;
 	        var limit = _this.limit;
-	
+
 	        var now = Date.now();
 	        var delta = (0, _utilsIndex.getDelta)(evt);
 	        var duration = Math.max(16, now - lastUpdateTime); // at least one frame
-	
+
 	        lastUpdateTime = now;
-	
+
 	        var destX = (0, _utilsIndex.pickInRange)(delta.x + offset.x, 0, limit.x);
 	        var destY = (0, _utilsIndex.pickInRange)(delta.y + offset.y, 0, limit.y);
-	
+
 	        if (Math.abs(destX - offset.x) < 1 && Math.abs(destY - offset.y) < 1) {
 	            return _this.__updateThrottle();
 	        }
-	
+
 	        evt.preventDefault();
 	        evt.stopPropagation();
-	
+
 	        _this.__speedUp(delta.x / duration, delta.y / duration);
 	    });
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__wheelHandler', {
 	    value: __wheelHandler,
 	    writable: true,
@@ -3788,17 +3788,17 @@
 	 * @module
 	 * @prototype {Function} __resizeHandler
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @internal
@@ -3811,7 +3811,7 @@
 	var __resizeHandler = function __resizeHandler() {
 	  this.__addEvent(window, 'resize', this.__updateThrottle);
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__resizeHandler', {
 	  value: __resizeHandler,
 	  writable: true,
@@ -3826,48 +3826,48 @@
 	 * @module
 	 * @prototype {Function} __selectHandler
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	// todo: select handler for touch screen
 	var __selectHandler = function __selectHandler() {
 	    var _this = this;
-	
+
 	    var isSelected = false;
 	    var animation = undefined;
-	
+
 	    var _targets = this.targets;
 	    var container = _targets.container;
 	    var content = _targets.content;
-	
+
 	    var scroll = function scroll(_ref) {
 	        var x = _ref.x;
 	        var y = _ref.y;
-	
+
 	        if (!x && !y) return;
-	
+
 	        var speed = _this.options.speed;
-	
+
 	        _this.__speedUp(x * speed * 2, y * speed * 2);
-	
+
 	        animation = setTimeout(function () {
 	            scroll({ x: x, y: y });
 	        }, 100);
 	    };
-	
+
 	    var setSelect = function setSelect() {
 	        var value = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
-	
+
 	        (0, _utilsIndex.setStyle)(container, {
 	            '-webkit-user-select': value,
 	            '-moz-user-select': value,
@@ -3875,43 +3875,43 @@
 	            'user-select': value
 	        });
 	    };
-	
+
 	    this.__addEvent(window, 'mousemove', function (evt) {
 	        if (!isSelected) return;
-	
+
 	        clearTimeout(animation);
-	
+
 	        var dir = _this.__getOverflowDir(evt);
-	
+
 	        scroll(dir);
 	    });
-	
+
 	    this.__addEvent(content, 'selectstart', function (evt) {
 	        if (_this.__ignoreEvent(evt)) {
 	            return setSelect('none');
 	        }
-	
+
 	        clearTimeout(animation);
 	        setSelect('auto');
-	
+
 	        _this.__updateBounding();
 	        isSelected = true;
 	    });
-	
+
 	    this.__addEvent(window, 'mouseup blur', function () {
 	        clearTimeout(animation);
 	        setSelect();
-	
+
 	        isSelected = false;
 	    });
-	
+
 	    // temp patch for touch devices
 	    this.__addEvent(container, 'scroll', function (evt) {
 	        evt.preventDefault();
 	        container.scrollTop = container.scrollLeft = 0;
 	    });
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__selectHandler', {
 	    value: __selectHandler,
 	    writable: true,
@@ -3926,21 +3926,21 @@
 	 * @module
 	 * @prototype {Function} __keyboardHandler
 	 */
-	
+
 	'use strict';
-	
+
 	var _slicedToArray = __webpack_require__(123)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	// key maps [deltaX, deltaY]
 	var KEYMAPS = {
 	    37: [-1, 0], // left
@@ -3948,7 +3948,7 @@
 	    39: [1, 0], // right
 	    40: [0, 1] // down
 	};
-	
+
 	/**
 	 * @method
 	 * @internal
@@ -3958,41 +3958,41 @@
 	 */
 	var __keyboardHandler = function __keyboardHandler() {
 	    var _this = this;
-	
+
 	    var container = this.targets.container;
-	
+
 	    var isFocused = false;
-	
+
 	    this.__addEvent(container, 'focus', function () {
 	        isFocused = true;
 	    });
-	
+
 	    this.__addEvent(container, 'blur', function () {
 	        isFocused = false;
 	    });
-	
+
 	    this.__addEvent(container, 'keydown', function (evt) {
 	        if (!isFocused) return;
-	
+
 	        evt = (0, _utilsIndex.getOriginalEvent)(evt);
-	
+
 	        var keyCode = evt.keyCode || evt.which;
-	
+
 	        if (!KEYMAPS.hasOwnProperty(keyCode)) return;
-	
+
 	        evt.preventDefault();
-	
+
 	        var speed = _this.options.speed;
-	
+
 	        var _KEYMAPS$keyCode = _slicedToArray(KEYMAPS[keyCode], 2);
-	
+
 	        var x = _KEYMAPS$keyCode[0];
 	        var y = _KEYMAPS$keyCode[1];
-	
+
 	        _this.__speedUp(x * speed * 10, y * speed * 10);
 	    });
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__keyboardHandler', {
 	    value: __keyboardHandler,
 	    writable: true,
@@ -4004,22 +4004,22 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	var _getIterator = __webpack_require__(94)["default"];
-	
+
 	var _isIterable = __webpack_require__(124)["default"];
-	
+
 	exports["default"] = (function () {
 	  function sliceIterator(arr, i) {
 	    var _arr = [];
 	    var _n = true;
 	    var _d = false;
 	    var _e = undefined;
-	
+
 	    try {
 	      for (var _i = _getIterator(arr), _s; !(_n = (_s = _i.next()).done); _n = true) {
 	        _arr.push(_s.value);
-	
+
 	        if (i && _arr.length === i) break;
 	      }
 	    } catch (err) {
@@ -4032,10 +4032,10 @@
 	        if (_d) throw _e;
 	      }
 	    }
-	
+
 	    return _arr;
 	  }
-	
+
 	  return function (arr, i) {
 	    if (Array.isArray(arr)) {
 	      return arr;
@@ -4046,7 +4046,7 @@
 	    }
 	  };
 	})();
-	
+
 	exports.__esModule = true;
 
 /***/ },
@@ -4082,53 +4082,53 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	var _defaults = __webpack_require__(78)['default'];
-	
+
 	var _interopExportWildcard = __webpack_require__(88)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _render = __webpack_require__(128);
-	
+
 	_defaults(exports, _interopExportWildcard(_render, _defaults));
-	
+
 	var _readonly = __webpack_require__(129);
-	
+
 	_defaults(exports, _interopExportWildcard(_readonly, _defaults));
-	
+
 	var _speed_up = __webpack_require__(130);
-	
+
 	_defaults(exports, _interopExportWildcard(_speed_up, _defaults));
-	
+
 	var _add_event = __webpack_require__(131);
-	
+
 	_defaults(exports, _interopExportWildcard(_add_event, _defaults));
-	
+
 	var _ignore_event = __webpack_require__(132);
-	
+
 	_defaults(exports, _interopExportWildcard(_ignore_event, _defaults));
-	
+
 	var _init_scrollbar = __webpack_require__(133);
-	
+
 	_defaults(exports, _interopExportWildcard(_init_scrollbar, _defaults));
-	
+
 	var _update_children = __webpack_require__(134);
-	
+
 	_defaults(exports, _interopExportWildcard(_update_children, _defaults));
-	
+
 	var _update_bounding = __webpack_require__(135);
-	
+
 	_defaults(exports, _interopExportWildcard(_update_bounding, _defaults));
-	
+
 	var _get_overflow_dir = __webpack_require__(136);
-	
+
 	_defaults(exports, _interopExportWildcard(_get_overflow_dir, _defaults));
-	
+
 	var _set_thumb_position = __webpack_require__(137);
-	
+
 	_defaults(exports, _interopExportWildcard(_set_thumb_position, _defaults));
 
 /***/ },
@@ -4139,32 +4139,32 @@
 	 * @module
 	 * @prototype {Function} __render
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	function nextTick(options, curPos, curV) {
 	    var fricton = options.fricton;
 	    var inflection = options.inflection;
 	    var sensitivity = options.sensitivity;
-	
+
 	    var reduceAmout = curV / Math.abs(curV) * sensitivity || 0;
-	
+
 	    if (Math.abs(curV) <= inflection) {
 	        // slow down
 	        reduceAmout /= 10;
 	    }
-	
+
 	    var nextV = curV * (1 - fricton / 100) - reduceAmout;
 	    var nextPos = curPos + curV;
-	
+
 	    if (curV * nextV < 0) {
 	        // stop at integer position
 	        if (curV > nextV) {
@@ -4172,35 +4172,35 @@
 	        } else {
 	            nextPos = Math.floor(nextPos);
 	        }
-	
+
 	        nextV = 0;
 	    }
-	
+
 	    return {
 	        position: nextPos,
 	        velocity: nextV
 	    };
 	};
-	
+
 	function __render() {
 	    var options = this.options;
 	    var offset = this.offset;
 	    var velocity = this.velocity;
 	    var __timerID = this.__timerID;
-	
+
 	    if (velocity.x || velocity.y) {
 	        var nextX = nextTick(options, offset.x, velocity.x);
 	        var nextY = nextTick(options, offset.y, velocity.y);
-	
+
 	        velocity.x = nextX.velocity;
 	        velocity.y = nextY.velocity;
-	
+
 	        this.setPosition(nextX.position, nextY.position);
 	    }
-	
+
 	    __timerID.scrollAnimation = requestAnimationFrame(__render.bind(this));
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__render', {
 	    value: __render,
 	    writable: true,
@@ -4216,19 +4216,19 @@
 	 * @prototype {Function} __readonly
 	 * @dependencies [ SmoothScrollbar ]
 	 */
-	
+
 	'use strict';
-	
+
 	var _Object$defineProperty = __webpack_require__(86)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @internal
@@ -4246,7 +4246,7 @@
 	        }
 	    });
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__readonly', {
 	    value: __readonly,
 	    writable: true,
@@ -4261,26 +4261,26 @@
 	 * @module
 	 * @prototype {Function} __speedUp
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	function __speedUp() {
 	    var x = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
 	    var y = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 	    var speed = this.options.speed;
-	
+
 	    this.velocity.x += x * speed;
 	    this.velocity.y += y * speed;
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__speedUp', {
 	    value: __speedUp,
 	    writable: true,
@@ -4295,31 +4295,31 @@
 	 * @module
 	 * @prototype {Function} __addEvent
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	function __addEvent(elem, events, fn) {
 	    var _this = this;
-	
+
 	    if (!elem || typeof elem.addEventListener !== 'function') {
 	        throw new TypeError('expect elem to be a DOM element, but got ' + elem);
 	    }
-	
+
 	    events.split(/\s+/g).forEach(function (evt) {
 	        _this.__handlers.push({ evt: evt, elem: elem, fn: fn });
-	
+
 	        elem.addEventListener(evt, fn);
 	    });
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__addEvent', {
 	    value: __addEvent,
 	    writable: true,
@@ -4334,33 +4334,33 @@
 	 * @module
 	 * @prototype {Function} __ignoreEvent
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	function __ignoreEvent() {
 	    var evt = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	
+
 	    var _getOriginalEvent = (0, _utilsIndex.getOriginalEvent)(evt);
-	
+
 	    var target = _getOriginalEvent.target;
-	
+
 	    if (!target || target === window || !this.children) return false;
-	
+
 	    return !evt.type.match(/drag/) && evt.defaultPrevented || this.children.some(function (sb) {
 	        return sb.contains(target);
 	    });
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__ignoreEvent', {
 	    value: __ignoreEvent,
 	    writable: true,
@@ -4375,17 +4375,17 @@
 	 * @module
 	 * @prototype {Function} __initScrollbar
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @internal
@@ -4398,7 +4398,7 @@
 	 */
 	function __initScrollbar() {
 	  this.update(); // initialize thumb position
-	
+
 	  this.__keyboardHandler();
 	  this.__resizeHandler();
 	  this.__selectHandler();
@@ -4406,10 +4406,10 @@
 	  this.__touchHandler();
 	  this.__wheelHandler();
 	  this.__dragHandler();
-	
+
 	  this.__render();
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__initScrollbar', {
 	  value: __initScrollbar,
 	  writable: true,
@@ -4424,25 +4424,25 @@
 	 * @module
 	 * @prototype {Function} __updateChildren
 	 */
-	
+
 	'use strict';
-	
+
 	var _toConsumableArray = __webpack_require__(16)['default'];
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	var _sharedSelectors = __webpack_require__(102);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	function __updateChildren() {
 	    this.__readonly('children', [].concat(_toConsumableArray(this.targets.content.querySelectorAll(_sharedSelectors.selectors))));
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__updateChildren', {
 	    value: __updateChildren,
 	    writable: true,
@@ -4457,31 +4457,31 @@
 	 * @module
 	 * @prototype {Function} __updateBounding
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	var _sharedSelectors = __webpack_require__(102);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	function __updateBounding() {
 	    var container = this.targets.container;
-	
+
 	    var _container$getBoundingClientRect = container.getBoundingClientRect();
-	
+
 	    var top = _container$getBoundingClientRect.top;
 	    var right = _container$getBoundingClientRect.right;
 	    var bottom = _container$getBoundingClientRect.bottom;
 	    var left = _container$getBoundingClientRect.left;
 	    var innerHeight = window.innerHeight;
 	    var innerWidth = window.innerWidth;
-	
+
 	    this.__readonly('bounding', {
 	        top: Math.max(top, 0),
 	        right: Math.min(right, innerWidth),
@@ -4489,7 +4489,7 @@
 	        left: Math.max(left, 0)
 	    });
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__updateBounding', {
 	    value: __updateBounding,
 	    writable: true,
@@ -4504,19 +4504,19 @@
 	 * @module
 	 * @prototype {Function} __getOverflowDir
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	function __getOverflowDir(evt) {
 	    var edge = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 	    var _bounding = this.bounding;
@@ -4524,34 +4524,34 @@
 	    var right = _bounding.right;
 	    var bottom = _bounding.bottom;
 	    var left = _bounding.left;
-	
+
 	    var _getPosition = (0, _utilsIndex.getPosition)(evt);
-	
+
 	    var x = _getPosition.x;
 	    var y = _getPosition.y;
-	
+
 	    var res = {
 	        x: 0,
 	        y: 0
 	    };
-	
+
 	    if (x === 0 && y === 0) return res;
-	
+
 	    if (x > right - edge) {
 	        res.x = (x - right + edge) / 100;
 	    } else if (x < left + edge) {
 	        res.x = (x - left - edge) / 100;
 	    }
-	
+
 	    if (y > bottom - edge) {
 	        res.y = (y - bottom + edge) / 100;
 	    } else if (y < top + edge) {
 	        res.y = (y - top - edge) / 100;
 	    }
-	
+
 	    return res;
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__getOverflowDir', {
 	    value: __getOverflowDir,
 	    writable: true,
@@ -4566,19 +4566,19 @@
 	 * @module
 	 * @prototype {Function} __setThumbPosition
 	 */
-	
+
 	'use strict';
-	
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	
+
 	var _utilsIndex = __webpack_require__(77);
-	
+
 	var _smooth_scrollbar = __webpack_require__(46);
-	
+
 	exports.SmoothScrollbar = _smooth_scrollbar.SmoothScrollbar;
-	
+
 	/**
 	 * @method
 	 * @internal
@@ -4591,21 +4591,21 @@
 	    var _targets = this.targets;
 	    var xAxis = _targets.xAxis;
 	    var yAxis = _targets.yAxis;
-	
+
 	    var styleX = 'translate3d(' + x / this.size.content.width * this.size.container.width + 'px, 0, 0)';
 	    var styleY = 'translate3d(0, ' + y / this.size.content.height * this.size.container.height + 'px, 0)';
-	
+
 	    (0, _utilsIndex.setStyle)(xAxis.thumb, {
 	        '-webkit-transform': styleX,
 	        'transform': styleX
 	    });
-	
+
 	    (0, _utilsIndex.setStyle)(yAxis.thumb, {
 	        '-webkit-transform': styleY,
 	        'transform': styleY
 	    });
 	};
-	
+
 	Object.defineProperty(_smooth_scrollbar.SmoothScrollbar.prototype, '__setThumbPosition', {
 	    value: __setThumbPosition,
 	    writable: true,
@@ -4617,118 +4617,118 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	var _slicedToArray = __webpack_require__(123)['default'];
-	
+
 	var _toConsumableArray = __webpack_require__(16)['default'];
-	
+
 	var _Object$assign = __webpack_require__(51)['default'];
-	
+
 	var _interopRequireDefault = __webpack_require__(14)['default'];
-	
+
 	var _src = __webpack_require__(15);
-	
+
 	var _src2 = _interopRequireDefault(_src);
-	
+
 	var _srcOptions = __webpack_require__(58);
-	
+
 	var DPR = window.devicePixelRatio;
 	var options = _Object$assign({}, _srcOptions.DEFAULT_OPTIONS);
-	
+
 	var size = {
 	    width: 250,
 	    height: 150
 	};
-	
+
 	var canvas = document.getElementById('preview');
 	var scrollbar = _src2['default'].get(document.getElementById('content'));
 	var ctx = canvas.getContext('2d');
-	
+
 	canvas.width = size.width * DPR;
 	canvas.height = size.height * DPR;
 	ctx.scale(DPR, DPR);
-	
+
 	ctx.strokeStyle = '#94a6b7';
 	ctx.fillStyle = '#abc';
-	
+
 	var shouldUpdate = true;
-	
+
 	function render() {
 	    if (!shouldUpdate) {
 	        return requestAnimationFrame(render);
 	    }
-	
+
 	    var dots = calcDots();
-	
+
 	    ctx.clearRect(0, 0, size.width, size.height);
 	    ctx.save();
 	    ctx.transform(1, 0, 0, -1, 0, size.height);
 	    ctx.beginPath();
 	    ctx.moveTo(0, 0);
-	
+
 	    var scaleX = Math.max(size.width / dots.length, 1);
 	    dots.forEach(function (_ref) {
 	        var _ref2 = _slicedToArray(_ref, 2);
-	
+
 	        var x = _ref2[0];
 	        var y = _ref2[1];
-	
+
 	        ctx.lineTo(x * scaleX, y);
 	    });
-	
+
 	    ctx.stroke();
-	
+
 	    var _dots = _slicedToArray(dots[dots.length - 1], 2);
-	
+
 	    var x = _dots[0];
 	    var y = _dots[1];
-	
+
 	    ctx.lineTo(x * scaleX, y);
 	    ctx.fill();
 	    ctx.closePath();
 	    ctx.restore();
-	
+
 	    shouldUpdate = false;
-	
+
 	    requestAnimationFrame(render);
 	};
-	
+
 	render();
-	
+
 	function calcDots() {
 	    var speed = options.speed;
 	    var fricton = options.fricton;
 	    var inflection = options.inflection;
 	    var sensitivity = options.sensitivity;
-	
+
 	    var dots = [];
-	
+
 	    var x = 0;
-	    var y = Math.sin(speed / 20 * Math.PI) * size.height;
-	
+	    var y = (speed / 20 + 0.5) * size.height;
+
 	    while (y > 0.1) {
 	        dots.push([x, y]);
-	
+
 	        var reduceAmount = y > inflection ? sensitivity : sensitivity / 10;
-	
+
 	        y = y * (1 - fricton / 100) - reduceAmount;
 	        x++;
 	    }
-	
+
 	    return dots;
 	};
-	
+
 	[].concat(_toConsumableArray(document.querySelectorAll('.options'))).forEach(function (el) {
 	    var prop = el.name;
 	    var label = document.querySelector('.option-' + prop);
-	
+
 	    el.addEventListener('input', function () {
 	        label.textContent = options[prop] = parseFloat(el.value);
 	        scrollbar.setOptions(options);
 	        shouldUpdate = true;
 	    });
 	});
-	
+
 	render();
 
 /***/ }
