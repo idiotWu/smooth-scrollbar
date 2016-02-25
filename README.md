@@ -167,7 +167,7 @@ Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Work-with-RubaXa
 
 ### 4.0.0
 
-- Movement based scrolling algrithm.
+- Movement based scrolling algorithm.
 - Reduce options, simple is better :)
 
 ### 3.1.0
@@ -176,7 +176,7 @@ Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Work-with-RubaXa
 
 ### 3.0.0
 
-- New easing algrithm.
+- New easing algorithm.
 - Dependencies free!
 
 ## License
