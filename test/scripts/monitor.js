@@ -57,21 +57,23 @@ function addEvent(elems, evts, handler) {
 };
 
 function sliceRecord() {
-    let source = records;
-    let endIdx = Math.floor(source.length * (1 - endOffset));
-    let start = source[0];
-    let end = source[endIdx - 1];
+    let endIdx = Math.floor(records.length * (1 - endOffset));
+    let last = records[records.length - 1];
+    let dropIdx = 0;
 
-    let result = source.filter(function(pt, idx) {
-        let d = end.time - pt.time;
-
-        if (d > TIME_RANGE_MAX) {
-            records.shift();
+    let result = records.filter(function(pt, idx) {
+        if (last.time - pt.time > TIME_RANGE_MAX) {
+            dropIdx++;
+            endIdx--;
+            return;
         }
 
-        return d <= timeRange && idx <= endIdx;
+        let end = records[endIdx - 1];
+
+        return end.time - pt.time <= timeRange && idx <= endIdx;
     });
 
+    records.splice(0, dropIdx);
     thumbWidth = result.length ? result.length / records.length : 1;
 
     thumb.style.width = thumbWidth * 100 + '%';
