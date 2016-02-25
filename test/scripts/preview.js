@@ -58,9 +58,7 @@ render();
 function calcDots() {
     let {
         speed,
-        fricton,
-        inflection,
-        sensitivity
+        fricton
     } = options;
 
     let dots = [];
@@ -71,9 +69,7 @@ function calcDots() {
     while(y > 0.1) {
         dots.push([x, y]);
 
-        let reduceAmount = y > inflection ? sensitivity : (sensitivity / 10);
-
-        y = y * (1 - fricton / 100) - reduceAmount;
+        y *= (1 - fricton / 100);
         x++;
     }
 
