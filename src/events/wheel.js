@@ -23,14 +23,10 @@ const WHEEL_EVENT = 'onwheel' in window ? 'wheel' : 'mousewheel';
 let __wheelHandler = function() {
     const { container } = this.targets;
 
-    let lastUpdateTime = Date.now();
-
     this.__addEvent(container, WHEEL_EVENT, (evt) => {
         if (evt.defaultPrevented) return;
 
         const { offset, limit } = this;
-
-        const now = Date.now();
         const delta = getDelta(evt);
 
         let destX = pickInRange(delta.x + offset.x, 0, limit.x);
