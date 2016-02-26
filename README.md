@@ -65,7 +65,7 @@ Don't forget to include the stylesheet in your page:
 <link rel="stylesheet" href="dist/smooth-scrollbar.css">
 ```
 
-Here's three way to tell the plugin which element should be a smooth scrollbar:
+Here're three ways to tell the plugin which element should be a smooth scrollbar:
 
 1. As an element:
 
@@ -114,7 +114,7 @@ Following is the DOM structure that Scrollbar generated:
 ```html
 <scrollbar>
     <article class="scroll-content">
-        your content here
+        your contents here...
     </article>
     <aside class="scrollbar-track scrollbar-track-x">
         <div class="scrollbar-thumb scrollbar-thumb-x"></div>
@@ -177,7 +177,7 @@ Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Work-with-RubaXa
 ### 3.0.0
 
 - New easing algorithm.
-- Dependencies free!
+- Dependency free!
 
 ## License
 
