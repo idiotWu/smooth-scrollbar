@@ -373,7 +373,6 @@ addEvent(input, 'input', function(e) {
     let val = parseFloat(e.target.value);
     label.textContent = val + 's';
     timeRange = val * 1e3;
-    endOffset = 0;
 });
 
 addEvent(document.getElementById('reset'), 'click', function() {
