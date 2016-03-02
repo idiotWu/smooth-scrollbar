@@ -10,10 +10,11 @@ export { SmoothScrollbar };
 
 // key maps [deltaX, deltaY]
 const KEYMAPS = {
-    37: [-1, 0], // left
-    38: [0, -1], // up
-    39: [1, 0], // right
-    40: [0, 1] // down
+    32: [0, 5],   // space
+    37: [-1, 0],  // left
+    38: [0, -1],  // up
+    39: [1, 0],   // right
+    40: [0, 1]    // down
 };
 
 /**
