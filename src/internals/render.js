@@ -29,9 +29,20 @@ function __render() {
     const {
         options,
         offset,
+        limit,
         movement,
         __timerID
     } = this;
+
+    if ((limit.y - offset.y <= 50 && movement.y > 50) ||
+        (offset.y <= 50 && movement.y < -50)) {
+        movement.y /= 2;
+    }
+
+    if ((limit.x - offset.x <= 50 && movement.x > 50) ||
+        (offset.x <= 50 && movement.x < -50)) {
+        movement.x /= 2;
+    }
 
     if (movement.x || movement.y) {
         let nextX = nextTick(options, offset.x, movement.x);
