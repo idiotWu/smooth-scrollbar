@@ -3,6 +3,7 @@ export * from './readonly';
 export * from './add_event';
 export * from './ignore_event';
 export * from './add_movement';
+export * from './set_movement';
 export * from './init_scrollbar';
 export * from './update_children';
 export * from './update_bounding';

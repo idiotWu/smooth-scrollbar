@@ -24,11 +24,11 @@
     let scroll = ({ x, y }) => {
         if (!x && !y) return;
 
-        this.__addMovement(x, y);
+        this.__setMovement(x, y);
 
-        animation = setTimeout(() => {
+        animation = requestAnimationFrame(() => {
             scroll({ x, y });
-        }, 100);
+        });
     };
 
     let setSelect = (value = '') => {
@@ -43,7 +43,7 @@
     this.__addEvent(window, 'mousemove', (evt) => {
         if (!isSelected) return;
 
-        clearTimeout(animation);
+        cancelAnimationFrame(animation);
 
         const dir = this.__getOverflowDir(evt);
 
@@ -55,7 +55,7 @@
             return setSelect('none');
         }
 
-        clearTimeout(animation);
+        cancelAnimationFrame(animation);
         setSelect('auto');
 
         this.__updateBounding();
@@ -63,7 +63,7 @@
     });
 
     this.__addEvent(window, 'mouseup blur', () => {
-        clearTimeout(animation);
+        cancelAnimationFrame(animation);
         setSelect();
 
         isSelected = false;

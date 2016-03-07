@@ -31,16 +31,16 @@
     let scroll = ({ x, y }) => {
         if (!x && !y) return;
 
-        this.__addMovement(x, y);
+        this.__setMovement(x, y);
 
-        animation = setTimeout(() => {
+        animation = requestAnimationFrame(() => {
             scroll({ x, y });
-        }, 100);
+        });
     };
 
     this.__addEvent(document, 'dragover mousemove touchmove', (evt) => {
         if (!isDrag || this.__ignoreEvent(evt)) return;
-        clearTimeout(animation);
+        cancelAnimationFrame(animation);
         evt.preventDefault();
 
         const dir = this.__getOverflowDir(evt, targetHeight);
@@ -56,13 +56,13 @@
         });
 
         targetHeight = evt.target.clientHeight;
-        clearTimeout(animation);
+        cancelAnimationFrame(animation);
         this.__updateBounding();
         isDrag = true;
     });
     this.__addEvent(document, 'dragend mouseup touchend blur', (evt) => {
         if (this.__ignoreEvent(evt)) return;
-        clearTimeout(animation);
+        cancelAnimationFrame(animation);
         isDrag = false;
     });
  };
