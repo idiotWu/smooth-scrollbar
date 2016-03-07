@@ -40,7 +40,7 @@ let __mouseHandler = function() {
             let thumbSize = pickInRange(size.container.width / size.content.width, 0, 1);
             let clickOffset = (clickPos.x - rect.left) / size.container.width;
 
-            return this.__addMovement(
+            return this.__setMovement(
                 (clickOffset - thumbSize / 2) * size.content.width - offset.x,
                 0
             );
@@ -49,7 +49,7 @@ let __mouseHandler = function() {
         let thumbSize = pickInRange(size.container.height / size.content.height, 0, 1);
         let clickOffset = (clickPos.y - rect.top) / size.container.height;
 
-        this.__addMovement(
+        this.__setMovement(
             0,
             (clickOffset - thumbSize / 2) * size.content.height - offset.y
         );
