@@ -107,7 +107,10 @@ let __touchHandler = function() {
 
         let { x, y } = moveVelocity;
 
-        this.__addMovement(x * EASING_DURATION, y * EASING_DURATION);
+        this.__setMovement(
+            x ? x / Math.abs(x) * Math.sqrt(Math.abs(x) * 1e3) * 20 : 0,
+            y ? y / Math.abs(y) * Math.sqrt(Math.abs(y) * 1e3) * 20 : 0
+        );
 
         moveVelocity.x = moveVelocity.y = 0;
     });
