@@ -165,7 +165,7 @@ Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Work-with-RubaXa
 
 ## Todo
 
-- [] Overscroll effect.
+- [ ] Overscroll effect.
 
 ## Changelog
 
