@@ -19,11 +19,9 @@ export { SmoothScrollbar };
  */
 function __readonly(prop, value) {
     return Object.defineProperty(this, prop, {
+        value: value,
         enumerable: true,
-        configurable: true,
-        get() {
-            return value;
-        }
+        configurable: true
     });
 };
 

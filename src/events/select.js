@@ -33,10 +33,7 @@
 
     let setSelect = (value = '') => {
         setStyle(container, {
-            '-webkit-user-select': value,
-               '-moz-user-select': value,
-                '-ms-user-select': value,
-                    'user-select': value
+            '-user-select': value
         });
     };
 
@@ -56,7 +53,6 @@
         }
 
         cancelAnimationFrame(animation);
-        setSelect('auto');
 
         this.__updateBounding();
         isSelected = true;

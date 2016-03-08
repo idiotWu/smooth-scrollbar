@@ -46,11 +46,8 @@ SmoothScrollbar.prototype.setPosition = function(x = this.offset.x, y = this.off
     // reset thumb position after offset update
     this.__setThumbPosition();
 
-    const style = `translate3d(${-x}px, ${-y}px, 0)`;
-
     setStyle(targets.content, {
-        '-webkit-transform': style,
-        'transform': style
+        '-transform': `translate3d(${-x}px, ${-y}px, 0)`
     });
 
     // invoke all listeners
