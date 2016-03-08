@@ -20,7 +20,7 @@ const scrollbar = Scrollbar.get(content);
 
 let chartType = 'offset';
 
-let thumbWidth = 0
+let thumbWidth = 0;
 let endOffset = 0;
 
 let timeRange = 5 * 1e3;
@@ -116,7 +116,7 @@ function drawLine(p0, p1, options) {
     ctx.lineTo(x1, y1);
     ctx.stroke();
     ctx.closePath();
-    ctx.restore()
+    ctx.restore();
 };
 
 function adjustText(content, p, options) {
