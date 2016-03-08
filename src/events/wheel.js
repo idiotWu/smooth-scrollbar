@@ -4,7 +4,7 @@
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
-import { getDelta, pickInRange } from '../utils/index';
+import { getDelta } from '../utils/index';
 
 export { SmoothScrollbar };
 
@@ -26,18 +26,11 @@ let __wheelHandler = function() {
     this.__addEvent(container, WHEEL_EVENT, (evt) => {
         if (evt.defaultPrevented) return;
 
-        const { offset, limit } = this;
-        const delta = getDelta(evt);
-
-        let destX = pickInRange(delta.x + offset.x, 0, limit.x);
-        let destY = pickInRange(delta.y + offset.y, 0, limit.y);
-
-        if (destX === offset.x && destY === offset.y) {
-            return this.__updateThrottle();
-        }
-
         evt.preventDefault();
         evt.stopPropagation();
+
+        const { offset, limit } = this;
+        const delta = getDelta(evt);
 
         this.__addMovement(delta.x, delta.y);
     });

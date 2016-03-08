@@ -3,16 +3,21 @@
  * @prototype {Function} __setMovement
  */
 
+import { pickInRange } from '../utils/';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
 
-function __setMovement(...args) {
-    const { movement } = this;
+function __setMovement(deltaX = 0, deltaY = 0) {
+    const {
+        options,
+        movement
+    } = this;
 
-    let [deltaX, deltaY] = this.__transformDelta(args);
-    movement.x = deltaX;
-    movement.y = deltaY;
+    let limit = this.__getDeltaLimit();
+
+    movement.x = pickInRange(deltaX * options.speed, ...limit.x);
+    movement.y = pickInRange(deltaY * options.speed, ...limit.y);
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__setMovement', {
