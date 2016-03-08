@@ -3,13 +3,12 @@
  * @export {Class} SmoothScrollbar
  */
 
-import { DEFAULT_OPTIONS } from './options';
-import { sbList } from './shared/sb_list';
+import { DEFAULT_OPTIONS, sbList } from './shared/';
 import {
     debounce,
     findChild,
     setStyle
-} from './utils/index';
+} from './utils/';
 
 /**
  * @constructor

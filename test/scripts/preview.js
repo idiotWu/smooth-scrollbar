@@ -1,5 +1,5 @@
 import Scrollbar from '../../src/';
-import { DEFAULT_OPTIONS } from '../../src/options';
+import { DEFAULT_OPTIONS } from '../../src/shared/';
 
 const DPR = window.devicePixelRatio;
 const options = Object.assign({}, DEFAULT_OPTIONS);

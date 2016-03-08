@@ -4,7 +4,7 @@
  */
 
 import { pickInRange } from '../utils/';
-import { OPTION_LIMIT } from '../options';
+import { OPTION_LIMIT } from '../shared/';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
