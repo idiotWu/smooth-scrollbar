@@ -14,6 +14,8 @@ function __setMovement(deltaX = 0, deltaY = 0) {
         movement
     } = this;
 
+    this.__updateThrottle();
+
     let limit = this.__getDeltaLimit();
 
     movement.x = pickInRange(deltaX * options.speed, ...limit.x);
