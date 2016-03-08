@@ -1,9 +1,10 @@
 import { SmoothScrollbar } from './smooth_scrollbar';
 import { selectors, sbList } from './shared';
 
-import './apis/index';
-import './events/index';
-import './internals/index';
+import './apis/';
+import './render/';
+import './events/';
+import './internals/';
 
 export default SmoothScrollbar;
 
