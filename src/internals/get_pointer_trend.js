@@ -1,14 +1,14 @@
 /**
  * @module
- * @prototype {Function} __getOverflowDir
+ * @prototype {Function} __getPointerTrend
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
-import { getPosition } from '../utils/index';
+import { getPosition } from '../utils/';
 
 export { SmoothScrollbar };
 
-function __getOverflowDir(evt, edge = 0) {
+function __getPointerTrend(evt, edge = 0) {
     const { top, right, bottom, left } = this.bounding;
     const { x, y } = getPosition(evt);
 
@@ -34,8 +34,8 @@ function __getOverflowDir(evt, edge = 0) {
     return res;
 };
 
-Object.defineProperty(SmoothScrollbar.prototype, '__getOverflowDir', {
-    value: __getOverflowDir,
+Object.defineProperty(SmoothScrollbar.prototype, '__getPointerTrend', {
+    value: __getPointerTrend,
     writable: true,
     configurable: true
 });

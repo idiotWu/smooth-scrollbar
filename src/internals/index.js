@@ -8,5 +8,5 @@ export * from './init_scrollbar';
 export * from './transform_delta';
 export * from './update_children';
 export * from './update_bounding';
-export * from './get_overflow_dir';
+export * from './get_pointer_trend';
 export * from './set_thumb_position';

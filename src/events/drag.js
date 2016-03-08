@@ -43,7 +43,7 @@
         cancelAnimationFrame(animation);
         evt.preventDefault();
 
-        const dir = this.__getOverflowDir(evt, targetHeight);
+        const dir = this.__getPointerTrend(evt, targetHeight);
 
         scroll(dir);
     });
