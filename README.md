@@ -163,7 +163,15 @@ Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Work-with-RubaXa
 - [angular-smooth-scrollbar](https://github.com/idiotWu/angular-smooth-scrollbar)
 - [react-smooth-scrollbar](https://github.com/idiotWu/react-smooth-scrollbar)
 
+## Todo
+
+- [] Overscroll effect.
+
 ## Changelog
+
+### 4.1.0
+
+- Reduce movement at container's edge.
 
 ### 4.0.0
 
