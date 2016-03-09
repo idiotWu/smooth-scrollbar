@@ -18,7 +18,7 @@ Customize scrollbar in modern browsers with smooth scrolling experience.
 | Safari  | 8+      |
 | Android Browser | 4+ |
 | Chrome for Android | 32+ |
-| iOS Safarri | 7+ |
+| iOS Safari | 7+ |
 
 ## Install
 
