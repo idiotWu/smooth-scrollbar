@@ -45,7 +45,7 @@ export let setStyle = (elem, styles) => {
     styles = autoPrefix(styles);
 
     Object.keys(styles).forEach((prop) => {
-        let cssProp = prop.replace(/-([a-z])/g, (m, $1) => $1.toUpperCase());
+        let cssProp = prop.replace(/^-/, '').replace(/-([a-z])/g, (m, $1) => $1.toUpperCase());
         elem.style[cssProp] = styles[prop];
     });
 };
