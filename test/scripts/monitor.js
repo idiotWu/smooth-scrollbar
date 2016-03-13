@@ -390,13 +390,15 @@ input.value = timeRange / 1e3;
 label.textContent = input.value + 's';
 
 addEvent(input, 'input', (e) => {
-    if (!records.length) return;
     let start = records[0];
     let end = records[records.length - 1];
     let val = parseFloat(e.target.value);
     label.textContent = val + 's';
     timeRange = val * 1e3;
-    endOffset = Math.min(endOffset, Math.max(0, 1 - timeRange / (end.time - start.time)));
+
+    if (end) {
+        endOffset = Math.min(endOffset, Math.max(0, 1 - timeRange / (end.time - start.time)));
+    }
 });
 
 addEvent(document.getElementById('reset'), 'click', () => {
