@@ -48,8 +48,8 @@ ctx.scale(DPR, DPR);
 function addEvent(elems, evts, handler) {
     evts.split(/\s+/).forEach((name) => {
         [].concat(elems).forEach((el) => {
-            el.addEventListener(name, () => {
-                handler.apply(this, [].slice.call(arguments));
+            el.addEventListener(name, (...args) => {
+                handler(...args);
                 shouldUpdate = true;
             });
         });
@@ -61,7 +61,7 @@ function sliceRecord() {
     let last = records[records.length - 1];
     let dropIdx = 0;
 
-    let result = records.filter(function(pt, idx) {
+    let result = records.filter((pt, idx) => {
         if (last.time - pt.time > TIME_RANGE_MAX) {
             dropIdx++;
             endIdx--;
@@ -83,7 +83,7 @@ function sliceRecord() {
 };
 
 function getLimit(points) {
-    return points.reduce(function(pre, cur) {
+    return points.reduce((pre, cur) => {
         let val = cur[chartType];
         return {
             max: Math.max(pre.max, val),
@@ -170,7 +170,7 @@ function drawMain() {
     ctx.beginPath();
     ctx.moveTo(0, 0);
 
-    let lastPoint = points.reduce(function(pre, cur, idx) {
+    let lastPoint = points.reduce((pre, cur, idx) => {
         let time = cur.time,
             value = cur[chartType];
         let x = (time - start.time) / totalX * size.width,
@@ -375,7 +375,6 @@ label.textContent = input.value + 's';
 
 addEvent(input, 'input', (e) => {
     if (!records.length) return;
-
     let start = records[0];
     let end = records[records.length - 1];
     let val = parseFloat(e.target.value);
