@@ -46,11 +46,15 @@ canvas.height = size.height * DPR;
 ctx.scale(DPR, DPR);
 
 function notation(num = 0) {
-    if (Math.abs(num) > 10**-2) return num.toFixed(2);
+    if (!num || Math.abs(num) > 10**-2) return num.toFixed(2);
 
-    let exp = -1;
+    let exp = -3;
 
     while (!(num / 10**exp)) {
+        if (exp < -10) {
+            return num > 0 ? 'Infinity' : '-Infinity';
+        }
+
         exp--;
     }
 
