@@ -46,9 +46,9 @@ canvas.height = size.height * DPR;
 ctx.scale(DPR, DPR);
 
 function addEvent(elems, evts, handler) {
-    evts.split(/\s+/).forEach(function(name) {
-        [].concat(elems).forEach(function(el) {
-            el.addEventListener(name, function() {
+    evts.split(/\s+/).forEach((name) => {
+        [].concat(elems).forEach((el) => {
+            el.addEventListener(name, () => {
                 handler.apply(this, [].slice.call(arguments));
                 shouldUpdate = true;
             });
@@ -95,7 +95,7 @@ function getLimit(points) {
 function assignProps(props) {
     if (!props) return;
 
-    Object.keys(props).forEach(function(name) {
+    Object.keys(props).forEach((name) => {
         ctx[name] = props[name];
     });
 };
@@ -237,7 +237,10 @@ function drawTangentLine() {
         }
     });
 
-    fillText('k: ' + k.toFixed(2), [size.width / 2, 0], {
+    let realK = (tangentPoint.point[chartType] - tangentPointPre.point[chartType]) /
+                (tangentPoint.point.time - tangentPointPre.point.time);
+
+    fillText('dy/dx: ' + realK.toFixed(2), [size.width / 2, 0], {
         props: {
             fillStyle: '#f00',
             textAlign: 'center',
@@ -332,18 +335,19 @@ let lastTime = Date.now(),
     lastOffset = 0,
     reduceAmount = 0;
 
-scrollbar.addListener(function() {
+scrollbar.addListener(() => {
     let current = Date.now(),
         offset = scrollbar.offset.y,
-        duration = current - lastTime,
-        velocity = (offset - lastOffset) / duration;
+        duration = current - lastTime;
 
     if (!duration || offset === lastOffset) return;
 
     if (duration > 50) {
         reduceAmount += (duration - 1);
+        duration -= (duration - 1);
     }
 
+    let velocity = (offset - lastOffset) / duration;
     lastTime = current;
     lastOffset = offset;
 
@@ -369,7 +373,9 @@ input.min = 1;
 input.value = timeRange / 1e3;
 label.textContent = input.value + 's';
 
-addEvent(input, 'input', function(e) {
+addEvent(input, 'input', (e) => {
+    if (!records.length) return;
+
     let start = records[0];
     let end = records[records.length - 1];
     let val = parseFloat(e.target.value);
@@ -378,7 +384,7 @@ addEvent(input, 'input', function(e) {
     endOffset = Math.min(endOffset, Math.max(0, 1 - timeRange / (end.time - start.time)));
 });
 
-addEvent(document.getElementById('reset'), 'click', function() {
+addEvent(document.getElementById('reset'), 'click', () => {
     records.length = endOffset = reduceAmount = 0;
     hoverLocked = false;
     hoverPointerX = undefined;
@@ -388,7 +394,7 @@ addEvent(document.getElementById('reset'), 'click', function() {
 });
 
 // hover
-addEvent(canvas, 'mousemove touchmove', function(e) {
+addEvent(canvas, 'mousemove touchmove', (e) => {
     if (hoverLocked || pointerDownOnTrack) return;
 
     let pointer = getPointer(e);
@@ -402,24 +408,24 @@ function resetHover() {
     tangentPointPre = null;
 };
 
-addEvent([canvas, window], 'mouseleave touchend', function() {
+addEvent([canvas, window], 'mouseleave touchend', () => {
     if (hoverLocked) return;
     resetHover();
 });
 
-addEvent(canvas, 'click', function() {
+addEvent(canvas, 'click', () => {
     hoverLocked = !hoverLocked;
 
     if (!hoverLocked) resetHover();
 });
 
 // track
-addEvent(thumb, 'mousedown touchstart', function(e) {
+addEvent(thumb, 'mousedown touchstart', (e) => {
     let pointer = getPointer(e);
     pointerDownOnTrack = pointer.clientX;
 });
 
-addEvent(window, 'mousemove touchmove', function(e) {
+addEvent(window, 'mousemove touchmove', (e) => {
     if (!pointerDownOnTrack) return;
 
     let pointer = getPointer(e);
@@ -429,15 +435,15 @@ addEvent(window, 'mousemove touchmove', function(e) {
     endOffset = Math.min(1 - thumbWidth, Math.max(0, endOffset - moved));
 });
 
-addEvent(window, 'mouseup touchend blur', function(e) {
+addEvent(window, 'mouseup touchend blur', (e) => {
     pointerDownOnTrack = undefined;
 });
 
-addEvent(thumb, 'click touchstart', function(e) {
+addEvent(thumb, 'click touchstart', (e) => {
     e.stopPropagation();
 });
 
-addEvent(track, 'click touchstart', function(e) {
+addEvent(track, 'click touchstart', (e) => {
     let pointer = getPointer(e);
     let rect = track.getBoundingClientRect();
     let offset = (pointer.clientX - rect.left) / rect.width;
@@ -448,7 +454,7 @@ addEvent(track, 'click touchstart', function(e) {
 addEvent(
     [].slice.call(document.querySelectorAll('.chart-type')),
     'change',
-    function() {
+    () => {
         if (this.checked) {
             chartType = this.value;
         }
