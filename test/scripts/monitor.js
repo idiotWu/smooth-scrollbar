@@ -453,9 +453,9 @@ addEvent(track, 'click touchstart', (e) => {
 addEvent(
     [].slice.call(document.querySelectorAll('.chart-type')),
     'change',
-    () => {
-        if (this.checked) {
-            chartType = this.value;
+    ({ target }) => {
+        if (target.checked) {
+            chartType = target.value;
         }
     }
 );
