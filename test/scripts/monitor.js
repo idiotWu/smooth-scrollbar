@@ -45,6 +45,18 @@ canvas.width = size.width * DPR;
 canvas.height = size.height * DPR;
 ctx.scale(DPR, DPR);
 
+function notation(num = 0) {
+    if (Math.abs(num) > 10**-2) return num.toFixed(2);
+
+    let exp = -1;
+
+    while (!(num / 10**exp)) {
+        exp--;
+    }
+
+    return (num * 10**-exp).toFixed(2) + 'e' + exp;
+};
+
 function addEvent(elems, evts, handler) {
     evts.split(/\s+/).forEach((name) => {
         [].concat(elems).forEach((el) => {
@@ -205,7 +217,7 @@ function drawMain() {
         }
     });
 
-    fillText('↙' + limit.min.toFixed(2), [0, 0], {
+    fillText('↙' + notation(limit.min), [0, 0], {
         props: {
             fillStyle: '#000',
             textAlign: 'left',
@@ -213,7 +225,7 @@ function drawMain() {
             font: '12px sans-serif'
         }
     });
-    fillText(end[chartType].toFixed(2), lastPoint, {
+    fillText(notation(end[chartType]), lastPoint, {
         props: {
             fillStyle: '#f60',
             textAlign: 'right',
@@ -240,7 +252,7 @@ function drawTangentLine() {
     let realK = (tangentPoint.point[chartType] - tangentPointPre.point[chartType]) /
                 (tangentPoint.point.time - tangentPointPre.point.time);
 
-    fillText('dy/dx: ' + realK.toFixed(2), [size.width / 2, 0], {
+    fillText('dy/dx: ' + notation(realK), [size.width / 2, 0], {
         props: {
             fillStyle: '#f00',
             textAlign: 'center',
@@ -279,7 +291,7 @@ function drawHover() {
         '.',
         date.getMilliseconds(),
         ', ',
-        point[chartType].toFixed(2),
+        notation(point[chartType]),
         ')'
     ].join('');
 
