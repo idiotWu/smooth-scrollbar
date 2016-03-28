@@ -36,23 +36,16 @@ let __mouseHandler = function() {
         const { size, offset } = this;
 
         if (direction === 'x') {
-            // use percentage value
             let thumbSize = pickInRange(size.container.width / size.content.width, 0, 1);
             let clickOffset = (clickPos.x - rect.left) / size.container.width;
 
-            return this.__setMovement(
-                (clickOffset - thumbSize / 2) * size.content.width - offset.x,
-                0
-            );
+            this.movement.x = (clickOffset - thumbSize / 2) * size.content.width - offset.x;
+        } else {
+            let thumbSize = pickInRange(size.container.height / size.content.height, 0, 1);
+            let clickOffset = (clickPos.y - rect.top) / size.container.height;
+
+            this.movement.y = (clickOffset - thumbSize / 2) * size.content.height - offset.y;
         }
-
-        let thumbSize = pickInRange(size.container.height / size.content.height, 0, 1);
-        let clickOffset = (clickPos.y - rect.top) / size.container.height;
-
-        this.__setMovement(
-            0,
-            (clickOffset - thumbSize / 2) * size.content.height - offset.y
-        );
     });
 
     this.__addEvent(container, 'mousedown', (evt) => {
