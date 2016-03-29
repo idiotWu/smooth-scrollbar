@@ -19,7 +19,7 @@ export let buildCurve = (distance, duration) => {
     const b = -2 * a * t;
 
     for (let i = 0; i <= t; i++) {
-        res.push(distance ? (a * i**2 + b * i) : 0);
+        res.push(a * i**2 + b * i);
     }
 
     return res;
