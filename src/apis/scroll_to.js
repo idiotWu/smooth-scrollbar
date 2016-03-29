@@ -30,11 +30,6 @@ SmoothScrollbar.prototype.scrollTo = function(x = this.offset.x, y = this.offset
     cancelAnimationFrame(__timerID.scrollTo);
     cb = typeof cb === 'function' ? cb : () => {};
 
-    if (!duration) {
-        this.setPosition(x, y);
-        return cb(this);
-    }
-
     const startX = offset.x;
     const startY = offset.y;
 
