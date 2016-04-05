@@ -82,6 +82,20 @@ export class SmoothScrollbar {
             }
         });
 
+        // accessors
+        Object.defineProperties(this, {
+            scrollTop: {
+                get() {
+                    return this.offset.y;
+                }
+            },
+            scrollLeft: {
+                get() {
+                    return this.offset.x;
+                }
+            }
+        });
+
         this.setOptions(options);
         this.__initScrollbar();
     }
