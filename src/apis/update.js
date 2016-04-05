@@ -52,6 +52,9 @@ SmoothScrollbar.prototype.update = function(async = true) {
             'height': `${pickInRange(size.container.height / size.content.height, 0, 1) * 100}%`
         });
 
+        // re-positioning
+        const { offset, limit } = this;
+        this.setPosition(Math.min(offset.x, limit.x), Math.min(offset.y, limit.y));
         this.__setThumbPosition();
     };
 
