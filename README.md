@@ -105,8 +105,9 @@ Or you can call `Scrollbar.init(elem, options)` to manually init the scrollbar.
 | :--------: | :--: | :-----: | :----------: |
 | speed | Number | 1 | Scrolling speed scale.|
 | fricton | Number | 10 | Scrolling fricton, a percentage value within (1, 100) |
+| ignoreEvents | Array | [] | A list of events names that are ignored, all handled events are: `["blur", "click", "dragend", "dragover", "dragstart", "focus", "keydown", "mousedown", "mousemove", "mouseup", "resize", "scroll", "selectstart", "touchend", "touchmove", "touchstart", "wheel"]` |
 
-Confusing with the option field? Try editor tool [here](http://idiotwu.github.io/smooth-scrollbar/)!
+Confusing with the option field? Try edit tool [here](http://idiotwu.github.io/smooth-scrollbar/)!
 
 ## DOM Structure
 Following is the DOM structure that Scrollbar generated:
@@ -141,6 +142,16 @@ Following is the DOM structure that Scrollbar generated:
 - [Scrollbar.destroyAll()](https://github.com/idiotWu/smooth-scrollbar/wiki/Static-Methods#scrollbardestroyall)
 
 ### Instance
+
+#### Properties
+
+- [instance#targets](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancetargets)
+- [instance#offset](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceoffset)
+- [instance#limit](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancelimit)
+- [instance#scrollTop](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancescrolltop)
+- [instance#scrollLeft](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancescrollleft)
+
+### Methods
 
 - [instance#update( [async] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceupdate-async-)
 - [instance#getSize()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancegetsize)
