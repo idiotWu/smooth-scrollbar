@@ -12,7 +12,7 @@ function __ignoreEvent(evt = {}) {
     const { target } = getOriginalEvent(evt);
 
     return (!evt.type.match(/drag/) && evt.defaultPrevented) ||
-        this.options.ignoreEvents.some((name) => evt.type === name) ||
+        this.options.ignoreEvents.some(rule => evt.type.match(rule)) ||
         this.children.some((sb) => sb.contains(target));
 };
 
