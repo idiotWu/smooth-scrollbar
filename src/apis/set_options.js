@@ -17,16 +17,5 @@ export { SmoothScrollbar };
  * @param {Object} options
  */
 SmoothScrollbar.prototype.setOptions = function(options = {}) {
-    Object.keys(options).forEach((prop) => {
-        if (!OPTION_LIMIT.hasOwnProperty(prop)) return;
-
-        if (isNaN(parseFloat(options[prop]))) {
-            delete options[prop];
-            return;
-        }
-
-        options[prop] = pickInRange(options[prop], ...OPTION_LIMIT[prop]);
-    });
-
     Object.assign(this.options, options);
 };

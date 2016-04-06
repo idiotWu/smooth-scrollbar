@@ -3,7 +3,7 @@
  * @export {Class} SmoothScrollbar
  */
 
-import { DEFAULT_OPTIONS, sbList } from './shared/';
+import { sbList } from './shared/';
 import {
     debounce,
     findChild,
@@ -60,8 +60,7 @@ export class SmoothScrollbar {
             x: 0,
             y: 0
         })
-        .__readonly('size', this.getSize())
-        .__readonly('options', Object.assign({}, DEFAULT_OPTIONS));
+        .__readonly('size', this.getSize());
 
         // non-enmurable properties
         Object.defineProperties(this, {
@@ -96,7 +95,7 @@ export class SmoothScrollbar {
             }
         });
 
-        this.setOptions(options);
+        this.__initOptions(options);
         this.__initScrollbar();
     }
 }

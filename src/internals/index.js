@@ -1,5 +1,6 @@
 export * from './readonly';
 export * from './add_event';
+export * from './init_options';
 export * from './ignore_event';
 export * from './init_scrollbar';
 export * from './get_delta_limit';
