@@ -151,7 +151,7 @@ Following is the DOM structure that Scrollbar generated:
 - [instance#scrollTop](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancescrolltop)
 - [instance#scrollLeft](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancescrollleft)
 
-### Methods
+#### Methods
 
 - [instance#update( [async] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceupdate-async-)
 - [instance#getSize()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancegetsize)
@@ -179,6 +179,10 @@ Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Work-with-RubaXa
 - [ ] Overscroll effect.
 
 ## Changelog
+
+### 4.2.0
+
+- Add `ignoreEvents` support.
 
 ### 4.1.0
 
