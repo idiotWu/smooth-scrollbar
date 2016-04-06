@@ -24,7 +24,7 @@ let __wheelHandler = function() {
     const { container } = this.targets;
 
     this.__addEvent(container, WHEEL_EVENT, (evt) => {
-        if (evt.defaultPrevented) return;
+        if (this.__ignoreEvent(evt)) return;
 
         evt.preventDefault();
         evt.stopPropagation();
