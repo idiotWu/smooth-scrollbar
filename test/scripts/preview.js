@@ -1,8 +1,6 @@
 import Scrollbar from '../../src/';
-import { DEFAULT_OPTIONS } from '../../src/shared/';
 
 const DPR = window.devicePixelRatio;
-const options = Object.assign({}, DEFAULT_OPTIONS);
 
 const size = {
     width: 250,
@@ -12,6 +10,7 @@ const size = {
 const canvas = document.getElementById('preview');
 const scrollbar = Scrollbar.get(document.getElementById('content'));
 const ctx = canvas.getContext('2d');
+const options = Object.assign({}, scrollbar.options);
 
 canvas.width = size.width * DPR;
 canvas.height = size.height * DPR;
