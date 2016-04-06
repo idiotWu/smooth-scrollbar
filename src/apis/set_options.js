@@ -25,7 +25,9 @@ SmoothScrollbar.prototype.setOptions = function(options = {}) {
 
         if (!OPTION_LIMIT.hasOwnProperty(prop)) return;
 
-        options[prop] = pickInRange(options[prop], ...OPTION_LIMIT[prop]);
+        if (OPTION_LIMIT[prop]) {
+            options[prop] = pickInRange(options[prop], ...OPTION_LIMIT[prop]);
+        }
     });
 
     Object.assign(this.options, options);

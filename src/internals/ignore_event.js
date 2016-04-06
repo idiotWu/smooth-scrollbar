@@ -4,16 +4,15 @@
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
-import { getOriginalEvent } from '../utils/index';
+import { getOriginalEvent } from '../utils/';
 
 export { SmoothScrollbar };
 
 function __ignoreEvent(evt = {}) {
     const { target } = getOriginalEvent(evt);
 
-    if (!target || target === window || !this.children) return false;
-
-    return (!evt.type.match(/drag/) && evt.defaultPrevented)||
+    return (!evt.type.match(/drag/) && evt.defaultPrevented) ||
+        this.options.ignoreEvents.some((name) => evt.type === name) ||
         this.children.some((sb) => sb.contains(target));
 };
 
