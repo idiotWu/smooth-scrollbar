@@ -45,7 +45,7 @@ function __render() {
         this.setPosition(nextX.position, nextY.position);
     }
 
-    __timerID.scrollAnimation = requestAnimationFrame(this::__render);
+    __timerID.render = requestAnimationFrame(this::__render);
 
 };
 
