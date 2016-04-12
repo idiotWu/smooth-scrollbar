@@ -60,6 +60,12 @@ export class SmoothScrollbar {
             x: 0,
             y: 0
         })
+        .__readonly('thumbSize', {
+            x: 0,
+            y: 0,
+            realX: 0,
+            realY: 0
+        })
         .__readonly('size', this.getSize());
 
         // non-enmurable properties
