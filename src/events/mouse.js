@@ -37,10 +37,10 @@ let __mouseHandler = function() {
         const { size, offset, thumbSize } = this;
 
         if (direction === 'x') {
-            let clickOffset = (clickPos.x - rect.left - thumbSize.realX / 2) / size.container.width;
+            let clickOffset = (clickPos.x - rect.left - thumbSize.x / 2) / (size.container.width - (thumbSize.x - thumbSize.realX));
             this.movement.x = pickInRange(clickOffset * size.content.width - offset.x, ...deltaLimit.x);
         } else {
-            let clickOffset = (clickPos.y - rect.top - thumbSize.realY / 2) / size.container.height;
+            let clickOffset = (clickPos.y - rect.top - thumbSize.y / 2) / (size.container.height - (thumbSize.y - thumbSize.realY));
             this.movement.y = pickInRange(clickOffset * size.content.height - offset.y, ...deltaLimit.y);
         }
     });
