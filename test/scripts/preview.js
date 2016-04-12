@@ -87,3 +87,5 @@ function calcDots() {
 });
 
 render();
+
+document.querySelector('#version').textContent = `v${Scrollbar.version}`;
