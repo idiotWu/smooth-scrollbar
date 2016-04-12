@@ -157,11 +157,13 @@ Following is the DOM structure that Scrollbar generated:
 
 - [instance#update( [async] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceupdate-async-)
 - [instance#getSize()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancegetsize)
-- [instance#setPosition( x, y )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancesetposition-x-y-)
+- [instance#setPosition( x, y, [withoutCallbacks] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancesetposition-x-y-withoutcallbacks-)
 - [instance#scrollTo( x, y, [duration], [callback] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancescrollto-x-y-duration-callback-)
 - [instance#addListener( fn )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceaddlistener-fn-)
 - [instance#removeListener( fn )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceremovelistener-fn-)
 - [instance#infiniteScroll( callback, [threshold] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceinfinitescroll-callback-threshold-)
+- [[instance#clearMovement()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#clearMovement)]
+- [[instance#stop()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#stop)]
 - [instance#destroy()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancedestroy)
 - [instance#getContentElem()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancegetcontentelem)
 - [instance#showTrack( direction )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceshowtrack-direction-)
@@ -181,6 +183,16 @@ Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Work-with-RubaXa
 - [ ] Overscroll effect.
 
 ## Changelog
+
+### 5.1.0
+
+- Add `#clearMovement` and `#stop` method.
+- Allow users to temporarily disable callbacks when invoke `#setPosition` method.
+
+### 5.0.0
+
+- **Breaking change**: rename `fricton` to `friction`.
+- Feature: minimal scrollbar thumb size.
 
 ### 4.2.0
 
