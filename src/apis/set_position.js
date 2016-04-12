@@ -15,8 +15,9 @@ export { SmoothScrollbar };
  *
  * @param {Number} [x]: scrollbar position in x axis
  * @param {Number} [y]: scrollbar position in y axis
+ * @param {Boolean} [withoutCallbacks]: disable callback functions temporarily
  */
-SmoothScrollbar.prototype.setPosition = function(x = this.offset.x, y = this.offset.y) {
+SmoothScrollbar.prototype.setPosition = function(x = this.offset.x, y = this.offset.y, withoutCallbacks = false) {
     this.__updateThrottle();
 
     const status = {};
@@ -51,6 +52,7 @@ SmoothScrollbar.prototype.setPosition = function(x = this.offset.x, y = this.off
     });
 
     // invoke all listeners
+    if (withoutCallbacks) return;
     __listeners.forEach((fn) => {
         requestAnimationFrame(() => {
             fn(status);
