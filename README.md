@@ -105,8 +105,8 @@ Or you can call `Scrollbar.init(elem, options)` to manually init the scrollbar.
 | :--------: | :--: | :-----: | :----------: |
 | speed | Number | 1 | Scrolling speed scale.|
 | friction | Number | 10 | Scrolling friction, a percentage value within (1, 100). |
-| thumbMinWidth | Number | 20 | Minial size for horizontal thumb. |
-| thumbMinHeight | Number | 20 | Minial size for vertical thumb. |
+| thumbMinWidth | Number | 20 | Minimal size for horizontal thumb. |
+| thumbMinHeight | Number | 20 | Minimal size for vertical thumb. |
 | ignoreEvents | Array | [] | Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Options-Field). |
 
 Confusing with the option field? Try edit tool [here](http://idiotwu.github.io/smooth-scrollbar/)!
