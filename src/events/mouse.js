@@ -4,7 +4,7 @@
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
-import { getPosition, getTouchID, pickInRange } from '../utils/index';
+import { getPosition, getTouchID, pickInRange } from '../utils/';
 
 export { SmoothScrollbar };
 
@@ -32,15 +32,16 @@ let __mouseHandler = function() {
         let direction = getTrackDir(track.className);
         let rect = track.getBoundingClientRect();
         let clickPos = getPosition(evt);
+        let deltaLimit = this.__getDeltaLimit();
 
         const { size, offset, thumbSize } = this;
 
         if (direction === 'x') {
             let clickOffset = (clickPos.x - rect.left - thumbSize.x / 2) / size.container.width;
-            this.movement.x = clickOffset * size.content.width - offset.x;
+            this.movement.x = pickInRange(clickOffset * size.content.width - offset.x, ...deltaLimit.x);
         } else {
             let clickOffset = (clickPos.y - rect.top - thumbSize.y / 2) / size.container.height;
-            this.movement.y = clickOffset * size.content.height - offset.y;
+            this.movement.y = pickInRange(clickOffset * size.content.height - offset.y, ...deltaLimit.y);
         }
     });
 
