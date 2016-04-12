@@ -11,14 +11,14 @@ export { SmoothScrollbar };
 function __initOptions(opt = {}) {
     const options = {
         speed: 1,          // scroll speed scale
-        fricton: 10,       // fricton factor, percent
+        friction: 10,      // friction factor, percent
         ignoreEvents: [],  // events names to be ignored
         thumbMinWidth: 20, // min size for horizontal thumb
         thumbMinHeight: 20 // min height for vertical thumb
     };
 
     const limit = {
-        fricton: [1, 99],
+        friction: [1, 99],
         speed: [0, Infinity],
         thumbMinWidth: [0, Infinity],
         thumbMinHeight: [0, Infinity]
