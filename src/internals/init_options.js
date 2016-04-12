@@ -8,7 +8,7 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
 
-function __initOptions(opt = {}) {
+function __initOptions(userPreference) {
     const options = {
         speed: 1,          // scroll speed scale
         friction: 10,      // friction factor, percent
@@ -56,6 +56,7 @@ function __initOptions(opt = {}) {
         });
 
     this.__readonly('options', optionAccessors);
+    this.setOptions(userPreference);
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__initOptions', {
