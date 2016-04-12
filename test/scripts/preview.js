@@ -57,7 +57,7 @@ render();
 function calcDots() {
     let {
         speed,
-        fricton
+        friction
     } = options;
 
     let dots = [];
@@ -68,7 +68,7 @@ function calcDots() {
     while(y > 0.1) {
         dots.push([x, y]);
 
-        y *= (1 - fricton / 100);
+        y *= (1 - friction / 100);
         x++;
     }
 
