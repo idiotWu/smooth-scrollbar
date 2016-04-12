@@ -69,20 +69,10 @@ scrollbar .scrollbar-thumb,
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 8px;
+  height: 8px;
   background: rgba(0,0,0,0.5);
   border-radius: 4px;
-}
-scrollbar .scrollbar-thumb-x,
-[scrollbar] .scrollbar-thumb-x,
-[data-scrollbar] .scrollbar-thumb-x {
-  min-width: 20px;
-}
-scrollbar .scrollbar-thumb-y,
-[scrollbar] .scrollbar-thumb-y,
-[data-scrollbar] .scrollbar-thumb-y {
-  min-height: 20px;
 }
 html,
 body {
