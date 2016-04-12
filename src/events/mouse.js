@@ -33,18 +33,14 @@ let __mouseHandler = function() {
         let rect = track.getBoundingClientRect();
         let clickPos = getPosition(evt);
 
-        const { size, offset } = this;
+        const { size, offset, thumbSize } = this;
 
         if (direction === 'x') {
-            let thumbSize = pickInRange(size.container.width / size.content.width, 0, 1);
-            let clickOffset = (clickPos.x - rect.left) / size.container.width;
-
-            this.movement.x = (clickOffset - thumbSize / 2) * size.content.width - offset.x;
+            let clickOffset = (clickPos.x - rect.left - thumbSize.x / 2) / size.container.width;
+            this.movement.x = clickOffset * size.content.width - offset.x;
         } else {
-            let thumbSize = pickInRange(size.container.height / size.content.height, 0, 1);
-            let clickOffset = (clickPos.y - rect.top) / size.container.height;
-
-            this.movement.y = (clickOffset - thumbSize / 2) * size.content.height - offset.y;
+            let clickOffset = (clickPos.y - rect.top - thumbSize.y / 2) / size.container.height;
+            this.movement.y = clickOffset * size.content.height - offset.y;
         }
     });
 

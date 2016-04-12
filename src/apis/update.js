@@ -32,9 +32,20 @@ SmoothScrollbar.prototype.update = function(async = true) {
             newLimit.x === this.limit.x &&
             newLimit.y === this.limit.y) return;
 
-        this.__readonly('limit', newLimit);
+        const { targets, options } = this;
 
-        let { xAxis, yAxis } = this.targets;
+        let thumbSize = {
+            realX: size.container.width / size.content.width * size.container.width,
+            realY: size.container.height / size.content.height * size.container.height
+        };
+
+        thumbSize.x = Math.max(thumbSize.realX, options.thumbMinWidth);
+        thumbSize.y = Math.max(thumbSize.realY, options.thumbMinHeight);
+
+        this.__readonly('limit', newLimit)
+            .__readonly('thumbSize', thumbSize);
+
+        const { xAxis, yAxis } = this.targets;
 
         // hide scrollbar if content size less than container
         setStyle(xAxis.track, {
@@ -46,10 +57,10 @@ SmoothScrollbar.prototype.update = function(async = true) {
 
         // use percentage value for thumb
         setStyle(xAxis.thumb, {
-            'width': `${pickInRange(size.container.width / size.content.width, 0, 1) * 100}%`
+            'width': `${thumbSize.x}px`
         });
         setStyle(yAxis.thumb, {
-            'height': `${pickInRange(size.container.height / size.content.height, 0, 1) * 100}%`
+            'height': `${thumbSize.y}px`
         });
 
         // re-positioning
