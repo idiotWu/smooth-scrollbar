@@ -104,8 +104,10 @@ Or you can call `Scrollbar.init(elem, options)` to manually init the scrollbar.
 | parameter | type | default | description |
 | :--------: | :--: | :-----: | :----------: |
 | speed | Number | 1 | Scrolling speed scale.|
-| fricton | Number | 10 | Scrolling fricton, a percentage value within (1, 100) |
-| ignoreEvents | Array | [] | A list of events names that are ignored, regex rules are supported. All handled events are: `["blur", "click", "dragend", "dragover", "dragstart", "focus", "keydown", "mousedown", "mousemove", "mouseup", "resize", "scroll", "selectstart", "touchend", "touchmove", "touchstart", "wheel"]` |
+| friction | Number | 10 | Scrolling friction, a percentage value within (1, 100). |
+| thumbMinWidth | Number | 20 | Minial size for horizontal thumb. |
+| thumbMinHeight | Number | 20 | Minial size for vertical thumb. |
+| ignoreEvents | Array | [] | Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Options-Field). |
 
 Confusing with the option field? Try edit tool [here](http://idiotwu.github.io/smooth-scrollbar/)!
 
