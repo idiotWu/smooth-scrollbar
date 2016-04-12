@@ -35,10 +35,12 @@ SmoothScrollbar.prototype.update = function(async = true) {
         const { targets, options } = this;
 
         let thumbSize = {
+            // real thumb sizes
             realX: size.container.width / size.content.width * size.container.width,
             realY: size.container.height / size.content.height * size.container.height
         };
 
+        // rendered thumb sizes
         thumbSize.x = Math.max(thumbSize.realX, options.thumbMinWidth);
         thumbSize.y = Math.max(thumbSize.realY, options.thumbMinHeight);
 
