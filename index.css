@@ -103,6 +103,7 @@ main {
           flex-flow: column;
 }
 #debug {
+  position: relative;
   margin-top: 1em;
   display: -webkit-box;
   display: -webkit-flex;
@@ -120,6 +121,12 @@ main {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+#debug #version {
+  font-size: 0.8em;
+  position: absolute;
+  right: 1em;
+  bottom: 0;
 }
 #debug canvas {
   width: 250px;
