@@ -143,7 +143,7 @@ main {
   border-collapse: collapse;
   table-layout: fixed;
 }
-#debug table input {
+#debug table input[type="range"] {
   width: 100%;
 }
 #debug tr:nth-child(even) {
