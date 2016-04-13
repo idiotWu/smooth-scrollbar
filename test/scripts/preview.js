@@ -75,6 +75,8 @@ function calcDots() {
     return dots;
 };
 
+document.querySelector('#version').textContent = `v${Scrollbar.version}`;
+
 [...document.querySelectorAll('.options')].forEach((el) => {
     const prop = el.name;
     const label = document.querySelector(`.option-${prop}`);
@@ -86,6 +88,12 @@ function calcDots() {
     });
 });
 
-render();
+const innerScrollbar = Scrollbar.get(document.querySelector('.inner-scrollbar'));
 
-document.querySelector('#version').textContent = `v${Scrollbar.version}`;
+document.querySelector('#continuous').addEventListener('change', ({ target }) => {
+    innerScrollbar.setOptions({
+        continuousScrolling: target.checked
+    });
+});
+
+render();
