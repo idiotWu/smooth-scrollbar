@@ -16,10 +16,18 @@ function __addMovement(deltaX = 0, deltaY = 0) {
 
     this.__updateThrottle();
 
-    let limit = this.__getDeltaLimit();
+    let x = movement.x + deltaX * options.speed;
+    let y = movement.y + deltaY * options.speed;
 
-    movement.x = pickInRange(movement.x + deltaX * options.speed, ...limit.x);
-    movement.y = pickInRange(movement.y + deltaY * options.speed, ...limit.y);
+    if (options.continuousScrolling) {
+        movement.x = x;
+        movement.y = y;
+    } else {
+        let limit = this.__getDeltaLimit();
+
+        movement.x = pickInRange(x, ...limit.x);
+        movement.y = pickInRange(y, ...limit.y);
+    }
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__addMovement', {

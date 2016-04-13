@@ -10,11 +10,12 @@ export { SmoothScrollbar };
 
 function __initOptions(userPreference) {
     const options = {
-        speed: 1,          // scroll speed scale
-        friction: 10,      // friction factor, percent
-        ignoreEvents: [],  // events names to be ignored
-        thumbMinWidth: 20, // min size for horizontal thumb
-        thumbMinHeight: 20 // min height for vertical thumb
+        speed: 1,                  // scroll speed scale
+        friction: 10,              // friction factor, percent
+        ignoreEvents: [],          // events names to be ignored
+        thumbMinWidth: 20,         // min size for horizontal thumb
+        thumbMinHeight: 20,        // min height for vertical thumb
+        continuousScrolling: false // allow uper scrollable content to scroll when reaching edge
     };
 
     const limit = {
@@ -34,11 +35,17 @@ function __initOptions(userPreference) {
             }
 
             options.ignoreEvents = v;
+        },
+        get continuousScrolling() {
+            return options.continuousScrolling;
+        },
+        set continuousScrolling(v) {
+            options.continuousScrolling = !!v;
         }
     };
 
     Object.keys(options)
-        .filter((prop) => prop !== 'ignoreEvents')
+        .filter((prop) => !optionAccessors.hasOwnProperty(prop))
         .forEach((prop) => {
             Object.defineProperty(optionAccessors, prop, {
                 enumerable: true,
