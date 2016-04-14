@@ -72,6 +72,8 @@ function calcDots() {
         x++;
     }
 
+    dots.push([x, 0]);
+
     return dots;
 };
 
