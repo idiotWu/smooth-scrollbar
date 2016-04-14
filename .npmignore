@@ -1,7 +1,0 @@
-node_modules
-bower_components
-build
-test
-gulpfile.js
-bowe.json
-.eslintrc
