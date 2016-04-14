@@ -13,16 +13,14 @@ function __initOptions(userPreference) {
         speed: 1,                  // scroll speed scale
         friction: 10,              // friction factor, percent
         ignoreEvents: [],          // events names to be ignored
-        thumbMinWidth: 20,         // min size for horizontal thumb
-        thumbMinHeight: 20,        // min height for vertical thumb
+        thumbMinSize: 20,          // min size for scrollbar thumb
         continuousScrolling: false // allow uper scrollable content to scroll when reaching edge
     };
 
     const limit = {
         friction: [1, 99],
         speed: [0, Infinity],
-        thumbMinWidth: [0, Infinity],
-        thumbMinHeight: [0, Infinity]
+        thumbMinSize: [0, Infinity]
     };
 
     const optionAccessors = {

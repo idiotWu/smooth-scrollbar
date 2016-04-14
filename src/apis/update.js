@@ -41,8 +41,8 @@ SmoothScrollbar.prototype.update = function(async = true) {
         };
 
         // rendered thumb sizes
-        thumbSize.x = Math.max(thumbSize.realX, options.thumbMinWidth);
-        thumbSize.y = Math.max(thumbSize.realY, options.thumbMinHeight);
+        thumbSize.x = Math.max(thumbSize.realX, options.thumbMinSize);
+        thumbSize.y = Math.max(thumbSize.realY, options.thumbMinSize);
 
         this.__readonly('limit', newLimit)
             .__readonly('thumbSize', thumbSize);
