@@ -66,6 +66,12 @@ export class SmoothScrollbar {
             realX: 0,
             realY: 0
         })
+        .__readonly('bounding', {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+        })
         .__readonly('size', this.getSize());
 
         // non-enmurable properties

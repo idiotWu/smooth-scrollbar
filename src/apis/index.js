@@ -9,3 +9,4 @@ export * from './toggle_track';
 export * from './clear_movement';
 export * from './infinite_scroll';
 export * from './get_content_elem';
+export * from './scroll_into_view';
