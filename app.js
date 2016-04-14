@@ -753,7 +753,7 @@
 	
 	exports['default'] = _smooth_scrollbar.SmoothScrollbar;
 	
-	_smooth_scrollbar.SmoothScrollbar.version = '5.2.1';
+	_smooth_scrollbar.SmoothScrollbar.version = '5.3.0';
 	
 	/**
 	 * init scrollbar on given element
