@@ -29,11 +29,7 @@ SmoothScrollbar.prototype.scrollIntoView = function(elem,
 
     let targetBounding = elem.getBoundingClientRect();
 
-    if (onlyScrollIfNeeded &&
-        targetBounding.top >= bounding.top &&
-        targetBounding.top <= bounding.bottom &&
-        targetBounding.left >= bounding.left &&
-        targetBounding.left <= bounding.right) return;
+    if (onlyScrollIfNeeded && this.isVisible(elem)) return;
 
     this.__setMovement(
         targetBounding.left - bounding.left - offsetLeft,
