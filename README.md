@@ -1,9 +1,8 @@
 # smooth-scrollbar
 
 [![npm](https://img.shields.io/npm/v/smooth-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/smooth-scrollbar)
-[![npm](https://img.shields.io/npm/l/smooth-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/smooth-scrollbar)
-[![devDependency Status](https://img.shields.io/david/dev/idiotWu/smooth-scrollbar.svg?style=flat-square)](https://david-dm.org/idiotWu/smooth-scrollbar#info=devDependencies)
 [![npm](https://img.shields.io/npm/dt/smooth-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/smooth-scrollbar)
+[![npm](https://img.shields.io/npm/l/smooth-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/smooth-scrollbar)
 [![Travis](https://img.shields.io/travis/idiotWu/smooth-scrollbar.svg)](https://travis-ci.org/idiotWu/smooth-scrollbar)
 
 Customize scrollbar in modern browsers with smooth scrolling experience.
