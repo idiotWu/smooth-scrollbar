@@ -14,4 +14,5 @@ export { SmoothScrollbar };
  */
 SmoothScrollbar.prototype.clearMovement = SmoothScrollbar.prototype.stop = function() {
     this.movement.x = this.movement.y = 0;
+    cancelAnimationFrame(this.__timerID.scrollTo);
 };
