@@ -160,6 +160,7 @@ Following is the DOM structure that Scrollbar generated:
 - [instance#setPosition( x, y, [withoutCallbacks] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancesetposition-x-y-withoutcallbacks-)
 - [instance#scrollTo( x, y, [duration], [callback] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancescrollto-x-y-duration-callback-)
 - [instance#scrollIntoView( elem, [options] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancescrollintoview-elem-options-)
+- [instance#isVisible( elem )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceisvisible-elem-)
 - [instance#addListener( fn )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceaddlistener-fn-)
 - [instance#removeListener( fn )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceremovelistener-fn-)
 - [instance#infiniteScroll( callback, [threshold] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceinfinitescroll-callback-threshold-)
