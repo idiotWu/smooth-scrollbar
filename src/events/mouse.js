@@ -38,10 +38,18 @@ let __mouseHandler = function() {
 
         if (direction === 'x') {
             let clickOffset = (clickPos.x - rect.left - thumbSize.x / 2) / (size.container.width - (thumbSize.x - thumbSize.realX));
-            this.movement.x = pickInRange(clickOffset * size.content.width - offset.x, ...deltaLimit.x);
+            this.__setMovement(
+                clickOffset * size.content.width - offset.x,
+                0,
+                true
+            );
         } else {
             let clickOffset = (clickPos.y - rect.top - thumbSize.y / 2) / (size.container.height - (thumbSize.y - thumbSize.realY));
-            this.movement.y = pickInRange(clickOffset * size.content.height - offset.y, ...deltaLimit.y);
+            this.__setMovement(
+                0,
+                clickOffset * size.content.height - offset.y,
+                true
+            );
         }
     });
 

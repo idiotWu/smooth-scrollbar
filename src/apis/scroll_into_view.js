@@ -35,6 +35,9 @@ SmoothScrollbar.prototype.scrollIntoView = function(elem,
         targetBounding.left >= bounding.left &&
         targetBounding.left <= bounding.right) return;
 
-    movement.x = targetBounding.left - bounding.left - offsetLeft;
-    movement.y = targetBounding.top - bounding.top - offsetTop;
+    this.__setMovement(
+        targetBounding.left - bounding.left - offsetLeft,
+        targetBounding.top - bounding.top - offsetTop,
+        true
+    );
 };

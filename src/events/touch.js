@@ -42,8 +42,6 @@ let __touchHandler = function() {
     this.__addEvent(container, 'touchstart', (evt) => {
         if (this.__isDrag) return;
 
-        const { movement } = this;
-
         updateRecords(evt);
 
         lastTouchTime = Date.now();
@@ -51,7 +49,7 @@ let __touchHandler = function() {
         lastTouchPos = getPosition(evt);
 
         // stop scrolling
-        movement.x = movement.y = 0;
+        this.stop();
         moveVelocity.x = moveVelocity.y = 0;
     });
 
