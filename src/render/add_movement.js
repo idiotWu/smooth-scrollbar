@@ -8,7 +8,7 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
 
-function __addMovement(deltaX = 0, deltaY = 0) {
+function __addMovement(deltaX = 0, deltaY = 0, ignoreSpeedOption = false) {
     const {
         options,
         movement
@@ -16,8 +16,9 @@ function __addMovement(deltaX = 0, deltaY = 0) {
 
     this.__updateThrottle();
 
-    let x = movement.x + deltaX * options.speed;
-    let y = movement.y + deltaY * options.speed;
+    let speed = ignoreSpeedOption ? 1 : options.speed;
+    let x = movement.x + deltaX * speed;
+    let y = movement.y + deltaY * speed;
 
     if (options.continuousScrolling) {
         movement.x = x;

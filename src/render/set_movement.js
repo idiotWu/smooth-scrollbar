@@ -8,7 +8,7 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
 
-function __setMovement(deltaX = 0, deltaY = 0, ignoreSpeed = false) {
+function __setMovement(deltaX = 0, deltaY = 0, ignoreSpeedOption = false) {
     const {
         options,
         movement
@@ -17,7 +17,7 @@ function __setMovement(deltaX = 0, deltaY = 0, ignoreSpeed = false) {
     this.__updateThrottle();
 
     let limit = this.__getDeltaLimit();
-    let speed = ignoreSpeed ? 1 : options.speed;
+    let speed = ignoreSpeedOption ? 1 : options.speed;
 
     movement.x = pickInRange(deltaX * speed, ...limit.x);
     movement.y = pickInRange(deltaY * speed, ...limit.y);
