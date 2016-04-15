@@ -80,7 +80,7 @@ let __keyboardHandler = function() {
         }
 
         evt.preventDefault();
-        this.__addMovement(x * options.speed, y * options.speed);
+        this.__addMovement(x, y);
     });
 };
 
