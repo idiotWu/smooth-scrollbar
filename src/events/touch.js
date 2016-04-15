@@ -54,7 +54,7 @@ let __touchHandler = function() {
     });
 
     this.__addEvent(container, 'touchmove', (evt) => {
-        if (this.__ignoreEvent(evt) || this.__isDrag) return;
+        if (this.__isDrag || this.__ignoreEvent(evt, true)) return;
 
         updateRecords(evt);
 
@@ -75,8 +75,6 @@ let __touchHandler = function() {
 
         if (!lastTouchPos) return;
 
-        evt.preventDefault();
-
         let duration = Date.now() - lastTouchTime;
         let { x: lastX, y: lastY } = lastTouchPos;
         let { x: curX, y: curY } = lastTouchPos = getPosition(evt);
@@ -89,11 +87,20 @@ let __touchHandler = function() {
         let destX = pickInRange(lastX - curX + offset.x, 0, limit.x);
         let destY = pickInRange(lastY - curY + offset.y, 0, limit.y);
 
+        if (this.options.continuousScrolling &&
+            Math.abs(destX - offset.x) < 1 &&
+            Math.abs(destY - offset.y) < 1
+        ) {
+            return this.__updateThrottle();
+        }
+
+        evt.preventDefault();
+
         this.setPosition(destX, destY);
     });
 
     this.__addEvent(container, 'touchend', (evt) => {
-        if (this.__ignoreEvent(evt) || this.__isDrag) return;
+        if (this.__ignoreEvent(evt, true) || this.__isDrag) return;
 
         // release current touch
         delete touchRecords[lastTouchID];
