@@ -39,7 +39,7 @@ let __wheelHandler = function() {
         }
 
         evt.preventDefault();
-        evt.stopPropagation();
+        // evt.stopPropagation();
 
         this.__addMovement(delta.x, delta.y);
     });
