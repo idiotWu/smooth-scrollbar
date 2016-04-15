@@ -16,10 +16,12 @@ export { SmoothScrollbar };
  * @param {Object} option
  */
 let __keyboardHandler = function() {
-    const { targets, size, offset, limit, options } = this;
+    const { targets, options } = this;
 
     let getKeyDelta = (keyCode) => {
         // key maps [deltaX, deltaY]
+        let { size, offset, limit } = this; // need real time data
+
         switch (keyCode) {
             case 32: // space
                 return [0, 200];
