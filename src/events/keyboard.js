@@ -8,19 +8,6 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
 
-// key maps [deltaX, deltaY]
-const KEYMAPS = {
-    32: [0, 5],           // space
-    33: [0, -10],         // pageUp
-    34: [0, 10],          // pageDown
-    35: [0, -1 >>> 1],    // end
-    36: [0, -(-1 >>> 1)], // home
-    37: [-1, 0],          // left
-    38: [0, -1],          // up
-    39: [1, 0],           // right
-    40: [0, 1]            // down
-};
-
 /**
  * @method
  * @internal
@@ -29,32 +16,58 @@ const KEYMAPS = {
  * @param {Object} option
  */
 let __keyboardHandler = function() {
-    const { container } = this.targets;
+    const { targets, size, offset, limit, options } = this;
+
+    let getKeyDelta = (keyCode) => {
+        // key maps [deltaX, deltaY]
+        switch (keyCode) {
+            case 32: // space
+                return [0, 200];
+            case 33: // pageUp
+                return [0, -size.container.height + 40];
+            case 34: // pageDown
+                return [0, size.container.height - 40];
+            case 35: // end
+                return [0, limit.y - offset.y];
+            case 36: // home
+                return [0, -offset.y];
+            case 37: // left
+                return [-40, 0];
+            case 38: // up
+                return [0, -40];
+            case 39: // right
+                return [40, 0];
+            case 40: // down
+                return [0, 40];
+            default:
+                return null;
+        }
+    };
+
     let isFocused = false;
 
-    this.__addEvent(container, 'focus', () => {
+    this.__addEvent(targets.container, 'focus', () => {
         isFocused = true;
     });
 
-    this.__addEvent(container, 'blur', () => {
+    this.__addEvent(targets.container, 'blur', () => {
         isFocused = false;
     });
 
-    this.__addEvent(container, 'keydown', (evt) => {
+    this.__addEvent(targets.container, 'keydown', (evt) => {
         if (!isFocused || this.__ignoreEvent(evt)) return;
 
         evt = getOriginalEvent(evt);
 
-        const keyCode = evt.keyCode || evt.which;
+        let delta = getKeyDelta(evt.keyCode || evt.which);
 
-        if (!KEYMAPS.hasOwnProperty(keyCode)) return;
+        if (!delta) return;
 
         evt.preventDefault();
 
-        const { speed } = this.options;
-        const [x, y] = KEYMAPS[keyCode];
+        const [x, y] = delta;
 
-        this.__addMovement(x * 40, y * 40);
+        this.__addMovement(x * options.speed, y * options.speed);
     });
 };
 
