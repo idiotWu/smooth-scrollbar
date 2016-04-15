@@ -20,7 +20,7 @@ let __keyboardHandler = function() {
 
     let getKeyDelta = (keyCode) => {
         // key maps [deltaX, deltaY, useSetMethod]
-        let { size, offset, limit } = this; // need real time data
+        let { size, offset, limit, movement } = this; // need real time data
 
         switch (keyCode) {
             case 32: // space
@@ -30,9 +30,9 @@ let __keyboardHandler = function() {
             case 34: // pageDown
                 return [0, size.container.height - 40];
             case 35: // end
-                return [0, limit.y - offset.y, true];
+                return [0, Math.abs(movement.y) + limit.y - offset.y];
             case 36: // home
-                return [0, -offset.y, true];
+                return [0, -Math.abs(movement.y) - offset.y];
             case 37: // left
                 return [-40, 0];
             case 38: // up
@@ -67,7 +67,7 @@ let __keyboardHandler = function() {
 
         if (!delta) return;
 
-        const [x, y, useSetMethod] = delta;
+        const [x, y] = delta;
 
         if (options.continuousScrolling && this.__scrollOntoEdge(x, y)) {
             container.blur();
@@ -81,11 +81,7 @@ let __keyboardHandler = function() {
 
         evt.preventDefault();
 
-        if (useSetMethod) {
-            this.__setMovement(x, y, true);
-        } else {
-            this.__addMovement(x, y, true);
-        }
+        this.__addMovement(x, y, true);
     });
 };
 
