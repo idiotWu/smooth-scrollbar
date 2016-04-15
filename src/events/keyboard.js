@@ -44,17 +44,19 @@ let __keyboardHandler = function() {
         }
     };
 
+    const { container } = targets;
+
     let isFocused = false;
 
-    this.__addEvent(targets.container, 'focus', () => {
+    this.__addEvent(container, 'focus', () => {
         isFocused = true;
     });
 
-    this.__addEvent(targets.container, 'blur', () => {
+    this.__addEvent(container, 'blur', () => {
         isFocused = false;
     });
 
-    this.__addEvent(targets.container, 'keydown', (evt) => {
+    this.__addEvent(container, 'keydown', (evt) => {
         if (!isFocused || this.__ignoreEvent(evt)) return;
 
         evt = getOriginalEvent(evt);
@@ -63,10 +65,19 @@ let __keyboardHandler = function() {
 
         if (!delta) return;
 
-        evt.preventDefault();
-
         const [x, y] = delta;
 
+        if (options.continuousScrolling && this.__scrollOntoEdge(x, y)) {
+            container.blur();
+
+            if (this.parents.length) {
+                this.parents[0].focus();
+            }
+
+            return this.__updateThrottle();
+        }
+
+        evt.preventDefault();
         this.__addMovement(x * options.speed, y * options.speed);
     });
 };

@@ -14,14 +14,18 @@ function __updateTree() {
     this.__readonly('children', [...content.querySelectorAll(selectors)]);
     this.__readonly('isNestedScrollbar', false);
 
+    const parents = [];
+
     while (container) {
         container = container.parentElement;
 
         if (sbList.has(container)) {
             this.__readonly('isNestedScrollbar', true);
-            return;
+            parents.push(container);
         }
     }
+
+    this.__readonly('parents', parents);
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__updateTree', {

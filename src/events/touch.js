@@ -84,19 +84,15 @@ let __touchHandler = function() {
         moveVelocity.x = (lastX - curX) / duration;
         moveVelocity.y = (lastY - curY) / duration;
 
-        let destX = pickInRange(lastX - curX + offset.x, 0, limit.x);
-        let destY = pickInRange(lastY - curY + offset.y, 0, limit.y);
-
         if (this.options.continuousScrolling &&
-            Math.abs(destX - offset.x) < 1 &&
-            Math.abs(destY - offset.y) < 1
+            this.__scrollOntoEdge(lastX - curX, lastY - curY)
         ) {
             return this.__updateThrottle();
         }
 
         evt.preventDefault();
 
-        this.setPosition(destX, destY);
+        this.setPosition(lastX - curX + offset.x, lastY - curY + offset.y);
     });
 
     this.__addEvent(container, 'touchend', (evt) => {

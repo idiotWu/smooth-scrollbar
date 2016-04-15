@@ -70,6 +70,8 @@ export class SmoothScrollbar {
             bottom: 0,
             left: 0
         })
+        .__readonly('children', [])
+        .__readonly('parents', [])
         .__readonly('size', this.getSize())
         .__readonly('isNestedScrollbar', false);
 

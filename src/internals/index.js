@@ -6,5 +6,6 @@ export * from './ignore_event';
 export * from './init_scrollbar';
 export * from './get_delta_limit';
 export * from './update_bounding';
+export * from './scroll_onto_edge';
 export * from './get_pointer_trend';
 export * from './set_thumb_position';

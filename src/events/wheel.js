@@ -29,13 +29,8 @@ let __wheelHandler = function() {
         const { offset, limit, options } = this;
         const delta = getDelta(evt);
 
-        if (options.continuousScrolling) {
-            let destX = pickInRange(delta.x + offset.x, 0, limit.x);
-            let destY = pickInRange(delta.y + offset.y, 0, limit.y);
-
-            if (Math.abs(destX - offset.x) < 1 && Math.abs(destY - offset.y) < 1) {
-                return this.__updateThrottle();
-            }
+        if (options.continuousScrolling && this.__scrollOntoEdge(delta.x, delta.y)) {
+            return this.__updateThrottle();
         }
 
         evt.preventDefault();
