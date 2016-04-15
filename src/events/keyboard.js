@@ -81,7 +81,7 @@ let __keyboardHandler = function() {
 
         evt.preventDefault();
 
-        this.__addMovement(x, y, true);
+        this.__addMovement(x, y);
     });
 };
 

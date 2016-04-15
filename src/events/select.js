@@ -24,7 +24,9 @@
     let scroll = ({ x, y }) => {
         if (!x && !y) return;
 
-        this.__setMovement(x, y);
+        let { speed } = this.options;
+
+        this.__setMovement(x * speed, y * speed);
 
         animation = requestAnimationFrame(() => {
             scroll({ x, y });

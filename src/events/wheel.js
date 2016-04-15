@@ -34,9 +34,8 @@ let __wheelHandler = function() {
         }
 
         evt.preventDefault();
-        // evt.stopPropagation();
 
-        this.__addMovement(delta.x, delta.y);
+        this.__addMovement(delta.x * options.speed, delta.y * options.speed);
     });
 };
 
