@@ -15,7 +15,7 @@ function nextTick(options, current, movement) {
 
         return {
             movement: 0,
-            position: current > next ? Math.ceil(next) : Math.floor(next)
+            position: movement > 0 ? Math.ceil(next) : Math.floor(next)
         };
     }
 
