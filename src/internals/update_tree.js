@@ -14,7 +14,7 @@ function __updateTree() {
     this.__readonly('children', [...content.querySelectorAll(selectors)]);
     this.__readonly('isNestedScrollbar', false);
 
-    while (container && container !== document.body) {
+    while (container) {
         container = container.parentElement;
 
         if (sbList.has(container)) {
