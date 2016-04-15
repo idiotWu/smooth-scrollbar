@@ -15,12 +15,12 @@ function __updateTree() {
     this.__readonly('isNestedScrollbar', false);
 
     while (container !== document) {
+        container = container.parentElement;
+
         if (sbList.has(container)) {
             this.__readonly('isNestedScrollbar', true);
             return;
         }
-
-        container = container.parentElement;
     }
 };
 
