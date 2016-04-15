@@ -1,6 +1,6 @@
 {
   "name": "smooth-scrollbar",
-  "version": "5.3.5",
+  "version": "5.3.6",
   "description": "Customize scrollbar in modern browsers with smooth scrolling experience.",
   "main": "dist/smooth-scrollbar.js",
   "style": "dist/smooth-scrollbar.css",
