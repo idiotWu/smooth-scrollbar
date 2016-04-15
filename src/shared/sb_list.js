@@ -6,16 +6,24 @@
 const sbList = new Map();
 
 const originSet = ::sbList.set;
+const originDelete = ::sbList.delete;
 
 sbList.update = () => {
     sbList.forEach((sb) => {
         requestAnimationFrame(() => {
-            sb.__updateChildren();
+            sb.__updateTree();
         });
     });
 };
 
-// patch #set with #update method
+// patch #set,#delete with #update method
+sbList.delete = (...args) => {
+    const res = originDelete(...args);
+    sbList.update();
+
+    return res;
+};
+
 sbList.set = (...args) => {
     const res = originSet(...args);
     sbList.update();

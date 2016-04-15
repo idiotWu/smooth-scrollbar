@@ -10,17 +10,32 @@ export { SmoothScrollbar };
 
 function __initOptions(userPreference) {
     const options = {
-        speed: 1,                  // scroll speed scale
-        friction: 10,              // friction factor, percent
-        ignoreEvents: [],          // events names to be ignored
-        thumbMinSize: 20,          // min size for scrollbar thumb
-        continuousScrolling: false // allow uper scrollable content to scroll when reaching edge
+        speed: 1,                   // scroll speed scale
+        friction: 10,               // friction factor, percent
+        ignoreEvents: [],           // events names to be ignored
+        thumbMinSize: 20,           // min size for scrollbar thumb
+        continuousScrolling: 'auto' // allow uper scrollable content to scroll when reaching edge
     };
 
     const limit = {
         friction: [1, 99],
         speed: [0, Infinity],
         thumbMinSize: [0, Infinity]
+    };
+
+    const scrollMode = {
+        auto: () => this.isNestedScrollbar,
+        true: () => true,
+        false: () => false
+    };
+
+    let getScrollMode = (mode = 'auto') => {
+        switch (mode) {
+            case 'auto':
+                return this.isNestedScrollbar;
+            default:
+                return !!mode;
+        }
     };
 
     const optionAccessors = {
@@ -35,10 +50,14 @@ function __initOptions(userPreference) {
             options.ignoreEvents = v;
         },
         get continuousScrolling() {
-            return options.continuousScrolling;
+            return getScrollMode(options.continuousScrolling);
         },
         set continuousScrolling(v) {
-            options.continuousScrolling = !!v;
+            if (v === 'auto') {
+                options.continuousScrolling = v;
+            } else {
+                options.continuousScrolling = !!v;
+            }
         }
     };
 

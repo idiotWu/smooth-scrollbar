@@ -19,8 +19,6 @@ import {
  */
 export class SmoothScrollbar {
     constructor(container, options = {}) {
-        sbList.set(container, this);
-
         // make container focusable
         container.setAttribute('tabindex', '1');
 
@@ -72,7 +70,8 @@ export class SmoothScrollbar {
             bottom: 0,
             left: 0
         })
-        .__readonly('size', this.getSize());
+        .__readonly('size', this.getSize())
+        .__readonly('isNestedScrollbar', false);
 
         // non-enmurable properties
         Object.defineProperties(this, {
@@ -109,5 +108,8 @@ export class SmoothScrollbar {
 
         this.__initOptions(options);
         this.__initScrollbar();
+
+        // storage
+        sbList.set(container, this);
     }
 }
