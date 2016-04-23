@@ -31,7 +31,7 @@ function nextTick(options, current, movement) {
 
     return {
         movement: nextMovement,
-        position: current + movement - nextMovement
+        position: nextPosition
     };
 };
 

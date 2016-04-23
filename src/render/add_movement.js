@@ -16,6 +16,12 @@ function __addMovement(deltaX = 0, deltaY = 0) {
 
     this.__updateThrottle();
 
+    if (options.renderByPixels) {
+        // ensure resolved with integer
+        deltaX = Math.round(deltaX);
+        deltaY = Math.round(deltaY);
+    }
+
     let x = movement.x + deltaX;
     let y = movement.y + deltaY;
 

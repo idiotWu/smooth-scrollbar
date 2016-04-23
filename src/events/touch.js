@@ -110,8 +110,8 @@ let __touchHandler = function() {
         const { speed } = this.options;
 
         this.__setMovement(
-            Math.abs(x) > 10 ? Math.round(x * speed) : 0,
-            Math.abs(y) > 10 ? Math.round(y * speed) : 0
+            Math.abs(x) > 10 ? x * speed : 0,
+            Math.abs(y) > 10 ? y * speed : 0
         );
 
         moveVelocity.x = moveVelocity.y = 0;

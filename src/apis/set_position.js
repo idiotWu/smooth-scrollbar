@@ -21,7 +21,13 @@ SmoothScrollbar.prototype.setPosition = function(x = this.offset.x, y = this.off
     this.__updateThrottle();
 
     const status = {};
-    const { offset, limit, targets, __listeners } = this;
+    const { options, offset, limit, targets, __listeners } = this;
+
+    if (options.renderByPixels) {
+        // ensure resolved with integer
+        x = Math.round(x);
+        y = Math.round(y);
+    }
 
     if (Math.abs(x - offset.x) > 1) this.showTrack('x');
     if (Math.abs(y - offset.y) > 1) this.showTrack('y');
