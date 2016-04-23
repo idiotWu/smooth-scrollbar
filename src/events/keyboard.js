@@ -81,7 +81,8 @@ let __keyboardHandler = function() {
 
         evt.preventDefault();
 
-        this.__addMovement(x, y);
+        const { speed } = this.options;
+        this.__addMovement(x * speed, y * speed);
     });
 };
 

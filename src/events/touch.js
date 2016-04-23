@@ -104,12 +104,14 @@ let __touchHandler = function() {
 
         let { x, y } = moveVelocity;
 
-        x = x / Math.abs(x) * Math.sqrt(Math.abs(x) * 1e3);
-        y = y / Math.abs(y) * Math.sqrt(Math.abs(y) * 1e3);
+        x *= 1e3;
+        y *= 1e3;
+
+        const { speed } = this.options;
 
         this.__setMovement(
-            Math.abs(x) > 5 ? x * 20 : 0,
-            Math.abs(y) > 5 ? y * 20 : 0
+            Math.abs(x) > 10 ? Math.round(x * speed) : 0,
+            Math.abs(y) > 10 ? Math.round(y * speed) : 0
         );
 
         moveVelocity.x = moveVelocity.y = 0;
