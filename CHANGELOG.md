@@ -1,3 +1,7 @@
+## 5.5.0
+
+- Add `renderByPixels` option.
+
 ## 5.3.0
 
 - Add `scrollIntoView()` method.
