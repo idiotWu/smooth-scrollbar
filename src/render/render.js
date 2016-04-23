@@ -8,26 +8,6 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 export { SmoothScrollbar };
 
 function nextTick(options, current, movement) {
-    const { friction } = options;
-
-    if (Math.abs(movement) < 1) {
-        let next = current + movement;
-
-        return {
-            movement: 0,
-            position: movement > 0 ? Math.ceil(next) : Math.floor(next)
-        };
-    }
-
-    let q = 1 - friction / 100;
-
-    return {
-        movement: movement * q,
-        position: current + movement * (1 - q)
-    };
-};
-
-function nextTick(options, current, movement) {
     const { friction, renderByPixels } = options;
 
     let q = 1 - friction / 100;
