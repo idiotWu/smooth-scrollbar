@@ -98,4 +98,12 @@ document.querySelector('#continuous').addEventListener('change', ({ target }) =>
     });
 });
 
+document.querySelector('#renderByPixels').addEventListener('change', ({ target }) => {
+    Scrollbar.getAll().forEach((s) => {
+        s.setOptions({
+            renderByPixels: target.checked
+        });
+    });
+});
+
 render();

@@ -14,6 +14,7 @@ function __initOptions(userPreference) {
         friction: 10,               // friction factor, percent
         ignoreEvents: [],           // events names to be ignored
         thumbMinSize: 20,           // min size for scrollbar thumb
+        renderByPixels: true,       // rendering by integer pixels
         continuousScrolling: 'auto' // allow uper scrollable content to scroll when reaching edge
     };
 
@@ -39,6 +40,12 @@ function __initOptions(userPreference) {
     };
 
     const optionAccessors = {
+        get renderByPixels() {
+            return options.renderByPixels;
+        },
+        set renderByPixels(v) {
+            options.renderByPixels = !!v;
+        },
         get ignoreEvents() {
             return options.ignoreEvents;
         },
