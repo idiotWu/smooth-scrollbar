@@ -24,12 +24,6 @@ function __initOptions(userPreference) {
         thumbMinSize: [0, Infinity]
     };
 
-    const scrollMode = {
-        auto: () => this.isNestedScrollbar,
-        true: () => true,
-        false: () => false
-    };
-
     let getScrollMode = (mode = 'auto') => {
         switch (mode) {
             case 'auto':
