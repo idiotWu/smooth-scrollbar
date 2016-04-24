@@ -10,28 +10,26 @@ export { SmoothScrollbar };
 function nextTick(options, current, movement) {
     const { friction, renderByPixels } = options;
 
+    if (Math.abs(movement) < 1) {
+        let next = current + movement;
+
+        return {
+            movement: 0,
+            position: movement > 0 ? Math.ceil(next) : Math.floor(next)
+        };
+    }
+
     let q = 1 - friction / 100;
 
-    let nextMovement, nextPosition;
+    let nextMovement = movement * (1 - friction / 100);
 
     if (renderByPixels) {
-        nextMovement = movement * q | 0;
-        nextPosition = current + movement - nextMovement;
-    } else {
-        if (Math.abs(movement) < 0.1) {
-            nextMovement = 0;
-            nextPosition = movement > 0 ?
-                            Math.ceil(current + movement) :
-                            Math.floor(current + movement);
-        } else {
-            nextMovement = movement * q;
-            nextPosition = current + movement - nextMovement;
-        }
+        nextMovement |= 0;
     }
 
     return {
         movement: nextMovement,
-        position: nextPosition
+        position: current + movement - nextMovement
     };
 };
 
