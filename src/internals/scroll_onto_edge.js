@@ -14,7 +14,7 @@ function __scrollOntoEdge(deltaX, deltaY) {
     let destX = pickInRange(deltaX + offset.x, 0, limit.x);
     let destY = pickInRange(deltaY + offset.y, 0, limit.y);
 
-    if (Math.abs(destX - offset.x) < 1 && Math.abs(destY - offset.y) < 1) {
+    if (destX === offset.x && destY === offset.y) {
         return true;
     }
 
