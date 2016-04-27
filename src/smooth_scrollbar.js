@@ -80,6 +80,9 @@ export class SmoothScrollbar {
             __updateThrottle: {
                 value: debounce(::this.update)
             },
+            __hideTrackThrottle: {
+                value: debounce(::this.hideTrack, 300, false)
+            },
             __listeners: {
                 value: []
             },

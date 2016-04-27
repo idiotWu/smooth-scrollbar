@@ -35,7 +35,7 @@ SmoothScrollbar.prototype.setPosition = function(x = this.offset.x, y = this.off
     x = pickInRange(x, 0, limit.x);
     y = pickInRange(y, 0, limit.y);
 
-    this.hideTrack();
+    this.__hideTrackThrottle();
 
     if (x === offset.x && y === offset.y) return;
 

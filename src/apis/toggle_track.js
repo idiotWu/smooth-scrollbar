@@ -8,47 +8,36 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
 
-/**
- * @method
- * @api
- * show scrollbar track on given direction
- *
- * @param {String} direction: which direction of tracks to show, default is 'both'
- */
-SmoothScrollbar.prototype.showTrack = function(direction = 'both') {
-    const { container, xAxis, yAxis } = this.targets;
 
-    direction = direction.toLowerCase();
-    container.classList.add('scrolling');
 
-    if (direction === 'both') {
-        xAxis.track.classList.add('show');
-        yAxis.track.classList.add('show');
-    }
+function toggleTrack(action = 'show') {
+    const method = action === 'show' ? 'add' : 'remove';
 
-    if (direction === 'x') {
-        xAxis.track.classList.add('show');
-    }
+    /**
+     * toggle scrollbar track on given direction
+     *
+     * @param {String} direction: which direction of tracks to show/hide, default is 'both'
+     */
+    return function(direction = 'both') {
+        const { container, xAxis, yAxis } = this.targets;
 
-    if (direction === 'y') {
-        yAxis.track.classList.add('show');
-    }
+        direction = direction.toLowerCase();
+        container.classList[method]('scrolling');
+
+        if (direction === 'both') {
+            xAxis.track.classList[method]('show');
+            yAxis.track.classList[method]('show');
+        }
+
+        if (direction === 'x') {
+            xAxis.track.classList[method]('show');
+        }
+
+        if (direction === 'y') {
+            yAxis.track.classList[method]('show');
+        }
+    };
 };
 
-/**
- * @method
- * @api
- * hide track with 300ms debounce
- */
-SmoothScrollbar.prototype.hideTrack = function() {
-    const { targets, __timerID } = this;
-    const { container, xAxis, yAxis } = targets;
-
-    clearTimeout(__timerID.track);
-
-    __timerID.track = setTimeout(() => {
-        container.classList.remove('scrolling');
-        xAxis.track.classList.remove('show');
-        yAxis.track.classList.remove('show');
-    }, 300);
-};
+SmoothScrollbar.prototype.showTrack = toggleTrack('show');
+SmoothScrollbar.prototype.hideTrack = toggleTrack('hide');
