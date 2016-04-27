@@ -168,8 +168,8 @@ Following is the DOM structure that Scrollbar generated:
 - [instance#stop()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#stop)
 - [instance#destroy()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancedestroy)
 - [instance#getContentElem()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancegetcontentelem)
-- [instance#showTrack( direction )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceshowtrack-direction-)
-- [instance#hideTrack()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancehidetrack)
+- [instance#showTrack( [direction] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceshowtrack-direction-)
+- [instance#hideTrack( [direction] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancehidetrack-direction-)
 
 ## Work with [RubaXa/Sortable](https://github.com/RubaXa/Sortable)
 
