@@ -19,8 +19,6 @@ function nextTick(options, current, movement) {
         };
     }
 
-    let q = 1 - friction / 100;
-
     let nextMovement = movement * (1 - friction / 100);
 
     if (renderByPixels) {

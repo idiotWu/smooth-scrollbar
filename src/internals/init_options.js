@@ -19,7 +19,7 @@ function __initOptions(userPreference) {
     };
 
     const limit = {
-        friction: [1, 99],
+        friction: [0, 100],
         speed: [0, Infinity],
         thumbMinSize: [0, Infinity]
     };
