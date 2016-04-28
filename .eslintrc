@@ -15,18 +15,25 @@
     },
     "env": {
         "browser": true,
-        "es6": true,
-        "node": true
+        "es6": true
     },
     "rules": {
         "accessor-pairs": 1,
-        "camelcase": [2, {"properties": "always"}],
-        "curly": [2, "multi-line"],
+        "curly": [1, "multi-line"],
         "quotes": [1, "single"],
         "new-cap": [2, {"newIsCap": true, "capIsNew": false}],
-        "no-this-before-super": 2,
+        "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
         "no-var": 2,
-        "semi": 2,
-        "no-underscore-dangle": 0
+        "no-else-return": 2,
+        "semi": 1,
+        "no-unused-vars": 1,
+        "no-multiple-empty-lines": [1, {"max": 2}],
+        "no-underscore-dangle": 0,
+        "constructor-super": 2,
+        "no-this-before-super": 2,
+        "no-dupe-class-members": 2,
+        "object-shorthand": 1,
+        "prefer-arrow-callback": 1,
+        "prefer-spread": 1,
     }
 }
