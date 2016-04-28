@@ -4,7 +4,7 @@
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
-import { getPosition, getTouchID, pickInRange } from '../utils/';
+import { getPosition } from '../utils/';
 
 export { SmoothScrollbar };
 
@@ -32,7 +32,6 @@ let __mouseHandler = function() {
         let direction = getTrackDir(track.className);
         let rect = track.getBoundingClientRect();
         let clickPos = getPosition(evt);
-        let deltaLimit = this.__getDeltaLimit();
 
         const { size, offset, thumbSize } = this;
 

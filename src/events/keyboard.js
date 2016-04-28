@@ -3,7 +3,7 @@
  * @prototype {Function} __keyboardHandler
  */
 
-import { getOriginalEvent, pickInRange } from '../utils/index';
+import { getOriginalEvent } from '../utils/index';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };

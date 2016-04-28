@@ -368,9 +368,9 @@ scrollbar.addListener(() => {
     lastOffset = offset;
 
     records.push({
+        offset,
         time: current - reduceAmount,
         reduce: reduceAmount,
-        offset: offset,
         speed: Math.abs(velocity)
     });
 
@@ -452,7 +452,7 @@ addEvent(window, 'mousemove touchmove', (e) => {
     endOffset = Math.min(1 - thumbWidth, Math.max(0, endOffset - moved));
 });
 
-addEvent(window, 'mouseup touchend blur', (e) => {
+addEvent(window, 'mouseup touchend blur', () => {
     pointerDownOnTrack = undefined;
 });
 

@@ -23,7 +23,6 @@ SmoothScrollbar.prototype.scrollTo = function(x = this.offset.x, y = this.offset
         options,
         offset,
         limit,
-        velocity,
         __timerID
     } = this;
 

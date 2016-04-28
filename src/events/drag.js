@@ -4,13 +4,7 @@
  */
 
  import { SmoothScrollbar } from '../smooth_scrollbar';
- import {
-    getOriginalEvent,
-    getPosition,
-    getTouchID,
-    pickInRange,
-    setStyle
-} from '../utils/index';
+ import { setStyle } from '../utils/';
 
  export { SmoothScrollbar };
 

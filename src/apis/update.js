@@ -3,7 +3,7 @@
  * @prototype {Function} update
  */
 
-import { pickInRange, setStyle } from '../utils/index';
+import { setStyle } from '../utils/';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
@@ -47,7 +47,7 @@ SmoothScrollbar.prototype.update = function(async = true) {
         this.__readonly('limit', newLimit)
             .__readonly('thumbSize', thumbSize);
 
-        const { xAxis, yAxis } = this.targets;
+        const { xAxis, yAxis } = targets;
 
         // hide scrollbar if content size less than container
         setStyle(xAxis.track, {

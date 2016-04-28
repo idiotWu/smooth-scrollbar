@@ -8,8 +8,6 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
 
-
-
 function toggleTrack(action = 'show') {
     const method = action === 'show' ? 'add' : 'remove';
 

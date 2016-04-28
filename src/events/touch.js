@@ -7,13 +7,10 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 import {
     getOriginalEvent,
     getPosition,
-    getTouchID,
-    pickInRange
-} from '../utils/index';
+    getTouchID
+} from '../utils/';
 
 export { SmoothScrollbar };
-
-const EASING_DURATION = navigator.userAgent.match(/android/i) ? 1500 : 750;
 
 /**
  * @method
@@ -59,7 +56,7 @@ let __touchHandler = function() {
         updateRecords(evt);
 
         const touchID = getTouchID(evt);
-        const { offset, limit } = this;
+        const { offset } = this;
 
         if (lastTouchID === undefined) {
             // reset last touch info from records

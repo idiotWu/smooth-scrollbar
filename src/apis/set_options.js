@@ -3,8 +3,6 @@
  * @prototype {Function} setOptions
  */
 
-import { pickInRange } from '../utils/';
-import { OPTION_LIMIT } from '../shared/';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };

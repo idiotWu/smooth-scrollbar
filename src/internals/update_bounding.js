@@ -4,7 +4,6 @@
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
-import { selectors } from '../shared/selectors';
 
 export { SmoothScrollbar };
 

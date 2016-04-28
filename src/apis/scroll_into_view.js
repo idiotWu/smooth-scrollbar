@@ -23,7 +23,7 @@ SmoothScrollbar.prototype.scrollIntoView = function(elem,
     offsetTop = 0,
     offsetLeft = 0
 } = {}) {
-    const { targets, bounding, movement } = this;
+    const { targets, bounding } = this;
 
     if (!elem || !targets.container.contains(elem)) return;
 
