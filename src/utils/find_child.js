@@ -4,7 +4,7 @@
  */
 
 /**
- * Find element with specific class name within children
+ * Find element with specific class name within children, like selector '>'
  *
  * @param {Element} parentElem
  * @param {String} className

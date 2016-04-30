@@ -1,4 +1,5 @@
 export * from './debounce';
+export * from './is_one_of';
 export * from './set_style';
 export * from './get_delta';
 export * from './find_child';
