@@ -44,7 +44,7 @@
     });
 
     this.__addEvent(content, 'selectstart', (evt) => {
-        if (this.__ignoreEvent(evt)) {
+        if (this.__eventFromChildScrollbar(evt)) {
             return setSelect('none');
         }
 

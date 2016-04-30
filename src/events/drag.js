@@ -13,7 +13,7 @@
 
     let isDrag = false;
     let animation = undefined;
-    let targetHeight = undefined;
+    let padding = undefined;
 
     Object.defineProperty(this, '__isDrag', {
         get() {
@@ -34,30 +34,32 @@
         });
     };
 
-    this.__addEvent(document, 'dragover mousemove touchmove', (evt) => {
-        if (!isDrag || this.__ignoreEvent(evt)) return;
-        cancelAnimationFrame(animation);
-        evt.preventDefault();
-
-        const dir = this.__getPointerTrend(evt, targetHeight);
-
-        scroll(dir);
-    });
-
     this.__addEvent(container, 'dragstart', (evt) => {
-        if (this.__ignoreEvent(evt)) return;
+        if (this.__eventFromChildScrollbar(evt)) return;
+
+        isDrag = true;
+        padding = evt.target.clientHeight;
 
         setStyle(content, {
             'pointer-events': 'auto'
         });
 
-        targetHeight = evt.target.clientHeight;
         cancelAnimationFrame(animation);
         this.__updateBounding();
-        isDrag = true;
     });
+
+    this.__addEvent(document, 'dragover mousemove touchmove', (evt) => {
+        if (!isDrag || this.__eventFromChildScrollbar(evt)) return;
+        cancelAnimationFrame(animation);
+        evt.preventDefault();
+
+        const dir = this.__getPointerTrend(evt, padding);
+
+        scroll(dir);
+    });
+
     this.__addEvent(document, 'dragend mouseup touchend blur', (evt) => {
-        if (this.__ignoreEvent(evt)) return;
+        if (this.__eventFromChildScrollbar(evt)) return;
         cancelAnimationFrame(animation);
         isDrag = false;
     });

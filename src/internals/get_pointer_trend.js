@@ -8,7 +8,7 @@ import { getPosition } from '../utils/';
 
 export { SmoothScrollbar };
 
-function __getPointerTrend(evt, edge = 0) {
+function __getPointerTrend(evt, padding = 0) {
     const { top, right, bottom, left } = this.bounding;
     const { x, y } = getPosition(evt);
 
@@ -19,16 +19,16 @@ function __getPointerTrend(evt, edge = 0) {
 
     if (x === 0 && y === 0) return res;
 
-    if (x > right - edge) {
-        res.x = (x - right + edge);
-    } else if (x < left + edge) {
-        res.x = (x - left - edge);
+    if (x > right - padding) {
+        res.x = (x - right + padding);
+    } else if (x < left + padding) {
+        res.x = (x - left - padding);
     }
 
-    if (y > bottom - edge) {
-        res.y = (y - bottom + edge);
-    } else if (y < top + edge) {
-        res.y = (y - top - edge);
+    if (y > bottom - padding) {
+        res.y = (y - bottom + padding);
+    } else if (y < top + padding) {
+        res.y = (y - top - padding);
     }
 
     return res;

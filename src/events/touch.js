@@ -51,7 +51,7 @@ let __touchHandler = function() {
     });
 
     this.__addEvent(container, 'touchmove', (evt) => {
-        if (this.__isDrag || this.__ignoreEvent(evt, true)) return;
+        if (this.__isDrag) return;
 
         updateRecords(evt);
 
@@ -92,8 +92,8 @@ let __touchHandler = function() {
         this.setPosition(lastX - curX + offset.x, lastY - curY + offset.y);
     });
 
-    this.__addEvent(container, 'touchend', (evt) => {
-        if (this.__ignoreEvent(evt, true) || this.__isDrag) return;
+    this.__addEvent(container, 'touchend', () => {
+        if (this.__isDrag) return;
 
         // release current touch
         delete touchRecords[lastTouchID];

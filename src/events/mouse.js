@@ -4,7 +4,7 @@
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
-import { getPosition } from '../utils/';
+import { isOneOf, getPosition } from '../utils/';
 
 export { SmoothScrollbar };
 
@@ -16,20 +16,20 @@ export { SmoothScrollbar };
  * @param {Object} option
  */
 let __mouseHandler = function() {
-    const { container } = this.targets;
-    let isMouseDown, isMouseMove, startOffsetToThumb, startTrackDirection, containerRect;
+    const { container, xAxis, yAxis } = this.targets;
 
-    let getTrackDir = (className) => {
-        let matches = className.match(/scrollbar\-(?:track|thumb)\-([xy])/);
+    let isMouseDown, isMouseMoving, startOffsetToThumb, startTrackDirection, containerRect;
 
-        return matches && matches[1];
+    let getTrackDir = (elem) => {
+        if (isOneOf(elem, [xAxis.track, xAxis.thumb])) return 'x';
+        if (isOneOf(elem, [yAxis.track, yAxis.thumb])) return 'y';
     };
 
     this.__addEvent(container, 'click', (evt) => {
-        if (isMouseMove || !/scrollbar-track/.test(evt.target.className) || this.__ignoreEvent(evt)) return;
+        if (isMouseMoving || !isOneOf(evt.target, [xAxis.track, yAxis.track])) return;
 
         let track = evt.target;
-        let direction = getTrackDir(track.className);
+        let direction = getTrackDir(track);
         let rect = track.getBoundingClientRect();
         let clickPos = getPosition(evt);
 
@@ -45,13 +45,14 @@ let __mouseHandler = function() {
     });
 
     this.__addEvent(container, 'mousedown', (evt) => {
-        if (!/scrollbar-thumb/.test(evt.target.className) || this.__ignoreEvent(evt)) return;
+        if (!isOneOf(evt.target, [xAxis.thumb, yAxis.thumb])) return;
+
         isMouseDown = true;
 
         let cursorPos = getPosition(evt);
         let thumbRect = evt.target.getBoundingClientRect();
 
-        startTrackDirection = getTrackDir(evt.target.className);
+        startTrackDirection = getTrackDir(evt.target);
 
         // pointer offset to thumb
         startOffsetToThumb = {
@@ -66,7 +67,7 @@ let __mouseHandler = function() {
     this.__addEvent(window, 'mousemove', (evt) => {
         if (!isMouseDown) return;
 
-        isMouseMove = true;
+        isMouseMoving = true;
         evt.preventDefault();
 
         let { size, offset } = this;
@@ -92,7 +93,7 @@ let __mouseHandler = function() {
 
     // release mousemove spy on window lost focus
     this.__addEvent(window, 'mouseup blur', () => {
-        isMouseDown = isMouseMove = false;
+        isMouseDown = isMouseMoving = false;
     });
 };
 

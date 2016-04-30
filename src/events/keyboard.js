@@ -59,7 +59,7 @@ let __keyboardHandler = function() {
     });
 
     this.__addEvent(container, 'keydown', (evt) => {
-        if (!isFocused || this.__ignoreEvent(evt, true)) return;
+        if (!isFocused) return;
 
         evt = getOriginalEvent(evt);
 

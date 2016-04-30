@@ -24,8 +24,6 @@ let __wheelHandler = function() {
     const { container } = this.targets;
 
     this.__addEvent(container, WHEEL_EVENT, (evt) => {
-        if (this.__ignoreEvent(evt, true)) return;
-
         const { options } = this;
         const { x, y } = getDelta(evt);
 
