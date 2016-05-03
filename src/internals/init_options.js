@@ -36,7 +36,7 @@ function __initOptions(userPreference) {
     const optionAccessors = {
         // deprecated
         set ignoreEvents(v) {
-            console.warn('`options.ignoreEvents` parameter is deprecated, use `instance#unregisterEvents` instead.');
+            console.warn('`options.ignoreEvents` parameter is deprecated, use `instance#unregisterEvents()` method instead. https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceunregisterevents-regex--regex-regex--');
         },
         get renderByPixels() {
             return options.renderByPixels;
