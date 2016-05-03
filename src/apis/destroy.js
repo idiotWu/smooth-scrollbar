@@ -19,8 +19,8 @@ SmoothScrollbar.prototype.destroy = function() {
     const { __listeners, __handlers, targets } = this;
     const { container, content } = targets;
 
-    __handlers.forEach(({ evt, elem, handler }) => {
-        elem.removeEventListener(evt, handler);
+    __handlers.forEach(({ evt, elem, fn }) => {
+        elem.removeEventListener(evt, fn);
     });
 
     this.scrollTo(0, 0, 300, () => {

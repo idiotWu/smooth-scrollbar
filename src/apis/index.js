@@ -7,6 +7,7 @@ export * from './is_visible';
 export * from './set_options';
 export * from './set_position';
 export * from './toggle_track';
+export * from './manage_events';
 export * from './clear_movement';
 export * from './infinite_scroll';
 export * from './get_content_elem';

@@ -14,14 +14,13 @@ function __addEvent(elem, events, handler) {
 
     let fn = (evt, ...args) => {
         // ignore default prevented events or user ignored events
-        if ((!evt.type.match(/drag/) && evt.defaultPrevented) ||
-            this.options.ignoreEvents.some(rule => evt.type.match(rule))) return;
+        if ((!evt.type.match(/drag/) && evt.defaultPrevented)) return;
 
         handler(evt, ...args);
     };
 
     events.split(/\s+/g).forEach((evt) => {
-        this.__handlers.push({ evt, elem, fn });
+        this.__handlers.push({ evt, elem, fn, hasRegistered: true });
 
         elem.addEventListener(evt, fn);
     });

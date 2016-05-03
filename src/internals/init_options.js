@@ -34,21 +34,15 @@ function __initOptions(userPreference) {
     };
 
     const optionAccessors = {
+        // deprecated
+        set ignoreEvents(v) {
+            console.warn('`options.ignoreEvents` parameter is deprecated, use `scroll.unregisterEvents` instead.');
+        },
         get renderByPixels() {
             return options.renderByPixels;
         },
         set renderByPixels(v) {
             options.renderByPixels = !!v;
-        },
-        get ignoreEvents() {
-            return options.ignoreEvents;
-        },
-        set ignoreEvents(v) {
-            if (!Array.isArray(v)) {
-                throw new TypeError(`expect \`options.ignoreEvents\` to be a number, but got ${typeof v}`);
-            }
-
-            options.ignoreEvents = v;
         },
         get continuousScrolling() {
             return getScrollMode(options.continuousScrolling);
