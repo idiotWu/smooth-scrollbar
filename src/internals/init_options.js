@@ -36,7 +36,7 @@ function __initOptions(userPreference) {
     const optionAccessors = {
         // deprecated
         set ignoreEvents(v) {
-            console.warn('`options.ignoreEvents` parameter is deprecated, use `scroll.unregisterEvents` instead.');
+            console.warn('`options.ignoreEvents` parameter is deprecated, use `instance#unregisterEvents` instead.');
         },
         get renderByPixels() {
             return options.renderByPixels;
