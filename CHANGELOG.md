@@ -1,3 +1,8 @@
+## 5.6.0
+
+- Remove `ignoreEvents` option.
+- Add `unregisterEvents` and `registerEvents` to manage events.
+
 ## 5.5.0
 
 - Add `renderByPixels` option.

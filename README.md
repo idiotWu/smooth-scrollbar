@@ -107,7 +107,6 @@ Or you can call `Scrollbar.init(elem, options)` to manually init the scrollbar.
 | thumbMinSize | Number | 20 | Minimal size for scrollbar thumb. |
 | renderByPixels | Boolean | true | Render scrolling by integer pixels, set to `true` to improve performance. |
 | continuousScrolling | Boolean\|String | 'auto' | Whether allow upper scrollable content to continue scrolling when current scrollbar reaches edge. **When set to 'auto', it will be enabled on nested scrollbars, and disabled on first-class scrollbars.** |
-| ignoreEvents | Array | [] | A list of events names that are ignored, regex rules are supported. Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Options-Field). |
 
 **Confusing with the option field? Try edit tool [here](http://idiotwu.github.io/smooth-scrollbar/)!**
 
@@ -163,6 +162,8 @@ Following is the DOM structure that Scrollbar generated:
 - [instance#isVisible( elem )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceisvisible-elem-)
 - [instance#addListener( fn )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceaddlistener-fn-)
 - [instance#removeListener( fn )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceremovelistener-fn-)
+- [instance#unregisterEvents( regex [, regex [,...regex] ] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceunregisterevents-regex--regex-regex--)
+- [instance#registerEvents( regex [, regex [,...regex] ] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceregisterevents-regex--regex-regex--)
 - [instance#infiniteScroll( callback, [threshold] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceinfinitescroll-callback-threshold-)
 - [instance#clearMovement()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#clearMovement)
 - [instance#stop()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#stop)
