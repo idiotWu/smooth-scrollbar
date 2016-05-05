@@ -58,8 +58,7 @@
         scroll(dir);
     });
 
-    this.__addEvent(document, 'dragend mouseup touchend blur', (evt) => {
-        if (this.__eventFromChildScrollbar(evt)) return;
+    this.__addEvent(document, 'dragend mouseup touchend blur', () => {
         cancelAnimationFrame(animation);
         isDrag = false;
     });
