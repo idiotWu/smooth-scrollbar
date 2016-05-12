@@ -5,19 +5,13 @@
 [![npm](https://img.shields.io/npm/l/smooth-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/smooth-scrollbar)
 [![Travis](https://img.shields.io/travis/idiotWu/smooth-scrollbar.svg)](https://travis-ci.org/idiotWu/smooth-scrollbar)
 
-Customize scrollbar in modern browsers with smooth scrolling experience.
+- If you want to **scroll smoothly**, use `smooth-scrollbar`;
+- If you need a **customizable scrollbar**, use `smooth-scrollbar`;
+- If you need a **high-performance scrollbar**, use `smooth-scrollbar`;
+- If you want to **get support incredibly prompt**, use `smooth-scrollbar`;
+- If you want a **perfect scrollbar in modern browsers**, use `smooth-scrollbar`!
 
-## Browser Compatibility
-
-| Browser | Version |
-| :------ | :-----: |
-| IE      | 10+     |
-| Chrome  | 22+     |
-| Firefox | 16+     |
-| Safari  | 8+      |
-| Android Browser | 4+ |
-| Chrome for Android | 32+ |
-| iOS Safari | 7+ |
+So, why would you still use other scrollbar plugins? All you need is a quick setup:
 
 ## Install
 
@@ -32,6 +26,18 @@ Via bower:
 ```
 bower install smooth-scrollbar --save
 ```
+
+## Browser Compatibility
+
+| Browser | Version |
+| :------ | :-----: |
+| IE      | 10+     |
+| Chrome  | 22+     |
+| Firefox | 16+     |
+| Safari  | 8+      |
+| Android Browser | 4+ |
+| Chrome for Android | 32+ |
+| iOS Safari | 7+ |
 
 
 ## Demo
