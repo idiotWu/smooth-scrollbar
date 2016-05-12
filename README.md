@@ -5,11 +5,11 @@
 [![npm](https://img.shields.io/npm/l/smooth-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/smooth-scrollbar)
 [![Travis](https://img.shields.io/travis/idiotWu/smooth-scrollbar.svg)](https://travis-ci.org/idiotWu/smooth-scrollbar)
 
-- If you want to **scroll smoothly**, use `smooth-scrollbar`;
-- If you need a **customizable scrollbar**, use `smooth-scrollbar`;
-- If you need a **high-performance scrollbar**, use `smooth-scrollbar`;
-- If you want to **get support incredibly promptly**, use `smooth-scrollbar`;
-- If you want a **perfect scrollbar in modern browsers**, use `smooth-scrollbar`!
+- If you want **smooth scrolling**, use `smooth-scrollbar`;
+- If you want **customizable scrollbars**, use `smooth-scrollbar`;
+- If you want **high-performance scrollbars**, use `smooth-scrollbar`;
+- If you want **incredibly prompt user support**, use `smooth-scrollbar`;
+- If you want **perfect scrollbar in modern browsers**, use `smooth-scrollbar`!
 
 So, why would you still use other scrollbar plugins? All you need is a quick setup:
 
@@ -178,10 +178,6 @@ Following is the DOM structure that Scrollbar generated:
 - [instance#showTrack( [direction] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceshowtrack-direction-)
 - [instance#hideTrack( [direction] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancehidetrack-direction-)
 
-## Work with [RubaXa/Sortable](https://github.com/RubaXa/Sortable)
-
-Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Work-with-RubaXa-Sortable).
-
 ## Related
 
 - [angular-smooth-scrollbar](https://github.com/idiotWu/angular-smooth-scrollbar)
@@ -190,6 +186,17 @@ Details [here](https://github.com/idiotWu/smooth-scrollbar/wiki/Work-with-RubaXa
 ## Todo
 
 - [ ] Overscroll effect.
+
+## Contribuiting
+
+- Create an issue with an example on [jsbin.com](http://jsbin.com/), including latest version of `smooth-scrollbar` through:
+    ```html
+    <link rel="stylesheet" href="https://cdn.rawgit.com/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.css">
+
+    <script src="https://cdn.rawgit.com/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js"></script>
+    ```
+
+- Fork the repo and modify the code if you have better ideas, create a pull request into `develop` branch after you've done.
 
 ## License
 
