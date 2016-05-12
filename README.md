@@ -1,4 +1,4 @@
-# smooth-scrollbar
+# Life is short, use `smooth-scrollbar`
 
 [![npm](https://img.shields.io/npm/v/smooth-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/smooth-scrollbar)
 [![npm](https://img.shields.io/npm/dt/smooth-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/smooth-scrollbar)
@@ -8,7 +8,7 @@
 - If you want to **scroll smoothly**, use `smooth-scrollbar`;
 - If you need a **customizable scrollbar**, use `smooth-scrollbar`;
 - If you need a **high-performance scrollbar**, use `smooth-scrollbar`;
-- If you want to **get support incredibly prompt**, use `smooth-scrollbar`;
+- If you want to **get support incredibly promptly**, use `smooth-scrollbar`;
 - If you want a **perfect scrollbar in modern browsers**, use `smooth-scrollbar`!
 
 So, why would you still use other scrollbar plugins? All you need is a quick setup:
