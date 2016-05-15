@@ -38,6 +38,7 @@ let __touchHandler = function() {
 
     this.__addEvent(container, 'touchstart', (evt) => {
         if (this.__isDrag) return;
+        if (!this.__scrollOntoEdge()) evt.preventDefault();
 
         updateRecords(evt);
 
@@ -56,21 +57,10 @@ let __touchHandler = function() {
         updateRecords(evt);
 
         const touchID = getTouchID(evt);
+
+        if (touchID !== lastTouchID || !lastTouchPos) return;
+
         const { offset } = this;
-
-        if (lastTouchID === undefined) {
-            // reset last touch info from records
-            lastTouchID = touchID;
-
-            // don't need error handler
-            lastTouchTime = Date.now();
-            lastTouchPos = touchRecords[touchID];
-        } else if (touchID !== lastTouchID) {
-            // prevent multi-touch bouncing
-            return;
-        }
-
-        if (!lastTouchPos) return;
 
         let duration = Date.now() - lastTouchTime;
         let { x: lastX, y: lastY } = lastTouchPos;
