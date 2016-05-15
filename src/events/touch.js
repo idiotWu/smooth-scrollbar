@@ -101,7 +101,7 @@ let __touchHandler = function() {
 
         const { speed } = this.options;
 
-        this.__setMovement(
+        this.__addMovement(
             Math.abs(x) > 5 ? x * speed * DEVICE_SCALE : 0,
             Math.abs(y) > 5 ? y * speed * DEVICE_SCALE : 0
         );
