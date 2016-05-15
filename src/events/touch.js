@@ -12,14 +12,18 @@ import {
 
 export { SmoothScrollbar };
 
+const DEVICE_SCALE = /Android/.test(navigator.userAgent) ? window.devicePixelRatio : 1;
+
 /**
  * @method
  * @internal
  * Touch event handlers builder
  */
 let __touchHandler = function() {
-    const { container } = this.targets;
+    const { options, targets } = this;
+    const { container } = targets;
 
+    let originalFriction = options.friction;
     let lastTouchTime, lastTouchID;
     let moveVelocity = {}, lastTouchPos = {}, touchRecords = {};
 
@@ -38,7 +42,8 @@ let __touchHandler = function() {
 
     this.__addEvent(container, 'touchstart', (evt) => {
         if (this.__isDrag) return;
-        if (!this.__scrollOntoEdge()) evt.preventDefault();
+
+        originalFriction = options.friction; // record user option
 
         updateRecords(evt);
 
@@ -60,8 +65,6 @@ let __touchHandler = function() {
 
         if (touchID !== lastTouchID || !lastTouchPos) return;
 
-        const { offset } = this;
-
         let duration = Date.now() - lastTouchTime;
         let { x: lastX, y: lastY } = lastTouchPos;
         let { x: curX, y: curY } = lastTouchPos = getPosition(evt);
@@ -71,7 +74,7 @@ let __touchHandler = function() {
         moveVelocity.x = (lastX - curX) / duration;
         moveVelocity.y = (lastY - curY) / duration;
 
-        if (this.options.continuousScrolling &&
+        if (options.continuousScrolling &&
             this.__scrollOntoEdge(lastX - curX, lastY - curY)
         ) {
             return this.__updateThrottle();
@@ -79,7 +82,8 @@ let __touchHandler = function() {
 
         evt.preventDefault();
 
-        this.setPosition(lastX - curX + offset.x, lastY - curY + offset.y);
+        options.friction = 40; // change friction temporarily
+        this.__addMovement(lastX - curX, lastY - curY);
     });
 
     this.__addEvent(container, 'touchend', () => {
@@ -88,6 +92,7 @@ let __touchHandler = function() {
         // release current touch
         delete touchRecords[lastTouchID];
         lastTouchID = undefined;
+        options.friction = originalFriction; // set back
 
         let { x, y } = moveVelocity;
 
@@ -97,8 +102,8 @@ let __touchHandler = function() {
         const { speed } = this.options;
 
         this.__setMovement(
-            Math.abs(x) > 10 ? x * speed : 0,
-            Math.abs(y) > 10 ? y * speed : 0
+            Math.abs(x) > 5 ? x * speed * DEVICE_SCALE : 0,
+            Math.abs(y) > 5 ? y * speed * DEVICE_SCALE : 0
         );
 
         moveVelocity.x = moveVelocity.y = 0;
