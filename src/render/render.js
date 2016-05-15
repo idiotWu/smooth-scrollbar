@@ -4,11 +4,16 @@
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
+import { GLOBAL_TOUCHES } from '../shared/';
 
 export { SmoothScrollbar };
 
-function nextTick(options, current, movement) {
-    const { friction, renderByPixels } = options;
+function nextTick(scrollbar, options, current, movement) {
+    let { friction, renderByPixels } = options;
+
+    if (GLOBAL_TOUCHES.isActiveScrollbar(scrollbar)) {
+        friction = 40;
+    }
 
     if (Math.abs(movement) < 1) {
         let next = current + movement;
@@ -36,12 +41,13 @@ function __render() {
         options,
         offset,
         movement,
-        __timerID
+        __timerID,
+        __isTouchMoving
     } = this;
 
     if (movement.x || movement.y) {
-        let nextX = nextTick(options, offset.x, movement.x);
-        let nextY = nextTick(options, offset.y, movement.y);
+        let nextX = nextTick(this, options, offset.x, movement.x, __isTouchMoving);
+        let nextY = nextTick(this, options, offset.y, movement.y, __isTouchMoving);
 
         movement.x = nextX.movement;
         movement.y = nextY.movement;
