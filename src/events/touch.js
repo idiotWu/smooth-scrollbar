@@ -13,6 +13,7 @@ import {
 export { SmoothScrollbar };
 
 const DEVICE_SCALE = /Android/.test(navigator.userAgent) ? window.devicePixelRatio : 1;
+const GLOBAL_TOUCHES = {};
 
 /**
  * @method
@@ -25,24 +26,28 @@ let __touchHandler = function() {
 
     let originalFriction = options.friction;
     let lastTouchTime, lastTouchID;
-    let moveVelocity = {}, lastTouchPos = {}, touchRecords = {};
+    let moveVelocity = {}, lastTouchPos = {};
 
     let updateRecords = (evt) => {
         const touchList = getOriginalEvent(evt).touches;
 
         Object.keys(touchList).forEach((key) => {
             // record all touches that will be restored
-            if (key === 'length') return;
-
             const touch = touchList[key];
+            const { x, y } = getPosition(touch);
+            const record = GLOBAL_TOUCHES[touch.identifier];
 
-            touchRecords[touch.identifier] = getPosition(touch);
+            if (record) {
+                record.x = x;
+                record.y = y;
+            } else {
+                GLOBAL_TOUCHES[touch.identifier] = { x, y };
+            }
         });
     };
 
     this.__addEvent(container, 'touchstart', (evt) => {
         if (this.__isDrag) return;
-        if (!this.__scrollOntoEdge()) evt.preventDefault();
 
         originalFriction = options.friction; // record user option
 
@@ -64,35 +69,56 @@ let __touchHandler = function() {
 
         const touchID = getTouchID(evt);
 
-        if (touchID !== lastTouchID || !lastTouchPos) return;
+        // check current scrolling scrollbar
+        if (GLOBAL_TOUCHES[touchID].activeScrollbar &&
+            GLOBAL_TOUCHES[touchID].activeScrollbar !== this) return;
 
-        let duration = Date.now() - lastTouchTime;
-        let { x: lastX, y: lastY } = lastTouchPos;
-        let { x: curX, y: curY } = lastTouchPos = getPosition(evt);
+        if (lastTouchID === undefined) {
+            // reset last touch info from records
+            lastTouchID = touchID;
 
-        duration = duration || 1; // fix Infinity error
+            // don't need error handler
+            lastTouchTime = Date.now();
+            lastTouchPos = GLOBAL_TOUCHES[touchID];
+        } else if (touchID !== lastTouchID) {
+            // prevent multi-touch bouncing
+            return;
+        }
 
-        moveVelocity.x = (lastX - curX) / duration;
-        moveVelocity.y = (lastY - curY) / duration;
+        if (!lastTouchPos) return;
+
+        const duration = (Date.now() - lastTouchTime) || 1;
+
+        const last = lastTouchPos;
+        const current = lastTouchPos = getPosition(evt);
+
+        const disX = last.x - current.x;
+        const disY = last.y - current.y;
+
+        moveVelocity.x = disX / duration;
+        moveVelocity.y = disY / duration;
 
         if (options.continuousScrolling &&
-            this.__scrollOntoEdge(lastX - curX, lastY - curY)
+            this.__scrollOntoEdge(disX, disY)
         ) {
             return this.__updateThrottle();
         }
 
+        GLOBAL_TOUCHES[touchID].activeScrollbar = this;
+
         evt.preventDefault();
 
         options.friction = 40; // change friction temporarily
-        this.__addMovement(lastX - curX, lastY - curY);
+        this.__addMovement(disX, disY);
     });
 
     this.__addEvent(container, 'touchend', () => {
         if (this.__isDrag) return;
 
         // release current touch
-        delete touchRecords[lastTouchID];
+        delete GLOBAL_TOUCHES[lastTouchID];
         lastTouchID = undefined;
+
         options.friction = originalFriction; // set back
 
         let { x, y } = moveVelocity;
