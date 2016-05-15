@@ -42,6 +42,7 @@ let __touchHandler = function() {
 
     this.__addEvent(container, 'touchstart', (evt) => {
         if (this.__isDrag) return;
+        if (!this.__scrollOntoEdge()) evt.preventDefault();
 
         originalFriction = options.friction; // record user option
 
