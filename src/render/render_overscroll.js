@@ -54,7 +54,7 @@ function android(x, y) {
 }
 
 function __renderOverscroll(dirs = []) {
-    if (!dirs.length) return;
+    if (!dirs.length || !this.options.overscrollEffect) return;
 
     const {
         targets,

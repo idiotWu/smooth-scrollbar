@@ -67,18 +67,18 @@ export class TouchRecord {
         const { velocity, lastRecord } = this;
 
         const duration = now - this.updateTime;
-        const distance = {
+        const delta = {
             // natural scrolling
             x: -(position.x - lastRecord.x),
             y: -(position.y - lastRecord.y)
         };
 
-        velocity.x = distance.x / duration * 1e3;
-        velocity.y = distance.y / duration * 1e3;
+        velocity.x = delta.x / duration * 1e3;
+        velocity.y = delta.y / duration * 1e3;
 
         this.updateTime = now;
         this.lastRecord = position;
 
-        return distance;
+        return delta;
     }
 }

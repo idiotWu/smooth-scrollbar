@@ -12,19 +12,22 @@ function __initOptions(userPreference) {
     const options = {
         speed: 1,                   // scroll speed scale
         friction: 10,               // friction factor, percent
-        ignoreEvents: [],           // events names to be ignored
         thumbMinSize: 20,           // min size for scrollbar thumb
         renderByPixels: true,       // rendering by integer pixels
+        overscrollEffect: false,    // overscroll effect, false | 'iOS' | 'android'
         continuousScrolling: 'auto' // allow uper scrollable content to scroll when reaching edge
     };
 
     const limit = {
         friction: [0, 100],
         speed: [0, Infinity],
-        thumbMinSize: [0, Infinity]
+        thumbMinSize: [0, Infinity],
+        overscrollEffect: [false, 'iOS', 'android']
     };
 
-    let getScrollMode = (mode = 'auto') => {
+    let isContinous = (mode = 'auto') => {
+        if (!!options.overscrollEffect) return false;
+
         switch (mode) {
             case 'auto':
                 return this.isNestedScrollbar;
@@ -45,7 +48,7 @@ function __initOptions(userPreference) {
             options.renderByPixels = !!v;
         },
         get continuousScrolling() {
-            return getScrollMode(options.continuousScrolling);
+            return isContinous(options.continuousScrolling);
         },
         set continuousScrolling(v) {
             if (v === 'auto') {
@@ -53,6 +56,18 @@ function __initOptions(userPreference) {
             } else {
                 options.continuousScrolling = !!v;
             }
+        },
+        get overscrollEffect() {
+            return options.overscrollEffect;
+        },
+        set overscrollEffect(v) {
+            if (v && !~limit.overscrollEffect.indexOf(v)) {
+                console.warn(`\`overscrollEffect\` should be one of ${JSON.stringify(limit.overscrollEffect)}, but got ${JSON.stringify(v)}. It will be set to \`false\` now.`);
+
+                v = false;
+            }
+
+            options.overscrollEffect = v;
         }
     };
 

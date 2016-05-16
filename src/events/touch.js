@@ -17,7 +17,7 @@ const MIN_VELOCITY = Math.E * 100;
  * Touch event handlers builder
  */
 let __touchHandler = function() {
-    const { options, targets } = this;
+    const { options, targets, movementLocked } = this;
     const { container } = targets;
 
     this.__addEvent(container, 'touchstart', (evt) => {
@@ -32,20 +32,21 @@ let __touchHandler = function() {
         if (this.__isDrag) return;
 
         if (!GLOBAL_TOUCHES.isActiveTouch(evt)) return;
+
         if (GLOBAL_TOUCHES.hasActiveScrollbar() &&
             !GLOBAL_TOUCHES.isActiveScrollbar(this)) return;
 
-        const distance = GLOBAL_TOUCHES.update(evt);
+        const delta = GLOBAL_TOUCHES.update(evt);
 
-        if (options.continuousScrolling &&
-            this.__scrollOntoEdge(distance.x, distance.y)
-        ) {
+        if (this.__propagateMovement(delta.x, delta.y)) {
             return this.__updateThrottle();
         }
 
+        this.__autoLockMovement();
+
         evt.preventDefault();
 
-        this.__addMovement(distance.x, distance.y);
+        this.__addMovement(delta.x, delta.y);
         GLOBAL_TOUCHES.setActiveScrollbar(this);
     });
 
@@ -53,6 +54,8 @@ let __touchHandler = function() {
         if (this.__isDrag) return;
 
         if (!GLOBAL_TOUCHES.isActiveScrollbar(this)) return;
+
+        this.__unlockMovement();
 
         const { speed } = this.options;
 

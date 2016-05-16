@@ -4,7 +4,7 @@
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
-import { getDelta } from '../utils/';
+import { getDelta, debounce } from '../utils/';
 
 export { SmoothScrollbar };
 
@@ -23,17 +23,38 @@ const WHEEL_EVENT = 'onwheel' in window ? 'wheel' : 'mousewheel';
 let __wheelHandler = function() {
     const { container } = this.targets;
 
-    this.__addEvent(container, WHEEL_EVENT, (evt) => {
-        const { options } = this;
-        const { x, y } = getDelta(evt);
+    let wheelLocked = false;
 
-        if (options.continuousScrolling && this.__scrollOntoEdge(x, y)) {
+    // since we can't detect whether user release touchpad
+    // handle it with debounce is the best solution now, as a trade-off
+    let releaseWheel = debounce(() => {
+        wheelLocked = false;
+    }, 30, false);
+
+    this.__addEvent(container, WHEEL_EVENT, (evt) => {
+        const { options, movement } = this;
+        let { x, y } = getDelta(evt);
+
+        x *= options.speed;
+        y *= options.speed;
+
+        if (this.__propagateMovement(x, y)) {
             return this.__updateThrottle();
         }
 
         evt.preventDefault();
+        releaseWheel();
 
-        this.__addMovement(x * options.speed, y * options.speed);
+        if (this.overscrollBack) {
+            wheelLocked = true;
+        }
+
+        if (wheelLocked) {
+            if (this.__isOntoEdge('x', x)) x = 0;
+            if (this.__isOntoEdge('y', y)) y = 0;
+        }
+
+        this.__addMovement(x, y);
     });
 };
 

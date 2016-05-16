@@ -69,7 +69,7 @@ let __keyboardHandler = function() {
 
         const [x, y] = delta;
 
-        if (options.continuousScrolling && this.__scrollOntoEdge(x, y)) {
+        if (this.__propagateMovement(x, y)) {
             container.blur();
 
             if (this.parents.length) {
@@ -79,10 +79,18 @@ let __keyboardHandler = function() {
             return this.__updateThrottle();
         }
 
+        if (this.__isOntoEdge('x', x) || this.__isOntoEdge('y', y)) {
+            this.__autoLockMovement();
+        }
+
         evt.preventDefault();
 
         const { speed } = this.options;
         this.__addMovement(x * speed, y * speed);
+    });
+
+    this.__addEvent(container, 'keyup', () => {
+        this.__unlockMovement();
     });
 };
 

@@ -66,6 +66,7 @@ export class SmoothScrollbar {
             x: 0,
             y: 0
         })
+        .__readonly('overscrollBack', false)
         .__readonly('thumbSize', {
             x: 0,
             y: 0,

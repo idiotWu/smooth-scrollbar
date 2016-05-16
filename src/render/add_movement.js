@@ -25,7 +25,11 @@ function __addMovement(deltaX = 0, deltaY = 0) {
     let x = movement.x + deltaX;
     let y = movement.y + deltaY;
 
-    if (options.continuousScrolling) {
+    if (this.limit.x === 0) x = 0;
+    if (this.limit.y === 0) y = 0;
+
+    if (options.continuousScrolling || options.overscrollEffect) {
+        // no limitaion for continuous/overscroll enabled
         movement.x = x;
         movement.y = y;
     } else {
