@@ -20,8 +20,7 @@ function __scrollOntoEdge(deltaX = 0, deltaY = 0) {
     res &= (destY === offset.y);
 
     // current offset is on the edge
-    res &= (destX === limit.x || destX === 0);
-    res &= (destY === limit.y || destY === 0);
+    res &= (destX === limit.x || destX === 0 || destY === limit.y || destY === 0);
 
     return !!res;
 };
