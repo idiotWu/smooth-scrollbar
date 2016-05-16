@@ -43,6 +43,7 @@ function __render() {
         offset,
         limit,
         movement,
+        overscrollRendered,
         __timerID
     } = this;
 
@@ -54,13 +55,15 @@ function __render() {
         let destY = pickInRange(nextY.position, 0, limit.y);
         let overflowDir = [];
 
-        if (destX === offset.x && movement.x) {
-            // reach edge at x axis
+        // overscroll is rendering
+        // or scrolling onto particular edge
+        if (overscrollRendered.x ||
+            (destX === offset.x && movement.x)) {
             overflowDir.push('x');
         }
 
-        if (destY === offset.y && movement.y) {
-            // reach edge at y axis
+        if (overscrollRendered.y ||
+            (destY === offset.y && movement.y)) {
             overflowDir.push('y');
         }
 

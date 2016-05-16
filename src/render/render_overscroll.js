@@ -29,8 +29,7 @@ function calcNext(dir = '') {
     }
 
     if (next === overscrollRendered[dir]) {
-        const dir = (dest / Math.abs(dest)) || 0;
-        next -= dir;
+        next -= (dest / Math.abs(dest || 1));
     }
 
     if (Math.abs(next) < Math.abs(overscrollRendered[dir])) {
@@ -45,19 +44,11 @@ function calcNext(dir = '') {
     overscrollRendered[dir] = next;
 }
 
-function iOS(x, y) {
-
-}
-
-function android(x, y) {
-
-}
-
 function __renderOverscroll(dirs = []) {
     if (!dirs.length || !this.options.overscrollEffect) return;
 
     const {
-        targets,
+        options,
         offset,
         overscrollRendered
     } = this;
@@ -69,10 +60,56 @@ function __renderOverscroll(dirs = []) {
     if (overscrollRendered.x === lastRendered.x &&
         overscrollRendered.y === lastRendered.y) return;
 
-    setStyle(targets.content, {
-        '-transform': `translate3d(${-(offset.x + overscrollRendered.x)}px, ${-(offset.y + overscrollRendered.y)}px, 0)`
+    switch (options.overscrollEffect) {
+        case 'iOS':
+            return this::iOS(overscrollRendered.x, overscrollRendered.y);
+        case 'android':
+            return this::android(overscrollRendered.x, overscrollRendered.y);
+        default:
+            return;
+    }
+}
+
+function iOS(x, y) {
+    const {
+        size,
+        offset,
+        targets,
+        thumbSize
+    } = this;
+
+    const {
+        xAxis,
+        yAxis,
+        content
+    } = targets;
+
+    setStyle(content, {
+        '-transform': `translate3d(${-(offset.x + x)}px, ${-(offset.y + y)}px, 0)`
     });
-};
+
+    if (x) {
+        const thumbSizeX = thumbSize.x * (size.container.width / (size.container.width + Math.abs(x)));
+
+        setStyle(xAxis.thumb, {
+            'width': `${thumbSizeX}px`,
+            '-transform': `translate3d(${x < 0 ? 0 : size.container.width - thumbSizeX}px, 0, 0)`
+        });
+    }
+
+    if (y) {
+        const thumbSizeY = thumbSize.y * (size.container.height / (size.container.height + Math.abs(y)));
+
+        setStyle(yAxis.thumb, {
+            'height': `${thumbSizeY}px`,
+            '-transform': `translate3d(0, ${y < 0 ? 0 : size.container.height - thumbSizeY }px, 0)`
+        });
+    }
+}
+
+function android(x, y) {
+
+}
 
 Object.defineProperty(SmoothScrollbar.prototype, '__renderOverscroll', {
     value: __renderOverscroll,

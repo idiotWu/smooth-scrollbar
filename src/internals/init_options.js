@@ -14,7 +14,7 @@ function __initOptions(userPreference) {
         friction: 10,               // friction factor, percent
         thumbMinSize: 20,           // min size for scrollbar thumb
         renderByPixels: true,       // rendering by integer pixels
-        overscrollEffect: false,    // overscroll effect, false | 'iOS' | 'android'
+        overscrollEffect: 'iOS',    // overscroll effect, false | 'iOS' | 'android'
         continuousScrolling: 'auto' // allow uper scrollable content to scroll when reaching edge
     };
 

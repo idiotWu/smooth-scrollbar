@@ -67,7 +67,7 @@ SmoothScrollbar.prototype.update = function(async = true) {
 
         // re-positioning
         const { offset, limit } = this;
-        this.setPosition(Math.min(offset.x, limit.x), Math.min(offset.y, limit.y));
+        this.setPosition();
         this.__setThumbPosition();
     };
 
