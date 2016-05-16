@@ -5,6 +5,7 @@
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
 import { GLOBAL_TOUCHES } from '../shared/';
+import { pickInRange } from '../utils/';
 
 export { SmoothScrollbar };
 
@@ -40,23 +41,37 @@ function __render() {
     const {
         options,
         offset,
+        limit,
         movement,
-        __timerID,
-        __isTouchMoving
+        __timerID
     } = this;
 
     if (movement.x || movement.y) {
-        let nextX = nextTick(this, options, offset.x, movement.x, __isTouchMoving);
-        let nextY = nextTick(this, options, offset.y, movement.y, __isTouchMoving);
+        let nextX = nextTick(this, options, offset.x, movement.x);
+        let nextY = nextTick(this, options, offset.y, movement.y);
 
-        movement.x = nextX.movement;
-        movement.y = nextY.movement;
+        let destX = pickInRange(nextX.position, 0, limit.x);
+        let destY = pickInRange(nextY.position, 0, limit.y);
+        let overflowDir = [];
+
+        if (destX === offset.x && movement.x) {
+            // reach edge at x axis
+            overflowDir.push('x');
+        }
+
+        if (destY === offset.y && movement.y) {
+            // reach edge at y axis
+            overflowDir.push('y');
+        }
+
+        if (!this.movementLocked.x) movement.x = nextX.movement;
+        if (!this.movementLocked.y) movement.y = nextY.movement;
 
         this.setPosition(nextX.position, nextY.position);
+        this.__renderOverscroll(overflowDir);
     }
 
     __timerID.render = requestAnimationFrame(this::__render);
-
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__render', {

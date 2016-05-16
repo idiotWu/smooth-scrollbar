@@ -58,6 +58,14 @@ export class SmoothScrollbar {
             x: 0,
             y: 0
         })
+        .__readonly('movementLocked', {
+            x: false,
+            y: false
+        })
+        .__readonly('overscrollRendered', {
+            x: 0,
+            y: 0
+        })
         .__readonly('thumbSize', {
             x: 0,
             y: 0,
