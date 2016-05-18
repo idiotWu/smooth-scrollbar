@@ -8,8 +8,7 @@ import { GLOBAL_TOUCHES } from '../shared/';
 
 export { SmoothScrollbar };
 
-const DEVICE_SCALE = /Android/.test(navigator.userAgent) ? window.devicePixelRatio : 1;
-const MIN_VELOCITY = Math.E * 100 | 0;
+const MIN_VELOCITY = 100;
 
 /**
  * @method
@@ -63,9 +62,9 @@ let __touchHandler = function() {
         let { x, y } = GLOBAL_TOUCHES.getVelocity();
 
         x = movementLocked.x ?
-                0 : x / Math.abs(x) * Math.sqrt(Math.abs(x) * DEVICE_SCALE * 100);
+                0 : x / Math.abs(x) * Math.sqrt(Math.abs(x) * 100);
         y = movementLocked.y ?
-                0 : y / Math.abs(y) * Math.sqrt(Math.abs(y) * DEVICE_SCALE * 100);
+                0 : y / Math.abs(y) * Math.sqrt(Math.abs(y) * 100);
 
         this.__addMovement(
             Math.abs(x) > MIN_VELOCITY ? (x * speed) : 0,
