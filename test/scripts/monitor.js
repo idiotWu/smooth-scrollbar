@@ -18,11 +18,6 @@ canvas.width = size.width * DPR;
 canvas.height = size.height * DPR;
 ctx.scale(DPR, DPR);
 
-let div = document.createElement('div');
-div.innerHTML = Array(101).join('<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita eaque debitis, dolorem doloribus, voluptatibus minima illo est, atque aliquid ipsum necessitatibus cumque veritatis beatae, ratione repudiandae quos! Omnis hic, animi.</p>');
-
-document.querySelector('.random').appendChild(div);
-
 Scrollbar.initAll();
 
 const scrollbar = Scrollbar.get(document.getElementById('main-scrollbar'));
