@@ -1,6 +1,6 @@
-before_install:
-- openssl aes-256-cbc -K $encrypted_c35f08fd87f8_key -iv $encrypted_c35f08fd87f8_iv
-  -in id_rsa_deploy.enc -out ~\/.ssh/id_rsa_deploy -d
+env:
+  global:
+  - ENCRYPTION_LABEL: c35f08fd87f8
 
 language: node_js
 node_js:
