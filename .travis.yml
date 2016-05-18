@@ -1,4 +1,11 @@
+before_install:
+- openssl aes-256-cbc -K $encrypted_c35f08fd87f8_key -iv $encrypted_c35f08fd87f8_iv
+  -in id_rsa_deploy.enc -out ~\/.ssh/id_rsa_deploy -d
+
 language: node_js
 node_js:
-  - "4.1"
-  - "4.0"
+- stable
+before_script:
+- chmod +x ./scripts/deploy.sh
+script: gulp copy:gh-pages
+after_success: ./scripts/deploy.sh

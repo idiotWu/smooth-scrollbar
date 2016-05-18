@@ -29,3 +29,4 @@ bower_components
 
 # build file
 build
+.gh-pages

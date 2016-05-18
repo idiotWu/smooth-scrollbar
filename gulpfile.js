@@ -13,7 +13,7 @@ var getVersion = function() {
     return JSON.parse(fs.readFileSync('./package.json').toString()).version;
 };
 
-var compile = function(isServeTask, done) {
+var compile = function(extend) {
     var options = {
         module: {
             preLoaders: [{
@@ -29,19 +29,8 @@ var compile = function(isServeTask, done) {
         }
     };
 
-    if (isServeTask) {
-        options.watch = true;
-        options.devtool = 'inline-source-map';
-        options.output = {
-            filename: 'app.js'
-        };
-    } else {
-        options.output = {
-            filename: 'smooth-scrollbar.js',
-            library: 'Scrollbar',
-            libraryTarget: 'umd'
-        };
-    }
+    Object.assign(options, extend);
+    var watch = extend.watch;
 
     return webpack(options, null, function(err, stats) {
         if (err) throw new util.PluginError('webpack', err);
@@ -55,23 +44,36 @@ var compile = function(isServeTask, done) {
 
         browserSync.reload();
 
-        if (isServeTask) {
-            isServeTask = false;
-            done();
+        if (watch) {
+            watch = false;
+            options.done();
         }
     });
 };
 
 gulp.task('scripts:build', function(done) {
     return gulp.src('test/scripts/index.js')
-        .pipe(compile(true, done))
+        .pipe(compile({
+            watch: true,
+            done: done,
+            devtool: 'inline-source-map',
+            output: {
+                filename: 'app.js'
+            }
+        }))
         .pipe(replace(/<%= version %>/, getVersion()))
         .pipe(gulp.dest('build/'));
 });
 
 gulp.task('scripts:dist', function() {
     return gulp.src('src/index.js')
-        .pipe(compile(false))
+        .pipe(compile({
+            output: {
+                filename: 'smooth-scrollbar.js',
+                library: 'Scrollbar',
+                libraryTarget: 'umd'
+            }
+        }))
         .pipe(replace(/<%= version %>/, getVersion()))
         .pipe(uglify())
         .pipe(gulp.dest('dist/'));
@@ -108,6 +110,30 @@ gulp.task('serve', ['scripts:build', 'styles:build'], function() {
 gulp.task('dist', ['scripts:dist', 'styles:dist'], function() {
     return gulp.src('dist/**/*.*')
         .pipe(sizereport());
+});
+
+gulp.task('scripts:gh-pages', function() {
+    return gulp.src('test/scripts/index.js')
+        .pipe(compile({
+            output: {
+                filename: 'app.js'
+            }
+        }))
+        .pipe(replace(/<%= version %>/, getVersion()))
+        .pipe(uglify())
+        .pipe(gulp.dest('.gh-pages/build/'));
+});
+
+gulp.task('styles:gh-pages', function() {
+    return gulp.src('test/styles/index.styl')
+        .pipe(stylus())
+        .pipe(autoprefixer('> 1%, last 2 versions, Firefox ESR, Opera 12.1, ie >= 10'))
+        .pipe(gulp.dest('.gh-pages/build/'));
+});
+
+gulp.task('copy:gh-pages', ['scripts:gh-pages', 'styles:gh-pages'], function() {
+    return gulp.src(['test/images/**', 'test/index.html'], { base: './test'} )
+        .pipe(gulp.dest('.gh-pages'));
 });
 
 gulp.task('default', ['dist']);
