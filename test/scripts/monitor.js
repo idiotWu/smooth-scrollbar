@@ -1,35 +1,48 @@
 import Scrollbar from '../../src/';
+import { controller } from './controller';
 
 const DPR = window.devicePixelRatio;
 const TIME_RANGE_MAX = 20 * 1e3;
 
-const content = document.getElementById('content');
+const monitor = document.getElementById('monitor');
 const thumb = document.getElementById('thumb');
 const track = document.getElementById('track');
 const canvas = document.getElementById('chart');
 const ctx = canvas.getContext('2d');
+const size = {
+    width: 300,
+    height: 200
+};
+
+canvas.width = size.width * DPR;
+canvas.height = size.height * DPR;
+ctx.scale(DPR, DPR);
 
 let div = document.createElement('div');
 div.innerHTML = Array(101).join('<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita eaque debitis, dolorem doloribus, voluptatibus minima illo est, atque aliquid ipsum necessitatibus cumque veritatis beatae, ratione repudiandae quos! Omnis hic, animi.</p>');
 
-content.appendChild(div);
+document.querySelector('.random').appendChild(div);
 
 Scrollbar.initAll();
 
-const scrollbar = Scrollbar.get(content);
-
-let chartType = 'offset';
-
+const scrollbar = Scrollbar.get(document.getElementById('main-scrollbar'));
+const monitorCtrl = controller.addFolder('Monitor');
+const monitorOptions = {
+    show: window.innerWidth > 600,
+    data: 'offset',
+    duration: 5,
+    reset() {
+        records.length = endOffset = reduceAmount = 0;
+        hoverLocked = false;
+        hoverPointerX = undefined;
+        tangentPoint = null;
+        tangentPointPre = null;
+        sliceRecord();
+    }
+};
 let thumbWidth = 0;
 let endOffset = 0;
-
-let timeRange = 5 * 1e3;
-
 let records = [];
-let size = {
-    width: 300,
-    height: 200
-};
 
 let shouldUpdate = true;
 
@@ -41,9 +54,40 @@ let hoverPointerX = undefined;
 let pointerDownOnTrack = undefined;
 let hoverPrecision = 'ontouchstart' in document ? 5 : 1;
 
-canvas.width = size.width * DPR;
-canvas.height = size.height * DPR;
-ctx.scale(DPR, DPR);
+let renderLoopID = undefined;
+
+if (monitorOptions.show) {
+    monitor.style.display = 'block';
+    renderLoopID = requestAnimationFrame(render);
+}
+
+monitorCtrl.add(monitorOptions, 'reset');
+monitorCtrl.add(monitorOptions, 'data', ['offset', 'speed'])
+    .onChange(() => {
+        shouldUpdate = true;
+    });
+
+monitorCtrl.add(monitorOptions, 'show')
+    .onChange((show) => {
+        if (show) {
+            monitor.style.display = 'block';
+            renderLoopID = requestAnimationFrame(render);
+        } else {
+            monitor.style.display = 'none';
+            cancelAnimationFrame(renderLoopID);
+        }
+    });
+
+monitorCtrl.add(monitorOptions, 'duration', 1, 20)
+    .onChange((val) => {
+        shouldUpdate = true;
+        let start = records[0];
+        let end = records[records.length - 1];
+
+        if (end) {
+            endOffset = Math.min(endOffset, Math.max(0, 1 - monitorOptions.duration * 1e3 / (end.time - start.time)));
+        }
+    });
 
 function notation(num = 0) {
     if (!num || Math.abs(num) > 10**-2) return num.toFixed(2);
@@ -86,7 +130,7 @@ function sliceRecord() {
 
         let end = records[endIdx - 1];
 
-        return end.time - pt.time <= timeRange && idx <= endIdx;
+        return end.time - pt.time <= monitorOptions.duration * 1e3 && idx <= endIdx;
     });
 
     records.splice(0, dropIdx);
@@ -100,7 +144,7 @@ function sliceRecord() {
 
 function getLimit(points) {
     return points.reduce((pre, cur) => {
-        let val = cur[chartType];
+        let val = cur[monitorOptions.data];
         return {
             max: Math.max(pre.max, val),
             min: Math.min(pre.min, val)
@@ -170,7 +214,7 @@ function drawMain() {
     let start = points[0];
     let end = points[points.length - 1];
 
-    let totalX = thumbWidth === 1 ? timeRange : end.time - start.time;
+    let totalX = thumbWidth === 1 ? monitorOptions.duration * 1e3 : end.time - start.time;
     let totalY = (limit.max - limit.min) || 1;
 
     let grd = ctx.createLinearGradient(0, size.height, 0, 0);
@@ -188,7 +232,7 @@ function drawMain() {
 
     let lastPoint = points.reduce((pre, cur, idx) => {
         let time = cur.time,
-            value = cur[chartType];
+            value = cur[monitorOptions.data];
         let x = (time - start.time) / totalX * size.width,
             y = (value - limit.min) / totalY * (size.height - 20);
 
@@ -229,7 +273,7 @@ function drawMain() {
             font: '12px sans-serif'
         }
     });
-    fillText(notation(end[chartType]), lastPoint, {
+    fillText(notation(end[monitorOptions.data]), lastPoint, {
         props: {
             fillStyle: '#f60',
             textAlign: 'right',
@@ -253,7 +297,7 @@ function drawTangentLine() {
         }
     });
 
-    let realK = (tangentPoint.point[chartType] - tangentPointPre.point[chartType]) /
+    let realK = (tangentPoint.point[monitorOptions.data] - tangentPointPre.point[monitorOptions.data]) /
                 (tangentPoint.point.time - tangentPointPre.point.time);
 
     fillText('dy/dx: ' + notation(realK), [size.width / 2, 0], {
@@ -295,7 +339,7 @@ function drawHover() {
         '.',
         date.getMilliseconds(),
         ', ',
-        notation(point[chartType]),
+        notation(point[monitorOptions.data]),
         ')'
     ].join('');
 
@@ -315,7 +359,7 @@ function render() {
     ctx.save();
     ctx.clearRect(0, 0, size.width, size.height);
 
-    fillText(chartType.toUpperCase(), [0, size.height], {
+    fillText(monitorOptions.data.toUpperCase(), [0, size.height], {
         props: {
             fillStyle: '#f00',
             textAlign: 'left',
@@ -342,10 +386,9 @@ function render() {
 
     shouldUpdate = false;
 
-    requestAnimationFrame(render);
+    renderLoopID = requestAnimationFrame(render);
 };
 
-requestAnimationFrame(render);
 
 let lastTime = Date.now(),
     lastOffset = 0,
@@ -380,35 +423,6 @@ scrollbar.addListener(() => {
 function getPointer(e) {
     return e.touches ? e.touches[e.touches.length - 1] : e;
 };
-
-// range
-let input = document.getElementById('duration');
-let label = document.getElementById('duration-value');
-input.max = TIME_RANGE_MAX / 1e3;
-input.min = 1;
-input.value = timeRange / 1e3;
-label.textContent = input.value + 's';
-
-addEvent(input, 'input', (e) => {
-    let start = records[0];
-    let end = records[records.length - 1];
-    let val = parseFloat(e.target.value);
-    label.textContent = val + 's';
-    timeRange = val * 1e3;
-
-    if (end) {
-        endOffset = Math.min(endOffset, Math.max(0, 1 - timeRange / (end.time - start.time)));
-    }
-});
-
-addEvent(document.getElementById('reset'), 'click', () => {
-    records.length = endOffset = reduceAmount = 0;
-    hoverLocked = false;
-    hoverPointerX = undefined;
-    tangentPoint = null;
-    tangentPointPre = null;
-    sliceRecord();
-});
 
 // hover
 addEvent(canvas, 'mousemove touchmove', (e) => {
@@ -467,13 +481,4 @@ addEvent(track, 'click touchstart', (e) => {
     endOffset = Math.min(1 - thumbWidth, Math.max(0, 1 - (offset + thumbWidth / 2)));
 });
 
-// switch chart
-addEvent(
-    [].slice.call(document.querySelectorAll('.chart-type')),
-    'change',
-    ({ target }) => {
-        if (target.checked) {
-            chartType = target.value;
-        }
-    }
-);
+

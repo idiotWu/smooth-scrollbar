@@ -1,14 +1,28 @@
 @require '../../src/style/smooth-scrollbar.styl'
 
+$root-font-size = 16px
+$main-blue = #70b7fd
+$gradient-color = #ad95e4
+$font-color = #555
+$strong-color = #dd4a68
+
+pxToRem(px)
+  return unit(px/$root-font-size, 'rem')
+
 html, body
   position: fixed
   top: 0
   left: 0
   width: 100%
   height: 100%
-  overflow: hidden
   margin: 0
   padding: 0
+  color: $font-color
+  font-size: $root-font-size
+  font-family: 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif
+
+  @media screen and (max-width: 960px)
+    font-size: 14px
 
 *
   -webkit-tap-highlight-color: transparent
@@ -18,74 +32,166 @@ scrollbar
 [data-scrollbar]
   overflow: hidden
 
-main
-  position: absolute
+strong
+  color: lighten($strong-color, 20%)
+
+a
+  text-decoration: none
+  color: darken($main-blue, 30%)
+
+  &:hover
+    text-decoration: underline
+
+code
+  font-size: 0.8em
+  color: darken($font-color, 30%)
+  padding: .1em .5em
+
+
+header
+  position: relative
+  padding: 1em 1em 5em
+  background: linear-gradient(45deg, $gradient-color, $main-blue)
+  color: #fff
+  font-size: pxToRem(14)
+  text-align: center
+
+  nav
+    text-align: left
+
+  h1
+    font-size: 3em
+
+  h2
+    opacity: 0.85
+    font-size: 1.5em
+    font-weight: normal
+
+  .repo
+    display: inline-block
+    margin-top: 1em
+    padding: 0.5em 1em
+    color: #fff
+    text-decoration: none
+    opacity: 0.85
+    border: 1px solid currentColor
+    border-radius: 5px
+    transition: all .3s
+
+    &:hover
+      opacity: 1
+      background: rgba(255, 255, 255, 0.3)
+
+  .version-note
+    position: absolute
+    bottom: 0.5em
+    right: 0.5em
+    font-size: 0.8em
+    opacity: 0.8
+
+#content
+  font-size: pxToRem(16)
+  padding: 1em 2em
+
+  table
+    font-size: .85em
+    border-collapse: collapse
+
+    @media screen and (max-width: 960px)
+      display: block
+      overflow: auto
+
+  thead, tr:nth-child(even)
+    background-color: #f5f2f0
+
+  th, td
+    padding: 0.5em 1em
+    border: 1px solid #ddd
+
+  section
+    &::after
+      content: ''
+      display: table
+      clear: both
+
+    > *:not(h4)
+      margin-left: 1em
+
+  h4
+    color: $main-blue
+    font-size: 1.2em
+
+    &::before
+      content: '#'
+      padding-right: .5em
+
+  .intro
+    ul
+      padding-left: 1em
+
+  .compatibility
+    th, td
+      &:first-child
+        text-align: left
+      &:last-child
+        text-align: center
+
+  .options
+    th, td
+      text-align: center
+
+      &:last-child
+        text-align: left
+
+#scrollbar-demo
+  display: flex
+  justify-content: space-around
+
+#controller
+  position: fixed
+  bottom: 0
+  left: 0
+  z-index: 999
+
+#inner-scrollbar
+  max-width: 800px
+  height: 400px
+  border: 1px solid #ccc
+
+  .scroll-content
+    width: 1920px
+
+footer
+  text-align: center
+
+// dat.gui
+.dg
+  user-select: none
+
+  .close-button
+    position: relative !important
+  .property-name
+    width: 60% !important
+
+  :not(.closed) li.color
+    overflow: visible !important
+  .c
+    position: relative
+    width: 40% !important
+
+    .selector
+      bottom: 100%
+      right: 0
+
+#main-scrollbar
+  position: fixed
   top: 0
   right: 0
   bottom: 0
   left: 0
-  display: flex
-  flex-flow: column
-
-#debug
-  position: relative
-  margin-top: 1em
-  display: flex
-  flex: 0 0 auto
-  align-items: center
-  justify-content: space-between
-
-  #version
-    font-size: 0.8em
-    position: absolute
-    right: 1em
-    bottom: 0
-
-  canvas
-    width: 250px
-    height: 150px
-    border: 1px solid #ccc
-    margin: 0 1em
-    flex: 0 0 250px
-
-  table
-    width: 100%
-    border-collapse: collapse
-    table-layout: fixed
-
-    input[type="range"]
-      width: 100%
-
-  tr:nth-child(even)
-    background: #f8f8f8
-    font-size: 12px
-
-  td
-    padding: 5px 1em
-    &:nth-child(1)
-      width: 20%
-    &:nth-child(2)
-      width: 60%
-
-#content
-  margin-top: 20px
-  border: 1px solid #ccc
-
-p
-  margin: 1em 0
-  &:first-child
-    margin-top: 0
-  &:last-child
-    margin-bottom: 0
-
-h4
-  margin: 1em 0 0
-  text-transform: uppercase
-  font-weight: bold
 
 #monitor
-  display: flex
-  flex-flow: column
+  display: none
   position: fixed
   right: 1em
   bottom: 1em
@@ -93,10 +199,6 @@ h4
   background: #fff
   text-align: center
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8)
-
-  table
-    width: 80%
-    margin: 0 auto
 
 #chart
   width: 300px
@@ -121,12 +223,4 @@ h4
   box-sizing: border-box
   cursor: ew-resize
 
-.inner-scrollbar
-  width: 600px
-  height: 400px
-  float: left
-  margin: 0 1em 1em 0
-  border: 1px solid #ccc
 
-  .scroll-content
-    width: 1920px
