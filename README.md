@@ -187,7 +187,7 @@ Following is the DOM structure that Scrollbar generated:
 
 ## Todo
 
-- [ ] Overscroll effect.
+- [x] Overscroll effect.
 
 ## Contribuiting
 

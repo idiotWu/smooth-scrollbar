@@ -1,3 +1,7 @@
+## 6.0.0
+
+- Add experimental overscroll effect.
+
 ## 5.6.0
 
 - Remove `ignoreEvents` option.
