@@ -101,7 +101,7 @@ gulp.task('serve', ['scripts:build', 'styles:build'], function() {
         }
     });
 
-    gulp.watch('test/styles/*.styl', ['styles:build']);
+    gulp.watch(['test/styles/*.styl', 'src/style/*.styl'], ['styles:build']);
     gulp.watch('test/**/*.html').on('change', browserSync.reload);
 });
 

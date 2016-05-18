@@ -6,6 +6,7 @@ export * from './find_child';
 export * from './build_curve';
 export * from './get_touch_id';
 export * from './get_position';
+export * from './touch_record';
 export * from './pick_in_range';
 export * from './get_pointer_data';
 export * from './get_original_event';

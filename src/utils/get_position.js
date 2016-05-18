@@ -16,7 +16,7 @@ import { getPointerData } from './get_pointer_data';
 export let getPosition = (evt) => {
     evt = getOriginalEvent(evt);
 
-    let data = getPointerData(evt);
+    const data = getPointerData(evt);
 
     return {
         x: data.clientX,
