@@ -52,7 +52,6 @@ function __renderOverscroll(dirs = []) {
 
     const {
         options,
-        offset,
         overscrollRendered
     } = this;
 

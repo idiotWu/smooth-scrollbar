@@ -16,7 +16,7 @@ const MIN_VELOCITY = 100;
  * Touch event handlers builder
  */
 let __touchHandler = function() {
-    const { options, targets, movementLocked } = this;
+    const { targets, movementLocked } = this;
     const { container } = targets;
 
     this.__addEvent(container, 'touchstart', (evt) => {

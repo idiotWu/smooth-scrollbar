@@ -74,7 +74,7 @@ monitorCtrl.add(monitorOptions, 'show')
     });
 
 monitorCtrl.add(monitorOptions, 'duration', 1, 20)
-    .onChange((val) => {
+    .onChange(() => {
         shouldUpdate = true;
         let start = records[0];
         let end = records[records.length - 1];

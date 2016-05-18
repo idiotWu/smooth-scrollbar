@@ -40,10 +40,10 @@ const boolMap = {
 
 const scrollbars = Scrollbar.initAll(options);
 const controller = new dat.GUI();
-const scrollbarCtrl = controller.addFolder('Scrollbar Options');
+controller.addFolder('Scrollbar Options');
 document.getElementById('controller').appendChild(controller.domElement);
 
-let updateScrollbar = (v) => scrollbars.forEach((s) => s.setOptions(options));
+let updateScrollbar = () => scrollbars.forEach((s) => s.setOptions(options));
 
 if (window.innerWidth < 600) controller.close();
 
@@ -76,7 +76,5 @@ Object.keys(options).forEach((prop) => {
         updateScrollbar();
     });
 });
-
-window.gui = controller
 
 export { controller };

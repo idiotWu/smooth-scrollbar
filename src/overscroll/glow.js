@@ -14,8 +14,7 @@ export function overscrollGlow(x, y) {
     const {
         size,
         targets,
-        options,
-        MAX_OVERSCROLL
+        options
     } = this;
 
     const { elem:canvas, context:ctx } = targets.canvas;
@@ -44,7 +43,7 @@ function renderGlowX(strength) {
     } = this;
 
     const { width, height } = size.container;
-    const { elem:canvas, context:ctx } = targets.canvas;
+    const { context:ctx } = targets.canvas;
 
     ctx.save();
 
@@ -78,7 +77,7 @@ function renderGlowY(strength) {
     } = this;
 
     const { width, height } = size.container;
-    const { elem:canvas, context:ctx } = targets.canvas;
+    const { context:ctx } = targets.canvas;
 
     ctx.save();
 

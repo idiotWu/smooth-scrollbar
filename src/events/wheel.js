@@ -32,7 +32,7 @@ let __wheelHandler = function() {
     }, 30, false);
 
     this.__addEvent(container, WHEEL_EVENT, (evt) => {
-        const { options, movement } = this;
+        const { options } = this;
         let { x, y } = getDelta(evt);
 
         x *= options.speed;

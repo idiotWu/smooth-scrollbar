@@ -11,8 +11,7 @@ function __getDeltaLimit() {
     const {
         options,
         offset,
-        limit,
-        MAX_OVERSCROLL
+        limit
     } = this;
 
     if (options.continuousScrolling || options.overscrollEffect) {

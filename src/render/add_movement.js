@@ -11,8 +11,7 @@ export { SmoothScrollbar };
 function __addMovement(deltaX = 0, deltaY = 0) {
     const {
         options,
-        movement,
-        MAX_OVERSCROLL
+        movement
     } = this;
 
     this.__updateThrottle();

@@ -16,7 +16,7 @@ export { SmoothScrollbar };
  * @param {Object} option
  */
 let __keyboardHandler = function() {
-    const { targets, options } = this;
+    const { targets } = this;
 
     let getKeyDelta = (keyCode) => {
         // key maps [deltaX, deltaY, useSetMethod]
