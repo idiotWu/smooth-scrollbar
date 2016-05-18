@@ -9,11 +9,12 @@ import { getTouchID } from './get_touch_id';
 export class TouchRecord {
     constructor() {
         this.init();
+        this.lastRecord = {};
     }
 
     init() {
         this.velocity = {};
-        this.lastRecord = {};
+        this.startPosition = {};
         this.activeID = undefined;
         this.updateTime = undefined;
         this.activeScrollbar = null;
@@ -49,6 +50,7 @@ export class TouchRecord {
         this.init();
         this.update(evt);
         this.activeID = getTouchID(evt);
+        this.startPosition = getPosition(evt);
     }
 
     update(evt) {
@@ -80,5 +82,15 @@ export class TouchRecord {
         this.lastRecord = position;
 
         return delta;
+    }
+
+    getLastRecord(which = '') {
+        const { lastRecord } = this;
+
+        if (!which) {
+            return lastRecord.hasOwnProperty('x') ? { ...lastRecord } : {};
+        }
+
+        return lastRecord[which];
     }
 }

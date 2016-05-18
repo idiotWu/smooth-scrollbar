@@ -9,7 +9,7 @@ import { GLOBAL_TOUCHES } from '../shared/';
 export { SmoothScrollbar };
 
 const DEVICE_SCALE = /Android/.test(navigator.userAgent) ? window.devicePixelRatio : 1;
-const MIN_VELOCITY = Math.E * 100;
+const MIN_VELOCITY = Math.E * 100 | 0;
 
 /**
  * @method
@@ -42,6 +42,9 @@ let __touchHandler = function() {
             return this.__updateThrottle();
         }
 
+        if (this.__isOntoEdge('x', delta.x)) delta.x /= 2;
+        if (this.__isOntoEdge('y', delta.y)) delta.y /= 2;
+
         this.__autoLockMovement();
 
         evt.preventDefault();
@@ -55,20 +58,21 @@ let __touchHandler = function() {
 
         if (!GLOBAL_TOUCHES.isActiveScrollbar(this)) return;
 
-        this.__unlockMovement();
-
         const { speed } = this.options;
 
         let { x, y } = GLOBAL_TOUCHES.getVelocity();
 
-        x = x / Math.abs(x) * Math.sqrt(Math.abs(x) * DEVICE_SCALE * 100);
-        y = y / Math.abs(y) * Math.sqrt(Math.abs(y) * DEVICE_SCALE * 100);
+        x = movementLocked.x ?
+                0 : x / Math.abs(x) * Math.sqrt(Math.abs(x) * DEVICE_SCALE * 100);
+        y = movementLocked.y ?
+                0 : y / Math.abs(y) * Math.sqrt(Math.abs(y) * DEVICE_SCALE * 100);
 
         this.__addMovement(
             Math.abs(x) > MIN_VELOCITY ? (x * speed) : 0,
             Math.abs(y) > MIN_VELOCITY ? (y * speed) : 0
         );
 
+        this.__unlockMovement();
         GLOBAL_TOUCHES.release();
     });
 };

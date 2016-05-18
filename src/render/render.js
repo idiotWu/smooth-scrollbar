@@ -47,24 +47,26 @@ function __render() {
         __timerID
     } = this;
 
-    if (movement.x || movement.y) {
+    if (movement.x || movement.y || overscrollRendered.x || overscrollRendered.y) {
         let nextX = nextTick(this, options, offset.x, movement.x);
         let nextY = nextTick(this, options, offset.y, movement.y);
-
-        let destX = pickInRange(nextX.position, 0, limit.x);
-        let destY = pickInRange(nextY.position, 0, limit.y);
         let overflowDir = [];
 
-        // overscroll is rendering
-        // or scrolling onto particular edge
-        if (overscrollRendered.x ||
-            (destX === offset.x && movement.x)) {
-            overflowDir.push('x');
-        }
+        if (options.overscrollEffect) {
+            let destX = pickInRange(nextX.position, 0, limit.x);
+            let destY = pickInRange(nextY.position, 0, limit.y);
 
-        if (overscrollRendered.y ||
-            (destY === offset.y && movement.y)) {
-            overflowDir.push('y');
+            // overscroll is rendering
+            // or scrolling onto particular edge
+            if (overscrollRendered.x ||
+                (destX === offset.x && movement.x)) {
+                overflowDir.push('x');
+            }
+
+            if (overscrollRendered.y ||
+                (destY === offset.y && movement.y)) {
+                overflowDir.push('y');
+            }
         }
 
         if (!this.movementLocked.x) movement.x = nextX.movement;

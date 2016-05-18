@@ -10,19 +10,20 @@ export { SmoothScrollbar };
 
 function __initOptions(userPreference) {
     const options = {
-        speed: 1,                   // scroll speed scale
-        friction: 10,               // friction factor, percent
-        thumbMinSize: 20,           // min size for scrollbar thumb
-        renderByPixels: true,       // rendering by integer pixels
-        overscrollEffect: 'iOS',    // overscroll effect, false | 'iOS' | 'android'
-        continuousScrolling: 'auto' // allow uper scrollable content to scroll when reaching edge
+        speed: 1,                         // scroll speed scale
+        friction: 10,                     // friction factor, percent
+        thumbMinSize: 20,                 // min size for scrollbar thumb
+        renderByPixels: true,             // rendering by integer pixels
+        continuousScrolling: 'auto',      // allow outer scrollbars to scroll when reaching edge
+        overscrollEffect: false,          // overscroll effect, false | 'bounce' | 'glow'
+        overscrollEffectColor: '#87ceeb', // android overscroll effect color
     };
 
     const limit = {
         friction: [0, 100],
         speed: [0, Infinity],
         thumbMinSize: [0, Infinity],
-        overscrollEffect: [false, 'iOS', 'android']
+        overscrollEffect: [false, 'bounce', 'glow']
     };
 
     let isContinous = (mode = 'auto') => {
@@ -68,6 +69,12 @@ function __initOptions(userPreference) {
             }
 
             options.overscrollEffect = v;
+        },
+        get overscrollEffectColor() {
+            return options.overscrollEffectColor;
+        },
+        set overscrollEffectColor(v) {
+            options.overscrollEffectColor = v;
         }
     };
 

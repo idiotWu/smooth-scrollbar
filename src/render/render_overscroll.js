@@ -4,11 +4,11 @@
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
-import { setStyle, pickInRange } from '../utils/';
+
+import { overscrollBounce, overscrollGlow } from '../overscroll/';
+import { pickInRange } from '../utils/';
 
 export { SmoothScrollbar };
-
-const MAX_OVERSCROLL = 100;
 
 // @this-binding
 function calcNext(dir = '') {
@@ -17,18 +17,20 @@ function calcNext(dir = '') {
     const {
         options,
         movement,
-        overscrollRendered
+        overscrollRendered,
+        MAX_OVERSCROLL
     } = this;
 
     const dest = movement[dir] = pickInRange(movement[dir], -MAX_OVERSCROLL, MAX_OVERSCROLL);
+    const friction = options.friction / 100 * (this.overscrollBack ? 5 : 2);
 
-    let next = overscrollRendered[dir] + (dest - overscrollRendered[dir]) / 2;
+    let next = overscrollRendered[dir] + (dest - overscrollRendered[dir]) * friction;
 
     if (options.renderByPixels) {
         next |= 0;
     }
 
-    if (next === overscrollRendered[dir]) {
+    if (Math.abs(next - overscrollRendered[dir]) < 0.1) {
         next -= (dest / Math.abs(dest || 1));
     }
 
@@ -44,6 +46,7 @@ function calcNext(dir = '') {
     overscrollRendered[dir] = next;
 }
 
+// @this-binding
 function __renderOverscroll(dirs = []) {
     if (!dirs.length || !this.options.overscrollEffect) return;
 
@@ -60,55 +63,15 @@ function __renderOverscroll(dirs = []) {
     if (overscrollRendered.x === lastRendered.x &&
         overscrollRendered.y === lastRendered.y) return;
 
+    // x,y is same direction as it's in `setPosition(x, y)`
     switch (options.overscrollEffect) {
-        case 'iOS':
-            return this::iOS(overscrollRendered.x, overscrollRendered.y);
-        case 'android':
-            return this::android(overscrollRendered.x, overscrollRendered.y);
+        case 'bounce':
+            return this::overscrollBounce(overscrollRendered.x, overscrollRendered.y);
+        case 'glow':
+            return this::overscrollGlow(overscrollRendered.x, overscrollRendered.y);
         default:
             return;
     }
-}
-
-function iOS(x, y) {
-    const {
-        size,
-        offset,
-        targets,
-        thumbSize
-    } = this;
-
-    const {
-        xAxis,
-        yAxis,
-        content
-    } = targets;
-
-    setStyle(content, {
-        '-transform': `translate3d(${-(offset.x + x)}px, ${-(offset.y + y)}px, 0)`
-    });
-
-    if (x) {
-        const thumbSizeX = thumbSize.x * (size.container.width / (size.container.width + Math.abs(x)));
-
-        setStyle(xAxis.thumb, {
-            'width': `${thumbSizeX}px`,
-            '-transform': `translate3d(${x < 0 ? 0 : size.container.width - thumbSizeX}px, 0, 0)`
-        });
-    }
-
-    if (y) {
-        const thumbSizeY = thumbSize.y * (size.container.height / (size.container.height + Math.abs(y)));
-
-        setStyle(yAxis.thumb, {
-            'height': `${thumbSizeY}px`,
-            '-transform': `translate3d(0, ${y < 0 ? 0 : size.container.height - thumbSizeY }px, 0)`
-        });
-    }
-}
-
-function android(x, y) {
-
 }
 
 Object.defineProperty(SmoothScrollbar.prototype, '__renderOverscroll', {

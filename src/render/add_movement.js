@@ -11,7 +11,8 @@ export { SmoothScrollbar };
 function __addMovement(deltaX = 0, deltaY = 0) {
     const {
         options,
-        movement
+        movement,
+        MAX_OVERSCROLL
     } = this;
 
     this.__updateThrottle();
@@ -28,16 +29,10 @@ function __addMovement(deltaX = 0, deltaY = 0) {
     if (this.limit.x === 0) x = 0;
     if (this.limit.y === 0) y = 0;
 
-    if (options.continuousScrolling || options.overscrollEffect) {
-        // no limitaion for continuous/overscroll enabled
-        movement.x = x;
-        movement.y = y;
-    } else {
-        let limit = this.__getDeltaLimit();
+    let limit = this.__getDeltaLimit();
 
-        movement.x = pickInRange(x, ...limit.x);
-        movement.y = pickInRange(y, ...limit.y);
-    }
+    movement.x = pickInRange(x, ...limit.x);
+    movement.y = pickInRange(y, ...limit.y);
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__addMovement', {

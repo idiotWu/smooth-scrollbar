@@ -14,17 +14,24 @@ export { SmoothScrollbar };
  * Set thumb position in track
  */
 function __setThumbPosition() {
-    const { targets, size, offset, thumbSize } = this;
+    const {
+        targets,
+        size,
+        offset,
+        thumbOffset,
+        thumbSize
+    } = this;
 
-    let thumbPositionX = offset.x / size.content.width * (size.container.width - (thumbSize.x - thumbSize.realX));
-    let thumbPositionY = offset.y / size.content.height * (size.container.height - (thumbSize.y - thumbSize.realY));
+    thumbOffset.x = offset.x / size.content.width * (size.container.width - (thumbSize.x - thumbSize.realX));
+
+    thumbOffset.y = offset.y / size.content.height * (size.container.height - (thumbSize.y - thumbSize.realY));
 
     setStyle(targets.xAxis.thumb, {
-        '-transform':  `translate3d(${thumbPositionX}px, 0, 0)`
+        '-transform':  `translate3d(${thumbOffset.x}px, 0, 0)`
     });
 
     setStyle(targets.yAxis.thumb, {
-        '-transform': `translate3d(0, ${thumbPositionY}px, 0)`
+        '-transform': `translate3d(0, ${thumbOffset.y}px, 0)`
     });
 };
 

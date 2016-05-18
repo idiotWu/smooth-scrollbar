@@ -16,6 +16,21 @@ export { SmoothScrollbar };
  * @param {Boolean} async: update asynchronous
  */
 SmoothScrollbar.prototype.update = function(async = true) {
+    // update canvas
+    let updateCanvas = () => {
+        const { targets, options, size } = this;
+        const { elem, context } = targets.canvas;
+
+        if (options.overscrollEffect === 'glow') {
+            const DPR = window.devicePixelRatio || 1;
+
+            elem.width = size.container.width * DPR;
+            elem.height = size.container.height * DPR;
+
+            context.scale(DPR, DPR);
+        }
+    };
+
     let update = () => {
         this.__updateBounding();
 
@@ -30,7 +45,9 @@ SmoothScrollbar.prototype.update = function(async = true) {
 
         if (this.limit &&
             newLimit.x === this.limit.x &&
-            newLimit.y === this.limit.y) return;
+            newLimit.y === this.limit.y) {
+            return updateCanvas();
+        }
 
         const { targets, options } = this;
 
@@ -69,6 +86,7 @@ SmoothScrollbar.prototype.update = function(async = true) {
         const { offset, limit } = this;
         this.setPosition();
         this.__setThumbPosition();
+        updateCanvas();
     };
 
     if (async) {

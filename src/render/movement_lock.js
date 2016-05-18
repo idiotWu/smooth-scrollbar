@@ -16,7 +16,7 @@ function __autoLockMovement() {
     } = this;
 
     DIRECTIONS.forEach((dir) => {
-        movementLocked[dir] = this.__isOntoEdge(dir, movement[dir]);
+        movementLocked[dir] = movement[dir] && this.__isOntoEdge(dir, movement[dir]);
     });
 };
 
@@ -26,6 +26,12 @@ function __unlockMovement() {
     DIRECTIONS.forEach((dir) => movementLocked[dir] = false);
 };
 
+function __isMovementLocked() {
+    const { movementLocked } = this;
+
+    return movementLocked.x || movementLocked.y;
+}
+
 Object.defineProperty(SmoothScrollbar.prototype, '__autoLockMovement', {
     value: __autoLockMovement,
     writable: true,
@@ -34,6 +40,12 @@ Object.defineProperty(SmoothScrollbar.prototype, '__autoLockMovement', {
 
 Object.defineProperty(SmoothScrollbar.prototype, '__unlockMovement', {
     value: __unlockMovement,
+    writable: true,
+    configurable: true
+});
+
+Object.defineProperty(SmoothScrollbar.prototype, '__isMovementLocked', {
+    value: __isMovementLocked,
     writable: true,
     configurable: true
 });

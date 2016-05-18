@@ -40,6 +40,7 @@ SmoothScrollbar.init = (elem, options) => {
         <aside class="scrollbar-track scrollbar-track-y">
             <div class="scrollbar-thumb scrollbar-thumb-y"></div>
         </aside>
+        <canvas class="scrollbar-effect"></canvas>
     `;
 
     const scrollContent = div.querySelector('.scroll-content');
