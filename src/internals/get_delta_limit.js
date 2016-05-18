@@ -9,9 +9,18 @@ export { SmoothScrollbar };
 
 function __getDeltaLimit() {
     const {
+        options,
         offset,
-        limit
+        limit,
+        MAX_OVERSCROLL
     } = this;
+
+    if (options.continuousScrolling || options.overscrollEffect) {
+        return {
+            x: [-Infinity, Infinity],
+            y: [-Infinity, Infinity]
+        };
+    }
 
     return {
         x: [-offset.x, limit.x - offset.x],

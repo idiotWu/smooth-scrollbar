@@ -9,11 +9,12 @@ import { getTouchID } from './get_touch_id';
 export class TouchRecord {
     constructor() {
         this.init();
+        this.lastRecord = {};
     }
 
     init() {
         this.velocity = {};
-        this.lastRecord = {};
+        this.startPosition = {};
         this.activeID = undefined;
         this.updateTime = undefined;
         this.activeScrollbar = null;
@@ -49,6 +50,7 @@ export class TouchRecord {
         this.init();
         this.update(evt);
         this.activeID = getTouchID(evt);
+        this.startPosition = getPosition(evt);
     }
 
     update(evt) {
@@ -67,18 +69,28 @@ export class TouchRecord {
         const { velocity, lastRecord } = this;
 
         const duration = now - this.updateTime;
-        const distance = {
+        const delta = {
             // natural scrolling
             x: -(position.x - lastRecord.x),
             y: -(position.y - lastRecord.y)
         };
 
-        velocity.x = distance.x / duration * 1e3;
-        velocity.y = distance.y / duration * 1e3;
+        velocity.x = delta.x / duration * 1e3;
+        velocity.y = delta.y / duration * 1e3;
 
         this.updateTime = now;
         this.lastRecord = position;
 
-        return distance;
+        return delta;
+    }
+
+    getLastRecord(which = '') {
+        const { lastRecord } = this;
+
+        if (!which) {
+            return lastRecord.hasOwnProperty('x') ? { ...lastRecord } : {};
+        }
+
+        return lastRecord[which];
     }
 }

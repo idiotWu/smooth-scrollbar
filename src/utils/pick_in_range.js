@@ -11,4 +11,4 @@
  *
  * @return {Number}
  */
-export let pickInRange = (value, min = 0, max = 0) => Math.max(min, Math.min(value, max));
+export let pickInRange = (value, min = -Infinity, max = Infinity) => Math.max(min, Math.min(value, max));
