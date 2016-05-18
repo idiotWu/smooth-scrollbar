@@ -7,7 +7,6 @@ import './events/';
 import './internals/';
 
 export default SmoothScrollbar;
-export { SmoothScrollbar as Scrollbar };
 
 SmoothScrollbar.version = '<%= version %>';
 
