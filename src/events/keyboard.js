@@ -61,9 +61,11 @@ let __keyboardHandler = function() {
     this.__addEvent(container, 'keydown', (evt) => {
         if (!isFocused) return;
 
+        const { options, parents, movementLocked } = this;
+
         evt = getOriginalEvent(evt);
 
-        let delta = getKeyDelta(evt.keyCode || evt.which);
+        const delta = getKeyDelta(evt.keyCode || evt.which);
 
         if (!delta) return;
 
@@ -79,13 +81,13 @@ let __keyboardHandler = function() {
             return this.__updateThrottle();
         }
 
-        if (this.__isOntoEdge('x', x) || this.__isOntoEdge('y', y)) {
-            this.__autoLockMovement();
-        }
-
         evt.preventDefault();
 
-        const { speed } = this.options;
+        this.__unlockMovement(); // handle for multi keypress
+        if (x && this.__isOntoEdge('x', x)) movementLocked.x = true;
+        if (y && this.__isOntoEdge('y', y)) movementLocked.y = true;
+
+        const { speed } = options;
         this.__addMovement(x * speed, y * speed);
     });
 
