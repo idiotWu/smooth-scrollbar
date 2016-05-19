@@ -97,10 +97,10 @@ header
     font-size: .85em
     border-collapse: collapse
 
-  @media screen and (max-width: 960px)
-    pre, table
-      overflow: hidden
-      white-space: normal
+  pre
+    display: table
+    min-width: 100%
+    box-sizing: border-box
 
   thead, tr:nth-child(even)
     background-color: #f5f2f0
@@ -110,13 +110,15 @@ header
     border: 1px solid #ddd
 
   section
+    padding-left: 1em
+
     &::after
       content: ''
       display: table
       clear: both
 
-    > *:not(h4)
-      margin-left: 1em
+    > h4
+      margin-left: -1em
 
   h4
     color: $main-blue
@@ -142,7 +144,9 @@ header
       text-align: center
 
       &:last-child
+        min-width: 20em
         text-align: left
+
 
 #scrollbar-demo
   display: flex
@@ -158,9 +162,6 @@ header
   max-width: 800px
   height: 400px
   border: 1px solid #ccc
-
-  .scroll-content
-    width: 1920px
 
 footer
   text-align: center
