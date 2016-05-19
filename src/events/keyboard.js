@@ -3,7 +3,6 @@
  * @prototype {Function} __keyboardHandler
  */
 
-import { getOriginalEvent } from '../utils/index';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
@@ -62,8 +61,6 @@ let __keyboardHandler = function() {
         if (!isFocused) return;
 
         const { options, parents, movementLocked } = this;
-
-        evt = getOriginalEvent(evt);
 
         const delta = getKeyDelta(evt.keyCode || evt.which);
 

@@ -1,10 +1,7 @@
 /**
  * @module
  * @export {Function} getDelta
- * @dependencies [ getOriginalEvent ]
  */
-
-import { getOriginalEvent } from './get_original_event';
 
 const DELTA_SCALE = {
     STANDARD: 1,
@@ -21,9 +18,6 @@ let getDeltaMode = (mode) => DELTA_MODE[mode] || DELTA_MODE[0];
  * @param {Object} evt: event object
  */
 export let getDelta = (evt) => {
-    // get original DOM event
-    evt = getOriginalEvent(evt);
-
     if ('deltaX' in evt) {
         const mode = getDeltaMode(evt.deltaMode);
 

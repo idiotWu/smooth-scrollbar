@@ -1,10 +1,8 @@
 /**
  * @module
  * @export {Function} getPosition
- * @dependencies [ getOriginalEvent, getPointerData ]
  */
 
-import { getOriginalEvent } from './get_original_event';
 import { getPointerData } from './get_pointer_data';
 
 /**
@@ -14,8 +12,6 @@ import { getPointerData } from './get_pointer_data';
  * @return {Object}: position{x, y}
  */
 export let getPosition = (evt) => {
-    evt = getOriginalEvent(evt);
-
     const data = getPointerData(evt);
 
     return {
