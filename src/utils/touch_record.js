@@ -6,10 +6,16 @@
 import { getPosition } from './get_position';
 import { getTouchID } from './get_touch_id';
 
+const TOUCH_SUPPORTED = 'ontouchstart' in document;
+
 export class TouchRecord {
     constructor() {
         this.init();
         this.lastRecord = {};
+    }
+
+    get TOUCH_SUPPORTED() {
+        return TOUCH_SUPPORTED;
     }
 
     init() {
@@ -20,10 +26,12 @@ export class TouchRecord {
         this.activeScrollbar = null;
     }
 
-    isActiveTouch(evt) {
+    isActiveTouch(eventOrID) {
         if (this.activeID === undefined) return true;
 
-        return this.activeID === getTouchID(evt);
+        const id = typeof eventOrID === 'number' ? eventOrID : getTouchID(eventOrID);
+
+        return this.activeID === id;
     }
 
     isActiveScrollbar(scrollbar) {
@@ -42,8 +50,8 @@ export class TouchRecord {
         return this.velocity;
     }
 
-    release() {
-        this.init();
+    release(id) {
+        if (this.isActiveTouch(id)) this.init();
     }
 
     start(evt) {
@@ -51,20 +59,17 @@ export class TouchRecord {
         this.update(evt);
         this.activeID = getTouchID(evt);
         this.startPosition = getPosition(evt);
+
+        return this.activeID;
     }
 
     update(evt) {
-        const now = Date.now();
-        const touchID = getTouchID(evt);
-        const position = getPosition(evt);
-
-        if (this.activeID === undefined) {
-            this.activeID = touchID;
-            this.updateTime = now;
-            this.lastRecord = position;
-
+        if (!this.isActiveTouch(evt)) {
             return { x: 0, y: 0 };
         }
+
+        const now = Date.now();
+        const position = getPosition(evt);
 
         const { velocity, lastRecord } = this;
 
@@ -92,5 +97,9 @@ export class TouchRecord {
         }
 
         return lastRecord[which];
+    }
+
+    updatedRecentlly() {
+        return Date.now() - (this.updateTime || 0) < 30;
     }
 }

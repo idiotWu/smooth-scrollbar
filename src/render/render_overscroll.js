@@ -6,6 +6,7 @@
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
 import { overscrollBounce, overscrollGlow } from '../overscroll/';
+import { GLOBAL_TOUCHES } from '../shared/';
 import { pickInRange } from '../utils/';
 
 export { SmoothScrollbar };
@@ -46,6 +47,24 @@ function calcNext(dir = '') {
     overscrollRendered[dir] = next;
 }
 
+// @this-bind
+function shouldUpdate(lastRendered) {
+    const {
+        overscrollRendered
+    } = this;
+
+    // has unrendered pixels?
+    if (overscrollRendered.x !== lastRendered.x ||
+        overscrollRendered.y !== lastRendered.y) return true;
+
+    // is touch position updated?
+    if (GLOBAL_TOUCHES.TOUCH_SUPPORTED &&
+        GLOBAL_TOUCHES.isActiveScrollbar(this) &&
+        GLOBAL_TOUCHES.updatedRecentlly()) return true;
+
+    return false;
+}
+
 // @this-binding
 function __renderOverscroll(dirs = []) {
     if (!dirs.length || !this.options.overscrollEffect) return;
@@ -59,8 +78,7 @@ function __renderOverscroll(dirs = []) {
 
     dirs.forEach((dir) => this::calcNext(dir));
 
-    if (overscrollRendered.x === lastRendered.x &&
-        overscrollRendered.y === lastRendered.y) return;
+    if (!this::shouldUpdate(lastRendered)) return;
 
     // x,y is same direction as it's in `setPosition(x, y)`
     switch (options.overscrollEffect) {

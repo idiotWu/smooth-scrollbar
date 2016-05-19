@@ -19,6 +19,8 @@ let __touchHandler = function() {
     const { targets, movementLocked } = this;
     const { container } = targets;
 
+    let currentTouchID = undefined;
+
     this.__addEvent(container, 'touchstart', (evt) => {
         if (this.__isDrag) return;
 
@@ -30,7 +32,7 @@ let __touchHandler = function() {
         if (!this.__isOntoEdge('y')) movement.y = 0;
 
         // start records
-        GLOBAL_TOUCHES.start(evt);
+        currentTouchID = GLOBAL_TOUCHES.start(evt);
         this.__autoLockMovement();
     });
 
@@ -79,7 +81,7 @@ let __touchHandler = function() {
         );
 
         this.__unlockMovement();
-        GLOBAL_TOUCHES.release();
+        GLOBAL_TOUCHES.release(currentTouchID);
     });
 };
 

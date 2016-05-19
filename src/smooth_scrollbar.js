@@ -3,15 +3,13 @@
  * @export {Class} SmoothScrollbar
  */
 
-import { sbList } from './shared/';
+import { sbList, GLOBAL_TOUCHES } from './shared/';
 import {
     pickInRange,
     debounce,
     findChild,
     setStyle
 } from './utils/';
-
-const TOUCH_SUPPORTED = 'ontouchstart' in document;
 
 /**
  * @constructor
@@ -133,7 +131,7 @@ export class SmoothScrollbar {
                         case 'bounce':
                             const average = (size.container.width + size.container.height) / 2;
 
-                            return TOUCH_SUPPORTED ?
+                            return GLOBAL_TOUCHES.TOUCH_SUPPORTED ?
                                     pickInRange(average / 2, 100, 1000) :
                                     pickInRange(average / 10, 25, 50);
 
