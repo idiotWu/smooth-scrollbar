@@ -30,7 +30,7 @@ function calcNext(dir = '') {
         next |= 0;
     }
 
-    if (Math.abs(next - overscrollRendered[dir]) < 0.1) {
+    if (!this.__isMovementLocked() && Math.abs(next - overscrollRendered[dir]) < 0.1) {
         next -= (dest / Math.abs(dest || 1));
     }
 
