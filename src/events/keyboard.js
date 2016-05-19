@@ -71,8 +71,8 @@ let __keyboardHandler = function() {
         if (this.__shouldPropagateMovement(x, y)) {
             container.blur();
 
-            if (this.parents.length) {
-                this.parents[0].focus();
+            if (parents.length) {
+                parents[0].focus();
             }
 
             return this.__updateThrottle();

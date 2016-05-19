@@ -25,7 +25,7 @@ let __touchHandler = function() {
         const { __timerID, movement } = this;
 
         // stop scrolling but keep movement for overscrolling
-        cancelAnimationFrame(this.__timerID.scrollTo);
+        cancelAnimationFrame(__timerID.scrollTo);
         if (!this.__isOntoEdge('x')) movement.x = 0;
         if (!this.__isOntoEdge('y')) movement.y = 0;
 
