@@ -7,5 +7,4 @@ export * from './get_delta_limit';
 export * from './update_bounding';
 export * from './get_pointer_trend';
 export * from './set_thumb_position';
-export * from './propagate_movement';
 export * from './event_from_child_scrollbar';

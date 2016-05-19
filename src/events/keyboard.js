@@ -69,7 +69,7 @@ let __keyboardHandler = function() {
 
         const [x, y] = delta;
 
-        if (this.__propagateMovement(x, y)) {
+        if (this.__shouldPropagateMovement(x, y)) {
             container.blur();
 
             if (this.parents.length) {

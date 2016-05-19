@@ -38,7 +38,7 @@ let __wheelHandler = function() {
         x *= options.speed;
         y *= options.speed;
 
-        if (this.__propagateMovement(x, y)) {
+        if (this.__shouldPropagateMovement(x, y)) {
             return this.__updateThrottle();
         }
 

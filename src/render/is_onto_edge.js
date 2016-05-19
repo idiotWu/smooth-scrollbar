@@ -8,6 +8,7 @@ import { pickInRange } from '../utils/';
 
 export { SmoothScrollbar };
 
+// check if scrollbar scrolls onto very edge in particular direction
 function __isOntoEdge(dir = '', delta = 0) {
     if (!dir) return false;
 
