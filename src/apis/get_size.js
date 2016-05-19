@@ -26,8 +26,8 @@ SmoothScrollbar.prototype.getSize = function() {
         },
         content: {
             // border width should be included
-            width: content.offsetWidth,
-            height: content.offsetHeight
+            width: content.offsetWidth - content.clientWidth + content.scrollWidth,
+            height: content.offsetHeight - content.clientHeight + content.scrollHeight
         }
     };
 };
