@@ -22,9 +22,16 @@ let __touchHandler = function() {
     this.__addEvent(container, 'touchstart', (evt) => {
         if (this.__isDrag) return;
 
-        // stop scrolling
-        this.stop();
+        const { __timerID, movement } = this;
+
+        // stop scrolling but keep movement for overscrolling
+        cancelAnimationFrame(this.__timerID.scrollTo);
+        if (!this.__isOntoEdge('x')) movement.x = 0;
+        if (!this.__isOntoEdge('y')) movement.y = 0;
+
+        // start records
         GLOBAL_TOUCHES.start(evt);
+        this.__autoLockMovement();
     });
 
     this.__addEvent(container, 'touchmove', (evt) => {
@@ -37,7 +44,7 @@ let __touchHandler = function() {
 
         const delta = GLOBAL_TOUCHES.update(evt);
 
-        if (this.__propagateMovement(delta.x, delta.y)) {
+        if (this.__shouldPropagateMovement(delta.x, delta.y)) {
             return this.__updateThrottle();
         }
 
