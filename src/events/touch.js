@@ -44,20 +44,33 @@ let __touchHandler = function() {
         if (GLOBAL_TOUCHES.hasActiveScrollbar() &&
             !GLOBAL_TOUCHES.isActiveScrollbar(this)) return;
 
-        const delta = GLOBAL_TOUCHES.update(evt);
+        let { x, y } = GLOBAL_TOUCHES.update(evt);
 
-        if (this.__shouldPropagateMovement(delta.x, delta.y)) {
+        if (this.__shouldPropagateMovement(x, y)) {
             return this.__updateThrottle();
         }
 
-        if (this.__isOntoEdge('x', delta.x)) delta.x /= 2;
-        if (this.__isOntoEdge('y', delta.y)) delta.y /= 2;
+        const { movement, MAX_OVERSCROLL, options } = this;
+
+        if (movement.x && this.__isOntoEdge('x', x)) {
+            let factor = 2;
+            if (options.overscrollEffect === 'bounce') factor += Math.abs(20 * movement.x / MAX_OVERSCROLL);
+
+            x /= factor;
+        }
+        if (movement.y && this.__isOntoEdge('y', y)) {
+            let factor = 2;
+            if (options.overscrollEffect === 'bounce') factor += Math.abs(20 * movement.y / MAX_OVERSCROLL);
+
+            y /= factor;
+
+        }
 
         this.__autoLockMovement();
 
         evt.preventDefault();
 
-        this.__addMovement(delta.x, delta.y);
+        this.__addMovement(x, y);
         GLOBAL_TOUCHES.setActiveScrollbar(this);
     });
 
