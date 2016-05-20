@@ -121,44 +121,37 @@ export class SmoothScrollbar {
             }
         });
 
-        // accessors
-        Object.defineProperties(this, {
-            MAX_OVERSCROLL: {
-                get() {
-                    const { options, size } = this;
-
-                    switch (options.overscrollEffect) {
-                        case 'bounce':
-                            const average = (size.container.width + size.container.height) / 2;
-
-                            return GLOBAL_TOUCHES.TOUCH_SUPPORTED ?
-                                    pickInRange(average / 2, 100, 1000) :
-                                    pickInRange(average / 10, 25, 50);
-
-                        case 'glow':
-                            return 150;
-
-                        default:
-                            return 0;
-                    }
-                }
-            },
-            scrollTop: {
-                get() {
-                    return this.offset.y;
-                }
-            },
-            scrollLeft: {
-                get() {
-                    return this.offset.x;
-                }
-            }
-        });
-
         this.__initOptions(options);
         this.__initScrollbar();
 
         // storage
         sbList.set(container, this);
+    }
+
+    get MAX_OVERSCROLL() {
+        const { options, size } = this;
+
+        switch (options.overscrollEffect) {
+            case 'bounce':
+                const average = (size.container.width + size.container.height) / 2;
+
+                return GLOBAL_TOUCHES.TOUCH_SUPPORTED ?
+                        pickInRange(average / 2, 100, 1000) :
+                        pickInRange(average / 10, 25, 50);
+
+            case 'glow':
+                return 150;
+
+            default:
+                return 0;
+        }
+    }
+
+    get scrollTop() {
+        return this.offset.y;
+    }
+
+    get scrollLeft() {
+        return this.offset.x;
     }
 }
