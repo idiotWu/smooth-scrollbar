@@ -11,6 +11,7 @@ const TOUCH_SUPPORTED = 'ontouchstart' in document;
 export class TouchRecord {
     constructor() {
         this.init();
+        this.lastRecord = {};
     }
 
     get TOUCH_SUPPORTED() {
@@ -19,7 +20,6 @@ export class TouchRecord {
 
     init() {
         this.velocity = { x: 0, y: 0 };
-        this.lastRecord = null;
         this.activeID = undefined;
         this.updateTime = undefined;
         this.activeScrollbar = null;
@@ -99,7 +99,7 @@ export class TouchRecord {
     getLastRecord(which = '') {
         const { lastRecord } = this;
 
-        if (!lastRecord) return {};
+        if (!lastRecord.hasOwnProperty('x')) return {};
 
         if (!which) return { ...lastRecord };
 
