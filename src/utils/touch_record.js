@@ -99,9 +99,9 @@ export class TouchRecord {
     getLastRecord(which = '') {
         const { lastRecord } = this;
 
-        if (!lastRecord.hasOwnProperty('x')) return {};
-
         if (!which) return { ...lastRecord };
+
+        if (!lastRecord.hasOwnProperty(which)) return 0;
 
         return lastRecord[which];
     }
