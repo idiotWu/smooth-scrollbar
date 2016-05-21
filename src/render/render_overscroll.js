@@ -60,7 +60,7 @@ function shouldUpdate(lastRendered) {
     // is touch position updated?
     if (GLOBAL_TOUCHES.TOUCH_SUPPORTED &&
         GLOBAL_TOUCHES.isActiveScrollbar(this) &&
-        GLOBAL_TOUCHES.updatedRecentlly()) return true;
+        GLOBAL_TOUCHES.updatedRecently()) return true;
 
     return false;
 }

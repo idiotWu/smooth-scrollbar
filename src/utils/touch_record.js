@@ -106,7 +106,7 @@ export class TouchRecord {
         return lastRecord[which];
     }
 
-    updatedRecentlly() {
+    updatedRecently() {
         return Date.now() - (this.updateTime || 0) < 30;
     }
 }
