@@ -11,7 +11,6 @@ const TOUCH_SUPPORTED = 'ontouchstart' in document;
 export class TouchRecord {
     constructor() {
         this.init();
-        this.lastRecord = {};
     }
 
     get TOUCH_SUPPORTED() {
@@ -19,8 +18,8 @@ export class TouchRecord {
     }
 
     init() {
-        this.velocity = {};
-        this.startPosition = {};
+        this.velocity = { x: 0, y: 0 };
+        this.lastRecord = null;
         this.activeID = undefined;
         this.updateTime = undefined;
         this.activeScrollbar = null;
@@ -58,7 +57,6 @@ export class TouchRecord {
         this.init();
         this.update(evt);
         this.activeID = getTouchID(evt);
-        this.startPosition = getPosition(evt);
 
         return this.activeID;
     }
@@ -71,17 +69,26 @@ export class TouchRecord {
         const now = Date.now();
         const position = getPosition(evt);
 
+        if (!this.lastRecord) {
+            this.lastRecord = position;
+        }
+
         const { velocity, lastRecord } = this;
 
-        const duration = now - this.updateTime;
         const delta = {
             // natural scrolling
             x: -(position.x - lastRecord.x),
             y: -(position.y - lastRecord.y)
         };
 
-        velocity.x = delta.x / duration * 1e3;
-        velocity.y = delta.y / duration * 1e3;
+        if (this.updateTime !== undefined) {
+            const duration = now - this.updateTime + 1;
+            const vx = delta.x / duration * 1000;
+            const vy = delta.y / duration * 1000;
+
+            velocity.x = vx * 0.8 + velocity.x * 0.2;
+            velocity.y = vy * 0.8 + velocity.y * 0.2;
+        }
 
         this.updateTime = now;
         this.lastRecord = position;
@@ -92,9 +99,9 @@ export class TouchRecord {
     getLastRecord(which = '') {
         const { lastRecord } = this;
 
-        if (!which) {
-            return lastRecord.hasOwnProperty('x') ? { ...lastRecord } : {};
-        }
+        if (!lastRecord) return {};
+
+        if (!which) return { ...lastRecord };
 
         return lastRecord[which];
     }
