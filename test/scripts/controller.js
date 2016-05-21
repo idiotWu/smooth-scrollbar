@@ -6,7 +6,7 @@ const options = {
     thumbMinSize: 20,
     renderByPixels: true,
     continuousScrolling: 'auto',
-    overscrollEffect: false,
+    overscrollEffect: navigator.userAgent.match(/Android/) ? 'glow' : 'bounce',
     overscrollEffectColor: '#87ceeb'
 };
 

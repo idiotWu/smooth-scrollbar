@@ -18,8 +18,6 @@ canvas.width = size.width * DPR;
 canvas.height = size.height * DPR;
 ctx.scale(DPR, DPR);
 
-Scrollbar.initAll();
-
 const scrollbar = Scrollbar.get(document.getElementById('main-scrollbar'));
 const monitorCtrl = controller.addFolder('Monitor');
 const monitorOptions = {
