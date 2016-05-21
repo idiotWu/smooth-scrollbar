@@ -55,13 +55,13 @@ let __touchHandler = function() {
 
         if (movement.x && this.__isOntoEdge('x', x)) {
             let factor = 2;
-            if (options.overscrollEffect === 'bounce') factor += Math.abs(20 * movement.x / MAX_OVERSCROLL);
+            if (options.overscrollEffect === 'bounce') factor += Math.abs(8 * movement.x / MAX_OVERSCROLL);
 
             x /= factor;
         }
         if (movement.y && this.__isOntoEdge('y', y)) {
             let factor = 2;
-            if (options.overscrollEffect === 'bounce') factor += Math.abs(20 * movement.y / MAX_OVERSCROLL);
+            if (options.overscrollEffect === 'bounce') factor += Math.abs(8 * movement.y / MAX_OVERSCROLL);
 
             y /= factor;
 

@@ -134,9 +134,10 @@ export class SmoothScrollbar {
         switch (options.overscrollEffect) {
             case 'bounce':
                 const average = (size.container.width + size.container.height) / 2;
+                const touchFactor = this.__isMovementLocked() ? 1 : 5;
 
                 return GLOBAL_TOUCHES.TOUCH_SUPPORTED ?
-                        pickInRange(average / 2, 100, 1000) :
+                        pickInRange(average / touchFactor, 100, 1000) :
                         pickInRange(average / 10, 25, 50);
 
             case 'glow':
