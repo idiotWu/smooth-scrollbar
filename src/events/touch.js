@@ -84,8 +84,8 @@ let __touchHandler = function() {
 
         let { x, y } = GLOBAL_TOUCHES.getVelocity();
 
-        x = movementLocked.x ? 0 : x * DEVICE_MULTIPLIER;
-        y = movementLocked.y ? 0 : y * DEVICE_MULTIPLIER;
+        x = movementLocked.x ? 0 : Math.min(x * DEVICE_MULTIPLIER, 1000);
+        y = movementLocked.y ? 0 : Math.min(y * DEVICE_MULTIPLIER, 1000);
 
         this.__addMovement(
             Math.abs(x) > MIN_VELOCITY ? (x * speed) : 0,
