@@ -5,6 +5,7 @@ const options = {
     friction: 10,
     thumbMinSize: 20,
     renderByPixels: true,
+    alwaysShowTrack: false,
     continuousScrolling: 'auto',
     overscrollEffect: navigator.userAgent.match(/Android/) ? 'glow' : 'bounce',
     overscrollEffectColor: '#87ceeb'

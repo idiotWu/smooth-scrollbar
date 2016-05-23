@@ -9,11 +9,14 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 export { SmoothScrollbar };
 
 function __initOptions(userPreference) {
+    const scrollbar = this;
+
     const options = {
         speed: 1,                         // scroll speed scale
         friction: 10,                     // friction factor, percent
         thumbMinSize: 20,                 // min size for scrollbar thumb
         renderByPixels: true,             // rendering by integer pixels
+        alwaysShowTrack: false,           // keep scrollbar tracks visible
         continuousScrolling: 'auto',      // allow outer scrollbars to scroll when reaching edge
         overscrollEffect: false,          // overscroll effect, false | 'bounce' | 'glow'
         overscrollEffectColor: '#87ceeb', // android overscroll effect color
@@ -31,7 +34,7 @@ function __initOptions(userPreference) {
 
         switch (mode) {
             case 'auto':
-                return this.isNestedScrollbar;
+                return scrollbar.isNestedScrollbar;
             default:
                 return !!mode;
         }
@@ -48,6 +51,25 @@ function __initOptions(userPreference) {
         set renderByPixels(v) {
             options.renderByPixels = !!v;
         },
+
+        get alwaysShowTrack() {
+            return options.alwaysShowTrack;
+        },
+        set alwaysShowTrack(v) {
+            v = !!v;
+            options.alwaysShowTrack = v;
+
+            const { container } = scrollbar.targets;
+
+            if (v) {
+                scrollbar.showTrack();
+                container.classList.add('sticky');
+            } else {
+                scrollbar.hideTrack();
+                container.classList.remove('sticky');
+            }
+        },
+
         get continuousScrolling() {
             return isContinous(options.continuousScrolling);
         },
@@ -58,6 +80,7 @@ function __initOptions(userPreference) {
                 options.continuousScrolling = !!v;
             }
         },
+
         get overscrollEffect() {
             return options.overscrollEffect;
         },
@@ -70,6 +93,7 @@ function __initOptions(userPreference) {
 
             options.overscrollEffect = v;
         },
+
         get overscrollEffectColor() {
             return options.overscrollEffectColor;
         },

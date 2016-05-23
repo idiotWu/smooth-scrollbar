@@ -17,10 +17,23 @@ function toggleTrack(action = 'show') {
      * @param {String} direction: which direction of tracks to show/hide, default is 'both'
      */
     return function(direction = 'both') {
-        const { container, xAxis, yAxis } = this.targets;
+        const {
+            options,
+            movement,
+            targets: { container, xAxis, yAxis }
+        } = this;
+
+        // add/remove scrolling class to container
+        if (movement.x || movement.y) {
+            container.classList.add('scrolling');
+        } else {
+            container.classList.remove('scrolling');
+        }
+
+        // keep showing
+        if (options.alwaysShowTrack && action === 'hide') return;
 
         direction = direction.toLowerCase();
-        container.classList[method]('scrolling');
 
         if (direction === 'both') {
             xAxis.track.classList[method]('show');
