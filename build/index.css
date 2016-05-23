@@ -21,14 +21,19 @@ scrollbar.scrolling .scroll-content .scroll-content,
 [data-scrollbar].scrolling .scroll-content .scroll-content {
   pointer-events: auto;
 }
+scrollbar.sticky .scrollbar-track,
+[scrollbar].sticky .scrollbar-track,
+[data-scrollbar].sticky .scrollbar-track {
+  background: rgba(222,222,222,0.75);
+}
 scrollbar .scrollbar-track,
 [scrollbar] .scrollbar-track,
 [data-scrollbar] .scrollbar-track {
   position: absolute;
   opacity: 0;
   z-index: 1;
-  -webkit-transition: opacity 0.5s 1s ease-out, background 0.5s ease-out;
-          transition: opacity 0.5s 1s ease-out, background 0.5s ease-out;
+  -webkit-transition: opacity 0.5s ease-out, background 0.5s ease-out;
+          transition: opacity 0.5s ease-out, background 0.5s ease-out;
   background: none;
 }
 scrollbar .scrollbar-track.show,
@@ -38,8 +43,6 @@ scrollbar .scrollbar-track:hover,
 [scrollbar] .scrollbar-track:hover,
 [data-scrollbar] .scrollbar-track:hover {
   opacity: 1;
-  -webkit-transition-delay: 0s;
-          transition-delay: 0s;
 }
 scrollbar .scrollbar-track:hover,
 [scrollbar] .scrollbar-track:hover,
