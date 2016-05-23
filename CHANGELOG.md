@@ -1,3 +1,8 @@
+## 6.1.0
+
+- Fix overscroll effect on non-scrollable containers.
+- Add `alwaysShowTracks` option
+
 ## 6.0.0
 
 - Add experimental overscroll effect.

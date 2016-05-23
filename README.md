@@ -112,7 +112,7 @@ Or you can call `Scrollbar.init(elem, options)` to manually init the scrollbar.
 | friction | Number | 10 | Scrolling friction, a percentage value within (1, 100). |
 | thumbMinSize | Number | 20 | Minimal size for scrollbar thumb. |
 | renderByPixels | Boolean | true | Render scrolling by integer pixels, set to `true` to improve performance. |
-| alwaysShowTrack | Boolean | false | Keep scrollbar tracks visible whether it's scrolling or not. |
+| alwaysShowTracks | Boolean | false | Keep scrollbar tracks visible whether it's scrolling or not. |
 | continuousScrolling | Boolean\|String | 'auto' | Whether allow upper scrollable content to continue scrolling when current scrollbar reaches edge. **When set to 'auto', it will be enabled on nested scrollbars, and disabled on first-class scrollbars.** |
 | overscrollEffect | Boolean\|String | false | Experimental overscroll effect, `'bounce'` for iOS style effect and `'glow'` for Android style effect. **Be careful when you enable this feature!** |
 | overscrollEffectColor | String | '#87ceeb' | Canvas paint color with 'glow' effect. |
