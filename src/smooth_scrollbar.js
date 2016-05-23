@@ -105,7 +105,7 @@ export class SmoothScrollbar {
                 value: debounce(::this.update)
             },
             __hideTrackThrottle: {
-                value: debounce(::this.hideTrack, 300, false)
+                value: debounce(::this.hideTrack, 1000, false)
             },
             __listeners: {
                 value: []
