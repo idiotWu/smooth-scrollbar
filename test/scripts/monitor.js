@@ -347,7 +347,10 @@ function drawHover() {
 };
 
 function render() {
-    if (!shouldUpdate) return requestAnimationFrame(render);
+    if (!shouldUpdate) {
+        renderLoopID = requestAnimationFrame(render);
+        return;
+    }
 
     ctx.save();
     ctx.clearRect(0, 0, size.width, size.height);
