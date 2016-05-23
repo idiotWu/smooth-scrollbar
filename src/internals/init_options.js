@@ -16,7 +16,7 @@ function __initOptions(userPreference) {
         friction: 10,                     // friction factor, percent
         thumbMinSize: 20,                 // min size for scrollbar thumb
         renderByPixels: true,             // rendering by integer pixels
-        alwaysShowTrack: false,           // keep scrollbar tracks visible
+        alwaysShowTracks: false,          // keep scrollbar tracks visible
         continuousScrolling: 'auto',      // allow outer scrollbars to scroll when reaching edge
         overscrollEffect: false,          // overscroll effect, false | 'bounce' | 'glow'
         overscrollEffectColor: '#87ceeb', // android overscroll effect color
@@ -52,12 +52,12 @@ function __initOptions(userPreference) {
             options.renderByPixels = !!v;
         },
 
-        get alwaysShowTrack() {
-            return options.alwaysShowTrack;
+        get alwaysShowTracks() {
+            return options.alwaysShowTracks;
         },
-        set alwaysShowTrack(v) {
+        set alwaysShowTracks(v) {
             v = !!v;
-            options.alwaysShowTrack = v;
+            options.alwaysShowTracks = v;
 
             const { container } = scrollbar.targets;
 

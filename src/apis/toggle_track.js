@@ -31,7 +31,7 @@ function toggleTrack(action = 'show') {
         }
 
         // keep showing
-        if (options.alwaysShowTrack && action === 'hide') return;
+        if (options.alwaysShowTracks && action === 'hide') return;
 
         direction = direction.toLowerCase();
 
