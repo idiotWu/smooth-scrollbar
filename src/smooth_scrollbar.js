@@ -37,7 +37,7 @@ export class SmoothScrollbar {
 
         setStyle(canvas, {
             display: 'none',
-            'pointer-events': 'nonw'
+            'pointer-events': 'none'
         });
 
         // readonly properties
