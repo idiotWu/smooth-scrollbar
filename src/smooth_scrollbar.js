@@ -26,7 +26,7 @@ export class SmoothScrollbar {
         // reset scroll position
         container.scrollTop = container.scrollLeft = 0;
 
-        const canvas = findChild(container, 'scrollbar-effect');
+        const canvas = findChild(container, 'overscroll-glow');
         const trackX = findChild(container, 'scrollbar-track-x');
         const trackY = findChild(container, 'scrollbar-track-y');
 
