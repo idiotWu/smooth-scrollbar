@@ -23,9 +23,9 @@ function calcNext(dir = '') {
     } = this;
 
     const dest = movement[dir] = pickInRange(movement[dir], -MAX_OVERSCROLL, MAX_OVERSCROLL);
-    const friction = options.friction / 100 * (this.overscrollBack ? 5 : 2);
+    const damping = options.damping * (this.overscrollBack ? 5 : 2);
 
-    let next = overscrollRendered[dir] + (dest - overscrollRendered[dir]) * friction;
+    let next = overscrollRendered[dir] + (dest - overscrollRendered[dir]) * damping;
 
     if (options.renderByPixels) {
         next |= 0;

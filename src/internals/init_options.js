@@ -13,7 +13,7 @@ function __initOptions(userPreference) {
 
     const options = {
         speed: 1,                         // scroll speed scale
-        friction: 10,                     // friction factor, percent
+        damping: 0.1,                     // damping factor
         thumbMinSize: 20,                 // min size for scrollbar thumb
         renderByPixels: true,             // rendering by integer pixels
         alwaysShowTracks: false,          // keep scrollbar tracks visible
@@ -23,7 +23,7 @@ function __initOptions(userPreference) {
     };
 
     const limit = {
-        friction: [0, 100],
+        damping: [0, 1],
         speed: [0, Infinity],
         thumbMinSize: [0, Infinity],
         overscrollEffect: [false, 'bounce', 'glow']
@@ -41,10 +41,18 @@ function __initOptions(userPreference) {
     };
 
     const optionAccessors = {
-        // deprecated
+        // @deprecated
         set ignoreEvents(v) {
             console.warn('`options.ignoreEvents` parameter is deprecated, use `instance#unregisterEvents()` method instead. https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceunregisterevents-regex--regex-regex--');
         },
+
+        // @deprecated
+        set friction(v) {
+            console.warn(`\`options.friction=${v}\` is deprecated, use \`options.damping=${v/100}\` instead.`);
+
+            this.damping = v/100;
+        },
+
         get renderByPixels() {
             return options.renderByPixels;
         },

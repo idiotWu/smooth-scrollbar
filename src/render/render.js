@@ -10,10 +10,10 @@ import { pickInRange } from '../utils/';
 export { SmoothScrollbar };
 
 function nextTick(scrollbar, options, current, movement) {
-    let { friction, renderByPixels } = options;
+    let { damping, renderByPixels } = options;
 
     if (GLOBAL_TOUCHES.isActiveScrollbar(scrollbar)) {
-        friction = 40;
+        damping = 0.4;
     }
 
     if (Math.abs(movement) < 1) {
@@ -25,7 +25,7 @@ function nextTick(scrollbar, options, current, movement) {
         };
     }
 
-    let nextMovement = movement * (1 - friction / 100);
+    let nextMovement = movement * (1 - damping);
 
     if (renderByPixels) {
         nextMovement |= 0;
