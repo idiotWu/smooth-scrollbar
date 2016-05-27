@@ -2,7 +2,7 @@ import Scrollbar from '../../src/';
 
 const options = {
     speed: 1,
-    friction: 10,
+    damping: 0.1,
     thumbMinSize: 20,
     renderByPixels: true,
     alwaysShowTracks: false,
@@ -12,9 +12,9 @@ const options = {
 };
 
 const optionLimit = {
-    friction: {
+    damping: {
         type: 'range',
-        value: [0, 100]
+        value: [0.01, 1]
     },
     speed: {
         type: 'range',
