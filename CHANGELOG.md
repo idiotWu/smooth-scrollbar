@@ -1,3 +1,7 @@
+## 6.2.0
+
+- Rename `options.friction` to `options.damping`.
+
 ## 6.1.0
 
 - Fix overscroll effect on non-scrollable containers.
