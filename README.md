@@ -109,7 +109,7 @@ Or you can call `Scrollbar.init(elem, options)` to manually init the scrollbar.
 | parameter | type | default | description |
 | :--------: | :--: | :-----: | :---------- |
 | speed | Number | 1 | Scrolling speed scale.|
-| damping | Number | 0.1 | Delta reduce damping, a float value between (0, 1), the lower the value is, the more smooth the scrolling will be. |
+| damping | Number | 0.1 | Delta reduction damping, a float value between (0, 1), the lower the value is, the more smooth the scrolling will be. |
 | thumbMinSize | Number | 20 | Minimal size for scrollbar thumb. |
 | renderByPixels | Boolean | true | Render scrolling by integer pixels, set to `true` to improve performance. |
 | alwaysShowTracks | Boolean | false | Keep scrollbar tracks visible whether it's scrolling or not. |
