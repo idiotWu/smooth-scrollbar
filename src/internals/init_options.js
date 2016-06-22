@@ -15,6 +15,7 @@ function __initOptions(userPreference) {
         speed: 1,                         // scroll speed scale
         damping: 0.1,                     // damping factor
         thumbMinSize: 20,                 // min size for scrollbar thumb
+        syncCallbacks: false,             // execute callbacks in synchronous
         renderByPixels: true,             // rendering by integer pixels
         alwaysShowTracks: false,          // keep scrollbar tracks visible
         continuousScrolling: 'auto',      // allow outer scrollbars to scroll when reaching edge
@@ -51,6 +52,13 @@ function __initOptions(userPreference) {
             console.warn(`\`options.friction=${v}\` is deprecated, use \`options.damping=${v/100}\` instead.`);
 
             this.damping = v/100;
+        },
+
+        get syncCallbacks() {
+            return options.syncCallbacks;
+        },
+        set syncCallbacks(v) {
+            options.syncCallbacks = !!v;
         },
 
         get renderByPixels() {
