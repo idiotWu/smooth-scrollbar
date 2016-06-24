@@ -36,11 +36,11 @@ SmoothScrollbar.prototype.destroy = function() {
         container.scrollTop = container.scrollLeft = 0;
 
         // reset content
-        const children = [...content.children];
+        const childNodes = [...content.childNodes];
 
         container.innerHTML = '';
 
-        children.forEach((el) => container.appendChild(el));
+        childNodes.forEach((el) => container.appendChild(el));
 
         // remove form sbList
         sbList.delete(container);

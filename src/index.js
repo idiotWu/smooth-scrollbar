@@ -27,7 +27,7 @@ SmoothScrollbar.init = (elem, options) => {
 
     elem.setAttribute('data-scrollbar', '');
 
-    const children = [...elem.children];
+    const childNodes = [...elem.childNodes];
 
     const div = document.createElement('div');
 
@@ -44,9 +44,9 @@ SmoothScrollbar.init = (elem, options) => {
 
     const scrollContent = div.querySelector('.scroll-content');
 
-    [...div.children].forEach((el) => elem.appendChild(el));
+    [...div.childNodes].forEach((el) => elem.appendChild(el));
 
-    children.forEach((el) => scrollContent.appendChild(el));
+    childNodes.forEach((el) => scrollContent.appendChild(el));
 
     return new SmoothScrollbar(elem, options);
 };
