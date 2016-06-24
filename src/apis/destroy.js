@@ -26,7 +26,16 @@ SmoothScrollbar.prototype.destroy = function() {
     __handlers.length = __listeners.length = 0;
 
     this.scrollTo(0, 0, 300, () => {
+        // stop render
         cancelAnimationFrame(this.__timerID.render);
+
+        // remove form sbList
+        sbList.delete(container);
+
+        // check if element has been removed from DOM
+        if (!container.parentNode) {
+            return;
+        }
 
         // reset scroll position
         setStyle(container, {
@@ -41,8 +50,5 @@ SmoothScrollbar.prototype.destroy = function() {
         container.innerHTML = '';
 
         childNodes.forEach((el) => container.appendChild(el));
-
-        // remove form sbList
-        sbList.delete(container);
     });
 };
