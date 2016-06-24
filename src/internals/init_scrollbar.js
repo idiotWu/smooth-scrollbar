@@ -19,8 +19,7 @@ export { SmoothScrollbar };
  * @param {Object} option: as is explained in constructor
  */
 function __initScrollbar() {
-    // update sync, see react-smooth-scrollbar#5
-    this.update(false); // initialize thumb position
+    this.update(); // initialize thumb position
 
     this.__keyboardHandler();
     this.__resizeHandler();

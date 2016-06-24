@@ -110,10 +110,10 @@ function update() {
  * @api
  * Update scrollbars appearance
  *
- * @param {Boolean} async: update asynchronous
+ * @param {Boolean} inAsync: update asynchronous
  */
-SmoothScrollbar.prototype.update = function(async = true) {
-    if (async) {
+SmoothScrollbar.prototype.update = function(inAsync) {
+    if (inAsync) {
         requestAnimationFrame(this::update);
     } else {
         this::update();
