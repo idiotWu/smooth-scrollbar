@@ -23,9 +23,10 @@ SmoothScrollbar.prototype.destroy = function() {
         elem.removeEventListener(evt, fn);
     });
 
+    __handlers.length = __listeners.length = 0;
+
     this.scrollTo(0, 0, 300, () => {
         cancelAnimationFrame(this.__timerID.render);
-        __handlers.length = __listeners.length = 0;
 
         // reset scroll position
         setStyle(container, {
