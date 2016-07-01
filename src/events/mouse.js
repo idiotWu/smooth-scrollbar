@@ -18,29 +18,50 @@ export { SmoothScrollbar };
 let __mouseHandler = function() {
     const { container, xAxis, yAxis } = this.targets;
 
-    let isMouseDown, isMouseMoving, startOffsetToThumb, startTrackDirection, containerRect;
+    const getDest = (direction, offsetOnTrack) => {
+      const {
+        size,
+        thumbSize,
+      } = this;
 
-    let getTrackDir = (elem) => {
+      if (direction === 'x') {
+        const totalWidth = size.container.width - (thumbSize.x - thumbSize.realX);
+
+        return offsetOnTrack / totalWidth * size.content.width;
+      }
+
+      if (direction === 'y') {
+        const totalHeight = size.container.height - (thumbSize.y - thumbSize.realY);
+
+        return offsetOnTrack / totalHeight * size.content.height;
+      }
+
+      return 0;
+    };
+
+    const getTrackDir = (elem) => {
         if (isOneOf(elem, [xAxis.track, xAxis.thumb])) return 'x';
         if (isOneOf(elem, [yAxis.track, yAxis.thumb])) return 'y';
     };
 
+    let isMouseDown, isMouseMoving, startOffsetToThumb, startTrackDirection, containerRect;
+
     this.__addEvent(container, 'click', (evt) => {
         if (isMouseMoving || !isOneOf(evt.target, [xAxis.track, yAxis.track])) return;
 
-        let track = evt.target;
-        let direction = getTrackDir(track);
-        let rect = track.getBoundingClientRect();
-        let clickPos = getPosition(evt);
+        const track = evt.target;
+        const direction = getTrackDir(track);
+        const rect = track.getBoundingClientRect();
+        const clickPos = getPosition(evt);
 
-        const { size, offset, thumbSize } = this;
+        const { offset, thumbSize } = this;
 
         if (direction === 'x') {
-            let clickOffset = (clickPos.x - rect.left - thumbSize.x / 2) / (size.container.width - (thumbSize.x - thumbSize.realX));
-            this.__setMovement(clickOffset * size.content.width - offset.x, 0);
+            const offsetOnTrack = clickPos.x - rect.left - thumbSize.x / 2;
+            this.__setMovement(getDest(direction, offsetOnTrack) - offset.x, 0);
         } else {
-            let clickOffset = (clickPos.y - rect.top - thumbSize.y / 2) / (size.container.height - (thumbSize.y - thumbSize.realY));
-            this.__setMovement(0, clickOffset * size.content.height - offset.y);
+            const offsetOnTrack = clickPos.y - rect.top - thumbSize.y / 2;
+            this.__setMovement(0, getDest(direction, offsetOnTrack) - offset.y);
         }
     });
 
@@ -49,8 +70,8 @@ let __mouseHandler = function() {
 
         isMouseDown = true;
 
-        let cursorPos = getPosition(evt);
-        let thumbRect = evt.target.getBoundingClientRect();
+        const cursorPos = getPosition(evt);
+        const thumbRect = evt.target.getBoundingClientRect();
 
         startTrackDirection = getTrackDir(evt.target);
 
@@ -67,28 +88,30 @@ let __mouseHandler = function() {
     this.__addEvent(window, 'mousemove', (evt) => {
         if (!isMouseDown) return;
 
-        isMouseMoving = true;
         evt.preventDefault();
+        isMouseMoving = true;
 
-        let { size, offset } = this;
-        let cursorPos = getPosition(evt);
+        const { offset } = this;
+        const cursorPos = getPosition(evt);
 
         if (startTrackDirection === 'x') {
             // get percentage of pointer position in track
             // then tranform to px
+            // don't need easing
+            const offsetOnTrack = cursorPos.x - startOffsetToThumb.x - containerRect.left;
             this.setPosition(
-                (cursorPos.x - startOffsetToThumb.x - containerRect.left) / (containerRect.right - containerRect.left) * size.content.width,
+                getDest(startTrackDirection, offsetOnTrack),
                 offset.y
             );
-
-            return;
         }
 
-        // don't need easing
-        this.setPosition(
-            offset.x,
-            (cursorPos.y - startOffsetToThumb.y - containerRect.top) / (containerRect.bottom - containerRect.top) * size.content.height
-        );
+        if (startTrackDirection === 'y') {
+            const offsetOnTrack = cursorPos.y - startOffsetToThumb.y - containerRect.top;
+            this.setPosition(
+                offset.x,
+                getDest(startTrackDirection, offsetOnTrack)
+            );
+        }
     });
 
     // release mousemove spy on window lost focus
