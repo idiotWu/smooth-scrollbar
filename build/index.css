@@ -25,7 +25,6 @@ scrollbar .scrollbar-track,
   -webkit-transition: opacity 0.5s ease-out, background 0.5s ease-out;
           transition: opacity 0.5s ease-out, background 0.5s ease-out;
   background: none;
-  pointer-events: none;
 }
 scrollbar .scrollbar-track.show,
 [scrollbar] .scrollbar-track.show,
@@ -34,7 +33,6 @@ scrollbar .scrollbar-track:hover,
 [scrollbar] .scrollbar-track:hover,
 [data-scrollbar] .scrollbar-track:hover {
   opacity: 1;
-  pointer-events: auto;
 }
 scrollbar .scrollbar-track:hover,
 [scrollbar] .scrollbar-track:hover,
