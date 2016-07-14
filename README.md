@@ -149,8 +149,8 @@ Following is the DOM structure that Scrollbar generated:
 - [Scrollbar.has( element )](https://github.com/idiotWu/smooth-scrollbar/wiki/Static-Methods#scrollbarhas-element-)
 - [Scrollbar.get( element )](https://github.com/idiotWu/smooth-scrollbar/wiki/Static-Methods#scrollbarget-element-)
 - [Scrollbar.getAll()](https://github.com/idiotWu/smooth-scrollbar/wiki/Static-Methods#scrollbargetall)
-- [Scrollbar.destroy( element )](https://github.com/idiotWu/smooth-scrollbar/wiki/Static-Methods#scrollbardestroy-element-)
-- [Scrollbar.destroyAll()](https://github.com/idiotWu/smooth-scrollbar/wiki/Static-Methods#scrollbardestroyall)
+- [Scrollbar.destroy( element, [isRemoval] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Static-Methods#scrollbardestroy-element-isremoval-)
+- [Scrollbar.destroyAll( [isRemoval] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Static-Methods#scrollbardestroyall-isremoval-)
 
 ### Instance
 
@@ -177,7 +177,7 @@ Following is the DOM structure that Scrollbar generated:
 - [instance#infiniteScroll( callback, [threshold] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceinfinitescroll-callback-threshold-)
 - [instance#clearMovement()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#clearMovement)
 - [instance#stop()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#stop)
-- [instance#destroy()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancedestroy)
+- [instance#destroy( [isRemoval] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancedestroy-isremoval-)
 - [instance#getContentElem()](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancegetcontentelem)
 - [instance#showTrack( [direction] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instanceshowtrack-direction-)
 - [instance#hideTrack( [direction] )](https://github.com/idiotWu/smooth-scrollbar/wiki/Instance-Methods#instancehidetrack-direction-)
