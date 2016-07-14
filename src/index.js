@@ -97,16 +97,19 @@ SmoothScrollbar.getAll = () => {
  * destroy scrollbar on given element
  *
  * @param {Element} elem: target scrollbar container
+ * @param {Boolean} isRemoval: whether node is removing from DOM
  */
-SmoothScrollbar.destroy = (elem) => {
-    return SmoothScrollbar.has(elem) && SmoothScrollbar.get(elem).destroy();
+SmoothScrollbar.destroy = (elem, isRemoval) => {
+    return SmoothScrollbar.has(elem) && SmoothScrollbar.get(elem).destroy(isRemoval);
 };
 
 /**
  * destroy all scrollbars in scrollbar instances
+ *
+ * @param {Boolean} isRemoval: whether node is removing from DOM
  */
-SmoothScrollbar.destroyAll = () => {
+SmoothScrollbar.destroyAll = (isRemoval) => {
     sbList.forEach((sb) => {
-        sb.destroy();
+        sb.destroy(isRemoval);
     });
 };
