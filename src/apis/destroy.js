@@ -13,25 +13,31 @@ export { SmoothScrollbar };
  * @method
  * @api
  * Remove all scrollbar listeners and event handlers
- * Reset
+ *
+ * @param {Boolean} isRemoval: whether node is removing from DOM
  */
-SmoothScrollbar.prototype.destroy = function() {
+SmoothScrollbar.prototype.destroy = function(isRemoval) {
     const { __listeners, __handlers, targets } = this;
     const { container, content } = targets;
 
+    // remove handlers
     __handlers.forEach(({ evt, elem, fn }) => {
         elem.removeEventListener(evt, fn);
     });
 
     __handlers.length = __listeners.length = 0;
 
+    // stop render
+    this.stop();
+    cancelAnimationFrame(this.__timerID.render);
+
+    // remove form sbList
+    sbList.delete(container);
+
+    if (isRemoval) return;
+
+    // restore DOM
     this.scrollTo(0, 0, 300, () => {
-        // stop render
-        cancelAnimationFrame(this.__timerID.render);
-
-        // remove form sbList
-        sbList.delete(container);
-
         // check if element has been removed from DOM
         if (!container.parentNode) {
             return;
