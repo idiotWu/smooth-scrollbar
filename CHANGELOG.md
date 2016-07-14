@@ -1,3 +1,12 @@
+## 6.4.0
+
+- Add `isRemoval` to destroy methods.
+
+
+## 6.3.0
+
+- Add `syncCallbacks` options to perform synchronous callbacks.
+
 ## 6.2.0
 
 - Rename `options.friction` to `options.damping`.
