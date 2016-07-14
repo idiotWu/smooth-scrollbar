@@ -16,7 +16,7 @@ const DEVICE_MULTIPLIER = navigator.userAgent.match(/Android/) ? 0.5 : 0.25;
  * @internal
  * Touch event handlers builder
  */
-let __touchHandler = function() {
+function __touchHandler() {
     const { targets, movementLocked } = this;
     const { container } = targets;
 

@@ -16,7 +16,7 @@ function __setMovement(deltaX = 0, deltaY = 0) {
 
     this.__updateThrottle();
 
-    let limit = this.__getDeltaLimit();
+    const limit = this.__getDeltaLimit();
 
     if (options.renderByPixels) {
         // ensure resolved with integer

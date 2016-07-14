@@ -8,7 +8,7 @@
 
  export { SmoothScrollbar };
 
- let __dragHandler = function() {
+function __dragHandler() {
     const { container, content } = this.targets;
 
     let isDrag = false;
@@ -22,10 +22,10 @@
         enumerable: false
     });
 
-    let scroll = ({ x, y }) => {
+    const scroll = ({ x, y }) => {
         if (!x && !y) return;
 
-        let { speed } = this.options;
+        const { speed } = this.options;
 
         this.__setMovement(x * speed, y * speed);
 

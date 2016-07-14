@@ -18,13 +18,13 @@ export { SmoothScrollbar };
 SmoothScrollbar.prototype.isVisible = function(elem) {
     const { bounding } = this;
 
-    let targetBounding = elem.getBoundingClientRect();
+    const targetBounding = elem.getBoundingClientRect();
 
     // check overlapping
-    let top = Math.max(bounding.top, targetBounding.top);
-    let left = Math.max(bounding.left, targetBounding.left);
-    let right = Math.min(bounding.right, targetBounding.right);
-    let bottom = Math.min(bounding.bottom, targetBounding.bottom);
+    const top = Math.max(bounding.top, targetBounding.top);
+    const left = Math.max(bounding.left, targetBounding.left);
+    const right = Math.min(bounding.right, targetBounding.right);
+    const bottom = Math.min(bounding.bottom, targetBounding.bottom);
 
     return top <= bottom && left <= right;
 };

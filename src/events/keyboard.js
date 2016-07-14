@@ -7,38 +7,48 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
 
+const KEY_CODE = {
+    SPACE: 32,
+    PAGE_UP: 33,
+    PAGE_DOWN: 34,
+    END: 35,
+    HOME: 36,
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    DOWN: 40,
+};
+
 /**
  * @method
  * @internal
  * Keypress event handler builder
- *
- * @param {Object} option
  */
-let __keyboardHandler = function() {
+function __keyboardHandler() {
     const { targets } = this;
 
-    let getKeyDelta = (keyCode) => {
+    const getKeyDelta = (keyCode) => {
         // key maps [deltaX, deltaY, useSetMethod]
-        let { size, offset, limit, movement } = this; // need real time data
+        const { size, offset, limit, movement } = this; // need real time data
 
         switch (keyCode) {
-            case 32: // space
+            case KEY_CODE.SPACE:
                 return [0, 200];
-            case 33: // pageUp
+            case KEY_CODE.PAGE_UP:
                 return [0, -size.container.height + 40];
-            case 34: // pageDown
+            case KEY_CODE.PAGE_DOWN:
                 return [0, size.container.height - 40];
-            case 35: // end
+            case KEY_CODE.END:
                 return [0, Math.abs(movement.y) + limit.y - offset.y];
-            case 36: // home
+            case KEY_CODE.HOME:
                 return [0, -Math.abs(movement.y) - offset.y];
-            case 37: // left
+            case KEY_CODE.LEFT:
                 return [-40, 0];
-            case 38: // up
+            case KEY_CODE.UP:
                 return [0, -40];
-            case 39: // right
+            case KEY_CODE.RIGHT:
                 return [40, 0];
-            case 40: // down
+            case KEY_CODE.DOWN:
                 return [0, 40];
             default:
                 return null;

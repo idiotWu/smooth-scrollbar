@@ -15,7 +15,7 @@ const RESET_WAIT = 100;
  *
  * @return {Function}
  */
-export let debounce = (fn, wait = RESET_WAIT, immediate = true) => {
+export const debounce = (fn, wait = RESET_WAIT, immediate = true) => {
     if (typeof fn !== 'function') return;
 
     let timer;

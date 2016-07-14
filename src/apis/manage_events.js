@@ -14,11 +14,11 @@ function matchAllRules(str, rules) {
 function manageEvents(shouldUnregister) {
     shouldUnregister = !!shouldUnregister;
 
-    let method = shouldUnregister ? 'removeEventListener' : 'addEventListener';
+    const method = shouldUnregister ? 'removeEventListener' : 'addEventListener';
 
     return function(...rules) {
         this.__handlers.forEach((handler) => {
-            let { elem, evt, fn, hasRegistered } = handler;
+            const { elem, evt, fn, hasRegistered } = handler;
 
             // shouldUnregister = hasRegistered = false: register event
             // shouldUnregister = hasRegistered = true: unregister event

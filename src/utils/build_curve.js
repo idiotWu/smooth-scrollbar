@@ -11,8 +11,8 @@
  *
  * @return {Array}: points
  */
-export let buildCurve = (distance, duration) => {
-    let res = [];
+export const buildCurve = (distance, duration) => {
+    const res = [];
 
     if (duration <= 0) return res;
 

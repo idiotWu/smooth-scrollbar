@@ -11,7 +11,7 @@ import { getPointerData } from './get_pointer_data';
  *
  * @return {Object}: position{x, y}
  */
-export let getPosition = (evt) => {
+export const getPosition = (evt) => {
     const data = getPointerData(evt);
 
     return {

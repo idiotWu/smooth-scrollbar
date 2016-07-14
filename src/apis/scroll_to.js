@@ -44,9 +44,10 @@ SmoothScrollbar.prototype.scrollTo = function(x = this.offset.x, y = this.offset
     const curveX = buildCurve(disX, duration);
     const curveY = buildCurve(disY, duration);
 
-    let frame = 0, totalFrame = curveX.length;
+    const totalFrame = curveX.length;
+    let frame = 0;
 
-    let scroll = () => {
+    const scroll = () => {
         if (frame === totalFrame) {
             this.setPosition(x, y);
 

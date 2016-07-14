@@ -12,7 +12,7 @@ const VENDOR_PREFIX = [
 
 const RE = new RegExp(`^-(?!(?:${VENDOR_PREFIX.join('|')})-)`);
 
-let autoPrefix = (styles) => {
+const autoPrefix = (styles) => {
     const res = {};
 
     Object.keys(styles).forEach((prop) => {
@@ -41,11 +41,11 @@ let autoPrefix = (styles) => {
  * @param {Element} elem: target element
  * @param {Object} styles: css styles to apply
  */
-export let setStyle = (elem, styles) => {
+export const setStyle = (elem, styles) => {
     styles = autoPrefix(styles);
 
     Object.keys(styles).forEach((prop) => {
-        let cssProp = prop.replace(/^-/, '').replace(/-([a-z])/g, (m, $1) => $1.toUpperCase());
+        const cssProp = prop.replace(/^-/, '').replace(/-([a-z])/g, (m, $1) => $1.toUpperCase());
         elem.style[cssProp] = styles[prop];
     });
 };

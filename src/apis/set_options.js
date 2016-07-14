@@ -15,7 +15,7 @@ export { SmoothScrollbar };
  * @param {Object} options
  */
 SmoothScrollbar.prototype.setOptions = function(options = {}) {
-    let res = {};
+    const res = {};
 
     Object.keys(options).forEach((prop) => {
         if (!this.options.hasOwnProperty(prop) || options[prop] === undefined) return;

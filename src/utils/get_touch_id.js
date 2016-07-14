@@ -12,8 +12,8 @@ import { getPointerData } from './get_pointer_data';
  *
  * @return {Number}: touch id
  */
-export let getTouchID = (evt) => {
-    let data = getPointerData(evt);
+export const getTouchID = (evt) => {
+    const data = getPointerData(evt);
 
     return data.identifier;
 };

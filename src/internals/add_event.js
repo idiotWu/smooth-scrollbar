@@ -12,7 +12,7 @@ function __addEvent(elem, events, handler) {
         throw new TypeError(`expect elem to be a DOM element, but got ${elem}`);
     }
 
-    let fn = (evt, ...args) => {
+    const fn = (evt, ...args) => {
         // ignore default prevented events or user ignored events
         if ((!evt.type.match(/drag/) && evt.defaultPrevented)) return;
 

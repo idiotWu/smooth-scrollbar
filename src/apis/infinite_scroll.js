@@ -26,7 +26,7 @@ SmoothScrollbar.prototype.infiniteScroll = function(cb, threshold = 50) {
     let entered = false;
 
     this.addListener((status) => {
-        let { offset, limit } = status;
+        const { offset, limit } = status;
 
         if (limit.y - offset.y <= threshold && offset.y > lastOffset.y && !entered) {
             entered = true;

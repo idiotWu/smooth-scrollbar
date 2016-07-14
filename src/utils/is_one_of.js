@@ -8,6 +8,6 @@
  *
  * @return {Boolean}
  */
-export let isOneOf = (a, b = []) => {
+export const isOneOf = (a, b = []) => {
     return b.some(v => a === v);
 };

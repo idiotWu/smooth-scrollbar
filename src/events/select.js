@@ -9,16 +9,16 @@
  export { SmoothScrollbar };
 
 // todo: select handler for touch screen
- let __selectHandler = function() {
+function __selectHandler() {
     let isSelected = false;
     let animation = undefined;
 
     const { container, content } = this.targets;
 
-    let scroll = ({ x, y }) => {
+    const scroll = ({ x, y }) => {
         if (!x && !y) return;
 
-        let { speed } = this.options;
+        const { speed } = this.options;
 
         this.__setMovement(x * speed, y * speed);
 
@@ -27,7 +27,7 @@
         });
     };
 
-    let setSelect = (value = '') => {
+    const setSelect = (value = '') => {
         setStyle(container, {
             '-user-select': value
         });

@@ -10,13 +10,9 @@ export { SmoothScrollbar };
 /**
  * @method
  * @internal
- * Wheel event handler builder
- *
- * @param {Object} option
- *
- * @return {Function}: event handler
+ * Resize event handler builder
  */
-let __resizeHandler = function() {
+function __resizeHandler() {
     this.__addEvent(window, 'resize', this.__updateThrottle);
 };
 

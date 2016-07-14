@@ -10,11 +10,9 @@ import { pickInRange } from '../utils/';
 export { SmoothScrollbar };
 
 function nextTick(scrollbar, options, current, movement) {
-    let { damping, renderByPixels } = options;
+    const { damping, renderByPixels } = options;
 
-    if (GLOBAL_TOUCHES.isActiveScrollbar(scrollbar)) {
-        damping = 0.4;
-    }
+    const renderDamping = GLOBAL_TOUCHES.isActiveScrollbar(scrollbar) ? 0.4 : damping;
 
     if (Math.abs(movement) < 1) {
         let next = current + movement;
@@ -25,7 +23,7 @@ function nextTick(scrollbar, options, current, movement) {
         };
     }
 
-    let nextMovement = movement * (1 - damping);
+    let nextMovement = movement * (1 - renderDamping);
 
     if (renderByPixels) {
         nextMovement |= 0;

@@ -9,16 +9,16 @@ import { sbList, selectors } from '../shared/';
 export { SmoothScrollbar };
 
 function __updateTree() {
-    let { container, content } = this.targets;
+    const { container, content } = this.targets;
 
     this.__readonly('children', [...content.querySelectorAll(selectors)]);
     this.__readonly('isNestedScrollbar', false);
 
     const parents = [];
 
-    while (container) {
-        container = container.parentElement;
+    let elem = container;
 
+    while (elem = elem.parentElement) {
         if (sbList.has(container)) {
             this.__readonly('isNestedScrollbar', true);
             parents.push(container);

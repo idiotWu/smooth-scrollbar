@@ -11,8 +11,8 @@
  *
  * @return {Element}: first matched child
  */
-export let findChild = (parentElem, className) => {
-    let children = parentElem.children;
+export const findChild = (parentElem, className) => {
+    const children = parentElem.children;
 
     if (!children) return null;
 

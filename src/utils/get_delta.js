@@ -10,14 +10,14 @@ const DELTA_SCALE = {
 
 const DELTA_MODE = [1.0, 28.0, 500.0];
 
-let getDeltaMode = (mode) => DELTA_MODE[mode] || DELTA_MODE[0];
+const getDeltaMode = (mode) => DELTA_MODE[mode] || DELTA_MODE[0];
 
 /**
  * Normalizing wheel delta
  *
  * @param {Object} evt: event object
  */
-export let getDelta = (evt) => {
+export const getDelta = (evt) => {
     if ('deltaX' in evt) {
         const mode = getDeltaMode(evt.deltaMode);
 

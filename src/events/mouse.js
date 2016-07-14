@@ -12,10 +12,8 @@ export { SmoothScrollbar };
  * @method
  * @internal
  * Mouse event handlers builder
- *
- * @param {Object} option
  */
-let __mouseHandler = function() {
+function __mouseHandler() {
     const { container, xAxis, yAxis } = this.targets;
 
     const getDest = (direction, offsetOnTrack) => {

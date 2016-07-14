@@ -15,19 +15,15 @@ const WHEEL_EVENT = 'onwheel' in window ? 'wheel' : 'mousewheel';
  * @method
  * @internal
  * Wheel event handler builder
- *
- * @param {Object} option
- *
- * @return {Function}: event handler
  */
-let __wheelHandler = function() {
+function __wheelHandler() {
     const { container } = this.targets;
 
     let wheelLocked = false;
 
     // since we can't detect whether user release touchpad
     // handle it with debounce is the best solution now, as a trade-off
-    let releaseWheel = debounce(() => {
+    const releaseWheel = debounce(() => {
         wheelLocked = false;
     }, 30, false);
 
