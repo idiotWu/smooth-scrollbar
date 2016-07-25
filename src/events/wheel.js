@@ -3,7 +3,7 @@
  * @prototype {Function} __wheelHandler
  */
 
-import { SmoothScrollbar } from '../smooth_scrollbar';
+import { SmoothScrollbar } from '../smooth-scrollbar';
 import { getDelta, debounce } from '../utils/';
 import { GLOBAL_ENV } from '../shared/';
 

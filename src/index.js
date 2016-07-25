@@ -1,4 +1,4 @@
-import { SmoothScrollbar } from './smooth_scrollbar';
+import { SmoothScrollbar } from './smooth-scrollbar';
 import { selectors, sbList } from './shared';
 
 import './apis/';

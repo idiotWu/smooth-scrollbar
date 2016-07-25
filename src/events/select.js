@@ -3,7 +3,7 @@
  * @prototype {Function} __selectHandler
  */
 
-import { SmoothScrollbar } from '../smooth_scrollbar';
+import { SmoothScrollbar } from '../smooth-scrollbar';
 import { setStyle } from '../utils/';
 
 // todo: select handler for touch screen

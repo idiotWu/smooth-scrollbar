@@ -3,7 +3,7 @@
  * @prototype {Function} destroy
  */
 
-import { SmoothScrollbar } from '../smooth_scrollbar';
+import { SmoothScrollbar } from '../smooth-scrollbar';
 import { setStyle } from '../utils';
 import { sbList } from '../shared';
 

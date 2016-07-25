@@ -3,7 +3,7 @@
  * @prototype {Function} __touchHandler
  */
 
-import { SmoothScrollbar } from '../smooth_scrollbar';
+import { SmoothScrollbar } from '../smooth-scrollbar';
 import { GLOBAL_TOUCHES, GLOBAL_ENV } from '../shared/';
 
 const MIN_VELOCITY = 100;

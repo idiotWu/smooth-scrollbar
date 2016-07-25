@@ -3,7 +3,7 @@
  * @prototype {Function} __render
  */
 
-import { SmoothScrollbar } from '../smooth_scrollbar';
+import { SmoothScrollbar } from '../smooth-scrollbar';
 import { GLOBAL_TOUCHES } from '../shared/';
 import { pickInRange } from '../utils/';
 

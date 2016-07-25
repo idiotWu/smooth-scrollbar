@@ -4,7 +4,7 @@
  *            {Function} removeListener
  */
 
-import { SmoothScrollbar } from '../smooth_scrollbar';
+import { SmoothScrollbar } from '../smooth-scrollbar';
 
 /**
  * @method

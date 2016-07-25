@@ -3,7 +3,7 @@
  * @prototype {Function} __keyboardHandler
  */
 
-import { SmoothScrollbar } from '../smooth_scrollbar';
+import { SmoothScrollbar } from '../smooth-scrollbar';
 
 const KEY_CODE = {
     SPACE: 32,

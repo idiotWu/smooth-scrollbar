@@ -3,7 +3,7 @@
  * @prototype {Function} __mouseHandler
  */
 
-import { SmoothScrollbar } from '../smooth_scrollbar';
+import { SmoothScrollbar } from '../smooth-scrollbar';
 import { isOneOf, getPosition } from '../utils/';
 
 /**
