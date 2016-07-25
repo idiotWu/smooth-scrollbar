@@ -190,8 +190,6 @@ Following is the DOM structure that Scrollbar generated:
 
 - Create an issue with an example on [jsbin.com](http://jsbin.com/), including latest version of `smooth-scrollbar` through:
     ```html
-    <link rel="stylesheet" href="https://cdn.rawgit.com/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.css">
-
     <script src="https://cdn.rawgit.com/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js"></script>
     ```
 
