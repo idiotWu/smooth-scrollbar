@@ -4,7 +4,7 @@ const devConfig = require('./webpack.config.dev');
 const version = require('./package.json').version;
 
 module.exports = Object.assign({}, devConfig, {
-    watch: false,
+    devtool: false,
     entry: [
         './test/scripts/index.js',
     ],
