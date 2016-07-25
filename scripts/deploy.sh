@@ -48,4 +48,4 @@ git add .
 git commit -m "Deploy to GitHub Pages: ${SHA}"
 
 # Now we can push.
-git push $SSH_REPO $TARGET_BRANCH
+git push --force $SSH_REPO $TARGET_BRANCH
