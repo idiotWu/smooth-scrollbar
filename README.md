@@ -1,4 +1,4 @@
-# Life is short, use `smooth-scrollbar`
+# Smooth Scrollbar
 
 [![npm](https://img.shields.io/npm/v/smooth-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/smooth-scrollbar)
 [![npm](https://img.shields.io/npm/dt/smooth-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/smooth-scrollbar)
@@ -190,6 +190,7 @@ Following is the DOM structure that Scrollbar generated:
 ## Todo
 
 - [x] Overscroll effect.
+- [x] Webpack based workflow.
 
 ## Contribuiting
 
@@ -200,7 +201,13 @@ Following is the DOM structure that Scrollbar generated:
     <script src="https://cdn.rawgit.com/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js"></script>
     ```
 
-- Fork the repo and modify the code if you have better ideas, create a pull request into `develop` branch after you've done.
+- Run your forks locally with following steps:
+
+    1. Clone the repo: `git clone https://github.com/idiotWu/smooth-scrollbar.git`,
+    2. Install dependencies: `npm run install`,
+    3. Start server: `npm start`.
+
+Before making pull requests, make sure you have ran `npm test`!
 
 ## License
 
