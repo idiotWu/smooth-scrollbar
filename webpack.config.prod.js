@@ -52,6 +52,10 @@ module.exports = {
         new webpack.DefinePlugin({
             __SCROLLBAR_VERSION__: JSON.stringify(version),
         }),
-        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+            },
+        }),
     ],
 };
