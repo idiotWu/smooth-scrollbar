@@ -14,11 +14,16 @@
 export const findChild = (parentElem, className) => {
     const children = parentElem.children;
 
-    if (!children) return null;
+    let res = null;
 
-    for (let elem of children) {
-        if (elem.className.match(className)) return elem;
+    if (children) {
+        [...children].some(elem => {
+            if (elem.className.match(className)) {
+                res = elem;
+                return true;
+            }
+        });
     }
 
-    return null;
+    return res;
 };
