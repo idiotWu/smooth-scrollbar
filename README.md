@@ -64,12 +64,6 @@ Or get it from `window` object:
 const { Scrollbar } = window;
 ```
 
-Don't forget to include the stylesheet in your page:
-
-```html
-<link rel="stylesheet" href="dist/smooth-scrollbar.css">
-```
-
 Here're three ways to tell the plugin which element should be a smooth scrollbar:
 
 1. As an element:
