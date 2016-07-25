@@ -1,3 +1,9 @@
+## 7.0.0
+
+- **Breaking change**: style files are now bundled with js files!
+- Support server side rendering.
+- Refactored to webpack based workflow.
+
 ## 6.4.0
 
 - Add `isRemoval` to destroy methods.
