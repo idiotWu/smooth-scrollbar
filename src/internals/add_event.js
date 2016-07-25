@@ -27,5 +27,5 @@ function __addEvent(elem, events, handler) {
 Object.defineProperty(SmoothScrollbar.prototype, '__addEvent', {
     value: __addEvent,
     writable: true,
-    configurable: true
+    configurable: true,
 });

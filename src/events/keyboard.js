@@ -30,26 +30,26 @@ function __keyboardHandler() {
         const { size, offset, limit, movement } = this; // need real time data
 
         switch (keyCode) {
-            case KEY_CODE.SPACE:
-                return [0, 200];
-            case KEY_CODE.PAGE_UP:
-                return [0, -size.container.height + 40];
-            case KEY_CODE.PAGE_DOWN:
-                return [0, size.container.height - 40];
-            case KEY_CODE.END:
-                return [0, Math.abs(movement.y) + limit.y - offset.y];
-            case KEY_CODE.HOME:
-                return [0, -Math.abs(movement.y) - offset.y];
-            case KEY_CODE.LEFT:
-                return [-40, 0];
-            case KEY_CODE.UP:
-                return [0, -40];
-            case KEY_CODE.RIGHT:
-                return [40, 0];
-            case KEY_CODE.DOWN:
-                return [0, 40];
-            default:
-                return null;
+        case KEY_CODE.SPACE:
+            return [0, 200];
+        case KEY_CODE.PAGE_UP:
+            return [0, -size.container.height + 40];
+        case KEY_CODE.PAGE_DOWN:
+            return [0, size.container.height - 40];
+        case KEY_CODE.END:
+            return [0, Math.abs(movement.y) + limit.y - offset.y];
+        case KEY_CODE.HOME:
+            return [0, -Math.abs(movement.y) - offset.y];
+        case KEY_CODE.LEFT:
+            return [-40, 0];
+        case KEY_CODE.UP:
+            return [0, -40];
+        case KEY_CODE.RIGHT:
+            return [40, 0];
+        case KEY_CODE.DOWN:
+            return [0, 40];
+        default:
+            return null;
         }
     };
 
@@ -104,5 +104,5 @@ function __keyboardHandler() {
 Object.defineProperty(SmoothScrollbar.prototype, '__keyboardHandler', {
     value: __keyboardHandler,
     writable: true,
-    configurable: true
+    configurable: true,
 });

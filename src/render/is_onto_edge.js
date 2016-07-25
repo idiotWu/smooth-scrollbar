@@ -12,7 +12,7 @@ function __isOntoEdge(dir = '', delta = 0) {
 
     const {
         offset,
-        limit
+        limit,
     } = this;
 
     const currentOffset = offset[dir];
@@ -24,5 +24,5 @@ function __isOntoEdge(dir = '', delta = 0) {
 Object.defineProperty(SmoothScrollbar.prototype, '__isOntoEdge', {
     value: __isOntoEdge,
     writable: true,
-    configurable: true
+    configurable: true,
 });

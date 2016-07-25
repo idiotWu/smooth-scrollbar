@@ -15,24 +15,24 @@ function __mouseHandler() {
     const { container, xAxis, yAxis } = this.targets;
 
     const getDest = (direction, offsetOnTrack) => {
-      const {
-        size,
-        thumbSize,
-      } = this;
+        const {
+            size,
+            thumbSize,
+        } = this;
 
-      if (direction === 'x') {
-        const totalWidth = size.container.width - (thumbSize.x - thumbSize.realX);
+        if (direction === 'x') {
+            const totalWidth = size.container.width - (thumbSize.x - thumbSize.realX);
 
-        return offsetOnTrack / totalWidth * size.content.width;
-      }
+            return offsetOnTrack / totalWidth * size.content.width;
+        }
 
-      if (direction === 'y') {
-        const totalHeight = size.container.height - (thumbSize.y - thumbSize.realY);
+        if (direction === 'y') {
+            const totalHeight = size.container.height - (thumbSize.y - thumbSize.realY);
 
-        return offsetOnTrack / totalHeight * size.content.height;
-      }
+            return offsetOnTrack / totalHeight * size.content.height;
+        }
 
-      return 0;
+        return 0;
     };
 
     const getTrackDir = (elem) => {
@@ -74,7 +74,7 @@ function __mouseHandler() {
         // pointer offset to thumb
         startOffsetToThumb = {
             x: cursorPos.x - thumbRect.left,
-            y: cursorPos.y - thumbRect.top
+            y: cursorPos.y - thumbRect.top,
         };
 
         // container bounding rectangle
@@ -119,5 +119,5 @@ function __mouseHandler() {
 Object.defineProperty(SmoothScrollbar.prototype, '__mouseHandler', {
     value: __mouseHandler,
     writable: true,
-    configurable: true
+    configurable: true,
 });

@@ -12,7 +12,7 @@ function __getPointerTrend(evt, padding = 0) {
 
     const res = {
         x: 0,
-        y: 0
+        y: 0,
     };
 
     if (x === 0 && y === 0) return res;
@@ -35,5 +35,5 @@ function __getPointerTrend(evt, padding = 0) {
 Object.defineProperty(SmoothScrollbar.prototype, '__getPointerTrend', {
     value: __getPointerTrend,
     writable: true,
-    configurable: true
+    configurable: true,
 });

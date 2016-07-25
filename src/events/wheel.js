@@ -53,5 +53,5 @@ function __wheelHandler() {
 Object.defineProperty(SmoothScrollbar.prototype, '__wheelHandler', {
     value: __wheelHandler,
     writable: true,
-    configurable: true
+    configurable: true,
 });

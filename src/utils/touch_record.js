@@ -72,7 +72,7 @@ export class TouchRecord {
         const delta = {
             // natural scrolling
             x: -(position.x - lastRecord.x),
-            y: -(position.y - lastRecord.y)
+            y: -(position.y - lastRecord.y),
         };
 
         if (this.updateTime !== undefined) {

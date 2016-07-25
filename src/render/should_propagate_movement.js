@@ -32,5 +32,5 @@ function __shouldPropagateMovement(deltaX = 0, deltaY = 0) {
 Object.defineProperty(SmoothScrollbar.prototype, '__shouldPropagateMovement', {
     value: __shouldPropagateMovement,
     writable: true,
-    configurable: true
+    configurable: true,
 });

@@ -15,12 +15,14 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
  * @param  {Number}  options.offsetTop           scrolling stop offset to top
  * @param  {Number}  options.offsetLeft          scrolling stop offset to left
  */
-SmoothScrollbar.prototype.scrollIntoView = function(elem,
-{
-    onlyScrollIfNeeded = false,
-    offsetTop = 0,
-    offsetLeft = 0
-} = {}) {
+SmoothScrollbar.prototype.scrollIntoView = function (
+    elem,
+    {
+        onlyScrollIfNeeded = false,
+        offsetTop = 0,
+        offsetLeft = 0,
+    } = {}
+) {
     const { targets, bounding } = this;
 
     if (!elem || !targets.container.contains(elem)) return;

@@ -14,7 +14,7 @@ import { sbList } from '../shared';
  *
  * @param {Boolean} isRemoval: whether node is removing from DOM
  */
-SmoothScrollbar.prototype.destroy = function(isRemoval) {
+SmoothScrollbar.prototype.destroy = function (isRemoval) {
     const { __listeners, __handlers, targets } = this;
     const { container, content } = targets;
 
@@ -43,7 +43,7 @@ SmoothScrollbar.prototype.destroy = function(isRemoval) {
 
         // reset scroll position
         setStyle(container, {
-            overflow: ''
+            overflow: '',
         });
 
         container.scrollTop = container.scrollLeft = 0;

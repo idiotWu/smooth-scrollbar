@@ -5,7 +5,6 @@
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
-
 /**
  * @method
  * @internal
@@ -33,5 +32,5 @@ function __initScrollbar() {
 Object.defineProperty(SmoothScrollbar.prototype, '__initScrollbar', {
     value: __initScrollbar,
     writable: true,
-    configurable: true
+    configurable: true,
 });

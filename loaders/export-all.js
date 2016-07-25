@@ -2,8 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const babel = require('babel-core');
 
-const writeFile = require('../helpers/write-file');
-
 const configFile = path.join(__dirname, '../.babelrc');
 const babelOptions = JSON.parse(fs.readFileSync(configFile));
 

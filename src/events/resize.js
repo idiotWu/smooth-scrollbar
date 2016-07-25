@@ -17,5 +17,5 @@ function __resizeHandler() {
 Object.defineProperty(SmoothScrollbar.prototype, '__resizeHandler', {
     value: __resizeHandler,
     writable: true,
-    configurable: true
+    configurable: true,
 });

@@ -11,17 +11,17 @@ export function overscrollBounce(x, y) {
         size,
         offset,
         targets,
-        thumbOffset
+        thumbOffset,
     } = this;
 
     const {
         xAxis,
         yAxis,
-        content
+        content,
     } = targets;
 
     setStyle(content, {
-        '-transform': `translate3d(${-(offset.x + x)}px, ${-(offset.y + y)}px, 0)`
+        '-transform': `translate3d(${-(offset.x + x)}px, ${-(offset.y + y)}px, 0)`,
     });
 
     if (x) {
@@ -29,7 +29,7 @@ export function overscrollBounce(x, y) {
 
         setStyle(xAxis.thumb, {
             '-transform': `translate3d(${thumbOffset.x}px, 0, 0) scale3d(${ratio}, 1, 1)`,
-            '-transform-origin': x < 0 ? 'left' : 'right'
+            '-transform-origin': x < 0 ? 'left' : 'right',
         });
     }
 
@@ -38,7 +38,7 @@ export function overscrollBounce(x, y) {
 
         setStyle(yAxis.thumb, {
             '-transform': `translate3d(0, ${thumbOffset.y}px, 0) scale3d(1, ${ratio}, 1)`,
-            '-transform-origin': y < 0 ? 'top' : 'bottom'
+            '-transform-origin': y < 0 ? 'top' : 'bottom',
         });
     }
 }

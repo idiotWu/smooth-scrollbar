@@ -14,12 +14,12 @@ function __updateBounding() {
         top: Math.max(top, 0),
         right: Math.min(right, innerWidth),
         bottom: Math.min(bottom, innerHeight),
-        left:Math.max(left, 0)
+        left: Math.max(left, 0),
     });
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__updateBounding', {
     value: __updateBounding,
     writable: true,
-    configurable: true
+    configurable: true,
 });

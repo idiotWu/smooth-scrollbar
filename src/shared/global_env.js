@@ -1,24 +1,24 @@
 // global environment
 
 const memoize = (source) => {
-  const res = {};
-  const cache = {};
+    const res = {};
+    const cache = {};
 
-  Object.keys(source).forEach((prop) => {
-    Object.defineProperty(res, prop, {
-        get() {
-            if (!cache.hasOwnProperty(prop)) {
-                const getter = source[prop];
+    Object.keys(source).forEach((prop) => {
+        Object.defineProperty(res, prop, {
+            get() {
+                if (!cache.hasOwnProperty(prop)) {
+                    const getter = source[prop];
 
-                cache[prop] = getter();
-            }
+                    cache[prop] = getter();
+                }
 
-            return cache[prop];
-        }
+                return cache[prop];
+            },
+        });
     });
-  });
 
-  return res;
+    return res;
 };
 
 const getters = {
@@ -31,7 +31,7 @@ const getters = {
     WHEEL_EVENT() {
         // is standard `wheel` event supported check
         return 'onwheel' in window ? 'wheel' : 'mousewheel';
-    }
+    },
 };
 
 export const GLOBAL_ENV = memoize(getters);

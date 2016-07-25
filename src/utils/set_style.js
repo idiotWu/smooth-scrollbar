@@ -7,7 +7,7 @@ const VENDOR_PREFIX = [
     'webkit',
     'moz',
     'ms',
-    'o'
+    'o',
 ];
 
 const RE = new RegExp(`^-(?!(?:${VENDOR_PREFIX.join('|')})-)`);
@@ -29,7 +29,6 @@ const autoPrefix = (styles) => {
         VENDOR_PREFIX.forEach((prefix) => {
             res[`-${prefix}-${prop}`] = val;
         });
-
     });
 
     return res;

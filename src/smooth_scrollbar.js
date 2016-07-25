@@ -8,7 +8,7 @@ import {
     pickInRange,
     debounce,
     findChild,
-    setStyle
+    setStyle,
 } from './utils/';
 
 /**
@@ -32,12 +32,12 @@ export class SmoothScrollbar {
 
         setStyle(container, {
             overflow: 'hidden',
-            outline: 'none'
+            outline: 'none',
         });
 
         setStyle(canvas, {
             display: 'none',
-            'pointer-events': 'none'
+            'pointer-events': 'none',
         });
 
         // readonly properties
@@ -46,53 +46,53 @@ export class SmoothScrollbar {
             content: findChild(container, 'scroll-content'),
             canvas: {
                 elem: canvas,
-                context: canvas.getContext('2d')
+                context: canvas.getContext('2d'),
             },
             xAxis: Object.freeze({
                 track: trackX,
-                thumb: findChild(trackX, 'scrollbar-thumb-x')
+                thumb: findChild(trackX, 'scrollbar-thumb-x'),
             }),
             yAxis: Object.freeze({
                 track: trackY,
-                thumb: findChild(trackY, 'scrollbar-thumb-y')
-            })
+                thumb: findChild(trackY, 'scrollbar-thumb-y'),
+            }),
         }))
         .__readonly('offset', {
             x: 0,
-            y: 0
+            y: 0,
         })
         .__readonly('thumbOffset', {
             x: 0,
-            y: 0
+            y: 0,
         })
         .__readonly('limit', {
             x: Infinity,
-            y: Infinity
+            y: Infinity,
         })
         .__readonly('movement', {
             x: 0,
-            y: 0
+            y: 0,
         })
         .__readonly('movementLocked', {
             x: false,
-            y: false
+            y: false,
         })
         .__readonly('overscrollRendered', {
             x: 0,
-            y: 0
+            y: 0,
         })
         .__readonly('overscrollBack', false)
         .__readonly('thumbSize', {
             x: 0,
             y: 0,
             realX: 0,
-            realY: 0
+            realY: 0,
         })
         .__readonly('bounding', {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 0
+            left: 0,
         })
         .__readonly('children', [])
         .__readonly('parents', [])
@@ -102,23 +102,23 @@ export class SmoothScrollbar {
         // non-enmurable properties
         Object.defineProperties(this, {
             __updateThrottle: {
-                value: debounce(::this.update)
+                value: debounce(::this.update),
             },
             __hideTrackThrottle: {
-                value: debounce(::this.hideTrack, 1000, false)
+                value: debounce(::this.hideTrack, 1000, false),
             },
             __listeners: {
-                value: []
+                value: [],
             },
             __handlers: {
-                value: []
+                value: [],
             },
             __children: {
-                value: []
+                value: [],
             },
             __timerID: {
-                value: {}
-            }
+                value: {},
+            },
         });
 
         this.__initOptions(options);
@@ -132,19 +132,17 @@ export class SmoothScrollbar {
         const { options, size } = this;
 
         switch (options.overscrollEffect) {
-            case 'bounce':
-                const average = (size.container.width + size.container.height) / 2;
-                const touchFactor = this.__isMovementLocked() ? 1 : 5;
+        case 'bounce':
+            const average = (size.container.width + size.container.height) / 2;
+            const touchFactor = this.__isMovementLocked() ? 1 : 5;
 
-                return GLOBAL_ENV.TOUCH_SUPPORTED ?
-                        pickInRange(average / touchFactor, 100, 1000) :
-                        pickInRange(average / 10, 25, 50);
+            return GLOBAL_ENV.TOUCH_SUPPORTED ? pickInRange(average / touchFactor, 100, 1000) : pickInRange(average / 10, 25, 50);
 
-            case 'glow':
-                return 150;
+        case 'glow':
+            return 150;
 
-            default:
-                return 0;
+        default:
+            return 0;
         }
     }
 

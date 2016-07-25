@@ -17,7 +17,7 @@ function calcNext(dir = '') {
         options,
         movement,
         overscrollRendered,
-        MAX_OVERSCROLL
+        MAX_OVERSCROLL,
     } = this;
 
     const dest = movement[dir] = pickInRange(movement[dir], -MAX_OVERSCROLL, MAX_OVERSCROLL);
@@ -48,7 +48,7 @@ function calcNext(dir = '') {
 // @this-bind
 function shouldUpdate(lastRendered) {
     const {
-        overscrollRendered
+        overscrollRendered,
     } = this;
 
     // has unrendered pixels?
@@ -69,7 +69,7 @@ function __renderOverscroll(dirs = []) {
 
     const {
         options,
-        overscrollRendered
+        overscrollRendered,
     } = this;
 
     const lastRendered = { ...overscrollRendered };
@@ -80,17 +80,17 @@ function __renderOverscroll(dirs = []) {
 
     // x,y is same direction as it's in `setPosition(x, y)`
     switch (options.overscrollEffect) {
-        case 'bounce':
-            return this::overscrollBounce(overscrollRendered.x, overscrollRendered.y);
-        case 'glow':
-            return this::overscrollGlow(overscrollRendered.x, overscrollRendered.y);
-        default:
-            return;
+    case 'bounce':
+        return this::overscrollBounce(overscrollRendered.x, overscrollRendered.y);
+    case 'glow':
+        return this::overscrollGlow(overscrollRendered.x, overscrollRendered.y);
+    default:
+        return;
     }
 }
 
 Object.defineProperty(SmoothScrollbar.prototype, '__renderOverscroll', {
     value: __renderOverscroll,
     writable: true,
-    configurable: true
+    configurable: true,
 });

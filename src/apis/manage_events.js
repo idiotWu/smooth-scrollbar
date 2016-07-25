@@ -7,12 +7,12 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 
 const ACTIONS = {
     REGIESTER: 0,
-    UNREGIESTER: 1
+    UNREGIESTER: 1,
 };
 
 const METHODS = {
     [ACTIONS.REGIESTER]: 'addEventListener',
-    [ACTIONS.UNREGIESTER]: 'removeEventListener'
+    [ACTIONS.UNREGIESTER]: 'removeEventListener',
 };
 
 function matchSomeRules(str, rules) {
@@ -22,18 +22,17 @@ function matchSomeRules(str, rules) {
 function manageEvents(action = ACTIONS.REGIESTER) {
     const method = METHODS[action];
 
-    return function(...rules) {
+    return function (...rules) {
         this.__handlers.forEach((handler) => {
             const {
                 elem,
                 evt,
                 fn,
-                hasRegistered
+                hasRegistered,
             } = handler;
 
             if ((hasRegistered && action === ACTIONS.REGIESTER) ||
-                (!hasRegistered && action === ACTIONS.UNREGIESTER))
-            {
+                (!hasRegistered && action === ACTIONS.UNREGIESTER)) {
                 return;
             }
 

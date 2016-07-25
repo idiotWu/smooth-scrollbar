@@ -15,10 +15,10 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
  * @param {Number} [y]: scrollbar position in y axis
  * @param {Boolean} [withoutCallbacks]: disable callback functions temporarily
  */
-SmoothScrollbar.prototype.setPosition = function(
+SmoothScrollbar.prototype.setPosition = function (
     x = this.offset.x,
     y = this.offset.y,
-    withoutCallbacks = false
+    withoutCallbacks = false,
 ) {
     this.__updateThrottle();
 
@@ -43,7 +43,7 @@ SmoothScrollbar.prototype.setPosition = function(
 
     status.direction = {
         x: x === offset.x ? 'none' : (x > offset.x ? 'right' : 'left'),
-        y: y === offset.y ? 'none' : (y > offset.y ? 'down' : 'up')
+        y: y === offset.y ? 'none' : (y > offset.y ? 'down' : 'up'),
     };
 
     status.limit = { ...limit };
@@ -56,7 +56,7 @@ SmoothScrollbar.prototype.setPosition = function(
     this.__setThumbPosition();
 
     setStyle(targets.content, {
-        '-transform': `translate3d(${-x}px, ${-y}px, 0)`
+        '-transform': `translate3d(${-x}px, ${-y}px, 0)`,
     });
 
     // invoke all listeners

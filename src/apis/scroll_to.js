@@ -16,12 +16,16 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
  * @param {Number} [duration]: transition duration
  * @param {Function} [cb]: callback
  */
-SmoothScrollbar.prototype.scrollTo = function(x = this.offset.x, y = this.offset.y, duration = 0, cb = null) {
+SmoothScrollbar.prototype.scrollTo = function (
+    x = this.offset.x,
+    y = this.offset.y,
+    duration = 0, cb = null,
+) {
     const {
         options,
         offset,
         limit,
-        __timerID
+        __timerID,
     } = this;
 
     cancelAnimationFrame(__timerID.scrollTo);

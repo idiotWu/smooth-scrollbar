@@ -1,11 +1,9 @@
 /**
  * @module
  * @prototype {Function} __readonly
- * @dependencies [ SmoothScrollbar ]
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
-
 
 /**
  * @method
@@ -19,12 +17,12 @@ function __readonly(prop, value) {
     return Object.defineProperty(this, prop, {
         value,
         enumerable: true,
-        configurable: true
+        configurable: true,
     });
 };
 
 Object.defineProperty(SmoothScrollbar.prototype, '__readonly', {
     value: __readonly,
     writable: true,
-    configurable: true
+    configurable: true,
 });

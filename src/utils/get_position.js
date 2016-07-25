@@ -16,6 +16,6 @@ export const getPosition = (evt) => {
 
     return {
         x: data.clientX,
-        y: data.clientY
+        y: data.clientY,
     };
 };

@@ -13,7 +13,7 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
  *
  * @param {Function} cb: listener
  */
-SmoothScrollbar.prototype.addListener = function(cb) {
+SmoothScrollbar.prototype.addListener = function (cb) {
     if (typeof cb !== 'function') return;
 
     this.__listeners.push(cb);
@@ -25,7 +25,7 @@ SmoothScrollbar.prototype.addListener = function(cb) {
  * Remove specific listener from all listeners
  * @param {type} param: description
  */
-SmoothScrollbar.prototype.removeListener = function(cb) {
+SmoothScrollbar.prototype.removeListener = function (cb) {
     if (typeof cb !== 'function') return;
 
     this.__listeners.some((fn, idx, all) => {

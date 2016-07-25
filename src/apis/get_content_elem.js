@@ -10,6 +10,6 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
  * @api
  * Get scroll content element
  */
-SmoothScrollbar.prototype.getContentElem = function() {
+SmoothScrollbar.prototype.getContentElem = function () {
     return this.targets.content;
 };

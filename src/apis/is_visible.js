@@ -10,10 +10,10 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
  * @api
  * Check if an element is visible
  *
- * @param  {Element} target                      target element
+ * @param  {Element} target  target element
  * @return {Boolean}
  */
-SmoothScrollbar.prototype.isVisible = function(elem) {
+SmoothScrollbar.prototype.isVisible = function (elem) {
     const { bounding } = this;
 
     const targetBounding = elem.getBoundingClientRect();

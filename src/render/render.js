@@ -17,7 +17,7 @@ function nextTick(scrollbar, options, current, movement) {
 
         return {
             movement: 0,
-            position: movement > 0 ? Math.ceil(next) : Math.floor(next)
+            position: movement > 0 ? Math.ceil(next) : Math.floor(next),
         };
     }
 
@@ -29,7 +29,7 @@ function nextTick(scrollbar, options, current, movement) {
 
     return {
         movement: nextMovement,
-        position: current + movement - nextMovement
+        position: current + movement - nextMovement,
     };
 };
 
@@ -40,7 +40,7 @@ function __render() {
         limit,
         movement,
         overscrollRendered,
-        __timerID
+        __timerID,
     } = this;
 
     if (movement.x || movement.y || overscrollRendered.x || overscrollRendered.y) {
@@ -78,5 +78,5 @@ function __render() {
 Object.defineProperty(SmoothScrollbar.prototype, '__render', {
     value: __render,
     writable: true,
-    configurable: true
+    configurable: true,
 });

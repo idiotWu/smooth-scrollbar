@@ -9,9 +9,12 @@ import { setStyle } from '../utils/';
 // todo: select handler for touch screen
 function __selectHandler() {
     let isSelected = false;
-    let animation = undefined;
+    let animation;
 
-    const { container, content } = this.targets;
+    const {
+        container,
+        content,
+     } = this.targets;
 
     const scroll = ({ x, y }) => {
         if (!x && !y) return;
@@ -27,7 +30,7 @@ function __selectHandler() {
 
     const setSelect = (value = '') => {
         setStyle(container, {
-            '-user-select': value
+            '-user-select': value,
         });
     };
 
@@ -64,10 +67,10 @@ function __selectHandler() {
         evt.preventDefault();
         container.scrollTop = container.scrollLeft = 0;
     });
- };
+};
 
- Object.defineProperty(SmoothScrollbar.prototype, '__selectHandler', {
-     value: __selectHandler,
-     writable: true,
-     configurable: true
- });
+Object.defineProperty(SmoothScrollbar.prototype, '__selectHandler', {
+    value: __selectHandler,
+    writable: true,
+    configurable: true,
+});

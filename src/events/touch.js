@@ -17,7 +17,7 @@ function __touchHandler() {
     const { targets, movementLocked } = this;
     const { container } = targets;
 
-    let currentTouchID = undefined;
+    let currentTouchID;
 
     this.__addEvent(container, 'touchstart', (evt) => {
         if (this.__isDrag) return;
@@ -61,7 +61,6 @@ function __touchHandler() {
             if (options.overscrollEffect === 'bounce') factor += Math.abs(8 * movement.y / MAX_OVERSCROLL);
 
             y /= factor;
-
         }
 
         this.__autoLockMovement();
@@ -97,5 +96,5 @@ function __touchHandler() {
 Object.defineProperty(SmoothScrollbar.prototype, '__touchHandler', {
     value: __touchHandler,
     writable: true,
-    configurable: true
+    configurable: true,
 });

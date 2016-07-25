@@ -12,7 +12,7 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
  *
  * @return {Object}: an object contains container and content's width and height
  */
-SmoothScrollbar.prototype.getSize = function() {
+SmoothScrollbar.prototype.getSize = function () {
     const container = this.targets.container;
     const content = this.targets.content;
 
@@ -20,12 +20,12 @@ SmoothScrollbar.prototype.getSize = function() {
         container: {
             // requires `overflow: hidden`
             width: container.clientWidth,
-            height: container.clientHeight
+            height: container.clientHeight,
         },
         content: {
             // border width should be included
             width: content.offsetWidth - content.clientWidth + content.scrollWidth,
-            height: content.offsetHeight - content.clientHeight + content.scrollHeight
-        }
+            height: content.offsetHeight - content.clientHeight + content.scrollHeight,
+        },
     };
 };

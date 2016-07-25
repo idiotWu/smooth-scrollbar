@@ -8,35 +8,35 @@ const options = {
     alwaysShowTracks: false,
     continuousScrolling: 'auto',
     overscrollEffect: navigator.userAgent.match(/Android/) ? 'glow' : 'bounce',
-    overscrollEffectColor: '#87ceeb'
+    overscrollEffectColor: '#87ceeb',
 };
 
 const optionLimit = {
     damping: {
         type: 'range',
-        value: [0.01, 1]
+        value: [0.01, 1],
     },
     speed: {
         type: 'range',
-        value: [0, 10]
+        value: [0, 10],
     },
     thumbMinSize: {
         type: 'range',
-        value: [0, 100]
+        value: [0, 100],
     },
     continuousScrolling: {
         type: 'select',
-        value: ['auto', true, false]
+        value: ['auto', true, false],
     },
     overscrollEffect: {
         type: 'select',
-        value: [false, 'bounce', 'glow']
-    }
+        value: [false, 'bounce', 'glow'],
+    },
 };
 
 const boolMap = {
     true: true,
-    false: false
+    false: false,
 };
 
 const scrollbars = Scrollbar.initAll(options);

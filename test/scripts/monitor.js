@@ -11,7 +11,7 @@ const canvas = document.getElementById('chart');
 const ctx = canvas.getContext('2d');
 const size = {
     width: 300,
-    height: 200
+    height: 200,
 };
 
 canvas.width = size.width * DPR;
@@ -31,7 +31,7 @@ const monitorOptions = {
         tangentPoint = null;
         tangentPointPre = null;
         sliceRecord();
-    }
+    },
 };
 let thumbWidth = 0;
 let endOffset = 0;
@@ -43,11 +43,8 @@ let tangentPoint = null;
 let tangentPointPre = null;
 
 let hoverLocked = false;
-let hoverPointerX = undefined;
-let pointerDownOnTrack = undefined;
 let hoverPrecision = 'ontouchstart' in document ? 5 : 1;
-
-let renderLoopID = undefined;
+let hoverPointerX, pointerDownOnTrack, renderLoopID;
 
 if (monitorOptions.show) {
     monitor.style.display = 'block';
@@ -83,11 +80,11 @@ monitorCtrl.add(monitorOptions, 'duration', 1, 20)
     });
 
 function notation(num = 0) {
-    if (!num || Math.abs(num) > 10**-2) return num.toFixed(2);
+    if (!num || Math.abs(num) > 10 ** -2) return num.toFixed(2);
 
     let exp = -3;
 
-    while (!(num / 10**exp)) {
+    while (!(num / 10 ** exp)) {
         if (exp < -10) {
             return num > 0 ? 'Infinity' : '-Infinity';
         }
@@ -95,7 +92,7 @@ function notation(num = 0) {
         exp--;
     }
 
-    return (num * 10**-exp).toFixed(2) + 'e' + exp;
+    return (num * 10 ** -exp).toFixed(2) + 'e' + exp;
 };
 
 function addEvent(elems, evts, handler) {
@@ -140,7 +137,7 @@ function getLimit(points) {
         let val = cur[monitorOptions.data];
         return {
             max: Math.max(pre.max, val),
-            min: Math.min(pre.min, val)
+            min: Math.min(pre.min, val),
         };
     }, { max: -Infinity, min: Infinity });
 };
@@ -154,10 +151,10 @@ function assignProps(props) {
 };
 
 function drawLine(p0, p1, options) {
-    let x0 = p0[0],
-        y0 = p0[1],
-        x1 = p1[0],
-        y1 = p1[1];
+    let x0 = p0[0];
+    let y0 = p0[1];
+    let x1 = p1[0];
+    let y1 = p1[1];
 
     assignProps(options.props);
 
@@ -173,8 +170,8 @@ function drawLine(p0, p1, options) {
 };
 
 function adjustText(content, p, options) {
-    let x = p[0],
-        y = p[1];
+    let x = p[0];
+    let y = p[1];
 
     let width = ctx.measureText(content).width;
 
@@ -224,22 +221,22 @@ function drawMain() {
     ctx.moveTo(0, 0);
 
     let lastPoint = points.reduce((pre, cur, idx) => {
-        let time = cur.time,
-            value = cur[monitorOptions.data];
-        let x = (time - start.time) / totalX * size.width,
-            y = (value - limit.min) / totalY * (size.height - 20);
+        let time = cur.time;
+        let value = cur[monitorOptions.data];
+        let x = (time - start.time) / totalX * size.width;
+        let y = (value - limit.min) / totalY * (size.height - 20);
 
         ctx.lineTo(x, y);
 
         if (hoverPointerX && Math.abs(hoverPointerX - x) < hoverPrecision) {
             tangentPoint = {
                 coord: [x, y],
-                point: cur
+                point: cur,
             };
 
             tangentPointPre = {
                 coord: pre,
-                point: points[idx - 1]
+                point: points[idx - 1],
             };
         }
 
@@ -254,8 +251,8 @@ function drawMain() {
 
     drawLine([0, lastPoint[1]], lastPoint, {
         props: {
-            strokeStyle: '#f60'
-        }
+            strokeStyle: '#f60',
+        },
     });
 
     fillText('↙' + notation(limit.min), [0, 0], {
@@ -263,22 +260,22 @@ function drawMain() {
             fillStyle: '#000',
             textAlign: 'left',
             textBaseline: 'bottom',
-            font: '12px sans-serif'
-        }
+            font: '12px sans-serif',
+        },
     });
     fillText(notation(end[monitorOptions.data]), lastPoint, {
         props: {
             fillStyle: '#f60',
             textAlign: 'right',
             textBaseline: 'bottom',
-            font: '16px sans-serif'
-        }
+            font: '16px sans-serif',
+        },
     });
 };
 
 function drawTangentLine() {
-    let coord = tangentPoint.coord,
-        coordPre = tangentPointPre.coord;
+    let coord = tangentPoint.coord;
+    let coordPre = tangentPointPre.coord;
 
     let k = (coord[1] - coordPre[1]) / (coord[0] - coordPre[0]) || 0;
     let b = coord[1] - k * coord[0];
@@ -286,8 +283,8 @@ function drawTangentLine() {
     drawLine([0, b], [size.width, k * size.width + b], {
         props: {
             lineWidth: 1,
-            strokeStyle: '#f00'
-        }
+            strokeStyle: '#f00',
+        },
     });
 
     let realK = (tangentPoint.point[monitorOptions.data] - tangentPointPre.point[monitorOptions.data]) /
@@ -298,8 +295,8 @@ function drawTangentLine() {
             fillStyle: '#f00',
             textAlign: 'center',
             textBaseline: 'bottom',
-            font: 'bold 12px sans-serif'
-        }
+            font: 'bold 12px sans-serif',
+        },
     });
 };
 
@@ -308,15 +305,15 @@ function drawHover() {
 
     drawTangentLine();
 
-    let coord = tangentPoint.coord,
-        point = tangentPoint.point;
+    let coord = tangentPoint.coord;
+    let point = tangentPoint.point;
 
     let coordStyle = {
         dashed: [8, 4],
         props: {
             lineWidth: 1,
-            strokeStyle: 'rgb(64, 165, 255)'
-        }
+            strokeStyle: 'rgb(64, 165, 255)',
+        },
     };
 
     drawLine([0, coord[1]], [size.width, coord[1]], coordStyle);
@@ -333,7 +330,7 @@ function drawHover() {
         date.getMilliseconds(),
         ', ',
         notation(point[monitorOptions.data]),
-        ')'
+        ')',
     ].join('');
 
     fillText(pointInfo, coord, {
@@ -341,8 +338,8 @@ function drawHover() {
             fillStyle: '#000',
             textAlign: 'left',
             textBaseline: 'bottom',
-            font: 'bold 12px sans-serif'
-        }
+            font: 'bold 12px sans-serif',
+        },
     });
 };
 
@@ -360,8 +357,8 @@ function render() {
             fillStyle: '#f00',
             textAlign: 'left',
             textBaseline: 'top',
-            font: 'bold 14px sans-serif'
-        }
+            font: 'bold 14px sans-serif',
+        },
     });
 
     drawMain();
@@ -373,8 +370,8 @@ function render() {
                 fillStyle: '#f00',
                 textAlign: 'right',
                 textBaseline: 'top',
-                font: 'bold 14px sans-serif'
-            }
+                font: 'bold 14px sans-serif',
+            },
         });
     }
 
@@ -385,15 +382,14 @@ function render() {
     renderLoopID = requestAnimationFrame(render);
 };
 
-
-let lastTime = Date.now(),
-    lastOffset = 0,
-    reduceAmount = 0;
+let lastTime = Date.now();
+let lastOffset = 0;
+let reduceAmount = 0;
 
 scrollbar.addListener(() => {
-    let current = Date.now(),
-        offset = scrollbar.offset.y,
-        duration = current - lastTime;
+    let current = Date.now();
+    let offset = scrollbar.offset.y;
+    let duration = current - lastTime;
 
     if (!duration || offset === lastOffset) return;
 
@@ -410,7 +406,7 @@ scrollbar.addListener(() => {
         offset,
         time: current - reduceAmount,
         reduce: reduceAmount,
-        speed: Math.abs(velocity)
+        speed: Math.abs(velocity),
     });
 
     shouldUpdate = true;
@@ -476,5 +472,3 @@ addEvent(track, 'click touchstart', (e) => {
     let offset = (pointer.clientX - rect.left) / rect.width;
     endOffset = Math.min(1 - thumbWidth, Math.max(0, 1 - (offset + thumbWidth / 2)));
 });
-
-

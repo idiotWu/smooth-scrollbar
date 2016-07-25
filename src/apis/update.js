@@ -33,23 +33,23 @@ function updateTrack() {
     const {
         size,
         thumbSize,
-        targets: { xAxis, yAxis }
+        targets: { xAxis, yAxis },
     } = this;
 
     // hide scrollbar if content size less than container
     setStyle(xAxis.track, {
-        'display': size.content.width <= size.container.width ? 'none' : 'block'
+        'display': size.content.width <= size.container.width ? 'none' : 'block',
     });
     setStyle(yAxis.track, {
-        'display': size.content.height <= size.container.height ? 'none' : 'block'
+        'display': size.content.height <= size.container.height ? 'none' : 'block',
     });
 
     // use percentage value for thumb
     setStyle(xAxis.thumb, {
-        'width': `${thumbSize.x}px`
+        'width': `${thumbSize.x}px`,
     });
     setStyle(yAxis.thumb, {
-        'height': `${thumbSize.y}px`
+        'height': `${thumbSize.y}px`,
     });
 }
 
@@ -63,7 +63,7 @@ function updateTrack() {
 function update() {
     const {
         limit,
-        options
+        options,
     } = this;
 
     this.__updateBounding();
@@ -71,7 +71,7 @@ function update() {
     const size = this.getSize();
     const newLimit = {
         x: Math.max(size.content.width - size.container.width, 0),
-        y: Math.max(size.content.height - size.container.height, 0)
+        y: Math.max(size.content.height - size.container.height, 0),
     };
 
     this.__readonly('size', size);
@@ -84,7 +84,7 @@ function update() {
     const thumbSize = {
         // real thumb sizes
         realX: size.container.width / size.content.width * size.container.width,
-        realY: size.container.height / size.content.height * size.container.height
+        realY: size.container.height / size.content.height * size.container.height,
     };
 
     // rendered thumb sizes
@@ -110,7 +110,7 @@ function update() {
  *
  * @param {Boolean} inAsync: update asynchronous
  */
-SmoothScrollbar.prototype.update = function(inAsync) {
+SmoothScrollbar.prototype.update = function (inAsync) {
     if (inAsync) {
         requestAnimationFrame(this::update);
     } else {

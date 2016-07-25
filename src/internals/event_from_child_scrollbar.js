@@ -12,5 +12,5 @@ function __eventFromChildScrollbar({ target } = {}) {
 Object.defineProperty(SmoothScrollbar.prototype, '__eventFromChildScrollbar', {
     value: __eventFromChildScrollbar,
     writable: true,
-    configurable: true
+    configurable: true,
 });

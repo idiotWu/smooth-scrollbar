@@ -12,7 +12,7 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
  *
  * @param {Object} options
  */
-SmoothScrollbar.prototype.setOptions = function(options = {}) {
+SmoothScrollbar.prototype.setOptions = function (options = {}) {
     const res = {};
 
     Object.keys(options).forEach((prop) => {

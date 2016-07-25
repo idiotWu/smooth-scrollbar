@@ -9,7 +9,7 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 function __setMovement(deltaX = 0, deltaY = 0) {
     const {
         options,
-        movement
+        movement,
     } = this;
 
     this.__updateThrottle();
@@ -29,5 +29,5 @@ function __setMovement(deltaX = 0, deltaY = 0) {
 Object.defineProperty(SmoothScrollbar.prototype, '__setMovement', {
     value: __setMovement,
     writable: true,
-    configurable: true
+    configurable: true,
 });

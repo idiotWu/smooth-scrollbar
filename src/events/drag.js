@@ -10,14 +10,13 @@ function __dragHandler() {
     const { container, content } = this.targets;
 
     let isDrag = false;
-    let animation = undefined;
-    let padding = undefined;
+    let animation, padding;
 
     Object.defineProperty(this, '__isDrag', {
         get() {
             return isDrag;
         },
-        enumerable: false
+        enumerable: false,
     });
 
     const scroll = ({ x, y }) => {
@@ -39,7 +38,7 @@ function __dragHandler() {
         padding = evt.target.clientHeight;
 
         setStyle(content, {
-            'pointer-events': 'auto'
+            'pointer-events': 'auto',
         });
 
         cancelAnimationFrame(animation);
@@ -60,10 +59,10 @@ function __dragHandler() {
         cancelAnimationFrame(animation);
         isDrag = false;
     });
- };
+};
 
- Object.defineProperty(SmoothScrollbar.prototype, '__dragHandler', {
-     value: __dragHandler,
-     writable: true,
-     configurable: true
- });
+Object.defineProperty(SmoothScrollbar.prototype, '__dragHandler', {
+    value: __dragHandler,
+    writable: true,
+    configurable: true,
+});

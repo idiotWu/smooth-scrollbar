@@ -8,17 +8,17 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 
 const ACTIONS = {
     SHOW: 0,
-    HIDE: 1
+    HIDE: 1,
 };
 
 const CLASS_NAMES = {
     TRACK: 'show',
-    CONTAINER: 'scrolling'
+    CONTAINER: 'scrolling',
 };
 
 const METHODS = {
     [ACTIONS.SHOW]: 'add',
-    [ACTIONS.HIDE]: 'remove'
+    [ACTIONS.HIDE]: 'remove',
 };
 
 function toggleTrack(action = ACTIONS.SHOW) {
@@ -29,11 +29,11 @@ function toggleTrack(action = ACTIONS.SHOW) {
      *
      * @param {String} direction: which direction of tracks to show/hide, default is 'both'
      */
-    return function(direction = 'both') {
+    return function (direction = 'both') {
         const {
             options,
             movement,
-            targets: { container, xAxis, yAxis }
+            targets: { container, xAxis, yAxis },
         } = this;
 
         // add/remove scrolling class to container

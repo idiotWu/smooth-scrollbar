@@ -25,17 +25,17 @@ function __initOptions(userPreference) {
         damping: [0, 1],
         speed: [0, Infinity],
         thumbMinSize: [0, Infinity],
-        overscrollEffect: [false, 'bounce', 'glow']
+        overscrollEffect: [false, 'bounce', 'glow'],
     };
 
     const isContinous = (mode = 'auto') => {
-        if (!!options.overscrollEffect) return false;
+        if (options.overscrollEffect !== false) return false;
 
         switch (mode) {
-            case 'auto':
-                return scrollbar.isNestedScrollbar;
-            default:
-                return !!mode;
+        case 'auto':
+            return scrollbar.isNestedScrollbar;
+        default:
+            return !!mode;
         }
     };
 
@@ -47,9 +47,9 @@ function __initOptions(userPreference) {
 
         // @deprecated
         set friction(v) {
-            console.warn(`\`options.friction=${v}\` is deprecated, use \`options.damping=${v/100}\` instead.`);
+            console.warn(`\`options.friction=${v}\` is deprecated, use \`options.damping=${v / 100}\` instead.`);
 
-            this.damping = v/100;
+            this.damping = v / 100;
         },
 
         get syncCallbacks() {
@@ -113,7 +113,7 @@ function __initOptions(userPreference) {
         },
         set overscrollEffectColor(v) {
             options.overscrollEffectColor = v;
-        }
+        },
     };
 
     Object.keys(options)
@@ -130,7 +130,7 @@ function __initOptions(userPreference) {
                     }
 
                     options[prop] = pickInRange(v, ...limit[prop]);
-                }
+                },
             });
         });
 
@@ -141,5 +141,5 @@ function __initOptions(userPreference) {
 Object.defineProperty(SmoothScrollbar.prototype, '__initOptions', {
     value: __initOptions,
     writable: true,
-    configurable: true
+    configurable: true,
 });

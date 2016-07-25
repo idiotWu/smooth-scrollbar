@@ -10,7 +10,7 @@ function __addMovement(deltaX = 0, deltaY = 0) {
     const {
         limit,
         options,
-        movement
+        movement,
     } = this;
 
     this.__updateThrottle();
@@ -36,5 +36,5 @@ function __addMovement(deltaX = 0, deltaY = 0) {
 Object.defineProperty(SmoothScrollbar.prototype, '__addMovement', {
     value: __addMovement,
     writable: true,
-    configurable: true
+    configurable: true,
 });

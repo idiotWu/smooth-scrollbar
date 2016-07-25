@@ -16,6 +16,7 @@ function __updateTree() {
 
     let elem = container;
 
+    // eslint-disable-next-line no-cond-assign
     while (elem = elem.parentElement) {
         if (sbList.has(container)) {
             this.__readonly('isNestedScrollbar', true);
@@ -29,5 +30,5 @@ function __updateTree() {
 Object.defineProperty(SmoothScrollbar.prototype, '__updateTree', {
     value: __updateTree,
     writable: true,
-    configurable: true
+    configurable: true,
 });

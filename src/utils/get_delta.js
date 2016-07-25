@@ -5,7 +5,7 @@
 
 const DELTA_SCALE = {
     STANDARD: 1,
-    OTHERS: -3
+    OTHERS: -3,
 };
 
 const DELTA_MODE = [1.0, 28.0, 500.0];
@@ -23,20 +23,20 @@ export const getDelta = (evt) => {
 
         return {
             x: evt.deltaX / DELTA_SCALE.STANDARD * mode,
-            y: evt.deltaY / DELTA_SCALE.STANDARD * mode
+            y: evt.deltaY / DELTA_SCALE.STANDARD * mode,
         };
     }
 
     if ('wheelDeltaX' in evt) {
         return {
             x: evt.wheelDeltaX / DELTA_SCALE.OTHERS,
-            y: evt.wheelDeltaY / DELTA_SCALE.OTHERS
+            y: evt.wheelDeltaY / DELTA_SCALE.OTHERS,
         };
     }
 
     // ie with touchpad
     return {
         x: 0,
-        y: evt.wheelDelta / DELTA_SCALE.OTHERS
+        y: evt.wheelDelta / DELTA_SCALE.OTHERS,
     };
 };

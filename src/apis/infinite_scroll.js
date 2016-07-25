@@ -13,12 +13,12 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
  * @param {Function} cb: infinite scroll action
  * @param {Number} [threshold]: infinite scroll threshold(to bottom), default is 50(px)
  */
-SmoothScrollbar.prototype.infiniteScroll = function(cb, threshold = 50) {
+SmoothScrollbar.prototype.infiniteScroll = function (cb, threshold = 50) {
     if (typeof cb !== 'function') return;
 
     let lastOffset = {
         x: 0,
-        y: 0
+        y: 0,
     };
 
     let entered = false;
