@@ -1,6 +1,6 @@
 {
   "name": "smooth-scrollbar",
-  "version": "6.4.0",
+  "version": "7.0.0",
   "description": "Customize scrollbar in modern browsers with smooth scrolling experience.",
   "main": "dist/smooth-scrollbar.js",
   "style": "dist/smooth-scrollbar.css",
@@ -14,6 +14,7 @@
     "postcompile": "node ./helpers/post-compile.js",
     "predist": "npm run clean:dist",
     "dist": "webpack --config ./webpack.config.prod.js --display-error-details --color",
+    "postdist": "npm run compile",
     "preghpages": "npm run clean:build",
     "ghpages": "webpack --config ./webpack.config.ghpages.js --display-error-details --color",
     "start": "node serve.js",
