@@ -1,3 +1,7 @@
+## 7.1.0
+
+- Add back individual style files to avoid crashing on server side rendering.
+
 ## 7.0.0
 
 - **Breaking change**: style files are now bundled with js files!
