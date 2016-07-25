@@ -3,7 +3,7 @@
  * @prototype {Function} __setThumbPosition
  */
 
-import { setStyle } from '../utils/index';
+import { setStyle } from '../utils/';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };

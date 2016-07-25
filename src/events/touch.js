@@ -4,12 +4,11 @@
  */
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
-import { GLOBAL_TOUCHES } from '../shared/';
+import { GLOBAL_TOUCHES, GLOBAL_ENV } from '../shared/';
 
 export { SmoothScrollbar };
 
 const MIN_VELOCITY = 100;
-const DEVICE_MULTIPLIER = navigator.userAgent.match(/Android/) ? 0.5 : 0.25;
 
 /**
  * @method
@@ -84,8 +83,8 @@ function __touchHandler() {
 
         let { x, y } = GLOBAL_TOUCHES.getVelocity();
 
-        x = movementLocked.x ? 0 : Math.min(x * DEVICE_MULTIPLIER, 1000);
-        y = movementLocked.y ? 0 : Math.min(y * DEVICE_MULTIPLIER, 1000);
+        x = movementLocked.x ? 0 : Math.min(x * GLOBAL_ENV.EASING_MULTIPLIER, 1000);
+        y = movementLocked.y ? 0 : Math.min(y * GLOBAL_ENV.EASING_MULTIPLIER, 1000);
 
         this.__addMovement(
             Math.abs(x) > MIN_VELOCITY ? (x * speed) : 0,

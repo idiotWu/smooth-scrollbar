@@ -5,11 +5,9 @@
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
 import { getDelta, debounce } from '../utils/';
+import { GLOBAL_ENV } from '../shared/';
 
 export { SmoothScrollbar };
-
-// is standard `wheel` event supported check
-const WHEEL_EVENT = 'onwheel' in window ? 'wheel' : 'mousewheel';
 
 /**
  * @method
@@ -27,7 +25,7 @@ function __wheelHandler() {
         wheelLocked = false;
     }, 30, false);
 
-    this.__addEvent(container, WHEEL_EVENT, (evt) => {
+    this.__addEvent(container, GLOBAL_ENV.WHEEL_EVENT, (evt) => {
         const { options } = this;
         let { x, y } = getDelta(evt);
 

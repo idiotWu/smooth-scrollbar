@@ -3,7 +3,7 @@
  * @prototype {Function} scrollTo
  */
 
-import { pickInRange, buildCurve } from '../utils/index';
+import { pickInRange, buildCurve } from '../utils/';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };

@@ -3,7 +3,7 @@
  * @export {Class} SmoothScrollbar
  */
 
-import { sbList, GLOBAL_TOUCHES } from './shared/';
+import { sbList, GLOBAL_ENV } from './shared/';
 import {
     pickInRange,
     debounce,
@@ -136,7 +136,7 @@ export class SmoothScrollbar {
                 const average = (size.container.width + size.container.height) / 2;
                 const touchFactor = this.__isMovementLocked() ? 1 : 5;
 
-                return GLOBAL_TOUCHES.TOUCH_SUPPORTED ?
+                return GLOBAL_ENV.TOUCH_SUPPORTED ?
                         pickInRange(average / touchFactor, 100, 1000) :
                         pickInRange(average / 10, 25, 50);
 

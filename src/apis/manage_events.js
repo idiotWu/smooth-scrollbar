@@ -7,24 +7,39 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 
 export { SmoothScrollbar };
 
-function matchAllRules(str, rules) {
-    return !!rules.length && rules.every(regex => str.match(regex));
+const ACTIONS = {
+    REGIESTER: 0,
+    UNREGIESTER: 1
 };
 
-function manageEvents(shouldUnregister) {
-    shouldUnregister = !!shouldUnregister;
+const METHODS = {
+    [ACTIONS.REGIESTER]: 'addEventListener',
+    [ACTIONS.UNREGIESTER]: 'removeEventListener'
+};
 
-    const method = shouldUnregister ? 'removeEventListener' : 'addEventListener';
+function matchSomeRules(str, rules) {
+    return !!rules.length && rules.some(regex => str.match(regex));
+};
+
+function manageEvents(action = ACTIONS.REGIESTER) {
+    const method = METHODS[action];
 
     return function(...rules) {
         this.__handlers.forEach((handler) => {
-            const { elem, evt, fn, hasRegistered } = handler;
+            const {
+                elem,
+                evt,
+                fn,
+                hasRegistered
+            } = handler;
 
-            // shouldUnregister = hasRegistered = false: register event
-            // shouldUnregister = hasRegistered = true: unregister event
-            if (shouldUnregister !== hasRegistered) return;
+            if ((hasRegistered && action === ACTIONS.REGIESTER) ||
+                (!hasRegistered && action === ACTIONS.UNREGIESTER))
+            {
+                return;
+            }
 
-            if (matchAllRules(evt, rules)) {
+            if (matchSomeRules(evt, rules)) {
                 elem[method](evt, fn);
                 handler.hasRegistered = !hasRegistered;
             }
@@ -32,5 +47,5 @@ function manageEvents(shouldUnregister) {
     };
 };
 
-SmoothScrollbar.prototype.unregisterEvents = manageEvents(true);
-SmoothScrollbar.prototype.registerEvents = manageEvents(false);
+SmoothScrollbar.prototype.registerEvents = manageEvents(ACTIONS.REGIESTER);
+SmoothScrollbar.prototype.unregisterEvents = manageEvents(ACTIONS.UNREGIESTER);

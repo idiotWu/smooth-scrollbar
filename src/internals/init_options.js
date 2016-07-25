@@ -30,7 +30,7 @@ function __initOptions(userPreference) {
         overscrollEffect: [false, 'bounce', 'glow']
     };
 
-    let isContinous = (mode = 'auto') => {
+    const isContinous = (mode = 'auto') => {
         if (!!options.overscrollEffect) return false;
 
         switch (mode) {

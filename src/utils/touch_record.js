@@ -6,16 +6,10 @@
 import { getPosition } from './get_position';
 import { getTouchID } from './get_touch_id';
 
-const TOUCH_SUPPORTED = 'ontouchstart' in document;
-
 export class TouchRecord {
     constructor() {
         this.init();
         this.lastRecord = {};
-    }
-
-    get TOUCH_SUPPORTED() {
-        return TOUCH_SUPPORTED;
     }
 
     init() {
