@@ -7,8 +7,6 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 import { GLOBAL_TOUCHES } from '../shared/';
 import { pickInRange } from '../utils/';
 
-export { SmoothScrollbar };
-
 function nextTick(scrollbar, options, current, movement) {
     const { damping, renderByPixels } = options;
 

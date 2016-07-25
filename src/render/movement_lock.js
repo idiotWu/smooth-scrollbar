@@ -5,8 +5,6 @@
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
-export { SmoothScrollbar };
-
 const DIRECTIONS = ['x', 'y'];
 
 // only lock movement on direction that is scrolling onto edge

@@ -7,8 +7,6 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 import { getDelta, debounce } from '../utils/';
 import { GLOBAL_ENV } from '../shared/';
 
-export { SmoothScrollbar };
-
 /**
  * @method
  * @internal

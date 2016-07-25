@@ -6,8 +6,6 @@
 import { SmoothScrollbar } from '../smooth_scrollbar';
 import { pickInRange } from '../utils/';
 
-export { SmoothScrollbar };
-
 // check whether to propagate movement to outer scrollbars
 // this situations are considered as `true`:
 //         1. continuous scrolling is enabled (automatically disabled when overscroll is enabled)

@@ -6,8 +6,6 @@
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
-export { SmoothScrollbar };
-
 const ACTIONS = {
     SHOW: 0,
     HIDE: 1

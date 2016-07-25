@@ -1,6 +1,7 @@
 import './monitor';
 import './controller';
 import Scrollbar from '../../src/';
+import '../styles/index.styl';
 
 window.Scrollbar = Scrollbar;
 Prism.highlightAll();

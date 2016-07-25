@@ -6,8 +6,6 @@
 import { pickInRange } from '../utils/';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
-export { SmoothScrollbar };
-
 function __addMovement(deltaX = 0, deltaY = 0) {
     const {
         limit,

@@ -6,8 +6,6 @@
 import { SmoothScrollbar } from '../smooth_scrollbar';
 import { isOneOf, getPosition } from '../utils/';
 
-export { SmoothScrollbar };
-
 /**
  * @method
  * @internal

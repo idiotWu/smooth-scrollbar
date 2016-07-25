@@ -7,8 +7,6 @@ import { SmoothScrollbar } from '../smooth_scrollbar';
 import { setStyle } from '../utils';
 import { sbList } from '../shared';
 
-export { SmoothScrollbar };
-
 /**
  * @method
  * @api

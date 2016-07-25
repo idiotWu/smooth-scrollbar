@@ -9,8 +9,6 @@ import { overscrollBounce, overscrollGlow } from '../overscroll/';
 import { GLOBAL_ENV, GLOBAL_TOUCHES } from '../shared/';
 import { pickInRange } from '../utils/';
 
-export { SmoothScrollbar };
-
 // @this-binding
 function calcNext(dir = '') {
     if (!dir) return;

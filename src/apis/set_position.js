@@ -6,8 +6,6 @@
 import { pickInRange, setStyle } from '../utils/';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
-export { SmoothScrollbar };
-
 /**
  * @method
  * @api

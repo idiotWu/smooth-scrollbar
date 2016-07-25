@@ -6,8 +6,6 @@
 import { SmoothScrollbar } from '../smooth_scrollbar';
 import { getPosition } from '../utils/';
 
-export { SmoothScrollbar };
-
 function __getPointerTrend(evt, padding = 0) {
     const { top, right, bottom, left } = this.bounding;
     const { x, y } = getPosition(evt);

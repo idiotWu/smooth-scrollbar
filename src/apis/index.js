@@ -1,14 +1,2 @@
-export * from './update';
-export * from './destroy';
-export * from './get_size';
-export * from './listener';
-export * from './scroll_to';
-export * from './is_visible';
-export * from './set_options';
-export * from './set_position';
-export * from './toggle_track';
-export * from './manage_events';
-export * from './clear_movement';
-export * from './infinite_scroll';
-export * from './get_content_elem';
-export * from './scroll_into_view';
+// eslint-disable-next-line import/no-unresolved
+export * from 'export-all!./';

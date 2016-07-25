@@ -1,2 +1,2 @@
-export * from './glow';
-export * from './bounce';
+// eslint-disable-next-line import/no-unresolved
+export * from 'export-all!./';

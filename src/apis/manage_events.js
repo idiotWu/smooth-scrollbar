@@ -5,8 +5,6 @@
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
-export { SmoothScrollbar };
-
 const ACTIONS = {
     REGIESTER: 0,
     UNREGIESTER: 1

@@ -6,9 +6,11 @@ import './render/';
 import './events/';
 import './internals/';
 
+import './style/smooth-scrollbar.styl';
+
 export default SmoothScrollbar;
 
-SmoothScrollbar.version = '<%= version %>';
+SmoothScrollbar.version = __SCROLLBAR_VERSION__;
 
 /**
  * init scrollbar on given element

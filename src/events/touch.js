@@ -6,8 +6,6 @@
 import { SmoothScrollbar } from '../smooth_scrollbar';
 import { GLOBAL_TOUCHES, GLOBAL_ENV } from '../shared/';
 
-export { SmoothScrollbar };
-
 const MIN_VELOCITY = 100;
 
 /**

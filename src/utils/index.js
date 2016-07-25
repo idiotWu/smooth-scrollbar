@@ -1,11 +1,2 @@
-export * from './debounce';
-export * from './is_one_of';
-export * from './set_style';
-export * from './get_delta';
-export * from './find_child';
-export * from './build_curve';
-export * from './get_touch_id';
-export * from './get_position';
-export * from './touch_record';
-export * from './pick_in_range';
-export * from './get_pointer_data';
+// eslint-disable-next-line import/no-unresolved
+export * from 'export-all!./';

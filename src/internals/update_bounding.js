@@ -5,8 +5,6 @@
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
-export { SmoothScrollbar };
-
 function __updateBounding() {
     const { container } = this.targets;
     const { top, right, bottom, left } = container.getBoundingClientRect();

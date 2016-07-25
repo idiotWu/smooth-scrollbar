@@ -27,15 +27,20 @@ git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 echo "Removing old contents"
 cd ..
 rm -rf ./out/**/* || exit 0
-cd out
+
+# Compiling
+npm run ghpages
+
+# Copy files
+echo "Copying new contents"
+cp ./test/index.html ./out
+cp -r ./test/images ./out
+cp -r ./build ./out
+cd ./out
 
 # Now let's go have some fun with the cloned repo
 git config user.name "Travis CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
-
-# Copy build files
-echo "Copying new contents"
-cp -r ../.gh-pages/* .
 
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.

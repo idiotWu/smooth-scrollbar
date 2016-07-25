@@ -3,10 +3,8 @@
  * @prototype {Function} __dragHandler
  */
 
- import { SmoothScrollbar } from '../smooth_scrollbar';
- import { setStyle } from '../utils/';
-
- export { SmoothScrollbar };
+import { SmoothScrollbar } from '../smooth_scrollbar';
+import { setStyle } from '../utils/';
 
 function __dragHandler() {
     const { container, content } = this.targets;

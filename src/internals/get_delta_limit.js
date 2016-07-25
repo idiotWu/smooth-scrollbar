@@ -5,8 +5,6 @@
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
-export { SmoothScrollbar };
-
 function __getDeltaLimit() {
     const {
         options,

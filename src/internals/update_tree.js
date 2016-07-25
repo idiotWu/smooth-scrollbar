@@ -6,8 +6,6 @@
 import { SmoothScrollbar } from '../smooth_scrollbar';
 import { sbList, selectors } from '../shared/';
 
-export { SmoothScrollbar };
-
 function __updateTree() {
     const { container, content } = this.targets;
 

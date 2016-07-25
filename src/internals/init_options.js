@@ -6,8 +6,6 @@
 import { pickInRange } from '../utils/';
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
-export { SmoothScrollbar };
-
 function __initOptions(userPreference) {
     const scrollbar = this;
 

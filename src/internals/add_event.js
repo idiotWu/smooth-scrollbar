@@ -5,8 +5,6 @@
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
-export { SmoothScrollbar };
-
 function __addEvent(elem, events, handler) {
     if (!elem || typeof elem.addEventListener !== 'function') {
         throw new TypeError(`expect elem to be a DOM element, but got ${elem}`);

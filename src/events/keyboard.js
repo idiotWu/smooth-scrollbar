@@ -5,8 +5,6 @@
 
 import { SmoothScrollbar } from '../smooth_scrollbar';
 
-export { SmoothScrollbar };
-
 const KEY_CODE = {
     SPACE: 32,
     PAGE_UP: 33,
