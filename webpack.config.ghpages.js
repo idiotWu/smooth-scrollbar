@@ -1,7 +1,18 @@
+const webpack = require('webpack');
+
 const devConfig = require('./webpack.config.dev');
-const prodConfig = require('./webpack.config.prod');
+const version = require('./package.json').version;
 
 module.exports = Object.assign({}, devConfig, {
     watch: false,
-    plugins: prodConfig.plugins,
+    plugins: [
+        new webpack.DefinePlugin({
+            __SCROLLBAR_VERSION__: JSON.stringify(version),
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+            },
+        }),
+    ],
 });

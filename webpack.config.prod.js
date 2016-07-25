@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const eslintFriendlyFormatter = require('eslint-friendly-formatter');
 
 const version = require('./package.json').version;
@@ -39,12 +40,11 @@ module.exports = {
             include: source,
         }, {
             test: /\.styl/,
-            loaders: [
-                'style',
+            loader: ExtractTextPlugin.extract('style', [
                 'css',
                 'postcss',
                 'stylus',
-            ],
+            ]),
         }],
     },
     postcss: [autoprefixer],
@@ -57,5 +57,6 @@ module.exports = {
                 warnings: false,
             },
         }),
+        new ExtractTextPlugin('smooth-scrollbar.css'),
     ],
 };
