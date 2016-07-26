@@ -191,6 +191,7 @@ Following is the DOM structure that Scrollbar generated:
 
 - [x] Overscroll effect.
 - [x] Webpack based workflow.
+- [ ] Tests.
 
 ## Contribuiting
 
