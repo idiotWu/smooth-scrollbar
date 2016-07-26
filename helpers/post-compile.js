@@ -2,9 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 
-const writeFile = require('./write-file');
 const version = require('../package.json').version;
-const exportAllLoader = require('../loaders/export-all');
+const exportAllLoader = require('./export-all-loader');
 
 const join = path.join.bind(path, __dirname);
 
@@ -29,7 +28,7 @@ function compileEntries() {
             };
 
             const compiled = exportAllLoader.call(thisArg);
-            writeFile(file, compiled);
+            fs.writeFileSync(file, `${compiled}\n`);
         });
 }
 

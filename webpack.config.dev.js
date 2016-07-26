@@ -25,7 +25,7 @@ module.exports = {
     },
     resolveLoader: {
         alias: {
-            'export-all': join('./loaders/export-all.js'),
+            'export-all': join('./helpers/export-all-loader.js'),
         },
     },
     module: {
