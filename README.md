@@ -207,7 +207,7 @@ Following is the DOM structure that Scrollbar generated:
     2. Install dependencies: `npm run install`,
     3. Start server: `npm start`.
 
-Before making pull requests, make sure you have ran `npm test`!
+Before making pull requests, make sure you have run `npm test`!
 
 ## License
 
