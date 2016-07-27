@@ -42,8 +42,8 @@ function __wheelHandler() {
         }
 
         if (wheelLocked) {
-            if (this.__isOntoEdge('x', x)) x = 0;
-            if (this.__isOntoEdge('y', y)) y = 0;
+            if (this.__willOverscroll('x', x)) x = 0;
+            if (this.__willOverscroll('y', y)) y = 0;
         }
 
         this.__addMovement(x, y);

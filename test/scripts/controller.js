@@ -3,6 +3,7 @@ import Scrollbar from '../../src/';
 const options = {
     speed: 1,
     damping: 0.1,
+    overscrollDamping: 0.2,
     thumbMinSize: 20,
     renderByPixels: true,
     alwaysShowTracks: false,
@@ -31,6 +32,10 @@ const optionLimit = {
     overscrollEffect: {
         type: 'select',
         value: [false, 'bounce', 'glow'],
+    },
+    overscrollDamping: {
+        type: 'range',
+        value: [0.01, 1],
     },
 };
 

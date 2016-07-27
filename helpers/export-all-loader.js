@@ -13,7 +13,6 @@ function loadAll(srcDir, baseDir) {
 }
 
 module.exports = function exportAllLoader() {
-    this.cacheable && this.cacheable();
     const src = path.dirname(this.resourcePath);
 
     const result = loadAll(src, this.context);

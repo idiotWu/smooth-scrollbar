@@ -15,7 +15,7 @@ function __autoLockMovement() {
     } = this;
 
     DIRECTIONS.forEach((dir) => {
-        movementLocked[dir] = movement[dir] && this.__isOntoEdge(dir, movement[dir]);
+        movementLocked[dir] = movement[dir] && this.__willOverscroll(dir, movement[dir]);
     });
 };
 
