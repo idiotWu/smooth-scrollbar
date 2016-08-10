@@ -1,12 +1,10 @@
 {
-    "passPerPreset": true,
-    "presets": [
-        {
-            "plugins": [ "add-module-exports", "transform-runtime" ]
-        },
-        {
-            "passPerPreset": false,
-            "presets": [ "es2015", "stage-0" ]
-        }
+    "presets": ["es2015", "stage-0"],
+    "plugins": [
+        "add-module-exports",
+        ["transform-runtime", {
+            "polyfill": false,
+            "regenerator": true
+        }]
     ]
 }

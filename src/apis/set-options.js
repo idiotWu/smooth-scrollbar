@@ -13,13 +13,9 @@ import { SmoothScrollbar } from '../smooth-scrollbar';
  * @param {Object} options
  */
 SmoothScrollbar.prototype.setOptions = function (options = {}) {
-    const res = {};
-
     Object.keys(options).forEach((prop) => {
         if (!this.options.hasOwnProperty(prop) || options[prop] === undefined) return;
 
-        res[prop] = options[prop];
+        this.options[prop] = options[prop];
     });
-
-    Object.assign(this.options, res);
 };
