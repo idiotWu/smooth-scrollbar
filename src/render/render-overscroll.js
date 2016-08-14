@@ -6,7 +6,7 @@
 import { SmoothScrollbar } from '../smooth-scrollbar';
 
 import { overscrollBounce, overscrollGlow } from '../overscroll/';
-import { GLOBAL_ENV, GLOBAL_TOUCHES } from '../shared/';
+import { GLOBAL_ENV } from '../shared/';
 import { pickInRange } from '../utils/';
 
 // @this-binding
@@ -48,6 +48,7 @@ function calcNext(dir = '') {
 // @this-bind
 function shouldUpdate(lastRendered) {
     const {
+        __touchRecord,
         overscrollRendered,
     } = this;
 
@@ -57,8 +58,7 @@ function shouldUpdate(lastRendered) {
 
     // is touch position updated?
     if (GLOBAL_ENV.TOUCH_SUPPORTED &&
-        GLOBAL_TOUCHES.isActiveScrollbar(this) &&
-        GLOBAL_TOUCHES.updatedRecently()) return true;
+        __touchRecord.updatedRecently()) return true;
 
     return false;
 }

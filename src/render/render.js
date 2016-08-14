@@ -4,13 +4,12 @@
  */
 
 import { SmoothScrollbar } from '../smooth-scrollbar';
-import { GLOBAL_TOUCHES } from '../shared/';
 import { pickInRange } from '../utils/';
 
-function nextTick(scrollbar, options, current, movement) {
+function nextTick(__touchRecord, options, current, movement) {
     const { damping, renderByPixels } = options;
 
-    const renderDamping = GLOBAL_TOUCHES.isActiveScrollbar(scrollbar) ? 0.4 : damping;
+    const renderDamping = __touchRecord.isActive() ? 0.4 : damping;
 
     if (Math.abs(movement) < 1) {
         let next = current + movement;
@@ -41,11 +40,12 @@ function __render() {
         movement,
         overscrollRendered,
         __timerID,
+        __touchRecord,
     } = this;
 
     if (movement.x || movement.y || overscrollRendered.x || overscrollRendered.y) {
-        let nextX = nextTick(this, options, offset.x, movement.x);
-        let nextY = nextTick(this, options, offset.y, movement.y);
+        let nextX = nextTick(__touchRecord, options, offset.x, movement.x);
+        let nextY = nextTick(__touchRecord, options, offset.y, movement.y);
         let overflowDir = [];
 
         if (options.overscrollEffect) {
