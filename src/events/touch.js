@@ -26,8 +26,8 @@ function __touchHandler() {
 
         // stop scrolling but keep movement for overscrolling
         cancelAnimationFrame(__timerID.scrollTo);
-        if (!this.__isOntoEdge('x')) movement.x = 0;
-        if (!this.__isOntoEdge('y')) movement.y = 0;
+        if (!this.__willOverscroll('x')) movement.x = 0;
+        if (!this.__willOverscroll('y')) movement.y = 0;
 
         // start records
         currentTouchID = GLOBAL_TOUCHES.start(evt);
@@ -39,6 +39,7 @@ function __touchHandler() {
 
         if (!GLOBAL_TOUCHES.isActiveTouch(evt)) return;
 
+        // check if current is inactive
         if (GLOBAL_TOUCHES.hasActiveScrollbar() &&
             !GLOBAL_TOUCHES.isActiveScrollbar(this)) return;
 
@@ -50,13 +51,13 @@ function __touchHandler() {
 
         const { movement, MAX_OVERSCROLL, options } = this;
 
-        if (movement.x && this.__isOntoEdge('x', x)) {
+        if (movement.x && this.__willOverscroll('x', x)) {
             let factor = 2;
             if (options.overscrollEffect === 'bounce') factor += Math.abs(8 * movement.x / MAX_OVERSCROLL);
 
             x /= factor;
         }
-        if (movement.y && this.__isOntoEdge('y', y)) {
+        if (movement.y && this.__willOverscroll('y', y)) {
             let factor = 2;
             if (options.overscrollEffect === 'bounce') factor += Math.abs(8 * movement.y / MAX_OVERSCROLL);
 

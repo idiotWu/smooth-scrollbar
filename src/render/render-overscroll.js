@@ -21,7 +21,7 @@ function calcNext(dir = '') {
     } = this;
 
     const dest = movement[dir] = pickInRange(movement[dir], -MAX_OVERSCROLL, MAX_OVERSCROLL);
-    const damping = options.damping * (this.overscrollBack ? 5 : 2);
+    const damping = options.overscrollDamping;
 
     let next = overscrollRendered[dir] + (dest - overscrollRendered[dir]) * damping;
 

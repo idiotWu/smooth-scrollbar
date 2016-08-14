@@ -89,8 +89,8 @@ function __keyboardHandler() {
         evt.preventDefault();
 
         this.__unlockMovement(); // handle for multi keypress
-        if (x && this.__isOntoEdge('x', x)) movementLocked.x = true;
-        if (y && this.__isOntoEdge('y', y)) movementLocked.y = true;
+        if (x && this.__willOverscroll('x', x)) movementLocked.x = true;
+        if (y && this.__willOverscroll('y', y)) movementLocked.y = true;
 
         const { speed } = options;
         this.__addMovement(x * speed, y * speed);

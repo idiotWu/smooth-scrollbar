@@ -19,6 +19,7 @@ function __initOptions(userPreference) {
         continuousScrolling: 'auto',      // allow outer scrollbars to scroll when reaching edge
         overscrollEffect: false,          // overscroll effect, false | 'bounce' | 'glow'
         overscrollEffectColor: '#87ceeb', // android overscroll effect color
+        overscrollDamping: 0.2,           // overscroll damping factor
     };
 
     const limit = {
@@ -26,6 +27,7 @@ function __initOptions(userPreference) {
         speed: [0, Infinity],
         thumbMinSize: [0, Infinity],
         overscrollEffect: [false, 'bounce', 'glow'],
+        overscrollDamping: [0, 1],
     };
 
     const isContinous = (mode = 'auto') => {

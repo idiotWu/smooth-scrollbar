@@ -7,21 +7,41 @@ import { SmoothScrollbar } from '../smooth-scrollbar';
 import { GLOBAL_TOUCHES } from '../shared/';
 import { pickInRange } from '../utils/';
 
-function nextTick(scrollbar, options, current, movement) {
-    const { damping, renderByPixels } = options;
+// @this-bind
+function nextTick(dir) {
+    const {
+        options,
+        offset,
+        movement,
+    } = this;
 
-    const renderDamping = GLOBAL_TOUCHES.isActiveScrollbar(scrollbar) ? 0.4 : damping;
+    const {
+        damping,
+        renderByPixels,
+        overscrollDamping,
+    } = options;
 
-    if (Math.abs(movement) < 1) {
-        let next = current + movement;
+    const current = offset[dir];
+    const remain = movement[dir];
+
+    let renderDamping = damping;
+
+    if (this.__willOverscroll(dir, remain)) {
+        renderDamping = overscrollDamping;
+    } else if (GLOBAL_TOUCHES.isActiveScrollbar(this)) {
+        renderDamping = 0.5;
+    }
+
+    if (Math.abs(remain) < 1) {
+        let next = current + remain;
 
         return {
             movement: 0,
-            position: movement > 0 ? Math.ceil(next) : Math.floor(next),
+            position: remain > 0 ? Math.ceil(next) : Math.floor(next),
         };
     }
 
-    let nextMovement = movement * (1 - renderDamping);
+    let nextMovement = remain * (1 - renderDamping);
 
     if (renderByPixels) {
         nextMovement |= 0;
@@ -29,7 +49,7 @@ function nextTick(scrollbar, options, current, movement) {
 
     return {
         movement: nextMovement,
-        position: current + movement - nextMovement,
+        position: current + remain - nextMovement,
     };
 };
 
@@ -44,13 +64,13 @@ function __render() {
     } = this;
 
     if (movement.x || movement.y || overscrollRendered.x || overscrollRendered.y) {
-        let nextX = nextTick(this, options, offset.x, movement.x);
-        let nextY = nextTick(this, options, offset.y, movement.y);
-        let overflowDir = [];
+        const nextX = this::nextTick('x');
+        const nextY = this::nextTick('y');
+        const overflowDir = [];
 
         if (options.overscrollEffect) {
-            let destX = pickInRange(nextX.position, 0, limit.x);
-            let destY = pickInRange(nextY.position, 0, limit.y);
+            const destX = pickInRange(nextX.position, 0, limit.x);
+            const destY = pickInRange(nextY.position, 0, limit.y);
 
             // overscroll is rendering
             // or scrolling onto particular edge
