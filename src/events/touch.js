@@ -27,7 +27,7 @@ function __touchHandler() {
     } = targets;
 
     this.__addEvent(container, 'touchstart', (evt) => {
-        if (this.__isDrag || this.__eventFromChildScrollbar(evt)) return;
+        if (this.__isDrag) return;
 
         const { __timerID, movement } = this;
 
@@ -39,13 +39,11 @@ function __touchHandler() {
         // start records
         __touchRecord.track(evt);
         this.__autoLockMovement();
-
-        activeScrollbar = this;
     });
 
     this.__addEvent(container, 'touchmove', (evt) => {
-        if (!activeScrollbar) activeScrollbar = this;
-        if (activeScrollbar !== this || this.__isDrag) return;
+        if (this.__isDrag) return;
+        if (activeScrollbar && activeScrollbar !== this) return;
 
         __touchRecord.update(evt);
 
@@ -89,10 +87,11 @@ function __touchHandler() {
         evt.preventDefault();
 
         this.__addMovement(x, y);
+        activeScrollbar = this;
     });
 
     this.__addEvent(container, 'touchcancel touchend', (evt) => {
-        if (this.__isDrag || this.__eventFromChildScrollbar(evt)) return;
+        if (this.__isDrag) return;
 
         const { speed } = this.options;
 
