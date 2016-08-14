@@ -1,3 +1,8 @@
+## 7.2.0
+
+- Refactor touch record.
+- Add `options.overscrollDamping`.
+
 ## 7.1.0
 
 - Add back individual style files to avoid crashing on server side rendering.
