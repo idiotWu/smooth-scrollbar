@@ -24,5 +24,5 @@ SmoothScrollbar.prototype.isVisible = function (elem) {
     const right = Math.min(bounding.right, targetBounding.right);
     const bottom = Math.min(bounding.bottom, targetBounding.bottom);
 
-    return top <= bottom && left <= right;
+    return top < bottom && left < right;
 };
