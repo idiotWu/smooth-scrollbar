@@ -4,7 +4,6 @@
  */
 
 import { SmoothScrollbar } from '../smooth-scrollbar';
-import { GLOBAL_TOUCHES } from '../shared/';
 import { pickInRange } from '../utils/';
 
 // @this-bind
@@ -13,6 +12,7 @@ function nextTick(dir) {
         options,
         offset,
         movement,
+        __touchRecord,
     } = this;
 
     const {
@@ -28,7 +28,7 @@ function nextTick(dir) {
 
     if (this.__willOverscroll(dir, remain)) {
         renderDamping = overscrollDamping;
-    } else if (GLOBAL_TOUCHES.isActiveScrollbar(this)) {
+    } else if (__touchRecord.isActive()) {
         renderDamping = 0.5;
     }
 

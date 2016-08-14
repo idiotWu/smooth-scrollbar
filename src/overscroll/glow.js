@@ -5,7 +5,6 @@
  */
 
 import { setStyle, pickInRange } from '../utils/';
-import { GLOBAL_TOUCHES } from '../shared/';
 
 const GLOW_MAX_OPACITY = 0.75;
 const GLOW_MAX_OFFSET = 0.25;
@@ -39,6 +38,7 @@ function renderGlowX(strength) {
     const {
         size,
         targets,
+        __touchRecord,
         MAX_OVERSCROLL,
     } = this;
 
@@ -58,7 +58,7 @@ function renderGlowX(strength) {
 
     // controll point
     const x = Math.abs(strength);
-    const y = GLOBAL_TOUCHES.getLastRecord('y') || (height / 2);
+    const y = __touchRecord.getLastPosition('y') || (height / 2);
 
     ctx.globalAlpha = opacity;
     ctx.beginPath();
@@ -73,6 +73,7 @@ function renderGlowY(strength) {
     const {
         size,
         targets,
+        __touchRecord,
         MAX_OVERSCROLL,
     } = this;
 
@@ -91,7 +92,7 @@ function renderGlowY(strength) {
     const startOffset = pickInRange(opacity, 0, GLOW_MAX_OFFSET) * width;
 
     // controll point
-    const x = GLOBAL_TOUCHES.getLastRecord('x') || (width / 2);
+    const x = __touchRecord.getLastPosition('x') || (width / 2);
     const y = Math.abs(strength);
 
     ctx.globalAlpha = opacity;

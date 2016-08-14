@@ -5,6 +5,7 @@
 
 import { sbList, GLOBAL_ENV } from './shared/';
 import {
+    TouchRecord,
     pickInRange,
     debounce,
     findChild,
@@ -101,11 +102,14 @@ export class SmoothScrollbar {
 
         // non-enmurable properties
         Object.defineProperties(this, {
+            __hideTrackThrottle: {
+                value: debounce(::this.hideTrack, 1000, false),
+            },
             __updateThrottle: {
                 value: debounce(::this.update),
             },
-            __hideTrackThrottle: {
-                value: debounce(::this.hideTrack, 1000, false),
+            __touchRecord: {
+                value: new TouchRecord(),
             },
             __listeners: {
                 value: [],
@@ -133,10 +137,10 @@ export class SmoothScrollbar {
 
         switch (options.overscrollEffect) {
         case 'bounce':
-            const average = (size.container.width + size.container.height) / 2;
-            const touchFactor = this.__isMovementLocked() ? 1 : 5;
+            const diagonal = Math.floor(Math.sqrt(size.container.width ** 2 + size.container.height ** 2));
+            const touchFactor = this.__isMovementLocked() ? 2 : 10;
 
-            return GLOBAL_ENV.TOUCH_SUPPORTED ? pickInRange(average / touchFactor, 100, 1000) : pickInRange(average / 10, 25, 50);
+            return GLOBAL_ENV.TOUCH_SUPPORTED ? pickInRange(diagonal / touchFactor, 100, 1000) : pickInRange(diagonal / 10, 25, 50);
 
         case 'glow':
             return 150;

@@ -1,3 +1,4 @@
+const ip = require('ip');
 const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
@@ -12,7 +13,7 @@ const sources = ['src', 'test'].map(dir => join(dir));
 module.exports = {
     devtool: 'eval-cheap-module-source-map',
     entry: [
-        'webpack-dev-server/client?http://localhost:3000',
+        `webpack-dev-server/client?http://${ip.address()}:3000`,
         './test/scripts/index.js',
     ],
     output: {

@@ -4,9 +4,11 @@
  */
 
 import { SmoothScrollbar } from '../smooth-scrollbar';
-import { GLOBAL_TOUCHES, GLOBAL_ENV } from '../shared/';
+import { GLOBAL_ENV } from '../shared/';
 
 const MIN_VELOCITY = 100;
+
+let activeScrollbar = null;
 
 /**
  * @method
@@ -14,13 +16,18 @@ const MIN_VELOCITY = 100;
  * Touch event handlers builder
  */
 function __touchHandler() {
-    const { targets, movementLocked } = this;
-    const { container } = targets;
+    const {
+        targets,
+        movementLocked,
+        __touchRecord,
+    } = this;
 
-    let currentTouchID;
+    const {
+        container,
+    } = targets;
 
     this.__addEvent(container, 'touchstart', (evt) => {
-        if (this.__isDrag) return;
+        if (this.__isDrag || this.__eventFromChildScrollbar(evt)) return;
 
         const { __timerID, movement } = this;
 
@@ -30,20 +37,19 @@ function __touchHandler() {
         if (!this.__willOverscroll('y')) movement.y = 0;
 
         // start records
-        currentTouchID = GLOBAL_TOUCHES.start(evt);
+        __touchRecord.track(evt);
         this.__autoLockMovement();
+
+        activeScrollbar = this;
     });
 
     this.__addEvent(container, 'touchmove', (evt) => {
-        if (this.__isDrag) return;
+        if (!activeScrollbar) activeScrollbar = this;
+        if (activeScrollbar !== this || this.__isDrag) return;
 
-        if (!GLOBAL_TOUCHES.isActiveTouch(evt)) return;
+        __touchRecord.update(evt);
 
-        // check if current is inactive
-        if (GLOBAL_TOUCHES.hasActiveScrollbar() &&
-            !GLOBAL_TOUCHES.isActiveScrollbar(this)) return;
-
-        let { x, y } = GLOBAL_TOUCHES.update(evt);
+        let { x, y } = __touchRecord.getDelta();
 
         if (this.__shouldPropagateMovement(x, y)) {
             return this.__updateThrottle();
@@ -53,15 +59,29 @@ function __touchHandler() {
 
         if (movement.x && this.__willOverscroll('x', x)) {
             let factor = 2;
-            if (options.overscrollEffect === 'bounce') factor += Math.abs(8 * movement.x / MAX_OVERSCROLL);
 
-            x /= factor;
+            if (options.overscrollEffect === 'bounce') {
+                factor += Math.abs(10 * movement.x / MAX_OVERSCROLL);
+            }
+
+            if (Math.abs(movement.x) >= MAX_OVERSCROLL) {
+                x = 0;
+            } else {
+                x /= factor;
+            }
         }
         if (movement.y && this.__willOverscroll('y', y)) {
             let factor = 2;
-            if (options.overscrollEffect === 'bounce') factor += Math.abs(8 * movement.y / MAX_OVERSCROLL);
 
-            y /= factor;
+            if (options.overscrollEffect === 'bounce') {
+                factor += Math.abs(10 * movement.y / MAX_OVERSCROLL);
+            }
+
+            if (Math.abs(movement.y) >= MAX_OVERSCROLL) {
+                y = 0;
+            } else {
+                y /= factor;
+            }
         }
 
         this.__autoLockMovement();
@@ -69,17 +89,14 @@ function __touchHandler() {
         evt.preventDefault();
 
         this.__addMovement(x, y);
-        GLOBAL_TOUCHES.setActiveScrollbar(this);
     });
 
-    this.__addEvent(container, 'touchend blur', () => {
-        if (this.__isDrag) return;
-
-        if (!GLOBAL_TOUCHES.isActiveScrollbar(this)) return;
+    this.__addEvent(container, 'touchcancel touchend', (evt) => {
+        if (this.__isDrag || this.__eventFromChildScrollbar(evt)) return;
 
         const { speed } = this.options;
 
-        let { x, y } = GLOBAL_TOUCHES.getVelocity();
+        let { x, y } = __touchRecord.getVelocity();
 
         x = movementLocked.x ? 0 : Math.min(x * GLOBAL_ENV.EASING_MULTIPLIER, 1000);
         y = movementLocked.y ? 0 : Math.min(y * GLOBAL_ENV.EASING_MULTIPLIER, 1000);
@@ -90,7 +107,8 @@ function __touchHandler() {
         );
 
         this.__unlockMovement();
-        GLOBAL_TOUCHES.release(currentTouchID);
+        __touchRecord.release(evt);
+        activeScrollbar = null;
     });
 };
 
