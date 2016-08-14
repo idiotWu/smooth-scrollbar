@@ -28,7 +28,7 @@ class Tracker {
             y: -(position.y - lastPosition.y),
         };
 
-        const duration = now - updateTime + 1;
+        const duration = (now - updateTime) || 16;
         const vx = delta.x / duration * 1e3;
         const vy = delta.y / duration * 1e3;
         velocity.x = vx * 0.8 + velocity.x * 0.2;
