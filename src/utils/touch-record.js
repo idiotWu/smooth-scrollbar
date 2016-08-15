@@ -144,8 +144,6 @@ export class TouchRecord {
             this.__add(touch);
         });
 
-        this.__setActiveID(targetTouches);
-
         return this.touchList;
     }
 
@@ -159,9 +157,7 @@ export class TouchRecord {
             this.__renew(touch);
         });
 
-        if (this.activeTouchID === undefined) {
-            this.__setActiveID(changedTouches);
-        }
+        this.__setActiveID(changedTouches);
 
         return this.touchList;
     }
