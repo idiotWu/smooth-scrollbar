@@ -194,7 +194,7 @@ Following is the DOM structure that Scrollbar generated:
 - [x] Webpack based workflow.
 - [ ] Tests.
 
-## Contribuiting
+## Contributing
 
 - Create an issue with an example on [jsbin.com](http://jsbin.com/), including latest version of `smooth-scrollbar` through:
     ```html
