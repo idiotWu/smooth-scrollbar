@@ -18,9 +18,9 @@ function __updateTree() {
 
     // eslint-disable-next-line no-cond-assign
     while (elem = elem.parentElement) {
-        if (sbList.has(container)) {
+        if (sbList.has(elem)) {
             this.__readonly('isNestedScrollbar', true);
-            parents.push(container);
+            parents.push(elem);
         }
     }
 

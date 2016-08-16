@@ -10,9 +10,7 @@ const originDelete = ::sbList.delete;
 
 sbList.update = () => {
     sbList.forEach((sb) => {
-        requestAnimationFrame(() => {
-            sb.__updateTree();
-        });
+        sb.__updateTree();
     });
 };
 
