@@ -12,6 +12,8 @@ import {
     setStyle,
 } from './utils/';
 
+const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+
 /**
  * @constructor
  * Create scrollbar instance
@@ -27,6 +29,7 @@ export class SmoothScrollbar {
         // reset scroll position
         container.scrollTop = container.scrollLeft = 0;
 
+        const content = findChild(container, 'scroll-content');
         const canvas = findChild(container, 'overscroll-glow');
         const trackX = findChild(container, 'scrollbar-track-x');
         const trackY = findChild(container, 'scrollbar-track-y');
@@ -43,8 +46,7 @@ export class SmoothScrollbar {
 
         // readonly properties
         this.__readonly('targets', Object.freeze({
-            container,
-            content: findChild(container, 'scroll-content'),
+            container, content,
             canvas: {
                 elem: canvas,
                 context: canvas.getContext('2d'),
@@ -130,6 +132,22 @@ export class SmoothScrollbar {
 
         // storage
         sbList.set(container, this);
+
+        // observe
+        if (typeof MutationObserver === 'function') {
+            // observe
+            const observer = new MutationObserver(() => {
+                this.update(true);
+            });
+
+            observer.observe(content, {
+                childList: true,
+            });
+
+            Object.defineProperty(this, '__observer', {
+                value: observer,
+            });
+        }
     }
 
     get MAX_OVERSCROLL() {

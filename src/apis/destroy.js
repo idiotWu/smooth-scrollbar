@@ -15,8 +15,17 @@ import { sbList } from '../shared';
  * @param {Boolean} isRemoval: whether node is removing from DOM
  */
 SmoothScrollbar.prototype.destroy = function (isRemoval) {
-    const { __listeners, __handlers, targets } = this;
-    const { container, content } = targets;
+    const {
+        __listeners,
+        __handlers,
+        __observer,
+        targets,
+    } = this;
+
+    const {
+        container,
+        content,
+    } = targets;
 
     // remove handlers
     __handlers.forEach(({ evt, elem, fn }) => {
@@ -28,6 +37,11 @@ SmoothScrollbar.prototype.destroy = function (isRemoval) {
     // stop render
     this.stop();
     cancelAnimationFrame(this.__timerID.render);
+
+    // stop observe
+    if (__observer) {
+        __observer.disconnect();
+    }
 
     // remove form sbList
     sbList.delete(container);
