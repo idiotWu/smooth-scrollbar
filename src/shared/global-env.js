@@ -22,6 +22,9 @@ const memoize = (source) => {
 };
 
 const getters = {
+    MutationObserver() {
+        return window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+    },
     TOUCH_SUPPORTED() {
         return 'ontouchstart' in document;
     },

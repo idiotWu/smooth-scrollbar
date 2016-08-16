@@ -12,8 +12,6 @@ import {
     setStyle,
 } from './utils/';
 
-const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-
 /**
  * @constructor
  * Create scrollbar instance
@@ -134,7 +132,7 @@ export class SmoothScrollbar {
         sbList.set(container, this);
 
         // observe
-        if (typeof MutationObserver === 'function') {
+        if (typeof GLOBAL_ENV.MutationObserver === 'function') {
             // observe
             const observer = new MutationObserver(() => {
                 this.update(true);
