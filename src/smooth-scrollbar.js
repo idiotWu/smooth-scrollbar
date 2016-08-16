@@ -134,7 +134,7 @@ export class SmoothScrollbar {
         // observe
         if (typeof GLOBAL_ENV.MutationObserver === 'function') {
             // observe
-            const observer = new MutationObserver(() => {
+            const observer = new GLOBAL_ENV.MutationObserver(() => {
                 this.update(true);
             });
 
