@@ -5,14 +5,14 @@
 
 import { SmoothScrollbar } from '../smooth-scrollbar';
 
-function __getDeltaLimit() {
+function __getDeltaLimit(noOverscroll = false) {
     const {
         options,
         offset,
         limit,
     } = this;
 
-    if (options.continuousScrolling || options.overscrollEffect) {
+    if (!noOverscroll && (options.continuousScrolling || options.overscrollEffect)) {
         return {
             x: [-Infinity, Infinity],
             y: [-Infinity, Infinity],

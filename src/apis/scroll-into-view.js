@@ -33,6 +33,7 @@ SmoothScrollbar.prototype.scrollIntoView = function (
 
     this.__setMovement(
         targetBounding.left - bounding.left - offsetLeft,
-        targetBounding.top - bounding.top - offsetTop
+        targetBounding.top - bounding.top - offsetTop,
+        true,
     );
 };

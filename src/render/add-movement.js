@@ -6,7 +6,7 @@
 import { pickInRange } from '../utils/';
 import { SmoothScrollbar } from '../smooth-scrollbar';
 
-function __addMovement(deltaX = 0, deltaY = 0) {
+function __addMovement(deltaX = 0, deltaY = 0, noOverscroll = false) {
     const {
         limit,
         options,
@@ -27,7 +27,7 @@ function __addMovement(deltaX = 0, deltaY = 0) {
     if (limit.x === 0) x = 0;
     if (limit.y === 0) y = 0;
 
-    let deltaLimit = this.__getDeltaLimit();
+    let deltaLimit = this.__getDeltaLimit(noOverscroll);
 
     movement.x = pickInRange(x, ...deltaLimit.x);
     movement.y = pickInRange(y, ...deltaLimit.y);
