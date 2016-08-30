@@ -20,7 +20,7 @@ SmoothScrollbar.prototype.setPosition = function (
     y = this.offset.y,
     withoutCallbacks = false,
 ) {
-    this.__updateThrottle();
+    this.__hideTrackThrottle();
 
     const status = {};
     const { options, offset, limit, targets, __listeners } = this;
@@ -37,8 +37,6 @@ SmoothScrollbar.prototype.setPosition = function (
     x = pickInRange(x, 0, limit.x);
     y = pickInRange(y, 0, limit.y);
 
-    this.__hideTrackThrottle();
-
     if (x === offset.x && y === offset.y) return;
 
     status.direction = {
@@ -46,11 +44,10 @@ SmoothScrollbar.prototype.setPosition = function (
         y: y === offset.y ? 'none' : (y > offset.y ? 'down' : 'up'),
     };
 
-    status.limit = { ...limit };
+    this.__readonly('offset', { x, y });
 
-    offset.x = x;
-    offset.y = y;
-    status.offset = { ...offset };
+    status.limit = { ...limit };
+    status.offset = { ...this.offset };
 
     // reset thumb position after offset update
     this.__setThumbPosition();

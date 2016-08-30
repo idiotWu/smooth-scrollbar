@@ -62,7 +62,6 @@ function updateTrack() {
  */
 function update() {
     const {
-        limit,
         options,
     } = this;
 
@@ -74,13 +73,6 @@ function update() {
         y: Math.max(size.content.height - size.container.height, 0),
     };
 
-    this.__readonly('size', size);
-
-    if (newLimit.x === limit.x &&
-        newLimit.y === limit.y) {
-        return this::updateCanvas();
-    }
-
     const thumbSize = {
         // real thumb sizes
         realX: size.container.width / size.content.width * size.container.width,
@@ -91,7 +83,8 @@ function update() {
     thumbSize.x = Math.max(thumbSize.realX, options.thumbMinSize);
     thumbSize.y = Math.max(thumbSize.realY, options.thumbMinSize);
 
-    this.__readonly('limit', newLimit)
+    this.__readonly('size', size)
+        .__readonly('limit', newLimit)
         .__readonly('thumbSize', thumbSize);
 
     // update appearance
