@@ -84,7 +84,7 @@ function notation(num = 0) {
 
     let exp = -3;
 
-    while (!(num / 10 ** exp)) {
+    while (!(num / 10 ** exp | 0)) {
         if (exp < -10) {
             return num > 0 ? 'Infinity' : '-Infinity';
         }
