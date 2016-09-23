@@ -6,7 +6,7 @@
 import { pickInRange } from '../utils/';
 import { SmoothScrollbar } from '../smooth-scrollbar';
 
-function __setMovement(deltaX = 0, deltaY = 0, noOverscroll = false) {
+function __setMovement(deltaX = 0, deltaY = 0, allowOverscroll = false) {
     const {
         options,
         movement,
@@ -14,7 +14,7 @@ function __setMovement(deltaX = 0, deltaY = 0, noOverscroll = false) {
 
     this.__updateThrottle();
 
-    const limit = this.__getDeltaLimit(noOverscroll);
+    const limit = this.__getDeltaLimit(allowOverscroll);
 
     if (options.renderByPixels) {
         // ensure resolved with integer

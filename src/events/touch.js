@@ -86,7 +86,7 @@ function __touchHandler() {
 
         evt.preventDefault();
 
-        this.__addMovement(x, y);
+        this.__addMovement(x, y, true);
         activeScrollbar = this;
     });
 
@@ -102,7 +102,8 @@ function __touchHandler() {
 
         this.__addMovement(
             Math.abs(x) > MIN_VELOCITY ? (x * speed) : 0,
-            Math.abs(y) > MIN_VELOCITY ? (y * speed) : 0
+            Math.abs(y) > MIN_VELOCITY ? (y * speed) : 0,
+            true
         );
 
         this.__unlockMovement();
