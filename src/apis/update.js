@@ -18,8 +18,15 @@ function updateCanvas() {
     const { elem, context } = targets.canvas;
     const DPR = window.devicePixelRatio || 1;
 
-    elem.width = size.container.width * DPR;
-    elem.height = size.container.height * DPR;
+    const nextWidth = size.container.width * DPR;
+    const nextHeight = size.container.height * DPR;
+
+    if (nextWidth === elem.width && nextHeight === elem.height) {
+        return;
+    }
+
+    elem.width = nextWidth;
+    elem.height = nextHeight;
 
     context.scale(DPR, DPR);
 };
