@@ -46,7 +46,7 @@ const boolMap = {
 
 const scrollbars = Scrollbar.initAll(options);
 const controller = new dat.GUI();
-controller.addFolder('Scrollbar Options');
+const scrollbarCtrl = controller.addFolder('Scrollbar Options');
 document.getElementById('controller').appendChild(controller.domElement);
 
 let updateScrollbar = () => scrollbars.forEach((s) => s.setOptions(options));
@@ -60,17 +60,17 @@ Object.keys(options).forEach((prop) => {
         const limit = optionLimit[prop];
 
         if (limit.type === 'range') {
-            ctrl = controller.add(options, prop, ...limit.value);
+            ctrl = scrollbarCtrl.add(options, prop, ...limit.value);
         }
 
         if (limit.type === 'select') {
-            ctrl = controller.add(options, prop, limit.value);
+            ctrl = scrollbarCtrl.add(options, prop, limit.value);
         }
     } else {
         if (prop === 'overscrollEffectColor') {
-            ctrl = controller.addColor(options, prop);
+            ctrl = scrollbarCtrl.addColor(options, prop);
         } else {
-            ctrl = controller.add(options, prop);
+            ctrl = scrollbarCtrl.add(options, prop);
         }
     }
 

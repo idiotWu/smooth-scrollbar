@@ -175,7 +175,21 @@ footer
   .property-name
     width: 60% !important
 
-  :not(.closed) li.color
+  // the selector `.dg :not(.closed) li.color` won't work here,
+  // because the DOM structure is similar like this:
+  //
+  // div.dg.main
+  //   ul (or: ul.closed)
+  //     li.folder
+  //       div.dg
+  //         ul (or: ul.closed)
+  //           li.color
+  //
+  // so `.dg :not(.closed) li.color` will always select the color option
+  // no matter folder is opened or closed.
+  //
+  // so we need to add `.folder .dg` restriction.
+  .folder .dg :not(.closed) li.color
     overflow: visible !important
   .c
     position: relative
@@ -225,5 +239,3 @@ footer
   border: 3px solid #ccc
   box-sizing: border-box
   cursor: ew-resize
-
-
