@@ -5,7 +5,7 @@ const version = require('./package.json').version;
 
 function stripStyle() {
     // replace entry and version tag
-    const target = path.join(__dirname, '../lib/index.js');
+    const target = path.join(__dirname, 'lib/index.js');
 
     const content = fs.readFileSync(target)
                         .toString()
