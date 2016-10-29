@@ -52,6 +52,7 @@ document.getElementById('controller').appendChild(controller.domElement);
 let updateScrollbar = () => scrollbars.forEach((s) => s.setOptions(options));
 
 if (window.innerWidth < 600) controller.close();
+else scrollbarCtrl.open();
 
 Object.keys(options).forEach((prop) => {
     let ctrl;

@@ -1,117 +1,256 @@
-import { SmoothScrollbar } from './smooth-scrollbar';
-import { selectors, sbList } from './shared';
+import {
+    ScbList,
+    SELECTOR,
+} from './contants/';
 
-import './apis/';
-import './render/';
-import './events/';
-import './internals/';
+import {
+    initScrollbar,
+} from './modules/core/';
+
+import {
+    getPrivateProp,
+} from './modules/utils/';
+
+import {
+    clearMovement,
+    stop,
+    destroy,
+    getContentElem,
+    getSize,
+    infiniteScroll,
+    isVisible,
+    addListener,
+    removeListener,
+    registerEvents,
+    unregisterEvents,
+    scrollIntoView,
+    scrollTo,
+    setOptions,
+    setPosition,
+    showTrack,
+    hideTrack,
+    update,
+} from './modules/apis/';
 
 import './style/smooth-scrollbar.styl';
 
-export default SmoothScrollbar;
+export default class SmoothScrollbar {
+    /**
+     * Create scrollbar instance
+     * @constructor
+     * @param {element} container - target element
+     * @param {object} [options] - options
+     */
+    constructor(container, options) {
+        this::initScrollbar(container, options);
 
-SmoothScrollbar.version = __SCROLLBAR_VERSION__;
-
-/**
- * init scrollbar on given element
- *
- * @param {Element} elem: target element
- * @param {Object} options: scrollbar options
- *
- * @return {Scrollbar} scrollbar instance
- */
-SmoothScrollbar.init = (elem, options) => {
-    if (!elem || elem.nodeType !== 1) {
-        throw new TypeError(`expect element to be DOM Element, but got ${typeof elem}`);
+        // storage
+        ScbList.set(container, this);
     }
 
-    if (sbList.has(elem)) return sbList.get(elem);
+    // eslint-disable-next-line spaced-comment
+    /******************* Alias *******************/
+    get contentElement() {
+        return this::getPrivateProp('targets').content;
+    }
 
-    elem.setAttribute('data-scrollbar', '');
+    get targets() {
+        return this::getPrivateProp('targets');
+    }
 
-    const childNodes = [...elem.childNodes];
+    get offset() {
+        return this::getPrivateProp('offset');
+    }
 
-    const div = document.createElement('div');
+    get limit() {
+        return this::getPrivateProp('limit');
+    }
 
-    div.innerHTML = `
-        <article class="scroll-content"></article>
-        <aside class="scrollbar-track scrollbar-track-x">
-            <div class="scrollbar-thumb scrollbar-thumb-x"></div>
-        </aside>
-        <aside class="scrollbar-track scrollbar-track-y">
-            <div class="scrollbar-thumb scrollbar-thumb-y"></div>
-        </aside>
-        <canvas class="overscroll-glow"></canvas>
-    `;
+    get scrollTop() {
+        return this::getPrivateProp('offset').y;
+    }
 
-    const scrollContent = div.querySelector('.scroll-content');
+    get scrollLeft() {
+        return this::getPrivateProp('offset').x;
+    }
 
-    [...div.childNodes].forEach((el) => elem.appendChild(el));
+    // eslint-disable-next-line spaced-comment
+    /******************* Static Methods *******************/
+    static version = __SCROLLBAR_VERSION__;
 
-    childNodes.forEach((el) => scrollContent.appendChild(el));
+    /**
+     * Initialize scrollbar on given element
+     * @static
+     * @param {element} elem - Target element
+     * @param {object} options - Scrollbar options
+     * @return {SmoothScrollbar}
+     */
+    static init(elem, options) {
+        if (!elem || elem.nodeType !== 1) {
+            throw new TypeError(`expect element to be DOM Element, but got ${typeof elem}`);
+        }
 
-    return new SmoothScrollbar(elem, options);
-};
+        if (ScbList.has(elem)) return ScbList.get(elem);
 
-/**
- * init scrollbars on pre-defined selectors
- *
- * @param {Object} options: scrollbar options
- *
- * @return {Array} a collection of scrollbar instances
- */
-SmoothScrollbar.initAll = (options) => {
-    return [...document.querySelectorAll(selectors)].map((el) => {
-        return SmoothScrollbar.init(el, options);
-    });
-};
+        elem.setAttribute('data-scrollbar', '');
 
-/**
- * check if scrollbar exists on given element
- *
- * @return {Boolean}
- */
-SmoothScrollbar.has = (elem) => {
-    return sbList.has(elem);
-};
+        const childNodes = [...elem.childNodes];
 
-/**
- * get scrollbar instance through given element
- *
- * @param {Element} elem: target scrollbar container
- *
- * @return {Scrollbar}
- */
-SmoothScrollbar.get = (elem) => {
-    return sbList.get(elem);
-};
+        const div = document.createElement('div');
 
-/**
- * get all scrollbar instances
- *
- * @return {Array} a collection of scrollbars
- */
-SmoothScrollbar.getAll = () => {
-    return [...sbList.values()];
-};
+        div.innerHTML = `
+            <article class="scroll-content"></article>
+            <aside class="scrollbar-track scrollbar-track-x">
+                <div class="scrollbar-thumb scrollbar-thumb-x"></div>
+            </aside>
+            <aside class="scrollbar-track scrollbar-track-y">
+                <div class="scrollbar-thumb scrollbar-thumb-y"></div>
+            </aside>
+            <canvas class="overscroll-glow"></canvas>
+        `;
 
-/**
- * destroy scrollbar on given element
- *
- * @param {Element} elem: target scrollbar container
- * @param {Boolean} isRemoval: whether node is removing from DOM
- */
-SmoothScrollbar.destroy = (elem, isRemoval) => {
-    return SmoothScrollbar.has(elem) && SmoothScrollbar.get(elem).destroy(isRemoval);
-};
+        const scrollContent = div.querySelector('.scroll-content');
 
-/**
- * destroy all scrollbars in scrollbar instances
- *
- * @param {Boolean} isRemoval: whether node is removing from DOM
- */
-SmoothScrollbar.destroyAll = (isRemoval) => {
-    sbList.forEach((sb) => {
-        sb.destroy(isRemoval);
-    });
-};
+        [...div.childNodes].forEach((el) => elem.appendChild(el));
+
+        childNodes.forEach((el) => scrollContent.appendChild(el));
+
+        return new SmoothScrollbar(elem, options);
+    };
+
+    /**
+     * init scrollbars on pre-defined selectors
+     * @static
+     * @param {object} options - scrollbar options
+     * @return {SmoothScrollbar[]} - a collection of scrollbar instances
+     */
+    static initAll(options) {
+        return [...document.querySelectorAll(SELECTOR)].map((el) => {
+            return SmoothScrollbar.init(el, options);
+        });
+    };
+
+    /**
+     * Check if scrollbar exists on given element
+     * @static
+     * @param {element} elem - Container element
+     * @return {boolean}
+     */
+    static has(elem) {
+        return ScbList.has(elem);
+    };
+
+    /**
+     * Get scrollbar instance through given element
+     * @static
+     * @param {element} elem - Container element
+     * @return {SmoothScrollbar}
+     */
+    static get(elem) {
+        return ScbList.get(elem);
+    };
+
+    /**
+     * Get all scrollbar instances
+     * @static
+     * @return {SmoothScrollbar[]} - a collection of scrollbars
+     */
+    static getAll() {
+        return [...ScbList.values()];
+    };
+
+    /**
+     * Destroy scrollbar on given element
+     * @static
+     * @param {element} elem - target scrollbar container
+     * @param {boolean} [isRemoval] - whether node is removing from DOM
+     */
+    static destroy(elem, isRemoval) {
+        return SmoothScrollbar.has(elem) && SmoothScrollbar.get(elem).destroy(isRemoval);
+    };
+
+    /**
+     * Destroy all scrollbars in scrollbar instances
+     * @static
+     * @param {boolean} [isRemoval] - whether node is removing from DOM
+     */
+    static destroyAll(isRemoval) {
+        ScbList.forEach((sb) => {
+            sb.destroy(isRemoval);
+        });
+    };
+
+    // eslint-disable-next-line spaced-comment
+    /******************* APIs *******************/
+    clearMovement() {
+        return this::clearMovement();
+    }
+
+    stop() {
+        return this::stop();
+    }
+
+    destroy(isRemoval) {
+        return this::destroy(isRemoval);
+    }
+
+    getContentElem() {
+        return this::getContentElem();
+    }
+
+    getSize() {
+        return this::getSize();
+    }
+
+    infiniteScroll(cb, threshold) {
+        return this::infiniteScroll(cb, threshold);
+    }
+
+    isVisible(elem) {
+        return this::isVisible(elem);
+    }
+
+    addListener(cb) {
+        return this::addListener(cb);
+    }
+
+    removeListener(cb) {
+        return this::removeListener(cb);
+    }
+
+    registerEvents(...rules) {
+        return this::registerEvents(...rules);
+    }
+
+    unregisterEvents(...rules) {
+        return this::unregisterEvents(...rules);
+    }
+
+    scrollIntoView(elem, options) {
+        return this::scrollIntoView(elem, options);
+    }
+
+    scrollTo(x, y, duration, cb) {
+        return this::scrollTo(x, y, duration, cb);
+    }
+
+    setOptions(opts) {
+        return this::setOptions(opts);
+    }
+
+    setPosition(x, y, withoutCallbacks) {
+        return this::setPosition(x, y, withoutCallbacks);
+    }
+
+    showTrack(direction) {
+        return this::showTrack(direction);
+    }
+
+    hideTrack(direction) {
+        return this::hideTrack(direction);
+    }
+
+    update(inAsync) {
+        return this::update(inAsync);
+    }
+}
