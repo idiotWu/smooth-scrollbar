@@ -54,7 +54,7 @@ export function initPrivates() {
             switch (options.overscrollEffect) {
                 case OVERSCROLL_GLOW:
                     const diagonal = Math.floor(Math.sqrt(size.container.width ** 2 + size.container.height ** 2));
-                    const touchFactor = this::isMovementLocked() ? 2 : 10;
+                    const touchFactor = scrollbar::isMovementLocked() ? 2 : 10;
 
                     return GLOBAL_ENV.TOUCH_SUPPORTED
                         ? pickInRange(diagonal / touchFactor, 100, 1000)
