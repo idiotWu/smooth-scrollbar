@@ -50,10 +50,6 @@ export default class SmoothScrollbar {
 
     // eslint-disable-next-line spaced-comment
     /******************* Alias *******************/
-    get contentElement() {
-        return this::getPrivateProp('targets').content;
-    }
-
     get targets() {
         return this::getPrivateProp('targets');
     }
@@ -66,12 +62,16 @@ export default class SmoothScrollbar {
         return this::getPrivateProp('limit');
     }
 
+    get contentElement() {
+        return this.targets.content;
+    }
+
     get scrollTop() {
-        return this::getPrivateProp('offset').y;
+        return this.offset.y;
     }
 
     get scrollLeft() {
-        return this::getPrivateProp('offset').x;
+        return this.offset.x;
     }
 
     // eslint-disable-next-line spaced-comment
@@ -163,7 +163,7 @@ export default class SmoothScrollbar {
      * Destroy scrollbar on given element
      * @static
      * @param {element} elem - target scrollbar container
-     * @param {boolean} [isRemoval] - whether node is removing from DOM
+     * @param {boolean} [isRemoval] - Whether node is being removd from DOM
      */
     static destroy(elem, isRemoval) {
         return SmoothScrollbar.has(elem) && SmoothScrollbar.get(elem).destroy(isRemoval);
@@ -175,8 +175,8 @@ export default class SmoothScrollbar {
      * @param {boolean} [isRemoval] - Whether node is being removed from DOM
      */
     static destroyAll(isRemoval) {
-        ScbList.forEach((sb) => {
-            sb.destroy(isRemoval);
+        ScbList.forEach(scb => {
+            scb.destroy(isRemoval);
         });
     };
 
