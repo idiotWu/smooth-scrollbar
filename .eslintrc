@@ -1,5 +1,9 @@
 {
-  "extends": "standard",
+  "extends": [
+    "standard",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
   "parser": "babel-eslint",
   "env": {
     "node": true,
