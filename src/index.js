@@ -172,7 +172,7 @@ export default class SmoothScrollbar {
     /**
      * Destroy all scrollbars in scrollbar instances
      * @static
-     * @param {boolean} [isRemoval] - whether node is removing from DOM
+     * @param {boolean} [isRemoval] - Whether node is being removed from DOM
      */
     static destroyAll(isRemoval) {
         ScbList.forEach((sb) => {

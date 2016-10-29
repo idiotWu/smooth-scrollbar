@@ -16,7 +16,7 @@ import { scrollTo } from './scroll-to';
 /**
  * Remove all scrollbar listeners and event handlers
  * @public
- * @param {boolean} isRemoval - Whether node is removing from DOM
+ * @param {boolean} isRemoval - Whether node is being removed from DOM
  */
 export function destroy(isRemoval) {
     const {
