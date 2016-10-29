@@ -22,11 +22,6 @@ module.exports = {
     resolve: {
         extensions: ['', '.js', '.styl'],
     },
-    resolveLoader: {
-        alias: {
-            'export-all': join('./helpers/export-all-loader.js'),
-        },
-    },
     module: {
         preLoaders: [{
             test: /\.js$/,

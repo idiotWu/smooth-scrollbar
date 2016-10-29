@@ -11,7 +11,7 @@
     "clean:dist": "rimraf ./dist",
     "precompile": "npm run clean:compile",
     "compile": "babel ./src --out-dir ./lib",
-    "postcompile": "node ./helpers/post-compile.js",
+    "postcompile": "node ./strip-style-import.js",
     "predist": "npm run clean:dist",
     "dist": "webpack --config ./webpack.config.prod.js --display-error-details --color",
     "postdist": "npm run compile",
