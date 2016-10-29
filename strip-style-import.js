@@ -9,6 +9,7 @@ function stripStyle() {
 
     const content = fs.readFileSync(target)
                         .toString()
+                        // eslint-disable-next-line no-useless-escape
                         .replace(/require\((['"]).+?smooth-scrollbar.styl\1\);/, '')
                         .replace('__SCROLLBAR_VERSION__', JSON.stringify(version));
 
