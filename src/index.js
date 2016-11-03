@@ -1,9 +1,9 @@
 import {
-    ScbList,
     SELECTOR,
 } from './contants/';
 
 import {
+    ScbList,
     initScrollbar,
 } from './modules/core/';
 
@@ -60,6 +60,10 @@ export default class SmoothScrollbar {
 
     get limit() {
         return this::getPrivateProp('limit');
+    }
+
+    get containerElement() {
+        return this.targets.container;
     }
 
     get contentElement() {

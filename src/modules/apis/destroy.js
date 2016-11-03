@@ -4,7 +4,7 @@ import {
 
 import {
     ScbList,
-} from '../../contants/';
+} from '../core/';
 
 import {
     getPrivateProp,

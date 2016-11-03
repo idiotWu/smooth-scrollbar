@@ -102,7 +102,7 @@ export function handleKeyboardEvents() {
             container.blur();
 
             if (parents.length) {
-                parents[0].focus();
+                parents[0].containerElement.focus();
             }
 
             return this::callPrivateMethod('updateDebounce');

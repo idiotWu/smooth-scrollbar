@@ -32,7 +32,7 @@ import {
  * @private
  */
 export function initPrivates() {
-    const scrollbar = this;
+    const scb = this;
 
     Object.defineProperties(this, {
         [PRIVATE_PROPS]: {
@@ -49,12 +49,12 @@ export function initPrivates() {
             const {
                 options,
                 size,
-            } = scrollbar::getPrivateProp();
+            } = scb::getPrivateProp();
 
             switch (options.overscrollEffect) {
                 case OVERSCROLL_GLOW:
                     const diagonal = Math.floor(Math.sqrt(size.container.width ** 2 + size.container.height ** 2));
-                    const touchFactor = scrollbar::isMovementLocked() ? 2 : 10;
+                    const touchFactor = scb::isMovementLocked() ? 2 : 10;
 
                     return GLOBAL_ENV.TOUCH_SUPPORTED
                         ? pickInRange(diagonal / touchFactor, 100, 1000)
