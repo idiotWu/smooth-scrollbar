@@ -2,7 +2,7 @@
 const ip = require('ip');
 const webpack = require('webpack');
 const Server = require('webpack-dev-server');
-const config = require('./webpack.config.dev');
+const config = require('./webpack/develop');
 
 new Server(webpack(config), {
     contentBase: './test/',

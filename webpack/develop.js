@@ -5,8 +5,8 @@ const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const eslintFriendlyFormatter = require('eslint-friendly-formatter');
 
-const version = require('./package.json').version;
-const join = path.join.bind(path, __dirname);
+const version = require('../package.json').version;
+const join = path.join.bind(path, __dirname, '..');
 
 const sources = ['src', 'test'].map(dir => join(dir));
 
@@ -14,10 +14,10 @@ module.exports = {
     devtool: 'eval-cheap-module-source-map',
     entry: [
         `webpack-dev-server/client?http://${ip.address()}:3000`,
-        './test/scripts/index.js',
+        join('test/scripts/index.js'),
     ],
     output: {
-        path: join('build'),
+        path: join('build/'),
         filename: 'app.js',
         publicPath: '/build/',
     },

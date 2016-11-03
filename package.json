@@ -13,13 +13,13 @@
     "compile": "babel ./src --out-dir ./lib",
     "postcompile": "node ./strip-style-import.js",
     "predist": "npm run clean:dist",
-    "dist": "webpack --config ./webpack.config.prod.js --display-error-details --color",
+    "dist": "webpack --config ./webpack/production.js --display-error-details --color",
     "postdist": "npm run compile",
     "preghpages": "npm run clean:build",
-    "ghpages": "webpack --config ./webpack.config.ghpages.js --display-error-details --color",
+    "ghpages": "webpack --config ./webpack/ghpages.js --display-error-details --color",
     "start": "node serve.js",
     "pretest": "npm run lint",
-    "test": "webpack --config ./webpack.config.test.js --display-error-details --color"
+    "test": "webpack --config ./webpack/test.js --display-error-details --color"
   },
   "repository": {
     "type": "git",

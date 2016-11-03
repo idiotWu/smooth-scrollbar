@@ -4,17 +4,17 @@ const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const eslintFriendlyFormatter = require('eslint-friendly-formatter');
 
-const version = require('./package.json').version;
-const join = path.join.bind(path, __dirname);
+const version = require('../package.json').version;
+const join = path.join.bind(path, __dirname, '..');
 
-const source = join('./src/');
+const source = join('src/');
 
 module.exports = {
     entry: [
-        './src/index.js',
+        join('src/index.js'),
     ],
     output: {
-        path: join('dist'),
+        path: join('dist/'),
         filename: 'smooth-scrollbar.js',
         library: 'Scrollbar',
         libraryTarget: 'umd',
