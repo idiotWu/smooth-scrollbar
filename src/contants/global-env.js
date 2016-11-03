@@ -1,26 +1,6 @@
+import { memoize } from '../helpers/';
+
 // global environment
-
-const memoize = (source) => {
-    const res = {};
-    const cache = {};
-
-    Object.keys(source).forEach((prop) => {
-        Object.defineProperty(res, prop, {
-            get() {
-                if (!cache.hasOwnProperty(prop)) {
-                    const getter = source[prop];
-
-                    cache[prop] = getter();
-                }
-
-                return cache[prop];
-            },
-        });
-    });
-
-    return res;
-};
-
 const getters = {
     MutationObserver() {
         return window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;

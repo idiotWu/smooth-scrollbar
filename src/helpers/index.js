@@ -6,6 +6,7 @@ export * from './get-pointer-data';
 export * from './get-pointer-position';
 export * from './get-touch-id';
 export * from './is-one-of';
+export * from './memoize';
 export * from './pick-in-range';
 export * from './set-style';
 export * from './touch-record';
