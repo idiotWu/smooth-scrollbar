@@ -1,4 +1,8 @@
 import {
+    GLOBAL_ENV,
+} from '../../contants/';
+
+import {
     findChild,
     setStyle,
 } from '../../helpers/';
@@ -6,6 +10,10 @@ import {
 import {
     setPrivateProp,
 } from '../utils/';
+
+import {
+    update,
+} from '../apis/';
 
 /**
  * Initialize targets map
@@ -34,19 +42,34 @@ export function initTargets(container) {
         'pointer-events': 'none',
     });
 
-    this::setPrivateProp('targets', Object.freeze({
+    this::setPrivateProp('targets', {
         container, content,
         canvas: {
             elem: canvas,
             context: canvas.getContext('2d'),
         },
-        xAxis: Object.freeze({
+        xAxis: {
             track: trackX,
             thumb: findChild(trackX, 'scrollbar-thumb-x'),
-        }),
-        yAxis: Object.freeze({
+        },
+        yAxis: {
             track: trackY,
             thumb: findChild(trackY, 'scrollbar-thumb-y'),
-        }),
-    }));
+        },
+    });
+
+    // observe
+    if (typeof GLOBAL_ENV.MutationObserver !== 'function') {
+        return;
+    }
+
+    const observer = new GLOBAL_ENV.MutationObserver(() => {
+        this::update(true);
+    });
+
+    observer.observe(content, {
+        childList: true,
+    });
+
+    this::setPrivateProp('observer', observer);
 };

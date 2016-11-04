@@ -4,7 +4,7 @@ import {
 
 import {
     ScbList,
-    initScrollbar,
+    init,
 } from './modules/core/';
 
 import {
@@ -42,7 +42,7 @@ export default class SmoothScrollbar {
      * @param {object} [options] - options
      */
     constructor(container, options) {
-        this::initScrollbar(container, options);
+        this::init(container, options);
 
         // storage
         ScbList.set(container, this);
