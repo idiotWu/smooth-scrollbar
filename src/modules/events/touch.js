@@ -37,7 +37,6 @@ let activeScrollbar = null;
 export function handleTouchEvents() {
     const {
         targets,
-        movementLocked,
         touchRecord,
     } = this::getPrivateProp();
 
@@ -127,11 +126,10 @@ export function handleTouchEvents() {
         const movement = {};
 
         Object.keys(velocity).forEach(dir => {
-            const value = velocity[dir];
-            const resized = movementLocked[dir] ? 0 : pickInRange(value * GLOBAL_ENV.EASING_MULTIPLIER, -1e3, 1e3);
+            const value = pickInRange(velocity[dir] * GLOBAL_ENV.EASING_MULTIPLIER, -1e3, 1e3);
 
             // throw small values
-            movement[dir] = Math.abs(resized) > MIN_VELOCITY ? (resized * speed) : 0;
+            movement[dir] = Math.abs(value) > MIN_VELOCITY ? (value * speed) : 0;
         });
 
         this::addMovement(
