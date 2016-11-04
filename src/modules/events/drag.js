@@ -9,13 +9,10 @@ import {
 
 import {
     addEvent,
+    isFromNested,
     updateBounding,
     getPointerOffset,
 } from '../dom/';
-
-import {
-    isFromNested,
-} from '../core/';
 
 import {
     setMovement,
@@ -67,7 +64,7 @@ export function handleDragEvents() {
     });
 
     this::addEvent(document, 'dragover mousemove touchmove', (evt) => {
-        if (!isDraging || this::isFromNested(evt)) return;
+        if (!isDraging) return;
         cancelAnimationFrame(animation);
         evt.preventDefault();
 

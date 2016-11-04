@@ -13,10 +13,6 @@ import {
 } from '../dom/';
 
 import {
-    isFromNested,
-} from '../core/';
-
-import {
     setMovement,
 } from '../render/';
 
@@ -65,10 +61,6 @@ export function handleSelectEvents() {
     });
 
     this::addEvent(content, 'selectstart', (evt) => {
-        if (this::isFromNested(evt)) {
-            return setSelect('none');
-        }
-
         cancelAnimationFrame(animation);
 
         this::updateBounding();

@@ -19,6 +19,7 @@ import {
 import { initPrivates } from './init-privates';
 import { initOptions } from './init-options';
 import { initTargets } from './init-targets';
+import { observe } from './observe';
 
 /**
  * Initialize scrollbar
@@ -43,4 +44,7 @@ export function initScrollbar(container, options = {}) {
     this::handleDragEvents();
 
     this::render();
+
+    // start mutation observe
+    this::observe();
 };
