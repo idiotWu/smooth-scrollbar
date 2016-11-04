@@ -8,12 +8,7 @@ import {
 } from '../dom/';
 
 import {
-    willOverscroll,
-} from '../overscroll/';
-
-import {
     addMovement,
-    unlockMovement,
     shouldPropagateMovement,
 } from '../render/';
 
@@ -89,7 +84,6 @@ export function handleKeyboardEvents() {
         const {
             options,
             parents,
-            movementLocked,
         } = this::getPrivateProp();
 
         const delta = getKeyDelta(evt.keyCode || evt.which);
@@ -110,15 +104,7 @@ export function handleKeyboardEvents() {
 
         evt.preventDefault();
 
-        this::unlockMovement(); // handle for multi keypress
-        if (x && this::willOverscroll('x', x)) movementLocked.x = true;
-        if (y && this::willOverscroll('y', y)) movementLocked.y = true;
-
         const { speed } = options;
         this::addMovement(x * speed, y * speed);
-    });
-
-    this::addEvent(container, 'keyup', () => {
-        this::unlockMovement();
     });
 };
