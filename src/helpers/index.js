@@ -1,3 +1,4 @@
+export * from './api-mixin';
 export * from './build-curve';
 export * from './debounce';
 export * from './find-child';

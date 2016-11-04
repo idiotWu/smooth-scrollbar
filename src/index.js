@@ -3,6 +3,10 @@ import {
 } from './contants/';
 
 import {
+    apiMixin,
+} from './helpers/';
+
+import {
     ScbList,
     init,
 } from './modules/core/';
@@ -11,29 +15,11 @@ import {
     getPrivateProp,
 } from './modules/utils/';
 
-import {
-    clearMovement,
-    stop,
-    destroy,
-    getContentElem,
-    getSize,
-    infiniteScroll,
-    isVisible,
-    addListener,
-    removeListener,
-    registerEvents,
-    unregisterEvents,
-    scrollIntoView,
-    scrollTo,
-    setOptions,
-    setPosition,
-    showTrack,
-    hideTrack,
-    update,
-} from './modules/apis/';
+import * as APIs from './modules/apis/';
 
 import './style/smooth-scrollbar.styl';
 
+@apiMixin(APIs)
 export default class SmoothScrollbar {
     /**
      * Create scrollbar instance
@@ -183,78 +169,4 @@ export default class SmoothScrollbar {
             scb.destroy(isRemoval);
         });
     };
-
-    // eslint-disable-next-line spaced-comment
-    /******************* APIs *******************/
-    clearMovement() {
-        return this::clearMovement();
-    }
-
-    stop() {
-        return this::stop();
-    }
-
-    destroy(isRemoval) {
-        return this::destroy(isRemoval);
-    }
-
-    getContentElem() {
-        return this::getContentElem();
-    }
-
-    getSize() {
-        return this::getSize();
-    }
-
-    infiniteScroll(cb, threshold) {
-        return this::infiniteScroll(cb, threshold);
-    }
-
-    isVisible(elem) {
-        return this::isVisible(elem);
-    }
-
-    addListener(cb) {
-        return this::addListener(cb);
-    }
-
-    removeListener(cb) {
-        return this::removeListener(cb);
-    }
-
-    registerEvents(...rules) {
-        return this::registerEvents(...rules);
-    }
-
-    unregisterEvents(...rules) {
-        return this::unregisterEvents(...rules);
-    }
-
-    scrollIntoView(elem, options) {
-        return this::scrollIntoView(elem, options);
-    }
-
-    scrollTo(x, y, duration, cb) {
-        return this::scrollTo(x, y, duration, cb);
-    }
-
-    setOptions(opts) {
-        return this::setOptions(opts);
-    }
-
-    setPosition(x, y, withoutCallbacks) {
-        return this::setPosition(x, y, withoutCallbacks);
-    }
-
-    showTrack(direction) {
-        return this::showTrack(direction);
-    }
-
-    hideTrack(direction) {
-        return this::hideTrack(direction);
-    }
-
-    update(inAsync) {
-        return this::update(inAsync);
-    }
 }
