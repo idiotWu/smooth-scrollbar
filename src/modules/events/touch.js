@@ -3,6 +3,10 @@ import {
 } from '../../contants/';
 
 import {
+    pickInRange,
+} from '../../helpers/';
+
+import {
     getPrivateProp,
     callPrivateMethod,
 } from '../utils/';
@@ -119,14 +123,20 @@ export function handleTouchEvents() {
             speed,
         } = this::getPrivateProp('options');
 
-        let { x, y } = touchRecord.getVelocity();
+        const velocity = touchRecord.getVelocity();
+        const movement = {};
 
-        x = movementLocked.x ? 0 : Math.min(x * GLOBAL_ENV.EASING_MULTIPLIER, 1000);
-        y = movementLocked.y ? 0 : Math.min(y * GLOBAL_ENV.EASING_MULTIPLIER, 1000);
+        Object.keys(velocity).forEach(dir => {
+            const value = velocity[dir];
+            const resized = movementLocked[dir] ? 0 : pickInRange(value * GLOBAL_ENV.EASING_MULTIPLIER, -1e3, 1e3);
+
+            // throw small values
+            movement[dir] = Math.abs(resized) > MIN_VELOCITY ? (resized * speed) : 0;
+        });
 
         this::addMovement(
-            Math.abs(x) > MIN_VELOCITY ? (x * speed) : 0,
-            Math.abs(y) > MIN_VELOCITY ? (y * speed) : 0,
+            movement.x,
+            movement.y,
             true
         );
 
