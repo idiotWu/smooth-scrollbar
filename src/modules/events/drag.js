@@ -9,7 +9,6 @@ import {
 
 import {
     addEvent,
-    isFromNested,
     updateBounding,
     getPointerOffset,
 } from '../dom/';
@@ -50,8 +49,6 @@ export function handleDragEvents() {
     };
 
     this::addEvent(container, 'dragstart', (evt) => {
-        if (this::isFromNested(evt)) return;
-
         isDraging = true;
         padding = evt.target.clientHeight;
 
