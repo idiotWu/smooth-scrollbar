@@ -7,7 +7,6 @@ import {
 } from '../utils/';
 
 import {
-    updateBounding,
     getPointerOffset,
 } from '../metrics/';
 
@@ -63,8 +62,6 @@ export function handleSelectEvents() {
 
     this::addEvent(content, 'selectstart', (evt) => {
         cancelAnimationFrame(animation);
-
-        this::updateBounding();
         isSelected = true;
     });
 

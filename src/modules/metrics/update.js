@@ -13,7 +13,6 @@ import {
 } from '../render/';
 
 import { getSize } from './get-size';
-import { updateBounding } from './update-bounding';
 
 /**
  * Update scrollbars appearance
@@ -94,6 +93,31 @@ function updateTrack() {
         'height': `${thumbSize.y}px`,
     });
 }
+
+function updateBounding() {
+    const {
+        container,
+    } = this::getPrivateProp('targets');
+
+    const {
+        top,
+        right,
+        bottom,
+        left,
+    } = container.getBoundingClientRect();
+
+    const {
+        innerHeight,
+        innerWidth,
+    } = window;
+
+    this::setPrivateProp('bounding', {
+        top: Math.max(top, 0),
+        right: Math.min(right, innerWidth),
+        bottom: Math.min(bottom, innerHeight),
+        left: Math.max(left, 0),
+    });
+};
 
 /**
  * Re-calculate sizes:

@@ -8,7 +8,6 @@ import {
 } from '../utils/';
 
 import {
-    updateBounding,
     getPointerOffset,
 } from '../metrics/';
 
@@ -58,7 +57,6 @@ export function handleDragEvents() {
         });
 
         cancelAnimationFrame(animation);
-        this::updateBounding();
     });
 
     this::addEvent(document, 'dragover mousemove touchmove', (evt) => {
