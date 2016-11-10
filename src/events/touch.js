@@ -5,6 +5,7 @@
 
 import { SmoothScrollbar } from '../smooth-scrollbar';
 import { GLOBAL_ENV } from '../shared/';
+import { pickInRange } from '../utils/';
 
 const MIN_VELOCITY = 100;
 
@@ -18,7 +19,6 @@ let activeScrollbar = null;
 function __touchHandler() {
     const {
         targets,
-        movementLocked,
         __touchRecord,
     } = this;
 
@@ -95,14 +95,19 @@ function __touchHandler() {
 
         const { speed } = this.options;
 
-        let { x, y } = __touchRecord.getVelocity();
+        const velocity = __touchRecord.getVelocity();
+        const movement = {};
 
-        x = movementLocked.x ? 0 : Math.min(x * GLOBAL_ENV.EASING_MULTIPLIER, 1000);
-        y = movementLocked.y ? 0 : Math.min(y * GLOBAL_ENV.EASING_MULTIPLIER, 1000);
+        Object.keys(velocity).forEach(dir => {
+            const value = pickInRange(velocity[dir] * GLOBAL_ENV.EASING_MULTIPLIER, -1e3, 1e3);
+
+            // throw small values
+            movement[dir] = Math.abs(value) > MIN_VELOCITY ? (value * speed) : 0;
+        });
 
         this.__addMovement(
-            Math.abs(x) > MIN_VELOCITY ? (x * speed) : 0,
-            Math.abs(y) > MIN_VELOCITY ? (y * speed) : 0,
+            movement.x,
+            movement.y,
             true
         );
 
