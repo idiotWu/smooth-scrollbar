@@ -11,7 +11,7 @@ const join = path.join.bind(path, __dirname, '..');
 const sources = ['src', 'test'].map(dir => join(dir));
 
 module.exports = {
-    devtool: 'eval-cheap-module-source-map',
+    devtool: 'source-map',
     entry: [
         `webpack-dev-server/client?http://${ip.address()}:3000`,
         join('test/scripts/index.js'),
