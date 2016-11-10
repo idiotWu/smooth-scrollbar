@@ -4,13 +4,11 @@ import {
 } from '../utils/';
 
 import {
-    addEvent,
-} from '../dom/';
-
-import {
     addMovement,
     shouldPropagateMovement,
-} from '../render/';
+} from '../movement/';
+
+import { addEvent } from './add-event';
 
 const KEY_CODE = {
     SPACE: 32,

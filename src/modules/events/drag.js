@@ -8,14 +8,15 @@ import {
 } from '../utils/';
 
 import {
-    addEvent,
     updateBounding,
     getPointerOffset,
-} from '../dom/';
+} from '../metrics/';
 
 import {
     setMovement,
-} from '../render/';
+} from '../movement/';
+
+import { addEvent } from './add-event';
 
 /**
  * Drag events handler

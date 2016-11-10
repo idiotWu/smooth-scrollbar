@@ -4,7 +4,7 @@ import {
 
 import {
     setMovement,
-} from '../render/';
+} from '../movement/';
 
 import { isVisible } from './is-visible';
 

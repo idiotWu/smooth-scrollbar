@@ -2,7 +2,7 @@ import * as EventHandlers from '../events/';
 
 import {
     update,
-} from '../apis/';
+} from '../metrics/';
 
 import {
     render,

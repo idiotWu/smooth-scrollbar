@@ -20,12 +20,15 @@ import {
 
 import {
     isMovementLocked,
-} from '../render/';
+} from '../overscroll/';
 
 import {
     update,
+} from '../metrics/';
+
+import {
     hideTrack,
-} from '../apis/';
+} from '../render/';
 
 /**
  * Initialize private props&methods

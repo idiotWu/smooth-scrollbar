@@ -7,8 +7,8 @@ import {
 } from './helpers/';
 
 import {
-    ScbList,
     init,
+    ScbList,
 } from './modules/core/';
 
 import {
@@ -77,7 +77,7 @@ export default class SmoothScrollbar {
      */
     static init(elem, options) {
         if (!elem || elem.nodeType !== 1) {
-            throw new TypeError(`expect element to be DOM Element, but got ${typeof elem}`);
+            throw new TypeError(`[Scrollbar@init]: expect element to be a DOM Element, but got ${typeof elem}`);
         }
 
         if (ScbList.has(elem)) return ScbList.get(elem);
@@ -115,8 +115,8 @@ export default class SmoothScrollbar {
      * @return {SmoothScrollbar[]} - a collection of scrollbar instances
      */
     static initAll(options) {
-        return [...document.querySelectorAll(SELECTOR)].map((el) => {
-            return SmoothScrollbar.init(el, options);
+        return [...document.querySelectorAll(SELECTOR)].map((elem) => {
+            return SmoothScrollbar.init(elem, options);
         });
     };
 

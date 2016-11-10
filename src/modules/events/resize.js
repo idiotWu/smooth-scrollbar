@@ -1,10 +1,8 @@
 import {
-    addEvent,
-} from '../dom/';
-
-import {
     getPrivateMethod,
 } from '../utils/';
+
+import { addEvent } from './add-event';
 
 /**
  * Resize events handlers

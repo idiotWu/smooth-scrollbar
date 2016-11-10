@@ -13,17 +13,15 @@ import {
 } from '../utils/';
 
 import {
-    addEvent,
-} from '../dom/';
-
-import {
     willOverscroll,
 } from '../overscroll/';
 
 import {
     addMovement,
     shouldPropagateMovement,
-} from '../render/';
+} from '../movement/';
+
+import { addEvent } from './add-event';
 
 /**
  * Wheel events handler

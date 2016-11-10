@@ -1,4 +1,4 @@
-export * from './add-event';
 export * from './get-pointer-offset';
+export * from './get-size';
 export * from './update-bounding';
-export * from './update-thumb-position';
+export * from './update';

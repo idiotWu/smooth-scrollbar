@@ -5,6 +5,7 @@ import {
 /**
  * Add scrolling listener
  * @public
+ * @api
  * @param {function} cb - Scroll listener
  */
 export function addListener(cb) {
@@ -16,6 +17,7 @@ export function addListener(cb) {
 /**
  * Remove specific listener from all
  * @public
+ * @api
  * @param {function} cb - Scroll listener
  */
 export function removeListener(cb) {

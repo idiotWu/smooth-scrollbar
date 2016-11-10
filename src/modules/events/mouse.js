@@ -8,16 +8,14 @@ import {
 } from '../utils/';
 
 import {
-    addEvent,
-} from '../dom/';
-
-import {
     setMovement,
-} from '../render/';
+} from '../movement/';
 
 import {
     setPosition,
-} from '../apis/';
+} from '../render/';
+
+import { addEvent } from './add-event';
 
 /**
  * Mouse events handlers

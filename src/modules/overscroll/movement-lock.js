@@ -2,9 +2,7 @@ import {
     getPrivateProp,
 } from '../utils/';
 
-import {
-    willOverscroll,
-} from '../overscroll/';
+import { willOverscroll } from './will-overscroll';
 
 const DIRECTIONS = ['x', 'y'];
 

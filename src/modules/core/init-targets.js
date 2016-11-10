@@ -13,7 +13,7 @@ import {
 
 import {
     update,
-} from '../apis/';
+} from '../metrics/';
 
 /**
  * Initialize targets map

@@ -10,8 +10,9 @@ import {
 import {
     hideTrack,
     showTrack,
-    setOptions,
-} from '../apis/';
+} from '../render/';
+
+import { setOptions } from './set-options';
 
 /**
  * Initialize scrollbar options

@@ -12,6 +12,12 @@ const METHODS = {
     [ACTIONS.UNREGIESTER]: 'removeEventListener',
 };
 
+/**
+ * (un)Register DOM events
+ * @public
+ * @api
+ * @param  {...string|regex} rules - A list of pattern of event names
+ */
 export const registerEvents = manageEvents(ACTIONS.REGIESTER);
 export const unregisterEvents = manageEvents(ACTIONS.UNREGIESTER);
 
@@ -22,10 +28,6 @@ function matchSomeRules(str, rules) {
 function manageEvents(action = ACTIONS.REGIESTER) {
     const method = METHODS[action];
 
-    /**
-     * (un)Register DOM events
-     * @param  {...string|regex} rules - A list of pattern of event names
-     */
     return function manager(...rules) {
         this::getPrivateProp('eventHandlers').forEach((handler) => {
             const {

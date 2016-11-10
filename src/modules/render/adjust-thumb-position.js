@@ -8,8 +8,9 @@ import {
 
 /**
  * Update thumb position
+ * @private
  */
-export function updateThumbPosition() {
+export function adjustThumbPosition() {
     const {
         targets,
         size,

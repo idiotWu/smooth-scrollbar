@@ -1,12 +1,9 @@
+export * from '../add-ons/';
+
 export * from './clear-movement';
 export * from './destroy';
-export * from './get-content-elem';
 export * from './get-size';
-export * from './infinite-scroll';
-export * from './is-visible';
-export * from './listener';
-export * from './manage-events';
-export * from './scroll-into-view';
+export * from './scroll-listeners';
 export * from './scroll-to';
 export * from './set-options';
 export * from './set-position';

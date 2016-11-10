@@ -9,14 +9,11 @@ import {
 } from '../../contants/';
 
 import {
-    isMovementLocked,
-} from '../render/';
-
-import {
     getPrivateProp,
     setPrivateProp,
 } from '../utils/';
 
+import { isMovementLocked } from './movement-lock';
 import { overscrollBounce } from './bounce';
 import { overscrollGlow } from './glow';
 

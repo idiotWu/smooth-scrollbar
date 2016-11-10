@@ -12,19 +12,17 @@ import {
 } from '../utils/';
 
 import {
-    addEvent,
-} from '../dom/';
+    addMovement,
+    shouldPropagateMovement,
+} from '../movement/';
 
 import {
     willOverscroll,
-} from '../overscroll/';
-
-import {
-    addMovement,
     unlockMovement,
     autoLockMovement,
-    shouldPropagateMovement,
-} from '../render/';
+} from '../overscroll/';
+
+import { addEvent } from './add-event';
 
 const MIN_VELOCITY = 100;
 

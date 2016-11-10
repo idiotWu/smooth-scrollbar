@@ -11,7 +11,7 @@ import {
  */
 export function addEvent(elem, events, handler) {
     if (!elem || typeof elem.addEventListener !== 'function') {
-        throw new TypeError(`expect elem to be a DOM element, but got ${elem}`);
+        throw new TypeError(`[Scrollbar@addEvent]: expect element to be a DOM element, but got ${typeof elem}`);
     }
 
     const handlerStore = this::getPrivateProp('eventHandlers');
