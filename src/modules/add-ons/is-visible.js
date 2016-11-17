@@ -9,16 +9,16 @@ import {
  */
 export function isVisible(elem) {
     const {
-        bounding,
+        bounding: a,
     } = this::getPrivateProp();
 
-    const targetBounding = elem.getBoundingClientRect();
+    const b = elem.getBoundingClientRect();
 
-    // check overlapping
-    const top = Math.max(bounding.top, targetBounding.top);
-    const left = Math.max(bounding.left, targetBounding.left);
-    const right = Math.min(bounding.right, targetBounding.right);
-    const bottom = Math.min(bounding.bottom, targetBounding.bottom);
+    if (a.left >= b.right || a.right <= b.left ||
+        a.top >= b.bottom || a.bottom <= b.top
+    ) {
+        return false;
+    }
 
-    return top < bottom && left < right;
+    return true;
 };
