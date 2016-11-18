@@ -66,7 +66,7 @@ export function handleTouchEvents() {
 
         touchRecord.update(evt);
 
-        let { x, y } = touchRecord.getDelta();
+        let { x, y } = touchRecord.getCurrentDelta();
 
         if (this::shouldPropagateMovement(x, y)) {
             return this::callPrivateMethod('updateDebounce');
@@ -116,11 +116,18 @@ export function handleTouchEvents() {
     this::addEvent(container, 'touchcancel touchend', (evt) => {
         if (this::getPrivateProp('isDraging')) return;
 
+        touchRecord.release(evt);
+
+        if (touchRecord.isActive()) {
+            // still active
+            return;
+        }
+
         const {
             speed,
         } = this::getPrivateProp('options');
 
-        const velocity = touchRecord.getVelocity();
+        const velocity = touchRecord.getLastVelocity();
         const movement = {};
 
         Object.keys(velocity).forEach(dir => {
@@ -137,7 +144,7 @@ export function handleTouchEvents() {
         );
 
         this::unlockMovement();
-        touchRecord.release(evt);
+
         activeScrollbar = null;
     });
 };

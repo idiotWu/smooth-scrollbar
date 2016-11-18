@@ -1,11 +1,19 @@
 import { getPointerPosition } from './get-pointer-position';
 
 class Tracker {
-    constructor(touch) {
+    constructor(touch, prevTracker) {
+        this.next = null;
+        this.prev = null;
+
         this.updateTime = Date.now();
         this.delta = { x: 0, y: 0 };
         this.velocity = { x: 0, y: 0 };
         this.lastPosition = getPointerPosition(touch);
+
+        if (prevTracker) {
+            this.setPrev(prevTracker);
+            prevTracker.setNext(this);
+        }
     }
 
     update(touch) {
@@ -33,137 +41,146 @@ class Tracker {
         this.updateTime = now;
         this.lastPosition = position;
     }
+
+    setNext(tracker) {
+        this.next = tracker;
+    }
+
+    setPrev(tracker) {
+        this.prev = tracker;
+    }
 }
 
 export class TouchRecord {
     constructor() {
         this.touchList = {};
         this.lastTouch = null;
-        this.activeTouchID = undefined;
+        this.activeTouch = null;
     }
 
-    get primitiveValue() {
+    get _primitiveValue() {
         return { x: 0, y: 0 };
     }
 
-    add(touch) {
-        if (this.has(touch)) return null;
+    _getTracker(touch) {
+        return this.touchList[touch.identifier];
+    }
 
-        const tracker = new Tracker(touch);
+    _add(touch) {
+        const tracker = new Tracker(touch, this.activeTouch);
+
+        this.lastTouch = this.activeTouch;
+        this.activeTouch = tracker;
 
         this.touchList[touch.identifier] = tracker;
-
-        return tracker;
     }
 
-    renew(touch) {
-        if (!this.has(touch)) return null;
+    _remove(touch) {
+        const tracker = this._getTracker(touch);
 
-        const tracker = this.touchList[touch.identifier];
+        if (!tracker) {
+            return;
+        }
+
+        if (tracker === this.activeTouch) {
+            this.activeTouch = tracker.prev;
+        }
+
+        if (tracker.next) {
+            tracker.next.setPrev(tracker.prev);
+        }
+
+        if (tracker.prev) {
+            tracker.prev.setNext(tracker.next);
+        }
+
+        this.lastTouch = tracker;
+        delete this.touchList[touch.identifier];
+    }
+
+    _renew(touch) {
+        const tracker = this._getTracker(touch);
+
+        if (!tracker) {
+            return;
+        }
 
         tracker.update(touch);
-
-        return tracker;
-    }
-
-    delete(touch) {
-        return delete this.touchList[touch.identifier];
-    }
-
-    has(touch) {
-        return this.touchList.hasOwnProperty(touch.identifier);
-    }
-
-    setActiveID(touches) {
-        this.activeTouchID = touches[touches.length - 1].identifier;
-        this.lastTouch = this.touchList[this.activeTouchID];
-    }
-
-    getActiveTracker() {
-        const {
-            touchList,
-            activeTouchID,
-        } = this;
-
-        return touchList[activeTouchID];
     }
 
     isActive() {
-        return this.activeTouchID !== undefined;
-    }
-
-    getDelta() {
-        const tracker = this.getActiveTracker();
-
-        if (!tracker) {
-            return this.primitiveValue;
-        }
-
-        return { ...tracker.delta };
-    }
-
-    getVelocity() {
-        const tracker = this.getActiveTracker();
-
-        if (!tracker) {
-            return this.primitiveValue;
-        }
-
-        return { ...tracker.velocity };
-    }
-
-    getLastPosition(coord = '') {
-        const tracker = this.getActiveTracker() || this.lastTouch;
-
-        const position = tracker ? tracker.lastPosition : this.primitiveValue;
-
-        if (!coord) return { ...position };
-
-        if (!position.hasOwnProperty(coord)) return 0;
-
-        return position[coord];
-    }
-
-    updatedRecently() {
-        const tracker = this.getActiveTracker();
-
-        return tracker && Date.now() - tracker.updateTime < 30;
+        return this.activeTouch !== null;
     }
 
     track(evt) {
         const {
-            targetTouches,
+            changedTouches,
         } = evt;
 
-        [...targetTouches].forEach(touch => {
-            this.add(touch);
-        });
-
-        return this.touchList;
+        [...changedTouches].forEach(::this._add);
     }
 
     update(evt) {
         const {
             touches,
-            changedTouches,
         } = evt;
 
-        [...touches].forEach(touch => {
-            this.renew(touch);
-        });
-
-        this.setActiveID(changedTouches);
-
-        return this.touchList;
+        [...touches].forEach(::this._renew);
     }
 
     release(evt) {
-        this.activeTouchID = undefined;
+        const {
+            changedTouches,
+        } = evt;
 
-        [...evt.changedTouches].forEach(touch => {
-            this.delete(touch);
-        });
+        [...changedTouches].forEach(::this._remove);
+    }
 
-        return this.touchList;
+    updatedRecently() {
+        const tracker = this.activeTouch;
+
+        return tracker && Date.now() - tracker.updateTime < 30;
+    }
+
+    _getPosition(tracker, coord = '') {
+        const position = tracker ? tracker.lastPosition : this._primitiveValue;
+
+        if (!coord) return { ...position };
+
+        return position[coord] || 0;
+    }
+    getCurrentPosition(coord = '') {
+        return this._getPosition(this.activeTouch, coord);
+    }
+    getLastPosition(coord = '') {
+        return this._getPosition(this.lastTouch, coord);
+    }
+
+    _getVelocity(tracker) {
+        if (!tracker) {
+            return this._primitiveValue;
+        }
+
+        return { ...tracker.velocity };
+    }
+    getCurrentVelocity() {
+        return this._getVelocity(this.activeTouch);
+    }
+    getLastVelocity() {
+        return this._getVelocity(this.lastTouch);
+    }
+
+    _getDelta(tracker) {
+        if (!tracker) {
+            return this._primitiveValue;
+        }
+
+        return { ...tracker.delta };
+    }
+    getCurrentDelta() {
+        return this._getDelta(this.activeTouch);
+    }
+    getLastDelta() {
+        return this._getDelta(this.lastTouch);
     }
 }
