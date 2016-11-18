@@ -122,10 +122,10 @@ export class TouchRecord {
 
     update(evt) {
         const {
-            touches,
+            changedTouches,
         } = evt;
 
-        [...touches].forEach(::this._renew);
+        [...changedTouches].forEach(::this._renew);
     }
 
     release(evt) {
