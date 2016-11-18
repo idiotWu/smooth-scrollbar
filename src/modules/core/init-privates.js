@@ -59,9 +59,9 @@ export function initPrivates() {
                     const diagonal = Math.floor(Math.sqrt(size.container.width ** 2 + size.container.height ** 2));
                     const touchFactor = scb::isMovementLocked() ? 2 : 10;
 
-                    return GLOBAL_ENV.TOUCH_SUPPORTED
-                        ? pickInRange(diagonal / touchFactor, 100, 1000)
-                        : pickInRange(diagonal / 10, 25, 50);
+                    return GLOBAL_ENV.TOUCH_SUPPORTED ?
+                        pickInRange(diagonal / touchFactor, 100, 1000) :
+                        pickInRange(diagonal / 10, 25, 50);
 
                 case OVERSCROLL_GLOW:
                     return 150;
