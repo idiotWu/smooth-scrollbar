@@ -13,7 +13,8 @@
     "indent": [2, 4, {"SwitchCase": 1}],
     "semi": [2, "always"],
     "comma-dangle": [2, "always-multiline"],
-    "space-before-function-paren": [2, { "anonymous": "always", "named": "never" }]
+    "space-before-function-paren": [2, { "anonymous": "always", "named": "never" }],
+    "operator-linebreak": ["error", "after"]
   },
   "globals": {
     "Prism": true,
