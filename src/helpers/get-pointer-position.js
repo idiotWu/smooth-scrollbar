@@ -1,15 +1,11 @@
-import { getPointerData } from './get-pointer-data';
-
 /**
  * Get pointer/finger position
- * @param {object} evt - Event object
+ * @param {object} pointer - event object or touch object
  * @return {object} - {x, y}
  */
-export function getPointerPosition(evt) {
-    const data = getPointerData(evt);
-
+export function getPointerPosition(pointer) {
     return {
-        x: data.clientX,
-        y: data.clientY,
+        x: pointer.clientX,
+        y: pointer.clientY,
     };
 };
