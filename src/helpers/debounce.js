@@ -15,7 +15,7 @@ export function debounce(fn, wait = RESET_WAIT, immediate = true) {
         throw new TypeError(`[smooth-scrollbar]: expect fn to be a function, but got ${typeof fn}`);
     }
 
-    const namespace = {};
+    const namespace = Object.create(null);
     const debounceSymbol = Symbol(`debounce$${fn.name || id++}@${wait}`);
 
     return function wrapped(...args) {
@@ -29,7 +29,7 @@ export function debounce(fn, wait = RESET_WAIT, immediate = true) {
         clearTimeout(ns[debounceSymbol]);
 
         const timerID = setTimeout(() => {
-            ns[debounceSymbol] = undefined;
+            delete ns[debounceSymbol];
             fn.apply(this, args);
         }, wait);
 
