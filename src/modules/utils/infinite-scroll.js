@@ -1,6 +1,4 @@
-import {
-    addListener,
-} from '../render/';
+import { addListener } from './scroll-listeners';
 
 /**
  * Create infinite scroll listener

@@ -14,7 +14,7 @@ import {
     setMovement,
 } from '../movement/';
 
-import { addEvent } from './add-event';
+import { addEvent } from '../utils/';
 
 /**
  * Select events handler

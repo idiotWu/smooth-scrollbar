@@ -15,7 +15,7 @@ import {
     setPosition,
 } from '../render/';
 
-import { addEvent } from './add-event';
+import { addEvent } from '../utils/';
 
 /**
  * Mouse events handlers

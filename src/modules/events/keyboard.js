@@ -11,7 +11,7 @@ import {
     shouldPropagateMovement,
 } from '../movement/';
 
-import { addEvent } from './add-event';
+import { addEvent } from '../utils/';
 
 const KEY_CODE = {
     SPACE: 32,

@@ -25,7 +25,11 @@ import {
  * @param {number} [y] - scrollbar position in y axis
  * @param {boolean} [withoutCallbacks] - disable callback functions temporarily
  */
-export function setPosition(x = this.offset.x, y = this.offset.y, withoutCallbacks = false) {
+export function setPosition(
+    x = this::getPrivateProp('offset').x,
+    y = this::getPrivateProp('offset').y,
+    withoutCallbacks = false,
+) {
     this::hideTrackDebounced();
 
     const {

@@ -2,7 +2,7 @@ import {
     updateDebounced,
 } from '../debounced/';
 
-import { addEvent } from './add-event';
+import { addEvent } from '../utils/';
 
 /**
  * Resize events handlers

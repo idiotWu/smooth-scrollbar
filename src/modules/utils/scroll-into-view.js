@@ -6,7 +6,9 @@ import {
     setMovement,
 } from '../movement/';
 
-import { isVisible } from './is-visible';
+import {
+    isVisible,
+} from '../metrics/';
 
 /**
  * Scroll target element into visible area of scrollbar.

@@ -13,7 +13,7 @@ import {
 
 import {
     getPrivateProp,
-} from './modules/utils/';
+} from './modules/namespace/';
 
 import * as APIs from './modules/apis/';
 

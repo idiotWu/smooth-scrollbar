@@ -25,7 +25,7 @@ import {
     autoLockMovement,
 } from '../overscroll/';
 
-import { addEvent } from './add-event';
+import { addEvent } from '../utils/';
 
 const MIN_VELOCITY = 100;
 
