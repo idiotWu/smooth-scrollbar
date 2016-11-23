@@ -1,1 +1,1 @@
-export * from '../utils/scroll-into-view';
+export { scrollIntoView } from '../utils/scroll-into-view';

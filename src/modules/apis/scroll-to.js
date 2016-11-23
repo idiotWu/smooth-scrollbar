@@ -1,1 +1,1 @@
-export * from '../render/scroll-to';
+export { scrollTo } from '../render/scroll-to';

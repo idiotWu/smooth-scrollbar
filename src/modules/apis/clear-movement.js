@@ -1,1 +1,1 @@
-export * from '../movement/clear-movement';
+export { clearMovement, stop } from '../movement/clear-movement';

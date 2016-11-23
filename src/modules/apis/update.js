@@ -1,1 +1,1 @@
-export * from '../metrics/update';
+export { update } from '../metrics/update';

@@ -1,1 +1,1 @@
-export * from '../utils/manage-events';
+export { registerEvents, unregisterEvents } from '../utils/manage-events';

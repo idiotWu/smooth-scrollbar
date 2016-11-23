@@ -1,1 +1,1 @@
-export * from '../track/toggle-track';
+export { showTrack, hideTrack } from '../track/toggle-track';

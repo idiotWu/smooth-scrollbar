@@ -1,1 +1,1 @@
-export * from '../utils/infinite-scroll';
+export { infiniteScroll } from '../utils/infinite-scroll';

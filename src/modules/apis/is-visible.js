@@ -1,1 +1,1 @@
-export * from '../metrics/is-visible';
+export { isVisible } from '../metrics/is-visible';

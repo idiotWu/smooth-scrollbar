@@ -1,1 +1,1 @@
-export * from '../core/set-options';
+export { setOptions } from '../core/set-options';

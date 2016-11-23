@@ -1,1 +1,1 @@
-export * from '../core/destroy';
+export { destroy } from '../core/destroy';

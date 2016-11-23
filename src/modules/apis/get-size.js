@@ -1,1 +1,1 @@
-export * from '../metrics/get-size';
+export { getSize } from '../metrics/get-size';

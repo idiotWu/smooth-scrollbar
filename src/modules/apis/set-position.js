@@ -1,1 +1,1 @@
-export * from '../render/set-position';
+export { setPosition } from '../render/set-position';

@@ -1,1 +1,1 @@
-export * from '../utils/scroll-listeners';
+export { addListener } from '../utils/scroll-listeners';
