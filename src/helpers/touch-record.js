@@ -1,3 +1,5 @@
+import { toArray } from './to-array';
+
 import { getPointerPosition } from './get-pointer-position';
 
 class Tracker {
@@ -117,7 +119,7 @@ export class TouchRecord {
             changedTouches,
         } = evt;
 
-        [...changedTouches].forEach(::this._add);
+        toArray(changedTouches).forEach(::this._add);
     }
 
     update(evt) {
@@ -125,7 +127,7 @@ export class TouchRecord {
             changedTouches,
         } = evt;
 
-        [...changedTouches].forEach(::this._renew);
+        toArray(changedTouches).forEach(::this._renew);
     }
 
     release(evt) {
@@ -133,7 +135,7 @@ export class TouchRecord {
             changedTouches,
         } = evt;
 
-        [...changedTouches].forEach(::this._remove);
+        toArray(changedTouches).forEach(::this._remove);
     }
 
     updatedRecently() {

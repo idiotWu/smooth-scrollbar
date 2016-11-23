@@ -3,24 +3,82 @@ import {
 } from '../../contants/';
 
 import {
+    toArray,
+} from '../../helpers/';
+
+import {
     getPrivateProp,
     setPrivateProp,
 } from '../namespace/';
 
-class ScrollbarStore extends Map {
-    static get [Symbol.species]() {
-        return Map;
+class ScrollbarStore {
+    constructor() {
+        this.store = [];
+    }
+
+    _getMap(elem) {
+        const { store } = this;
+
+        for (let i = 0, max = store.length; i < max; i++) {
+            if (store[i].elem === elem) {
+                return store[i];
+            }
+        }
+    }
+
+    set(elem, scrollbar) {
+        const exist = this._getMap(elem);
+
+        if (exist) {
+            exist.scrollbar = scrollbar;
+        } else {
+            this.store.push({ elem, scrollbar });
+        }
+
+        this._update();
+    }
+
+    get(elem) {
+        const exist = this._getMap(elem);
+
+        return exist ? exist.scrollbar : null;
+    }
+
+    getAll() {
+        return this.store.map(({ scrollbar }) => scrollbar);
+    }
+
+    has(elem) {
+        return !!this._getMap(elem);
+    }
+
+    delete(elem) {
+        const { store } = this;
+
+        for (let i = 0, max = store.length; i < max; i++) {
+            if (store[i].elem === elem) {
+                store.splice(i, 1);
+                this._update();
+                return;
+            }
+        }
+    }
+
+    _update() {
+        this.store.forEach(({ scrollbar }) => {
+            this._updateScbTree(scrollbar);
+        });
     }
 
     /**
      * Update scrollbars tree
-     * @param  {Scrollbar} scb - target scrollbar instance
+     * @param {Scrollbar} scrollbar - target scrollbar instance
      */
-    updateScbTree(scb) {
+    _updateScbTree(scrollbar) {
         const {
             container,
             content,
-        } = scb::getPrivateProp('targets');
+        } = scrollbar::getPrivateProp('targets');
 
         const parents = [];
 
@@ -35,31 +93,12 @@ class ScrollbarStore extends Map {
             }
         }
 
-        scb::setPrivateProp({
+        scrollbar::setPrivateProp({
             parents,
             isNestedScrollbar: isNested,
-            children: Array.from(content.querySelectorAll(SELECTOR), ::this.get),
+            children: toArray(content.querySelectorAll(SELECTOR), ::this.get),
         });
     }
-
-    update() {
-        this.forEach(::this.updateScbTree);
-    }
-
-    // patch #set,#delete with #update method
-    delete(...args) {
-        const res = super.delete(...args);
-        this.update();
-
-        return res;
-    }
-
-    set(...args) {
-        const res = super.set(...args);
-        this.update();
-
-        return res;
-    };
 }
 
 export const ScbList = new ScrollbarStore();

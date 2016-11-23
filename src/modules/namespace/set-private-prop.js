@@ -12,11 +12,11 @@ export function setPrivateProp(prop, value) {
 
     if (typeof prop === 'object') {
         const src = prop;
-        Reflect.ownKeys(src).forEach(key => {
-            Reflect.defineProperty(
+        Object.keys(src).forEach(key => {
+            Object.defineProperty(
                 privateProps,
                 key,
-                Reflect.getOwnPropertyDescriptor(src, key),
+                Object.getOwnPropertyDescriptor(src, key),
             );
         });
     } else {

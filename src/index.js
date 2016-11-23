@@ -4,6 +4,7 @@ import {
 
 import {
     apiMixin,
+    toArray,
 } from './helpers/';
 
 import {
@@ -84,7 +85,7 @@ export default class SmoothScrollbar {
 
         elem.setAttribute('data-scrollbar', '');
 
-        const childNodes = [...elem.childNodes];
+        const childNodes = toArray(elem.childNodes);
 
         const div = document.createElement('div');
 
@@ -101,7 +102,7 @@ export default class SmoothScrollbar {
 
         const scrollContent = div.querySelector('.scroll-content');
 
-        [...div.childNodes].forEach((el) => elem.appendChild(el));
+        toArray(div.childNodes).forEach((el) => elem.appendChild(el));
 
         childNodes.forEach((el) => scrollContent.appendChild(el));
 
@@ -115,7 +116,7 @@ export default class SmoothScrollbar {
      * @return {SmoothScrollbar[]} - a collection of scrollbar instances
      */
     static initAll(options) {
-        return [...document.querySelectorAll(SELECTOR)].map((elem) => {
+        return toArray(document.querySelectorAll(SELECTOR), (elem) => {
             return SmoothScrollbar.init(elem, options);
         });
     };
@@ -146,7 +147,7 @@ export default class SmoothScrollbar {
      * @return {SmoothScrollbar[]} - a collection of scrollbars
      */
     static getAll() {
-        return [...ScbList.values()];
+        return ScbList.getAll();
     };
 
     /**

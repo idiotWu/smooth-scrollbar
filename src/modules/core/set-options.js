@@ -13,7 +13,7 @@ export function setOptions(opts = {}) {
         options,
     } = this::getPrivateProp();
 
-    Reflect.ownKeys(opts).forEach((prop) => {
+    Object.keys(opts).forEach((prop) => {
         if (!options.hasOwnProperty(prop) || opts[prop] === undefined) return;
 
         options[prop] = opts[prop];

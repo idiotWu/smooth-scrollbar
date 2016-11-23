@@ -1,3 +1,5 @@
+import { uniqueString } from './unique-string';
+
 // debounce timers reset wait
 const RESET_WAIT = 100;
 
@@ -16,7 +18,7 @@ export function debounce(fn, wait = RESET_WAIT, immediate = true) {
     }
 
     const namespace = Object.create(null);
-    const debounceSymbol = Symbol(`debounce$${fn.name || id++}@${wait}`);
+    const debounceSymbol = uniqueString(`debounce$${fn.name || id++}@${wait}`);
 
     return function wrapped(...args) {
         // support debounced methods
