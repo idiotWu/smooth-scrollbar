@@ -8,8 +8,11 @@ import {
 
 import {
     getPrivateProp,
-    callPrivateMethod,
-} from '../utils/';
+} from '../namespace/';
+
+import {
+    updateDebounced,
+} from '../debounced/';
 
 import {
     addMovement,
@@ -69,7 +72,7 @@ export function handleTouchEvents() {
         let { x, y } = touchRecord.getCurrentDelta();
 
         if (this::shouldPropagateMovement(x, y)) {
-            return this::callPrivateMethod('updateDebounce');
+            return this::updateDebounced();
         }
 
         const {

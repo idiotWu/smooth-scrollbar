@@ -5,7 +5,7 @@ import {
 
 import {
     getPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 const GLOW_MAX_OPACITY = 0.75;
 const GLOW_MAX_OFFSET = 0.25;

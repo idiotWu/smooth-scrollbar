@@ -5,7 +5,7 @@ import {
 import {
     setPrivateProp,
     getPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 import {
     setPosition,

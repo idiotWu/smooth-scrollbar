@@ -1,6 +1,6 @@
 import {
     getPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 /**
  * Get the limitation of scroll delta

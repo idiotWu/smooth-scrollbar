@@ -5,12 +5,12 @@ import {
 import {
     setPrivateProp,
     getPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 import {
     hideTrack,
     showTrack,
-} from '../render/';
+} from '../track/';
 
 import { setOptions } from './set-options';
 

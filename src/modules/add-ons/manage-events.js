@@ -1,6 +1,6 @@
 import {
     getPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 const ACTIONS = {
     REGIESTER: 0,
@@ -18,17 +18,17 @@ const METHODS = {
  * @api
  * @param  {...string|regex} rules - A list of pattern of event names
  */
-export const registerEvents = manageEvents(ACTIONS.REGIESTER);
-export const unregisterEvents = manageEvents(ACTIONS.UNREGIESTER);
+export const registerEvents = manageEvents(ACTIONS.REGIESTER, 'registerEvents');
+export const unregisterEvents = manageEvents(ACTIONS.UNREGIESTER, 'unregisterEvents');
 
 function matchSomeRules(str, rules) {
     return !!rules.length && rules.some(regex => str.match(regex));
 };
 
-function manageEvents(action = ACTIONS.REGIESTER) {
+function manageEvents(action = ACTIONS.REGIESTER, name = 'eventsManager') {
     const method = METHODS[action];
 
-    return function manager(...rules) {
+    function eventsManager(...rules) {
         this::getPrivateProp('eventHandlers').forEach((handler) => {
             const {
                 elem,
@@ -48,4 +48,11 @@ function manageEvents(action = ACTIONS.REGIESTER) {
             }
         });
     };
+
+    Object.defineProperty(eventsManager, 'name', {
+        value: name,
+        configurable: true,
+    });
+
+    return eventsManager;
 };

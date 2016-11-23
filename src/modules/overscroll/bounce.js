@@ -4,7 +4,7 @@ import {
 
 import {
     getPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 /**
  * Render 'bounce' overscrolling effect

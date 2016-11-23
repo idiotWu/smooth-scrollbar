@@ -1,6 +1,6 @@
 import {
     getPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 /**
  * Add dom event listeners

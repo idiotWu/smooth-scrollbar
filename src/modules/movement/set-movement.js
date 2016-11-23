@@ -8,8 +8,11 @@ import {
 
 import {
     getPrivateProp,
-    callPrivateMethod,
-} from '../utils/';
+} from '../namespace/';
+
+import {
+    updateDebounced,
+} from '../debounced/';
 
 /**
  * Set scroll movement
@@ -24,7 +27,7 @@ export function setMovement(deltaX = 0, deltaY = 0, allowOverscroll = false) {
         movement,
     } = this::getPrivateProp();
 
-    this::callPrivateMethod('updateDebounce');
+    this::updateDebounced();
 
     const limit = this::getDeltaLimit(allowOverscroll);
 

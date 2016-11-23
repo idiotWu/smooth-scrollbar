@@ -1,6 +1,6 @@
 import {
     getPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 /**
  * Check if an element is visible
  * @public

@@ -5,7 +5,7 @@ import {
 import {
     getPrivateProp,
     setPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 class ScrollbarStore extends Map {
     static get [Symbol.species]() {

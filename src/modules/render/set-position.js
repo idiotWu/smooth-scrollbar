@@ -6,12 +6,16 @@ import {
 import {
     setPrivateProp,
     getPrivateProp,
-    callPrivateMethod,
-} from '../utils/';
+} from '../namespace/';
 
-import { adjustThumbPosition } from './adjust-thumb-position';
+import {
+    hideTrackDebounced,
+} from '../debounced/hide-track-debounced'; // in case of circular deps
 
-import { showTrack } from './toggle-track';
+import {
+    adjustThumbPosition,
+    showTrack,
+} from '../track/';
 
 /**
  * Set scrollbar position without transition
@@ -22,9 +26,7 @@ import { showTrack } from './toggle-track';
  * @param {boolean} [withoutCallbacks] - disable callback functions temporarily
  */
 export function setPosition(x = this.offset.x, y = this.offset.y, withoutCallbacks = false) {
-    this::callPrivateMethod('hideTrackDebounce');
-
-    const status = {};
+    this::hideTrackDebounced();
 
     const {
         options,
@@ -47,6 +49,8 @@ export function setPosition(x = this.offset.x, y = this.offset.y, withoutCallbac
     y = pickInRange(y, 0, limit.y);
 
     if (x === offset.x && y === offset.y) return;
+
+    const status = {};
 
     status.direction = {
         x: x === offset.x ? 'none' : (x > offset.x ? 'right' : 'left'),

@@ -8,8 +8,11 @@ import {
 
 import {
     getPrivateProp,
-    callPrivateMethod,
-} from '../utils/';
+} from '../namespace/';
+
+import {
+    updateDebounced,
+} from '../debounced/';
 
 /**
  * Add scroll movement
@@ -25,7 +28,7 @@ export function addMovement(deltaX = 0, deltaY = 0, allowOverscroll = false) {
         movement,
     } = this::getPrivateProp();
 
-    this::callPrivateMethod('updateDebounce');
+    this::updateDebounced();
 
     if (options.renderByPixels) {
         // ensure resolved with integer

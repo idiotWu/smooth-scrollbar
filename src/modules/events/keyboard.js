@@ -1,7 +1,10 @@
 import {
     getPrivateProp,
-    callPrivateMethod,
-} from '../utils/';
+} from '../namespace/';
+
+import {
+    updateDebounced,
+} from '../debounced/';
 
 import {
     addMovement,
@@ -97,7 +100,7 @@ export function handleKeyboardEvents() {
                 parents[0].containerElement.focus();
             }
 
-            return this::callPrivateMethod('updateDebounce');
+            return this::updateDebounced();
         }
 
         evt.preventDefault();

@@ -4,7 +4,7 @@ import {
 
 import {
     getPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 /**
  * Get pointer's offset to most relative boundaries

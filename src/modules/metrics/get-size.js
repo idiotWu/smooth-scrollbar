@@ -1,6 +1,6 @@
 import {
     getPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 /**
  * Get container and content size

@@ -1,6 +1,6 @@
 import {
     getPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 const ACTIONS = {
     SHOW: 0,
@@ -23,13 +23,13 @@ const METHODS = {
  * @api
  * @param {string} [direction='both'] - which direction of tracks to show/hide
  */
-export const showTrack = toggleTrack(ACTIONS.SHOW);
-export const hideTrack = toggleTrack(ACTIONS.HIDE);
+export const showTrack = toggleTrack(ACTIONS.SHOW, 'showTrack');
+export const hideTrack = toggleTrack(ACTIONS.HIDE, 'hideTrack');
 
-function toggleTrack(action = ACTIONS.SHOW) {
+function toggleTrack(action = ACTIONS.SHOW, name = 'trackManager') {
     const method = METHODS[action];
 
-    return function manager(direction = 'both') {
+    function trackManager(direction = 'both') {
         const {
             options,
             movement,
@@ -67,4 +67,12 @@ function toggleTrack(action = ACTIONS.SHOW) {
             yAxis.track.classList[method](CLASS_NAMES.TRACK);
         }
     };
+
+    // override function name
+    Object.defineProperty(trackManager, 'name', {
+        value: name,
+        configurable: true,
+    });
+
+    return trackManager;
 };

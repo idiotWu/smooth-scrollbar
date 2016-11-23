@@ -11,7 +11,7 @@ import {
 import {
     getPrivateProp,
     setPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 import { isMovementLocked } from './movement-lock';
 import { overscrollBounce } from './bounce';

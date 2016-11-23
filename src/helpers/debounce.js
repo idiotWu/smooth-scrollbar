@@ -1,6 +1,8 @@
 // debounce timers reset wait
 const RESET_WAIT = 100;
 
+let id = 0;
+
 /**
  * Call fn if it isn't be called in a period
  * @param {function} fn
@@ -9,20 +11,33 @@ const RESET_WAIT = 100;
  * @return {function} - The wrapped function
  */
 export function debounce(fn, wait = RESET_WAIT, immediate = true) {
-    if (typeof fn !== 'function') return;
+    if (typeof fn !== 'function') {
+        throw new TypeError(`[smooth-scrollbar]: expect fn to be a function, but got ${typeof fn}`);
+    }
 
-    let timer;
+    const namespace = {};
+    const debounceSymbol = Symbol(`debounce$${fn.name || id++}@${wait}`);
 
-    return (...args) => {
-        if (!timer && immediate) {
-            setTimeout(() => fn(...args));
+    return function wrapped(...args) {
+        // support debounced methods
+        const ns = this || namespace;
+
+        if (!ns[debounceSymbol] && immediate) {
+            setTimeout(() => fn.apply(this, args));
         }
 
-        clearTimeout(timer);
+        clearTimeout(ns[debounceSymbol]);
 
-        timer = setTimeout(() => {
-            timer = undefined;
-            fn(...args);
+        const timerID = setTimeout(() => {
+            ns[debounceSymbol] = undefined;
+            fn.apply(this, args);
         }, wait);
+
+        Object.defineProperty(ns, debounceSymbol, {
+            value: timerID,
+            enumerable: false,
+            configurable: true,
+            writable: true,
+        });
     };
 };

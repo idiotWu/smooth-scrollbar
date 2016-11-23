@@ -9,7 +9,7 @@ import {
 
 import {
     getPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 /**
  * Check if scrollbar scrolls onto very edge in particular direction

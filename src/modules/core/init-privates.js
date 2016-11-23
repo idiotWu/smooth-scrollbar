@@ -1,13 +1,11 @@
 import {
     GLOBAL_ENV,
     PRIVATE_PROPS,
-    PRIVATE_METHODS,
     OVERSCROLL_GLOW,
     OVERSCROLL_BOUNCE,
 } from '../../contants/';
 
 import {
-    debounce,
     pickInRange,
     TouchRecord,
 } from '../../helpers/';
@@ -15,20 +13,11 @@ import {
 import {
     setPrivateProp,
     getPrivateProp,
-    definePrivateMethod,
-} from '../utils/';
+} from '../namespace/';
 
 import {
     isMovementLocked,
 } from '../overscroll/';
-
-import {
-    update,
-} from '../metrics/';
-
-import {
-    hideTrack,
-} from '../render/';
 
 /**
  * Initialize private props&methods
@@ -39,9 +28,6 @@ export function initPrivates() {
 
     Object.defineProperties(this, {
         [PRIVATE_PROPS]: {
-            value: {},
-        },
-        [PRIVATE_METHODS]: {
             value: {},
         },
     });
@@ -127,11 +113,5 @@ export function initPrivates() {
             bottom: 0,
             left: 0,
         },
-    });
-
-    // private methods
-    this::definePrivateMethod({
-        hideTrackDebounce: debounce(this::hideTrack, 1000, false),
-        updateDebounce: debounce(this::update),
     });
 }

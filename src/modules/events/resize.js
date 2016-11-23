@@ -1,6 +1,6 @@
 import {
-    getPrivateMethod,
-} from '../utils/';
+    updateDebounced,
+} from '../debounced/';
 
 import { addEvent } from './add-event';
 
@@ -9,5 +9,5 @@ import { addEvent } from './add-event';
  * @private
  */
 export function handleResizeEvents() {
-    this::addEvent(window, 'resize', this::getPrivateMethod('updateDebounce'));
+    this::addEvent(window, 'resize', this::updateDebounced);
 };

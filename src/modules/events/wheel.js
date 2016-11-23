@@ -9,8 +9,11 @@ import {
 
 import {
     getPrivateProp,
-    callPrivateMethod,
-} from '../utils/';
+} from '../namespace/';
+
+import {
+    updateDebounced,
+} from '../debounced/';
 
 import {
     willOverscroll,
@@ -51,7 +54,7 @@ export function handleWheelEvents() {
         y *= options.speed;
 
         if (this::shouldPropagateMovement(x, y)) {
-            return this::callPrivateMethod('updateDebounce');
+            return this::updateDebounced();
         }
 
         evt.preventDefault();

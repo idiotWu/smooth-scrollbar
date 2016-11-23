@@ -1,1 +1,1 @@
-export * from '../render/toggle-track';
+export * from '../track/toggle-track';

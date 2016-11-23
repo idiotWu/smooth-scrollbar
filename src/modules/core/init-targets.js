@@ -9,7 +9,7 @@ import {
 
 import {
     setPrivateProp,
-} from '../utils/';
+} from '../namespace/';
 
 import {
     update,
