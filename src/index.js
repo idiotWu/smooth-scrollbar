@@ -166,7 +166,7 @@ export default class SmoothScrollbar {
      * @param {boolean} [isRemoval] - Whether node is being removed from DOM
      */
     static destroyAll(isRemoval) {
-        ScbList.forEach(scb => {
+        SmoothScrollbar.getAll().forEach(scb => {
             scb.destroy(isRemoval);
         });
     };
