@@ -1,5 +1,3 @@
-import { toArray } from './to-array';
-
 /**
  * Find element with specific class name within children, like selector '>'
  * @param {element} parentElem
@@ -9,16 +7,13 @@ import { toArray } from './to-array';
 export function findChild(parentElem, className) {
     const children = parentElem.children;
 
-    let res = null;
+    if (!children) return;
 
-    if (children) {
-        toArray(children).some(elem => {
-            if (elem.className.match(className)) {
-                res = elem;
-                return true;
-            }
-        });
+    for (let i = 0, max = children.length; i < max; i++) {
+        const elem = children[i];
+
+        if (elem.className.match(className)) {
+            return elem;
+        }
     }
-
-    return res;
 };
