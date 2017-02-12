@@ -7,6 +7,43 @@
 
 Smooth scrolling in modern browsers.
 
+## Table of Contents
+- [Install](#install)
+- [Browser Compatibility](#browser-compatibility)
+- [Demo](#demo)
+- [Why is native scrolling slow?](#why-is-native-scrolling-slow)
+- [Usage](#usage)
+- [Available Options for Scrollbar](#available-options-for-scrollbar)
+- [DOM Structure](#dom-structure)
+- [APIs](#apis)
+   - [Static Methods](#static-methods)
+      - [Scrollbar.init()](#scrollbarinit)
+      - [Scrollbar.initAll()](#scrollbarinitall)
+      - [Scrollbar.has()](#scrollbarhas)
+      - [Scrollbar.get()](#scrollbarget)
+      - [Scrollbar.getAll()](#scrollbargetall)
+      - [Scrollbar.destroy()](#scrollbardestroy)
+      - [Scrollbar.destroyAll()](#scrollbardestroyall)
+   - [Instance Properties and Methods](#instance-properties-and-methods)
+      - [scrollbar.targets](#scrollbartargets)
+      - [scrollbar.offset](#scrollbaroffset)
+      - [scrollbar.limit](#scrollbarlimit)
+      - [scrollbar.scrollTop](#scrollbarscrolltop)
+      - [scrollbar.scrollLeft](#scrollbarscrollleft)
+      - [scrollbar.update()](#scrollbarupdate)
+      - [scrollbar.getSize()](#scrollbargetsize)
+      - [scrollbar.setPosition()](#scrollbarsetposition)
+      - [scrollbar.scrollTo()](#scrollbarscrollto)
+      - [scrollbar.addListener()](#scrollbaraddlistener)
+      - [scrollbar.scrollIntoView()](#scrollbarscrollintoview)
+      - [scrollbar.isVisible()](#scrollbarisvisible)
+      - [scrollbar.infiniteScroll()](#scrollbarinfinitescroll)
+      - [scrollbar.stop()](#scrollbarstop)
+      - [scrollbar.destroy()](#scrollbardestroy-1)
+- [Common mistakes](#common-mistakes)
+- [FAQ](#faq)
+- [Related Projects](#related-projects)
+
 ## Install
 
 Via npm:
