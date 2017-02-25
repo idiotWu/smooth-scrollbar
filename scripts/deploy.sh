@@ -33,13 +33,13 @@ npm run ghpages
 
 # Copy files
 echo "Copying new contents"
-cp ./test/index.html ./out
-cp -r ./test/images ./out
-cp -r ./build ./out
+cp -v ./test/index.html ./out
+cp -vr ./test/images ./out
+cp -vr ./build ./out
 cd ./out
 
 # Now let's go have some fun with the cloned repo
-git config user.name "Travis CI"
+git config user.name "$COMMIT_AUTHOR_NAME"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
 
 # Commit the "changes", i.e. the new version.
