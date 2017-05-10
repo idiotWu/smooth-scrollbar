@@ -50,19 +50,17 @@ SmoothScrollbar.prototype.scrollTo = function (
     let frame = 0;
 
     const scroll = () => {
-        if (frame === totalFrame) {
-            this.setPosition(x, y);
-
-            return requestAnimationFrame(() => {
-                cb(this);
-            });
-        }
-
         this.setPosition(startX + curveX[frame], startY + curveY[frame]);
 
         frame++;
 
-        __timerID.scrollTo = requestAnimationFrame(scroll);
+        if (frame === totalFrame) {
+            requestAnimationFrame(() => {
+                cb(this);
+            });
+        } else {
+            __timerID.scrollTo = requestAnimationFrame(scroll);
+        }
     };
 
     scroll();

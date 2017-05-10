@@ -4,7 +4,8 @@
  */
 
 /**
- * Build quadratic easing curve
+ * Build easing curve based on distance and duration
+ * m(n) = m(0) * d^n
  *
  * @param {Number} begin
  * @param {Number} duration
@@ -16,13 +17,15 @@ export const buildCurve = (distance, duration) => {
 
     if (duration <= 0) return res;
 
-    const t = Math.round(duration / 1000 * 60);
-    const a = -distance / t ** 2;
-    const b = -2 * a * t;
+    const n = Math.round(duration / 1000 * 60) - 1;
+    const d = distance ? Math.pow(1 / Math.abs(distance), 1 / n) : 0;
 
-    for (let i = 0; i < t; i++) {
-        res.push(a * i ** 2 + b * i);
+    for (let i = 1; i <= n; i++) {
+        res.push(distance - distance * Math.pow(d, i));
     }
+
+    // last frame
+    res.push(distance);
 
     return res;
 };
