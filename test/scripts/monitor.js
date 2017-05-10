@@ -393,7 +393,7 @@ scrollbar.addListener(() => {
 
     if (!duration || offset === lastOffset) return;
 
-    if (duration > 50) {
+    if (duration > 100) {
         reduceAmount += (duration - 1);
         duration -= (duration - 1);
     }
