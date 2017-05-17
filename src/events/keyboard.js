@@ -55,18 +55,8 @@ function __keyboardHandler() {
 
     const { container } = targets;
 
-    let isFocused = false;
-
-    this.__addEvent(container, 'focus', () => {
-        isFocused = true;
-    });
-
-    this.__addEvent(container, 'blur', () => {
-        isFocused = false;
-    });
-
     this.__addEvent(container, 'keydown', (evt) => {
-        if (!isFocused) return;
+        if (document.activeElement !== container) return;
 
         const { options, parents, movementLocked } = this;
 
