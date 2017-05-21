@@ -494,8 +494,10 @@ scrollbar.scrollIntoView(elem, options?): void
 
 | Property | type | default | description |
 | :-------: | :--: | :-----: | :---------- |
-| `offsetTop` | number | `0` | Offset to top edge of container. |
-| `offsetLeft` | number | `0` | Offset to left edge of container. |
+| `alignToTop` | boolean | `true` | Whether to align to the top or the bottom edge of container. |
+| `offsetTop` | number | `0` | Offset to top edge of container (used only if alignToTop is true). |
+| `offsetLeft` | number | `0` | Offset to left edge of container (used only if alignToTop is true). |
+| `offsetBottom` | number | `0` | Offset to bottom edge of container (used only if alignToTop is false). |
 | `onlyScrollIfNeeded` | boolean | `false` | Whether to scroll container when target element is visible. |
 
 Scrolls the target element into visible area of scrollbar, like DOM method [`element.scrollIntoView()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView). This will be helpful when you want to create some anchors.
