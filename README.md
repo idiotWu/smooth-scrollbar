@@ -496,7 +496,7 @@ scrollbar.scrollIntoView(elem, options?): void
 | :-------: | :--: | :-----: | :---------- |
 | `alignToTop` | boolean | `true` | Whether to align to the top or the bottom edge of container. |
 | `offsetTop` | number | `0` | Offset to top edge of container (used only if alignToTop is true). |
-| `offsetLeft` | number | `0` | Offset to left edge of container (used only if alignToTop is true). |
+| `offsetLeft` | number | `0` | Offset to left edge of container. |
 | `offsetBottom` | number | `0` | Offset to bottom edge of container (used only if alignToTop is false). |
 | `onlyScrollIfNeeded` | boolean | `false` | Whether to scroll container when target element is visible. |
 
