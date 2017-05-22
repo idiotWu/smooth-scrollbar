@@ -1,3 +1,18 @@
+## [7.3.0](https://github.com/idiotWu/smooth-scrollbar/compare/v7.2.10...master) (2017-05-22)
+
+### Bug Fixes
+
+- **track**: Call `showTrack` whenever position changed. [d315413](https://github.com/idiotWu/smooth-scrollbar/commit/d315413eb403563637f9eae5f4b7e93470b3341e)
+
+### Features
+
+- **scrollIntoView**: add `alignToTop` option. [#75](https://github.com/idiotWu/smooth-scrollbar/pull/75)
+
+### Minor Changes
+
+- **scrollTo**: use computed damping factor instead of quadratic curve. [69c3a81](https://github.com/idiotWu/smooth-scrollbar/commit/69c3a813b258ded0a773056b20c4b8b2d149c11b)
+- **event/keyboard**: use `document.activeElement` to detect focused element. [44fc594](https://github.com/idiotWu/smooth-scrollbar/commit/44fc5948c80397e940aeb41f2a0d3282bb4799ed)
+
 ## 7.2.0
 
 - Refactor touch record.
