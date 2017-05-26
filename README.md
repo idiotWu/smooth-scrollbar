@@ -506,7 +506,7 @@ Scrolls the target element into visible area of scrollbar, like DOM method [`ele
 scrollbar.scrollIntoView(document.getElementById('a-section'), {
     offsetTop: 12,
     offsetLeft: 34,
-    onlyScrollIfNeeded: true,
+    onlyScrollIfNeeded: true
 });
 ```
 
