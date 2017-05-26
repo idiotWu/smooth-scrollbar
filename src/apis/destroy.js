@@ -65,7 +65,9 @@ SmoothScrollbar.prototype.destroy = function (isRemoval) {
         // reset content
         const childNodes = [...content.childNodes];
 
-        container.innerHTML = '';
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
 
         childNodes.forEach((el) => container.appendChild(el));
     });
