@@ -1,12 +1,18 @@
-## [7.3.0](https://github.com/idiotWu/smooth-scrollbar/compare/v7.2.10...master) (2017-05-22)
+## [7.3.1](https://github.com/idiotWu/smooth-scrollbar/compare/v7.3.0...v7.3.1) (2017-05-26)
 
 ### Bug Fixes
 
-- **track**: Call `showTrack` whenever position changed. [d315413](https://github.com/idiotWu/smooth-scrollbar/commit/d315413eb403563637f9eae5f4b7e93470b3341e)
+- **destroy**: uses loop instead of `innerHTML = ''` to avoid empty nodes in IE. ([#77](https://github.com/idiotWu/smooth-scrollbar/pull/77))
+
+## [7.3.0](https://github.com/idiotWu/smooth-scrollbar/compare/v7.2.10...v7.3.0) (2017-05-22)
+
+### Bug Fixes
+
+- **track**: Call `showTrack` whenever position changed. ([d315413](https://github.com/idiotWu/smooth-scrollbar/commit/d315413eb403563637f9eae5f4b7e93470b3341e))
 
 ### Features
 
-- **scrollIntoView**: add `alignToTop` option. [#75](https://github.com/idiotWu/smooth-scrollbar/pull/75)
+- **scrollIntoView**: add `alignToTop` option. ([#75](https://github.com/idiotWu/smooth-scrollbar/pull/75))
 
 ### Minor Changes
 
