@@ -35,6 +35,7 @@ Smooth scrolling in modern browsers.
       - [scrollbar.setPosition()](#scrollbarsetposition)
       - [scrollbar.scrollTo()](#scrollbarscrollto)
       - [scrollbar.addListener()](#scrollbaraddlistener)
+      - [scrollbar.removeListener()](#scrollbarremovelistener)
       - [scrollbar.scrollIntoView()](#scrollbarscrollintoview)
       - [scrollbar.isVisible()](#scrollbarisvisible)
       - [scrollbar.infiniteScroll()](#scrollbarinfinitescroll)
@@ -480,6 +481,18 @@ The `status` object contains following properties:
     }
 }
 ```
+
+#### scrollbar.removeListener()
+
+```js
+scrollbar.removeListener(listener): void
+```
+
+| Param | Type | Description |
+| --- | :-: | --- |
+| `listener` | (status) => void | The registered listener. |
+
+Removes listener previously registered with `scrollbar.addListener()`, just likes the DOM method [`EventTarget.removeEventListener()`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener).
 
 #### scrollbar.scrollIntoView()
 
