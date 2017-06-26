@@ -46,7 +46,11 @@ function __wheelHandler() {
             if (this.__willOverscroll('y', y)) y = 0;
         }
 
-        this.__addMovement(x, y, true);
+        if (options.invertWheelDirection) {
+            this.__addMovement(y, x, true);
+        } else {
+            this.__addMovement(x, y, true);
+        }
     });
 };
 
