@@ -48,10 +48,9 @@ function __wheelHandler() {
 
         if (options.invertWheelDirection) {
             this.__addMovement(y, x, true);
-        }else{
+        } else {
             this.__addMovement(x, y, true);
         }
-        
     });
 };
 
