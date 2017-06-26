@@ -34,13 +34,13 @@ SmoothScrollbar.init = (elem, options) => {
     const div = document.createElement('div');
 
     div.innerHTML = `
-        <article class="scroll-content"></article>
-        <aside class="scrollbar-track scrollbar-track-x">
+        <div class="scroll-content"></div>
+        <div class="scrollbar-track scrollbar-track-x">
             <div class="scrollbar-thumb scrollbar-thumb-x"></div>
-        </aside>
-        <aside class="scrollbar-track scrollbar-track-y">
+        </div>
+        <div class="scrollbar-track scrollbar-track-y">
             <div class="scrollbar-thumb scrollbar-thumb-y"></div>
-        </aside>
+        </div>
         <canvas class="overscroll-glow"></canvas>
     `;
 
