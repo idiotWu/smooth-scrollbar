@@ -1,3 +1,9 @@
+## [7.4.0](https://github.com/idiotWu/smooth-scrollbar/compare/v7.3.1...v7.4.0) (2017-08-24)
+
+### Minor Changes
+
+- **init/destory**: perserve scroll offset. [#67](https://github.com/idiotWu/smooth-scrollbar/issues/67)
+
 ## [7.3.1](https://github.com/idiotWu/smooth-scrollbar/compare/v7.3.0...v7.3.1) (2017-05-26)
 
 ### Bug Fixes
