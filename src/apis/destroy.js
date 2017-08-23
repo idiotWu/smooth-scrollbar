@@ -46,29 +46,25 @@ SmoothScrollbar.prototype.destroy = function (isRemoval) {
     // remove form sbList
     sbList.delete(container);
 
-    if (isRemoval) return;
+    // check if element has been removed from DOM
+    if (isRemoval || !container.parentNode) {
+        return;
+    }
 
-    // restore DOM
-    this.scrollTo(0, 0, 300, () => {
-        // check if element has been removed from DOM
-        if (!container.parentNode) {
-            return;
-        }
+    // reset content
+    const childNodes = [...content.childNodes];
 
-        // reset scroll position
-        setStyle(container, {
-            overflow: '',
-        });
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
 
-        container.scrollTop = container.scrollLeft = 0;
+    childNodes.forEach((el) => container.appendChild(el));
 
-        // reset content
-        const childNodes = [...content.childNodes];
-
-        while (container.firstChild) {
-            container.removeChild(container.firstChild);
-        }
-
-        childNodes.forEach((el) => container.appendChild(el));
+    // reset scroll position
+    setStyle(container, {
+        overflow: '',
     });
+
+    container.scrollTop = this.scrollTop;
+    container.scrollLeft = this.scrollLeft;
 };
