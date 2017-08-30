@@ -1,3 +1,9 @@
+## [7.4.1](https://github.com/idiotWu/smooth-scrollbar/compare/v7.4.0...v7.4.1) (2017-08-31)
+
+### Bug Fixes
+
+- **scrollTo**: fix scrolling curve while `duration=0`. [#94](https://github.com/idiotWu/smooth-scrollbar/issues/94)
+
 ## [7.4.0](https://github.com/idiotWu/smooth-scrollbar/compare/v7.3.1...v7.4.0) (2017-08-24)
 
 ### Minor Changes
