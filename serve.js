@@ -6,6 +6,7 @@ const config = require('./webpack.config.dev');
 
 new Server(webpack(config), {
     contentBase: './test/',
+    disableHostCheck: true,
     publicPath: config.output.publicPath,
     stats: {
         colors: true,

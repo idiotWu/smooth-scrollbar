@@ -134,6 +134,8 @@ Or you can call `Scrollbar.init(elem, options)` to manually init the scrollbar:
 Scrollbar.init(document.getElementById('my-scrollbar'), options);
 ```
 
+**Unable to scroll? See [Common mistakes](#common-mistakes) below.**
+
 ## Available Options for Scrollbar
 
 | parameter | type | default | description |

@@ -24,9 +24,6 @@ export class SmoothScrollbar {
         // make container focusable
         container.setAttribute('tabindex', '1');
 
-        // reset scroll position
-        container.scrollTop = container.scrollLeft = 0;
-
         const content = findChild(container, 'scroll-content');
         const canvas = findChild(container, 'overscroll-glow');
         const trackX = findChild(container, 'scrollbar-track-x');
@@ -127,6 +124,11 @@ export class SmoothScrollbar {
 
         this.__initOptions(options);
         this.__initScrollbar();
+
+        // preserve scroll offset
+        const { scrollLeft, scrollTop } = container;
+        container.scrollLeft = container.scrollTop = 0;
+        this.setPosition(scrollLeft, scrollTop, true);
 
         // storage
         sbList.set(container, this);
