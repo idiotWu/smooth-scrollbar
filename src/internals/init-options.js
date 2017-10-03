@@ -20,6 +20,7 @@ function __initOptions(userPreference) {
         overscrollEffect: false,          // overscroll effect, false | 'bounce' | 'glow'
         overscrollEffectColor: '#87ceeb', // android overscroll effect color
         overscrollDamping: 0.2,           // overscroll damping factor
+        invertDelta: false,               // invert mousewheel delta
     };
 
     const limit = {
@@ -115,6 +116,13 @@ function __initOptions(userPreference) {
         },
         set overscrollEffectColor(v) {
             options.overscrollEffectColor = v;
+        },
+
+        get invertDelta() {
+            return options.invertDelta;
+        },
+        set invertDelta(v) {
+            options.invertDelta = !!v;
         },
     };
 

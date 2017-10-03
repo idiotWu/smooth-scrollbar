@@ -10,6 +10,7 @@ const options = {
     continuousScrolling: 'auto',
     overscrollEffect: navigator.userAgent.match(/Android/) ? 'glow' : 'bounce',
     overscrollEffectColor: '#87ceeb',
+    invertDelta: false,
 };
 
 const optionLimit = {
