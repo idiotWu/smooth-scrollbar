@@ -36,7 +36,7 @@ export function scrollTo(
 
   function scroll() {
     const elapse = Date.now() - start;
-    const progress = easing(Math.min(elapse / duration, 1));
+    const progress = duration ? easing(Math.min(elapse / duration, 1)) : 1;
 
     scrollbar.setPosition(
       startX + disX * progress,
