@@ -23,7 +23,9 @@ module.exports = Object.assign(baseConfig, {
       use: [{
         loader: 'tslint-loader',
         options: {
-          typeCheck: true,
+          // type check is slow, see
+          // https://github.com/wbuchwalter/tslint-loader/issues/76
+          // typeCheck: true,
           formatter: 'stylish',
         },
       }],
