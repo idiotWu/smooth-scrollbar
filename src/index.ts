@@ -1,4 +1,3 @@
-import './polyfills';
 import * as I from './interfaces/';
 
 import { Scrollbar } from './scrollbar';

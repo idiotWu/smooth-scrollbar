@@ -8,6 +8,7 @@ module.exports = Object.assign(baseConfig, {
   devtool: 'cheap-module-source-map',
   entry: [
     `webpack-dev-server/client?http://${ip.address()}:3000`,
+    joinRoot('src/polyfill'),
     joinRoot('test/scripts/index.js'),
   ],
   output: {
