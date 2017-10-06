@@ -23,6 +23,9 @@ export function touchHandler(scrollbar: I.Scrollbar) {
   addEvent(container, 'touchstart', (evt: TouchEvent) => {
     // start records
     touchRecord.track(evt);
+
+    // stop scrolling
+    scrollbar.setMomentum(0, 0);
   });
 
   addEvent(container, 'touchmove', (evt: TouchEvent) => {
