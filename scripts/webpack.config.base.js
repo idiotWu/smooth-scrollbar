@@ -15,7 +15,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.ts$/,
-      use: [ 'babel-loader', 'ts-loader' ],
+      use: [ 'ts-loader' ],
       include: [
         joinRoot('src'),
         joinRoot('test'),

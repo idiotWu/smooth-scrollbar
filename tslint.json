@@ -7,6 +7,7 @@
     "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
     "no-empty": false,
     "no-unused-variable": false,
+    "strict-type-predicates": false,
     "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}]
   }
 }

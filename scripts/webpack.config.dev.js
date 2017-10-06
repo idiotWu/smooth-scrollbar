@@ -19,7 +19,13 @@ module.exports = Object.assign(baseConfig, {
     rules: baseConfig.module.rules.concat([{
       test: /\.ts$/,
       enforce: 'pre',
-      use: [ 'tslint-loader' ],
+      use: [{
+        loader: 'tslint-loader',
+        options: {
+          typeCheck: true,
+          formatter: 'stylish',
+        },
+      }],
       include: [
         joinRoot('src'),
         joinRoot('test'),
