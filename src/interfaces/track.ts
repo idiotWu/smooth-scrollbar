@@ -1,8 +1,3 @@
-export type TrackTargets = Readonly<{
-  track: HTMLElement,
-  thumb: HTMLElement,
-}>;
-
 export interface ScrollbarThumb {
   readonly element: HTMLElement;
   displaySize: number;

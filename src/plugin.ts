@@ -1,14 +1,16 @@
 import * as I from './interfaces/';
 
+import { Scrollbar } from './scrollbar';
+
 export class ScrollbarPlugin implements I.ScrollbarPlugin {
   static pluginName = '';
   static defaultOptions: any = {};
 
-  readonly scrollbar: I.Scrollbar;
+  readonly scrollbar: Scrollbar;
   readonly options: any;
 
   constructor(
-    scrollbar: I.Scrollbar,
+    scrollbar: Scrollbar,
     options: any = {},
   ) {
     this.scrollbar = scrollbar;
@@ -20,10 +22,9 @@ export class ScrollbarPlugin implements I.ScrollbarPlugin {
 
   onInit() {}
   onDestory() {}
+  onRender(_offset: I.Data2d, _remainMomentum: I.Data2d) {}
 
-  beforeRender(_p, _m) {}
-
-  transformDelta(delta: I.Data2d, _evt): I.Data2d {
+  transformDelta(delta: I.Data2d, _evt: Event): I.Data2d {
     return { ...delta };
   }
 }
@@ -56,8 +57,8 @@ export function addPlugins(
 }
 
 export function initPlugins(
-  scrollbar: I.Scrollbar,
-): I.ScrollbarPlugin[] {
+  scrollbar: Scrollbar,
+): ScrollbarPlugin[] {
   const pluginOptions = scrollbar.options.plugins;
 
   return Array.from(globalPlugins.order)

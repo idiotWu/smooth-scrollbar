@@ -34,10 +34,6 @@ import {
   initPlugins,
 } from './plugin';
 
-import {
-  attachStyle,
-} from './style';
-
 import * as eventHandlers from './events/';
 
 import * as I from './interfaces/';
@@ -46,9 +42,9 @@ export class Scrollbar implements I.Scrollbar {
   readonly options: I.ScrollbarOptions;
 
   readonly containerEl: HTMLElement;
-  readonly contentEl: HTMLElement;
+  readonly contentEl: HTMLDivElement;
 
-  readonly track: TrackController;
+  readonly track: I.TrackController;
 
   size: I.ScrollbarSize;
 

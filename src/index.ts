@@ -18,8 +18,17 @@ import {
 
 export { ScrollbarPlugin };
 
+/*!
+ * cast `I.Scrollbar` to `Scrollbar` to avoid error
+ *
+ * `I.Scrollbar` is not assignable to `Scrollbar`:
+ *     "privateProp" is missing in `I.Scrollbar`
+ *
+ * @see https://github.com/Microsoft/TypeScript/issues/2672
+ */
+
 export default class SmoothScrollbar extends Scrollbar {
-  static init(elem: HTMLElement, options?: I.ScrollbarOptions): I.Scrollbar {
+  static init(elem: HTMLElement, options?: I.ScrollbarOptions): Scrollbar {
     if (!elem || elem.nodeType !== 1) {
       throw new TypeError(`expect element to be DOM Element, but got ${typeof elem}`);
     }
@@ -31,10 +40,10 @@ export default class SmoothScrollbar extends Scrollbar {
       return scrollbarMap.get(elem) as Scrollbar;
     }
 
-    return new SmoothScrollbar(elem, options);
+    return new Scrollbar(elem, options);
   }
 
-  static initAll(options?: I.ScrollbarOptions): I.Scrollbar[] {
+  static initAll(options?: I.ScrollbarOptions): Scrollbar[] {
     return Array.from(document.querySelectorAll('[data-scrollbar]'), (elem: HTMLElement) => {
       return SmoothScrollbar.init(elem, options);
     });
@@ -44,12 +53,12 @@ export default class SmoothScrollbar extends Scrollbar {
     return scrollbarMap.has(elem);
   }
 
-  static get(elem: HTMLElement): I.Scrollbar | undefined {
-    return scrollbarMap.get(elem);
+  static get(elem: HTMLElement): Scrollbar | undefined {
+    return scrollbarMap.get(elem) as (Scrollbar | undefined);
   }
 
-  static getAll(): I.Scrollbar[] {
-    return Array.from(scrollbarMap.values());
+  static getAll(): Scrollbar[] {
+    return Array.from(scrollbarMap.values()) as Scrollbar[];
   }
 
   static destroy(elem: HTMLElement) {

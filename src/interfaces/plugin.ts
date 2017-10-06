@@ -11,7 +11,7 @@ export interface ScrollbarPlugin {
 
   onInit(): void;
   onDestory(): void;
+  onRender(position: Data2d, remainMomentum: Data2d): void;
 
   transformDelta(delta: Data2d, fromEvent: any): Data2d;
-  beforeRender(nextPosition: Data2d, nextMomentum: Data2d): void;
 }
