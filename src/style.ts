@@ -50,13 +50,6 @@ const SCROLLBAR_STYLE = `
   background: ${THUMB_BG};
   border-radius: 4px;
 }
-.overscroll-glow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
 `;
 
 const STYLE_ID = 'smooth-scrollbar-style';
