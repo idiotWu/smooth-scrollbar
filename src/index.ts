@@ -1,3 +1,4 @@
+import './polyfills';
 import * as I from './interfaces/';
 
 import { Scrollbar } from './scrollbar';
@@ -46,7 +47,7 @@ export default class SmoothScrollbar extends Scrollbar {
   }
 
   static getAll(): I.Scrollbar[] {
-    return [...scrollbarMap.values()];
+    return Array.from(scrollbarMap.values());
   }
 
   static destroy(elem: HTMLElement) {

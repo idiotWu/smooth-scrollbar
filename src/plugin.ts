@@ -60,7 +60,7 @@ export function initPlugins(
 ): I.ScrollbarPlugin[] {
   const pluginOptions = scrollbar.options.plugins;
 
-  return [...globalPlugins.order]
+  return Array.from(globalPlugins.order)
     .map((pluginName: string) => {
       const Plugin = globalPlugins.constructors[pluginName];
       const options = pluginOptions[pluginName];
