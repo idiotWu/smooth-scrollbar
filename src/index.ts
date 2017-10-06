@@ -25,6 +25,9 @@ export default class SmoothScrollbar extends Scrollbar {
       throw new TypeError(`expect element to be DOM Element, but got ${typeof elem}`);
     }
 
+    // attach stylesheet
+    attachStyle();
+
     if (scrollbarMap.has(elem)) {
       return scrollbarMap.get(elem) as Scrollbar;
     }

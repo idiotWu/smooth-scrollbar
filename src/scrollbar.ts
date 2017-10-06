@@ -99,9 +99,6 @@ export class Scrollbar implements I.Scrollbar {
 
     this.options = new Options(options);
 
-    // attach stylesheet
-    attachStyle();
-
     // mark as a scroll element
     containerEl.setAttribute('data-scrollbar', 'true');
 
