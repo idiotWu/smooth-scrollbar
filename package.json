@@ -1,25 +1,10 @@
 {
   "name": "smooth-scrollbar",
-  "version": "7.4.1",
+  "version": "8.0.0-beta.0",
   "description": "Customize scrollbar in modern browsers with smooth scrolling experience.",
-  "main": "dist/smooth-scrollbar.js",
-  "style": "dist/smooth-scrollbar.css",
+  "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
-    "clean:build": "rimraf ./build",
-    "clean:compile": "rimraf ./lib",
-    "clean:dist": "rimraf ./dist",
-    "precompile": "npm run clean:compile",
-    "compile": "babel ./src --out-dir ./lib",
-    "postcompile": "node ./helpers/post-compile.js",
-    "predist": "npm run clean:dist",
-    "dist": "webpack --config ./webpack.config.prod.js --display-error-details --color",
-    "postdist": "npm run compile",
-    "preghpages": "npm run clean:build",
-    "ghpages": "webpack --config ./webpack.config.ghpages.js --display-error-details --color",
-    "start": "node serve.js",
-    "pretest": "npm run lint",
-    "test": "webpack --config ./webpack.config.test.js --display-error-details --color"
+    "start": "node ./scripts/serve.js"
   },
   "repository": {
     "type": "git",
@@ -37,40 +22,33 @@
     "url": "https://github.com/idiotWu/smooth-scrollbar/issues"
   },
   "homepage": "https://github.com/idiotWu/smooth-scrollbar#readme",
-  "dependencies": {
-    "babel-runtime": "^6.9.2"
-  },
-  "files": [
-    "src/",
-    "lib/",
-    "dist/"
-  ],
   "devDependencies": {
-    "autoprefixer": "^6.3.7",
-    "babel-cli": "^6.11.4",
-    "babel-core": "^6.11.4",
-    "babel-eslint": "^6.1.2",
-    "babel-loader": "^6.2.4",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-runtime": "^6.9.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "css-loader": "^0.23.1",
-    "eslint": "^3.1.1",
-    "eslint-config-standard": "^5.3.5",
-    "eslint-friendly-formatter": "^2.0.6",
-    "eslint-loader": "^1.4.1",
-    "eslint-plugin-promise": "^2.0.0",
-    "eslint-plugin-standard": "^2.0.0",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "glob": "^7.0.5",
-    "ip": "^1.1.3",
-    "postcss-loader": "^0.9.1",
-    "rimraf": "^2.5.4",
-    "style-loader": "^0.13.1",
+    "autoprefixer": "^7.1.4",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "circular-dependency-plugin": "^4.2.1",
+    "eslint": "^4.8.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.2.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "postcss-loader": "^2.0.6",
+    "style-loader": "^0.19.0",
     "stylus": "^0.54.5",
-    "stylus-loader": "^2.1.1",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "stylus-loader": "^3.0.1",
+    "ts-loader": "^2.3.7",
+    "tslint": "^5.7.0",
+    "tslint-config-standard": "^6.0.1",
+    "tslint-loader": "^3.5.3",
+    "typescript": "^2.5.3",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1"
+  },
+  "dependencies": {
+    "lodash.debounce": "^4.0.8"
   }
 }

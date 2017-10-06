@@ -1,0 +1,149 @@
+import { getPosition } from './get-position';
+
+export class Tracker {
+  updateTime = Date.now();
+  delta = { x: 0, y: 0 };
+  velocity = { x: 0, y: 0 };
+  lastPosition = { x: 0, y: 0 };
+
+  constructor(touch: Touch) {
+    this.lastPosition = getPosition(touch);
+  }
+
+  update(touch: Touch) {
+    const {
+      velocity,
+      updateTime,
+      lastPosition,
+    } = this;
+
+    const now = Date.now();
+    const position = getPosition(touch);
+
+    const delta = {
+      x: -(position.x - lastPosition.x),
+      y: -(position.y - lastPosition.y),
+    };
+
+    const duration = (now - updateTime) || 16;
+    const vx = delta.x / duration * 1e3;
+    const vy = delta.y / duration * 1e3;
+    velocity.x = vx * 0.8 + velocity.x * 0.2;
+    velocity.y = vy * 0.8 + velocity.y * 0.2;
+
+    this.delta = delta;
+    this.updateTime = now;
+    this.lastPosition = position;
+  }
+}
+
+export class TouchRecord {
+  private _lastTouch: Tracker;
+  private _activeTouchID: number;
+  private _touchList: { [id: number]: Tracker } = {};
+
+  private get _primitiveValue() {
+    return { x: 0, y: 0 };
+  }
+
+  isActive() {
+    return this._activeTouchID !== undefined;
+  }
+
+  getDelta() {
+    const tracker = this._getActiveTracker();
+
+    if (!tracker) {
+      return this._primitiveValue;
+    }
+
+    return { ...tracker.delta };
+  }
+
+  getVelocity() {
+    const tracker = this._getActiveTracker();
+
+    if (!tracker) {
+      return this._primitiveValue;
+    }
+
+    return { ...tracker.velocity };
+  }
+
+  track(evt: TouchEvent) {
+    const {
+      targetTouches,
+    } = evt;
+
+    Array.from(targetTouches).forEach(touch => {
+      this._add(touch);
+    });
+
+    return this._touchList;
+  }
+
+  update(evt: TouchEvent) {
+    const {
+      touches,
+      changedTouches,
+    } = evt;
+
+    Array.from(touches).forEach(touch => {
+      this._renew(touch);
+    });
+
+    this._setActiveID(changedTouches);
+
+    return this._touchList;
+  }
+
+  release(evt: TouchEvent) {
+    delete this._activeTouchID;
+
+    Array.from(evt.changedTouches).forEach(touch => {
+      this._delete(touch);
+    });
+  }
+
+  private _add(touch: Touch) {
+    if (this._has(touch)) {
+      return;
+    }
+
+    const tracker = new Tracker(touch);
+
+    this._touchList[touch.identifier] = tracker;
+  }
+
+  private _renew(touch: Touch) {
+    if (!this._has(touch)) {
+      return;
+    }
+
+    const tracker = this._touchList[touch.identifier];
+
+    tracker.update(touch);
+  }
+
+  private _delete(touch: Touch) {
+    delete this._touchList[touch.identifier];
+  }
+
+  private _has(touch: Touch): boolean {
+    return this._touchList.hasOwnProperty(touch.identifier);
+  }
+
+  private _setActiveID(touches: TouchList) {
+    this._activeTouchID = touches[touches.length - 1].identifier;
+    this._lastTouch = this._touchList[this._activeTouchID];
+  }
+
+  private _getActiveTracker(): Tracker {
+    const {
+      _touchList,
+      _activeTouchID,
+    } = this;
+
+    return _touchList[_activeTouchID];
+  }
+}

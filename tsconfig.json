@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es6",
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "declaration": true,
+    "sourceMap": true,
+    "paths": {
+      "smooth-scrollbar": [ "src/index.ts" ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
