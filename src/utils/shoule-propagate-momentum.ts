@@ -1,5 +1,5 @@
+import clamp from 'lodash.clamp';
 import { Scrollbar } from '../interfaces/';
-import { valueWithin } from './value-within';
 
 // check whether to propagate monmentum to parent scrollbar
 // this situations are considered as `true`:
@@ -18,8 +18,8 @@ export function shoulePropagateMomentum(
 
   if (!options.continuousScrolling) return false;
 
-  const destX = valueWithin(deltaX + offset.x, 0, limit.x);
-  const destY = valueWithin(deltaY + offset.y, 0, limit.y);
+  const destX = clamp(deltaX + offset.x, 0, limit.x);
+  const destY = clamp(deltaY + offset.y, 0, limit.y);
   let res = true;
 
   // offsets are not about to change
@@ -27,8 +27,8 @@ export function shoulePropagateMomentum(
   res = res && (destX === offset.x);
   res = res && (destY === offset.y);
 
-  // current offseta are on the edge
-  res = res && (destX === limit.x || destX === 0 || destY === limit.y || destY === 0);
+  // current offsets are on the edge
+  res = res && (offset.x === limit.x || offset.x === 0 || offset.y === limit.y || offset.y === 0);
 
   return res;
 }

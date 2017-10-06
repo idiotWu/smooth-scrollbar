@@ -1,11 +1,9 @@
+import clamp from 'lodash.clamp';
+
 import {
   Scrollbar,
   ScrollToOptions,
 } from '../interfaces/';
-
-import {
-  valueWithin,
-} from '../utils/';
 
 export function scrollTo(
   scrollbar: Scrollbar,
@@ -29,8 +27,8 @@ export function scrollTo(
   const startX = offset.x;
   const startY = offset.y;
 
-  const disX = valueWithin(x, 0, limit.x) - startX;
-  const disY = valueWithin(y, 0, limit.y) - startY;
+  const disX = clamp(x, 0, limit.x) - startX;
+  const disY = clamp(y, 0, limit.y) - startY;
 
   const start = Date.now();
 

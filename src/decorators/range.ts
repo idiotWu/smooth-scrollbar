@@ -1,4 +1,4 @@
-import { valueWithin } from '../utils/';
+import clamp from 'lodash.clamp';
 
 export function range(min = -Infinity, max = Infinity) {
   return (proto: any, key: string) => {
@@ -9,7 +9,7 @@ export function range(min = -Infinity, max = Infinity) {
         return this[alias];
       },
       set(val: number) {
-        this[alias] = valueWithin(val, min, max);
+        this[alias] = clamp(val, min, max);
       },
     });
   };

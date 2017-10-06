@@ -1,3 +1,4 @@
+import clamp from 'lodash.clamp';
 import * as I from '../interfaces/';
 
 import {
@@ -6,7 +7,6 @@ import {
 
 import {
   eventScope,
-  valueWithin,
   TouchRecord,
   shoulePropagateMomentum,
 } from '../utils/';
@@ -51,7 +51,7 @@ export function touchHandler(scrollbar: I.Scrollbar) {
     const movement = { x: 0, y: 0 };
 
     Object.keys(velocity).forEach(dir => {
-      const value = valueWithin(velocity[dir] * GLOBAL_ENV.EASING_MULTIPLIER, -1e3, 1e3);
+      const value = clamp(velocity[dir] * GLOBAL_ENV.EASING_MULTIPLIER, -1e3, 1e3);
 
       // throw small values
       movement[dir] = Math.abs(value) > MIN_VELOCITY ? value : 0;

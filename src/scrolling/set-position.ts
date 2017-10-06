@@ -1,8 +1,8 @@
+import clamp from 'lodash.clamp';
 import * as I from '../interfaces/';
 
 import {
   setStyle,
-  valueWithin,
 } from '../utils/';
 
 export function setPosition(
@@ -22,8 +22,8 @@ export function setPosition(
     y = Math.round(y);
   }
 
-  x = valueWithin(x, 0, limit.x);
-  y = valueWithin(y, 0, limit.y);
+  x = clamp(x, 0, limit.x);
+  y = clamp(y, 0, limit.y);
 
   if (x === offset.x && y === offset.y) {
     return null;
