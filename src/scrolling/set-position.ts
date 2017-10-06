@@ -14,7 +14,6 @@ export function setPosition(
     options,
     offset,
     limit,
-    track,
     contentEl,
   } = scrollbar;
 
@@ -22,9 +21,6 @@ export function setPosition(
     x = Math.round(x);
     y = Math.round(y);
   }
-
-  if (x !== offset.x) track.xAxis.show();
-  if (y !== offset.y) track.yAxis.show();
 
   x = valueWithin(x, 0, limit.x);
   y = valueWithin(y, 0, limit.y);
@@ -40,7 +36,7 @@ export function setPosition(
     '-transform': `translate3d(${-x}px, ${-y}px, 0)`,
   });
 
-  track.update();
+  scrollbar.track.update();
 
   return {
     offset: { ...offset },

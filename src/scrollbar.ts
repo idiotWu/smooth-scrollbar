@@ -169,6 +169,13 @@ export class Scrollbar implements I.Scrollbar {
     y = this.offset.y,
     options: I.SetPositionOptions = {},
   ) {
+    // position changed -> show track for 300ms
+    if (x !== this.offset.x) this.track.xAxis.show();
+    if (y !== this.offset.y) this.track.yAxis.show();
+    if (!this.options.alwaysShowTracks) {
+      this._hideTrackDebounced();
+    }
+
     const status = setPosition(this, x, y);
 
     if (!status || options.withoutCallbacks) {
@@ -316,7 +323,7 @@ export class Scrollbar implements I.Scrollbar {
   }
 
   @debounce(300)
-  private _hideTrackDelayed() {
+  private _hideTrackDebounced() {
     this.track.xAxis.hide();
     this.track.yAxis.hide();
   }
@@ -324,22 +331,16 @@ export class Scrollbar implements I.Scrollbar {
   private _render() {
     const {
       _momentum,
-      options,
     } = this;
 
     if (_momentum.x || _momentum.y) {
       const nextX = this._nextTick('x');
       const nextY = this._nextTick('y');
 
-      this.setMomentum(nextX.momentum, nextY.momentum);
-      this.setPosition(nextX.position, nextY.position);
+      _momentum.x = nextX.momentum;
+      _momentum.y = nextY.momentum;
 
-      if (!options.alwaysShowTracks &&
-          nextX.momentum === 0 &&
-          nextY.momentum === 0
-      ) {
-        this._hideTrackDelayed();
-      }
+      this.setPosition(nextX.position, nextY.position);
     }
 
     this._renderID = requestAnimationFrame(this._render.bind(this));
