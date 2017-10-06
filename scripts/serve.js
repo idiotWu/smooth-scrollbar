@@ -9,15 +9,7 @@ new Server(webpack(config), {
   disableHostCheck: true,
   contentBase: path.join(__dirname, '..', 'test'),
   publicPath: config.output.publicPath,
-  stats: {
-    colors: true,
-    assets: false,
-    version: false,
-    hash: false,
-    timings: false,
-    chunks: false,
-    chunkModules: false,
-  },
+  stats: "minimal",
 }).listen(3000, '0.0.0.0', (err) => {
   if (err) {
     console.log(err);
