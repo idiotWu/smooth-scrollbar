@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "core-js": "^2.5.1",
-    "lodash.debounce": "^4.0.8"
+    "lodash.debounce": "^4.0.8",
+    "tslib": "^1.7.1"
   }
 }
