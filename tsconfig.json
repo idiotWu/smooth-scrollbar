@@ -7,7 +7,6 @@
       "es6"
     ],
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,

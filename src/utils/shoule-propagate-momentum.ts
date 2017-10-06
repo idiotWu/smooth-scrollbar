@@ -1,4 +1,4 @@
-import clamp from 'lodash.clamp';
+import clamp from 'lodash-es/clamp';
 import { Scrollbar } from '../interfaces/';
 
 // check whether to propagate monmentum to parent scrollbar

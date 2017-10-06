@@ -1,4 +1,4 @@
-import clamp from 'lodash.clamp';
+import clamp from 'lodash-es/clamp';
 
 export function range(min = -Infinity, max = Infinity) {
   return (proto: any, key: string) => {
