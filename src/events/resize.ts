@@ -1,5 +1,5 @@
 import * as I from '../interfaces/';
-import * as debounce from 'lodash.debounce';
+import debounce from 'lodash.debounce';
 
 import {
   eventScope,
