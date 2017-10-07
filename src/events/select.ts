@@ -21,6 +21,7 @@ export function selectHandler(scrollbar: I.Scrollbar) {
   function scroll({ x, y }) {
     if (!x && !y) return;
 
+    // DISALLOW delta transformation
     scrollbar.setMomentum(
       clamp(offset.x + x, 0, limit.x) - offset.x,
       clamp(offset.y + y, 0, limit.y) - offset.y,
@@ -73,19 +74,24 @@ function calcMomentum(
     y: 0,
   };
 
+  const padding = 20;
+
   if (x === 0 && y === 0) return res;
 
-  if (x > right) {
-    res.x = (x - right);
-  } else if (x < left) {
-    res.x = (x - left);
+  if (x > right - padding) {
+    res.x = (x - right + padding);
+  } else if (x < left + padding) {
+    res.x = (x - left - padding);
   }
 
-  if (y > bottom) {
-    res.y = (y - bottom);
-  } else if (y < top) {
-    res.y = (y - top);
+  if (y > bottom - padding) {
+    res.y = (y - bottom + padding);
+  } else if (y < top + padding) {
+    res.y = (y - top - padding);
   }
+
+  res.x *= 2;
+  res.y *= 2;
 
   return res;
 }
