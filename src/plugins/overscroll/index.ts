@@ -136,11 +136,7 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
       this._absorbMomentum('y', remainMomentum.y);
     }
 
-    // only call `setMomentum` when remain momentum is transferred to overscroll
-    if (nextX !== remainMomentum.x || nextY !== remainMomentum.y) {
-      this.scrollbar.setMomentum(nextX, nextY);
-    }
-
+    this.scrollbar.setMomentum(nextX, nextY);
     this._render();
   }
 
