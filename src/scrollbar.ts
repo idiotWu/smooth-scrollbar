@@ -17,7 +17,7 @@ import {
   getSize,
   update,
   isVisible,
-} from './metrics/';
+} from './geometry/';
 
 import {
   scrollTo,
@@ -297,7 +297,6 @@ export class Scrollbar implements I.Scrollbar {
   }
 
   private _init() {
-    // init metrics
     this.update();
 
     // init evet handlers
