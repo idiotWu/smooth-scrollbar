@@ -21,12 +21,14 @@ const SCROLLBAR_STYLE = `
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  -webkit-transition: opacity 0.5s ease-out, background 0.5s ease-out;
-          transition: opacity 0.5s ease-out, background 0.5s ease-out;
+  -webkit-transition: opacity 0.5s 0.5s ease-out;
+          transition: opacity 0.5s 0.5s ease-out;
 }
 .scrollbar-track.show,
 .scrollbar-track:hover {
   opacity: 1;
+  -webkit-transition-delay: 0s;
+          transition-delay: 0s;
 }
 
 .scrollbar-track-x {
