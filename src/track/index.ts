@@ -3,6 +3,10 @@ import * as I from '../interfaces/';
 import { ScrollbarTrack } from './track';
 import { TrackDirection } from './direction';
 
+import {
+  debounce,
+} from '../decorators/';
+
 export class TrackController implements I.TrackController {
   readonly xAxis: ScrollbarTrack;
   readonly yAxis: ScrollbarTrack;
@@ -27,5 +31,11 @@ export class TrackController implements I.TrackController {
 
     this.xAxis.update(offset.x, size.container.width, size.content.width);
     this.yAxis.update(offset.y, size.container.height, size.content.height);
+  }
+
+  @debounce(300)
+  autoHideOnIdle() {
+    this.xAxis.hide();
+    this.yAxis.hide();
   }
 }

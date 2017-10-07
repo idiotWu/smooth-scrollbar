@@ -23,4 +23,5 @@ export interface TrackController {
   readonly yAxis: ScrollbarTrack;
 
   update(): void;
+  autoHideOnIdle(): void;
 }

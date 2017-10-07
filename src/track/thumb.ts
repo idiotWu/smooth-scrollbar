@@ -16,7 +16,7 @@ export class ScrollbarThumb implements I.ScrollbarThumb {
     this.element.className = `scrollbar-thumb scrollbar-thumb-${_direction}`;
   }
 
-  attachTo(trackEl: HTMLElement) {
+  attachTo(trackEl: HTMLDivElement) {
     trackEl.appendChild(this.element);
   }
 
