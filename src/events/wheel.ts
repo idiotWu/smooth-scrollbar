@@ -32,7 +32,7 @@ export function wheelHandler(scrollbar: I.Scrollbar) {
 
     evt.preventDefault();
 
-    scrollbar.addMomentum(x, y, evt);
+    scrollbar.addTransformableMomentum(x, y, evt);
   });
 }
 

@@ -91,7 +91,8 @@ export interface Scrollbar {
   addListener(fn: ScrollListener): void;
   removeListener(fn: ScrollListener): void;
 
-  addMomentum(x: number, y: number, fromEvent: Event): void;
+  addTransformableMomentum(x: number, y: number, fromEvent: Event): void;
+  addMomentum(x: number, y: number): void;
   setMomentum(x: number, y: number): void;
 
   scrollTo(x?: number, y?: number, duration?: number, options?: ScrollToOptions): void;

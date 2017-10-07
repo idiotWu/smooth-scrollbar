@@ -207,31 +207,21 @@ export class Scrollbar implements I.Scrollbar {
     this._listeners.delete(fn);
   }
 
-  addMomentum(x: number, y: number, fromEvent: Event) {
+  addTransformableMomentum(x: number, y: number, fromEvent: Event) {
     this._updateDebounced();
-
-    if (this.limit.x === 0) {
-      x = 0;
-    }
-    if (this.limit.y === 0) {
-      y = 0;
-    }
 
     const finalDelta = this._plugins.reduce((delta, plugin) => {
       return plugin.transformDelta(delta, fromEvent) || delta;
     }, { x, y });
 
-    let deltaX = this._momentum.x + finalDelta.x;
-    let deltaY = this._momentum.y + finalDelta.y;
+    this.addMomentum(finalDelta.x, finalDelta.y);
+  }
 
-    if (this.options.renderByPixels) {
-      // ensure resolved with integer
-      deltaX = Math.round(deltaX);
-      deltaY = Math.round(deltaY);
-    }
-
-    this._momentum.x = deltaX;
-    this._momentum.y = deltaY;
+  addMomentum(x: number, y: number) {
+    this.setMomentum(
+      this._momentum.x + x,
+      this._momentum.y + y,
+    );
   }
 
   setMomentum(x: number, y: number) {

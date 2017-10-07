@@ -47,7 +47,7 @@ export function touchHandler(scrollbar: I.Scrollbar) {
 
     evt.preventDefault();
 
-    scrollbar.addMomentum(x, y, evt);
+    scrollbar.addTransformableMomentum(x, y, evt);
     activeScrollbar = scrollbar;
   });
 
@@ -62,7 +62,7 @@ export function touchHandler(scrollbar: I.Scrollbar) {
       movement[dir] = Math.abs(value) > MIN_VELOCITY ? value : 0;
     });
 
-    scrollbar.addMomentum(
+    scrollbar.addTransformableMomentum(
       movement.x,
       movement.y,
       evt,
