@@ -14,6 +14,7 @@ export function setPosition(
     options,
     offset,
     limit,
+    track,
     contentEl,
   } = scrollbar;
 
@@ -24,6 +25,14 @@ export function setPosition(
 
   x = clamp(x, 0, limit.x);
   y = clamp(y, 0, limit.y);
+
+  // position changed -> show track for 300ms
+  if (x !== offset.x) track.xAxis.show();
+  if (y !== offset.y) track.yAxis.show();
+
+  if (!options.alwaysShowTracks) {
+    track.autoHideOnIdle();
+  }
 
   if (x === offset.x && y === offset.y) {
     return null;
@@ -36,7 +45,7 @@ export function setPosition(
     '-transform': `translate3d(${-x}px, ${-y}px, 0)`,
   });
 
-  scrollbar.track.update();
+  track.update();
 
   return {
     offset: { ...offset },

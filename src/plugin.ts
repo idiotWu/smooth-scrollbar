@@ -22,7 +22,9 @@ export class ScrollbarPlugin implements I.ScrollbarPlugin {
 
   onInit() {}
   onDestory() {}
-  onRender(_offset: I.Data2d, _remainMomentum: I.Data2d) {}
+
+  onUpdate() {}
+  onRender(_remainMomentum: I.Data2d) {}
 
   transformDelta(delta: I.Data2d, _evt: Event): I.Data2d {
     return { ...delta };

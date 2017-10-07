@@ -1,3 +1,4 @@
+import clamp from 'lodash-es/clamp';
 import * as I from '../interfaces/';
 
 import {
@@ -10,6 +11,8 @@ export function selectHandler(scrollbar: I.Scrollbar) {
   const {
     containerEl,
     contentEl,
+    offset,
+    limit,
   } = scrollbar;
 
   let isSelected = false;
@@ -18,7 +21,10 @@ export function selectHandler(scrollbar: I.Scrollbar) {
   function scroll({ x, y }) {
     if (!x && !y) return;
 
-    scrollbar.setMomentum(x, y);
+    scrollbar.setMomentum(
+      clamp(offset.x + x, 0, limit.x) - offset.x,
+      clamp(offset.y + y, 0, limit.y) - offset.y,
+    );
 
     animationID = requestAnimationFrame(() => {
       scroll({ x, y });

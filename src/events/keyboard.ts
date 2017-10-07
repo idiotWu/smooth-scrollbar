@@ -1,3 +1,4 @@
+import clamp from 'lodash-es/clamp';
 import * as I from '../interfaces/';
 
 import {
@@ -46,7 +47,15 @@ export function keyboardHandler(scrollbar: I.Scrollbar) {
 
     evt.preventDefault();
 
-    scrollbar.addMomentum(x, y, evt);
+    const {
+      offset,
+      limit,
+    } = scrollbar;
+
+    scrollbar.setMomentum(
+      clamp(offset.x + x, 0, limit.x) - offset.x,
+      clamp(offset.y + y, 0, limit.y) - offset.y,
+    );
   });
 }
 

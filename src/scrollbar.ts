@@ -151,6 +151,10 @@ export class Scrollbar implements I.Scrollbar {
 
   update() {
     update(this);
+
+    this._plugins.forEach((plugin) => {
+      plugin.onUpdate();
+    });
   }
 
   isVisible(elem: HTMLElement): boolean {
@@ -162,13 +166,6 @@ export class Scrollbar implements I.Scrollbar {
     y = this.offset.y,
     options: I.SetPositionOptions = {},
   ) {
-    // position changed -> show track for 300ms
-    if (x !== this.offset.x) this.track.xAxis.show();
-    if (y !== this.offset.y) this.track.yAxis.show();
-    if (!this.options.alwaysShowTracks) {
-      this._hideTrackDebounced();
-    }
-
     const status = setPosition(this, x, y);
 
     if (!status || options.withoutCallbacks) {
@@ -315,12 +312,6 @@ export class Scrollbar implements I.Scrollbar {
     this.update();
   }
 
-  @debounce(300)
-  private _hideTrackDebounced() {
-    this.track.xAxis.hide();
-    this.track.yAxis.hide();
-  }
-
   private _render() {
     const {
       _momentum,
@@ -335,6 +326,12 @@ export class Scrollbar implements I.Scrollbar {
 
       this.setPosition(nextX.position, nextY.position);
     }
+
+    const remain = { ...this._momentum };
+
+    this._plugins.forEach((plugin) => {
+      plugin.onRender(remain);
+    });
 
     this._renderID = requestAnimationFrame(this._render.bind(this));
   }

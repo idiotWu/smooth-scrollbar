@@ -37,7 +37,7 @@ export function mouseHandler(scrollbar: I.Scrollbar) {
   }
 
   function getTrackDirection(
-    elem: HTMLElement,
+    elem: HTMLDivElement,
   ): Direction | undefined {
     if (isOneOf(elem, [xAxis.element, xAxis.thumb.element])) {
       return Direction.X;
@@ -61,7 +61,7 @@ export function mouseHandler(scrollbar: I.Scrollbar) {
       return;
     }
 
-    const track = evt.target as HTMLElement;
+    const track = evt.target as HTMLDivElement;
     const direction = getTrackDirection(track);
     const rect = track.getBoundingClientRect();
     const clickPos = getPosition(evt);
@@ -86,7 +86,7 @@ export function mouseHandler(scrollbar: I.Scrollbar) {
 
     isMouseDown = true;
 
-    const thumb = evt.target as HTMLElement;
+    const thumb = evt.target as HTMLDivElement;
     const cursorPos = getPosition(evt);
     const thumbRect = thumb.getBoundingClientRect();
 
