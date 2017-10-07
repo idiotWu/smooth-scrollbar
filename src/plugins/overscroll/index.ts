@@ -121,21 +121,26 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
     let { x: nextX, y: nextY } = remainMomentum;
 
     if (!_amplitude.x &&
-      this._willOverscroll('x', remainMomentum.x)
+        this._willOverscroll('x', remainMomentum.x)
     ) {
+      // transfer momentum
       nextX = 0;
       _amplitude.x = clamp(remainMomentum.x, -options.maxOverscroll, options.maxOverscroll);
     }
 
     if (!_amplitude.y &&
-      this._willOverscroll('y', remainMomentum.y)
+        this._willOverscroll('y', remainMomentum.y)
     ) {
       nextY = 0;
       _amplitude.y = clamp(remainMomentum.y, -options.maxOverscroll, options.maxOverscroll);
     }
 
-    this._update();
-    this.scrollbar.setMomentum(nextX, nextY);
+    // only call `setMomentum` when remain momentum is transferred to overscroll
+    if (nextX !== remainMomentum.x || nextY !== remainMomentum.y) {
+      this.scrollbar.setMomentum(nextX, nextY);
+    }
+
+    this._render();
   }
 
   transformDelta(delta: Data2d, fromEvent: Event): Data2d {
@@ -235,7 +240,7 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
     }
   }
 
-  private _update() {
+  private _render() {
     const {
       options,
       _amplitude,
