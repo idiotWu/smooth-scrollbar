@@ -23,6 +23,8 @@ export class Options {
   @boolean
   continuousScrolling = true;
 
+  wheelEventTarget: EventTarget | null = null;
+
   plugins: any = {};
 
   constructor(config: Partial<ScrollbarOptions> = {}) {

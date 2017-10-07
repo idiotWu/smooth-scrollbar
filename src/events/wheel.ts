@@ -21,7 +21,9 @@ const getDeltaMode = (mode) => DELTA_MODE[mode] || DELTA_MODE[0];
 export function wheelHandler(scrollbar: I.Scrollbar) {
   const addEvent = eventScope(scrollbar);
 
-  addEvent(scrollbar.containerEl, GLOBAL_ENV.WHEEL_EVENT, (evt: WheelEvent) => {
+  const target = scrollbar.options.wheelEventTarget || scrollbar.containerEl;
+
+  addEvent(target, GLOBAL_ENV.WHEEL_EVENT, (evt: WheelEvent) => {
     const { x, y } = normalizeDelta(evt);
 
     if (shoulePropagateMomentum(scrollbar, x, y)) {
