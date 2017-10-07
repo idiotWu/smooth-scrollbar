@@ -1,3 +1,4 @@
+import clamp from 'lodash-es/clamp';
 import * as I from '../interfaces/';
 
 import {
@@ -66,16 +67,22 @@ export function mouseHandler(scrollbar: I.Scrollbar) {
     const rect = track.getBoundingClientRect();
     const clickPos = getPosition(evt);
 
-    const { offset } = scrollbar;
+    const { offset, limit } = scrollbar;
 
     if (direction === Direction.X) {
       const offsetOnTrack = clickPos.x - rect.left - xAxis.thumb.displaySize / 2;
-      scrollbar.setMomentum(calcOffset(direction, offsetOnTrack) - offset.x, 0);
+      scrollbar.setMomentum(
+        clamp(calcOffset(direction, offsetOnTrack) - offset.x, -offset.x, limit.x - offset.x),
+        0,
+      );
     }
 
     if (direction === Direction.Y) {
       const offsetOnTrack = clickPos.y - rect.top - yAxis.thumb.displaySize / 2;
-      scrollbar.setMomentum(0, calcOffset(direction, offsetOnTrack) - offset.y);
+      scrollbar.setMomentum(
+        0,
+        clamp(calcOffset(direction, offsetOnTrack) - offset.y, -offset.y, limit.y - offset.y),
+      );
     }
   });
 
