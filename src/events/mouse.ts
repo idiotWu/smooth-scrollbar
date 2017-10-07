@@ -5,6 +5,7 @@ import {
   isOneOf,
   getPosition,
   eventScope,
+  setStyle,
 } from '../utils/';
 
 enum Direction { X, Y }
@@ -107,6 +108,12 @@ export function mouseHandler(scrollbar: I.Scrollbar) {
 
     // container bounding rectangle
     containerRect = container.getBoundingClientRect();
+
+    // prevent selection, see:
+    // https://github.com/idiotWu/smooth-scrollbar/issues/48
+    setStyle(scrollbar.containerEl, {
+      '-user-select': 'none',
+    });
   });
 
   addEvent(window, 'mousemove', (evt) => {
@@ -140,5 +147,9 @@ export function mouseHandler(scrollbar: I.Scrollbar) {
 
   addEvent(window, 'mouseup blur', () => {
     isMouseDown = isMouseMoving = false;
+
+    setStyle(scrollbar.containerEl, {
+      '-user-select': '',
+    });
   });
 }
