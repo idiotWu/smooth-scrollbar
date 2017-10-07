@@ -20,12 +20,18 @@ export function touchHandler(scrollbar: I.Scrollbar) {
   const touchRecord = new TouchRecord();
   const addEvent = eventScope(scrollbar);
 
+  let damping: number;
+
   addEvent(container, 'touchstart', (evt: TouchEvent) => {
     // start records
     touchRecord.track(evt);
 
     // stop scrolling
     scrollbar.setMomentum(0, 0);
+
+    // save damping
+    damping = scrollbar.options.damping;
+    scrollbar.options.damping = Math.max(damping, 0.5);
   });
 
   addEvent(container, 'touchmove', (evt: TouchEvent) => {
@@ -41,7 +47,6 @@ export function touchHandler(scrollbar: I.Scrollbar) {
 
     evt.preventDefault();
 
-    // TODO: scale damping factor
     scrollbar.addMomentum(x, y, evt);
     activeScrollbar = scrollbar;
   });
@@ -63,6 +68,7 @@ export function touchHandler(scrollbar: I.Scrollbar) {
       evt,
     );
 
+    scrollbar.options.damping = damping;
     touchRecord.release(evt);
     activeScrollbar = null;
   });
