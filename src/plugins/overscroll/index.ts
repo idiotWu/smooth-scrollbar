@@ -21,6 +21,8 @@ export type OverscrollOptions = {
   glowColor: string,
 };
 
+const ALLOWED_EVENTS = /wheel|touch/;
+
 export default class OverscrollPlugin extends ScrollbarPlugin {
   static pluginName = 'overscroll';
 
@@ -39,6 +41,8 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
   private _back = false;
   private _paused = false;
   private _wheelLocked = false;
+
+  private _lastEventType: string;
 
   private _amplitude = {
     x: 0,
@@ -113,26 +117,23 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
       this.scrollbar.options.continuousScrolling = false;
     }
 
-    const {
-      options,
-      _amplitude,
-    } = this;
-
     let { x: nextX, y: nextY } = remainMomentum;
 
-    if (!_amplitude.x &&
+    // transfer remain momentum to overscroll
+    if (!this._amplitude.x &&
         this._willOverscroll('x', remainMomentum.x)
     ) {
-      // transfer momentum
       nextX = 0;
-      _amplitude.x = clamp(remainMomentum.x, -options.maxOverscroll, options.maxOverscroll);
+
+      this._absorbMomentum('x', remainMomentum.x);
     }
 
-    if (!_amplitude.y &&
+    if (!this._amplitude.y &&
         this._willOverscroll('y', remainMomentum.y)
     ) {
       nextY = 0;
-      _amplitude.y = clamp(remainMomentum.y, -options.maxOverscroll, options.maxOverscroll);
+
+      this._absorbMomentum('y', remainMomentum.y);
     }
 
     // only call `setMomentum` when remain momentum is transferred to overscroll
@@ -144,11 +145,13 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
   }
 
   transformDelta(delta: Data2d, fromEvent: Event): Data2d {
-    if (!this._enabled) {
+    this._lastEventType = fromEvent.type;
+
+    if (!this._enabled || !ALLOWED_EVENTS.test(fromEvent.type)) {
       return delta;
     }
 
-    if (this._wheelLocked && fromEvent.type.match(/wheel/)) {
+    if (this._wheelLocked && /wheel/.test(fromEvent.type)) {
       this._releaseWheel();
 
       if (this._willOverscroll('x', delta.x)) {
@@ -160,18 +163,14 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
       }
     }
 
-    const {
-      _position,
-    } = this;
-
     let { x: nextX, y: nextY } = delta;
 
-    if (_position.x) {
+    if (this._willOverscroll('x', delta.x)) {
       nextX = 0;
       this._addAmplitude('x', delta.x, fromEvent);
     }
 
-    if (_position.y) {
+    if (this._willOverscroll('y', delta.y)) {
       nextY = 0;
       this._addAmplitude('y', delta.y, fromEvent);
     }
@@ -197,14 +196,36 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
   }
 
   private _willOverscroll(direction: 'x' | 'y', delta: number): boolean {
+    if (!delta) {
+      return false;
+    }
+
     const offset = this.scrollbar.offset[direction];
     const limit = this.scrollbar.limit[direction];
+
+    if (limit === 0) {
+      return false;
+    }
 
     // cond:
     //  1. next scrolling position is supposed to stay unchange
     //  2. current position is on the edge
     return clamp(offset + delta, 0, limit) === offset &&
         (offset === 0 || offset === limit);
+  }
+
+  private _absorbMomentum(direction: 'x' | 'y', remainMomentum: number) {
+    const {
+      options,
+      _lastEventType,
+      _amplitude,
+    } = this;
+
+    if (!ALLOWED_EVENTS.test(_lastEventType)) {
+      return;
+    }
+
+    _amplitude[direction] = clamp(remainMomentum, -options.maxOverscroll, options.maxOverscroll);
   }
 
   private _addAmplitude(direction: 'x' | 'y', delta: number, fromEvent: Event) {
