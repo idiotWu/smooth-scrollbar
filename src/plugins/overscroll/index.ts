@@ -108,6 +108,11 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
       return;
     }
 
+    if (this.scrollbar.options.continuousScrolling) {
+      // turn off continuous scrolling
+      this.scrollbar.options.continuousScrolling = false;
+    }
+
     const {
       options,
       _amplitude,
