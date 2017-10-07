@@ -25,7 +25,7 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
   static pluginName = 'overscroll';
 
   static defaultOptions: OverscrollOptions = {
-    effect: OverscrollEffect.GLOW,
+    effect: OverscrollEffect.BOUNCE,
     damping: 0.2,
     maxOverscroll: 150,
     glowColor: '#87ceeb',
