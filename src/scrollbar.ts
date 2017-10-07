@@ -108,6 +108,12 @@ export class Scrollbar implements I.Scrollbar {
       outline: 'none',
     });
 
+    // enable touch event capturing in IE, see:
+    // https://github.com/idiotWu/smooth-scrollbar/issues/39
+    if (window.navigator.msPointerEnabled) {
+      containerEl.style.msTouchAction = 'none';
+    }
+
     // mount content
     contentEl.className = 'scroll-content';
 
