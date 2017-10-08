@@ -52,6 +52,10 @@ let hoverPointerX: number | undefined;
 let pointerDownOnTrack: number | undefined;
 let renderLoopID: number;
 
+let lastTime = Date.now();
+let lastOffset = 0;
+let reduceAmount = 0;
+
 const monitorOptions = {
   show: window.innerWidth > 600,
   data: 'offset',
@@ -136,7 +140,7 @@ function sliceRecord(): RecordPoint[] {
     if (last.time - pt.time > TIME_RANGE_MAX) {
       dropIdx++;
       endIdx--;
-      return;
+      return false;
     }
 
     const end = records[endIdx - 1];
@@ -406,10 +410,6 @@ function render() {
 
   renderLoopID = requestAnimationFrame(render);
 }
-
-let lastTime = Date.now();
-let lastOffset = 0;
-let reduceAmount = 0;
 
 scrollbar.addListener(() => {
   let current = Date.now();
