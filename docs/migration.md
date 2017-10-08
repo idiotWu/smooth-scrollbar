@@ -2,6 +2,15 @@
 
 > The following sections describe the major changes from 7.x to 8.x.
 
+## Table of Contents
+
+* [Plugin System](#plugin-system)
+* [Standalone overscroll plugin](#standalone-overscroll-plugin)
+* [Deprecated Options](#deprecated-options)
+* [Imcompatible Properties](#imcompatible-properties)
+* [Deprecated Methods](#deprecated-methods)
+* [Imcompatible Methods](#imcompatible-methods)
+
 ## Plugin System
 
 See [Plugin System](plugin.md) for details;
