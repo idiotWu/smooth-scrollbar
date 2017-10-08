@@ -276,7 +276,7 @@ export class Scrollbar implements I.Scrollbar {
     });
 
     // reset scroll position
-    setStyle(contentEl, {
+    setStyle(containerEl, {
       overflow: '',
     });
     containerEl.scrollTop = this.scrollTop;
