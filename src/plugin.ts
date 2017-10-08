@@ -1,16 +1,16 @@
 import * as I from './interfaces/';
 
-import { Scrollbar } from './scrollbar';
+import { Scrollbar } from './scrollbar'; // used as type annotations
 
 export class ScrollbarPlugin implements I.ScrollbarPlugin {
   static pluginName = '';
   static defaultOptions: any = {};
 
-  readonly scrollbar: Scrollbar;
+  readonly scrollbar: I.Scrollbar;
   readonly options: any;
 
   constructor(
-    scrollbar: Scrollbar,
+    scrollbar: I.Scrollbar,
     options: any = {},
   ) {
     this.scrollbar = scrollbar;
@@ -60,14 +60,15 @@ export function addPlugins(
 
 export function initPlugins(
   scrollbar: Scrollbar,
+  options: any,
 ): ScrollbarPlugin[] {
-  const pluginOptions = scrollbar.options.plugins;
-
   return Array.from(globalPlugins.order)
+    .filter((pluginName: string) => {
+      return !!options[pluginName];
+    })
     .map((pluginName: string) => {
       const Plugin = globalPlugins.constructors[pluginName];
-      const options = pluginOptions[pluginName];
 
-      return new Plugin(scrollbar, options);
+      return new Plugin(scrollbar, options[pluginName]);
     });
 }

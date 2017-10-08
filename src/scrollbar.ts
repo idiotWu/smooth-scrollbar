@@ -130,7 +130,7 @@ export class Scrollbar implements I.Scrollbar {
     this.size = this.getSize();
 
     // init plugins
-    this._plugins = initPlugins(this);
+    this._plugins = initPlugins(this, this.options.plugins);
 
     // observe
     if (typeof GLOBAL_ENV.MutationObserver === 'function') {
