@@ -15,7 +15,14 @@ module.exports = {
   module: {
     rules: [{
       test: /\.ts$/,
-      use: [ 'ts-loader' ],
+      use: [{
+        loader: 'ts-loader',
+        options: {
+          compilerOptions: {
+            declaration: false,
+          },
+        },
+      }],
       include: [
         joinRoot('src'),
         joinRoot('__demo__'),
@@ -31,4 +38,7 @@ module.exports = {
       failOnError: true,
     }),
   ],
+  stats: {
+    modules: false,
+  },
 };

@@ -6,7 +6,5 @@ env:
 language: node_js
 node_js:
 - stable
-before_script:
-- chmod +x ./scripts/deploy.sh
-# script: npm test
-# after_success: "./scripts/deploy.sh"
+script: npm test
+after_success: npm run deploy

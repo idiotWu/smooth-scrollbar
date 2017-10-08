@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": ".",
     "baseUrl": ".",
     "target": "es5",
     "module": "es6",

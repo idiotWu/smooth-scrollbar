@@ -1,7 +1,7 @@
 const ip = require('ip');
 const path = require('path');
 const merge = require('webpack-merge');
-const baseConfig = require('./webpack.config.base');
+const baseConfig = require('./webpack.base');
 
 const joinRoot = path.join.bind(path, __dirname, '..');
 
@@ -12,9 +12,9 @@ module.exports = merge(baseConfig, {
     joinRoot('__demo__/scripts/index.ts'),
   ],
   output: {
-    path: joinRoot('build/js/'),
+    path: joinRoot('.tmp'),
     filename: 'app.js',
-    publicPath: '/build/js/',
+    publicPath: '/',
   },
   module: {
     rules: [{

@@ -28,5 +28,5 @@ node_modules
 bower_components
 
 # build file
+.tmp
 build
-.gh-pages

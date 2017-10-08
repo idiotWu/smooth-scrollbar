@@ -1,16 +1,15 @@
 {
   "name": "smooth-scrollbar",
-  "version": "7.4.1",
+  "version": "8.0.0-beta.0",
   "authors": [
     "Dolphin Wood <dolphin.w.e@gmail.com>"
   ],
   "description": "Customize scrollbar in modern browsers with smooth scrolling experience.",
-  "main": [
-    "dist/smooth-scrollbar.js",
-    "dist/smooth-scrollbar.css"
-  ],
+  "main": "dist/smooth-scrollbar.js",
   "moduleType": [
-    "es6"
+    "globals",
+    "amd",
+    "node"
   ],
   "keywords": [
     "scrollbar",
@@ -24,8 +23,8 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
+    "__demo__",
     "build",
-    "tests"
+    "test"
   ]
 }
