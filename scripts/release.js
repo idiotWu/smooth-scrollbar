@@ -96,15 +96,6 @@ function runTask(options) {
       fs.writeFileSync(joinRoot('bower.json'), JSON.stringify(bowerPkg, null, 2));
     },
   }, {
-    title: 'Copy files to working directory',
-    task: () => {
-      cpx.copySync(joinRoot('dist/**'), `${BUILD_DIR}/dist`);
-      cpx.copySync(joinRoot('package.json'), BUILD_DIR);
-      cpx.copySync(joinRoot('README.md'), BUILD_DIR);
-      cpx.copySync(joinRoot('CHANGELOG.md'), BUILD_DIR);
-      cpx.copySync(joinRoot('LICENSE'), BUILD_DIR);
-    },
-  }, {
     title: 'Commit changes',
     task: async () => {
       await execa.shell('git add --all');
@@ -113,6 +104,15 @@ function runTask(options) {
   }, {
     title: `Bump NPM version: ${pkg.version} -> ${options.version}`,
     task: () => execa.shell(`npm version ${options.version}`),
+  }, {
+    title: 'Copy files to working directory',
+    task: () => {
+      cpx.copySync(joinRoot('dist/**'), `${BUILD_DIR}/dist`);
+      cpx.copySync(joinRoot('package.json'), BUILD_DIR);
+      cpx.copySync(joinRoot('README.md'), BUILD_DIR);
+      cpx.copySync(joinRoot('CHANGELOG.md'), BUILD_DIR);
+      cpx.copySync(joinRoot('LICENSE'), BUILD_DIR);
+    },
   }, {
     title: `Publish ${options.version}`,
     task: () => {
