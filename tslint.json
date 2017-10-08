@@ -1,0 +1,13 @@
+{
+  "extends": "tslint-config-standard",
+  "rules": {
+    "ter-indent": [true, 2, { "SwitchCase": 1 }],
+    "semicolon": [true, "always"],
+    "align": [true, "parameters", "statements"],
+    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
+    "no-empty": false,
+    "no-unused-variable": false,
+    "strict-type-predicates": false,
+    "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}]
+  }
+}

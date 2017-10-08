@@ -35,7 +35,7 @@ npm run ghpages
 echo "Copying new contents"
 cp -v ./test/index.html ./out
 cp -vr ./test/images ./out
-cp -vr ./build ./out
+cp -vr ./.tmp ./out
 cd ./out
 
 # Now let's go have some fun with the cloned repo
