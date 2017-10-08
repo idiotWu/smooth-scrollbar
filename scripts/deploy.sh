@@ -33,8 +33,8 @@ npm run ghpages
 
 # Copy files
 echo "Copying new contents"
-cp -v ./test/index.html ./out
-cp -vr ./test/images ./out
+cp -v ./__demo__/index.html ./out
+cp -vr ./__demo__/images ./out
 cp -vr ./.tmp ./out
 cd ./out
 
