@@ -2,244 +2,234 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta property="og:title" content="Smooth Scrollbar">
-    <meta name="description" content="Customize scrollbar in modern browsers with smooth scrolling experience.">
-    <meta property="og:description" content="Customize scrollbar in modern browsers with smooth scrolling experience.">
-    <link rel="canonical" href="https://https://github.com/idiotWu/smooth-scrollbar">
-    <meta property="og:url" content="https://https://github.com/idiotWu/smooth-scrollbar">
-    <title>Smooth Scrollbar</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content="Smooth Scrollbar">
+  <meta name="description" content="Customize scrollbar in modern browsers with smooth scrolling experience.">
+  <meta property="og:description" content="Customize scrollbar in modern browsers with smooth scrolling experience.">
+  <link rel="canonical" href="https://https://github.com/idiotWu/smooth-scrollbar">
+  <meta property="og:url" content="https://https://github.com/idiotWu/smooth-scrollbar">
+  <title>Smooth Scrollbar</title>
 </head>
 
 <body>
-    <aside id="controller"></aside>
-    <aside id="monitor">
-        <h4>Scrollbar Monitor</h4>
-        <canvas id="chart"></canvas>
-        <footer id="track">
-            <div id="thumb"></div>
-        </footer>
-    </aside>
+  <aside id="controller"></aside>
+  <aside id="monitor">
+    <h4>Scrollbar Monitor</h4>
+    <canvas id="chart"></canvas>
+    <footer id="track">
+      <div id="thumb"></div>
+    </footer>
+  </aside>
+  <main id="main-scrollbar" data-scrollbar>
+    <header>
+      <a target="_blank" href="https://github.com/idiotWu/smooth-scrollbar" class="github-corner">
+        <svg width="80" height="80" viewBox="0 0 250 250" style="fill:none; color:#fff; position: absolute; top: 0; border: 0; right: 0;">
+          <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+          <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+          <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+        </svg>
+      </a>
+      <nav class="social-share">
+        <a target="_blank" href="https://twitter.com/share" class="twitter-share-button" data-url="https://github.com/idiotWu/smooth-scrollbar" data-text="Customize scrollbar in modern browsers with smooth scrolling experience." data-via="Dolphin_Wood"></a>
+        <script>
+        ! function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0],
+            p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s);
+            js.id = id;
+            js.src = p + '://platform.twitter.com/widgets.js';
+            fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');
 
-    <main id="main-scrollbar" data-scrollbar>
-        <header>
-        <a href="https://github.com/idiotWu/smooth-scrollbar" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:none; color:#fff; position: absolute; top: 0; border: 0; right: 0;"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
-            <nav class="social-share">
-                <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://github.com/idiotWu/smooth-scrollbar" data-text="Customize scrollbar in modern browsers with smooth scrolling experience." data-via="Dolphin_Wood"></a>
-                <script>
-                ! function(d, s, id) {
-                    var js, fjs = d.getElementsByTagName(s)[0],
-                        p = /^http:/.test(d.location) ? 'http' : 'https';
-                    if (!d.getElementById(id)) {
-                        js = d.createElement(s);
-                        js.id = id;
-                        js.src = p + '://platform.twitter.com/widgets.js';
-                        fjs.parentNode.insertBefore(js, fjs);
-                    }
-                }(document, 'script', 'twitter-wjs');
-                </script>
-                <iframe src="https://ghbtns.com/github-btn.html?user=idiotWu&amp;repo=smooth-scrollbar&amp;type=star&amp;count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
-            </nav>
-            <h1>Smooth Scrollbar</h1>
-            <h2>Customizable, High Performance, and Full of Features Scrollbars!</h2>
-            <a class="repo" href="https://github.com/idiotWu/smooth-scrollbar" target="_blank">View on Github</a>
-            <footer class="version-note">Version: <span id="version"></span></footer>
-        </header>
+        </script>
+        <iframe src="https://ghbtns.com/github-btn.html?user=idiotWu&amp;repo=smooth-scrollbar&amp;type=star&amp;count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </nav>
+      <h1>Smooth Scrollbar</h1>
+      <h2>Customizable, High Performance, and Full of Features Scrollbars!</h2>
+      <a class="repo doc" href="https://github.com/idiotWu/smooth-scrollbar/docs" target="_blank">Documentation</a>
+      <a class="repo" href="https://github.com/idiotWu/smooth-scrollbar" target="_blank">GitHub</a>
+      <footer class="version-note">Version: <span id="version"></span></footer>
+    </header>
+    <article id="content">
+      <p><a target="_blank" href="https://www.npmjs.com/package/smooth-scrollbar"><img src="https://img.shields.io/npm/v/smooth-scrollbar.svg?style=flat-square" alt="npm"></a>
+        <a target="_blank" href="https://www.npmjs.com/package/smooth-scrollbar"><img src="https://img.shields.io/npm/dt/smooth-scrollbar.svg?style=flat-square" alt="downloads"></a>
+        <a target="_blank" href="LICENSE"><img src="https://img.shields.io/npm/l/smooth-scrollbar.svg?style=flat-square" alt="license"></a>
+        <a target="_blank" href="https://travis-ci.org/idiotWu/smooth-scrollbar"><img src="https://img.shields.io/travis/idiotWu/smooth-scrollbar.svg" alt="Travis"></a></p>
+      <h2>What is smooth-scrollbar?</h2>
+      <p>Smooth Scrollbar is a JavaScript Plugin that allows you customizing high perfermance scrollbars cross browsers. It is using <code>translate3d</code> to perform a momentum based scrolling (aka inertial scrolling) on modern browsers. With the flexible <a target="_blank" href="https://github.com/idiotWu/smooth-scrollbar/docs/plugin.md">plugin system</a>, we can easily redesign the scrollbar as we want. This is the scrollbar plugin that you&#39;ve ever dreamed of!</p>
+      <h2>Installation</h2>
+      <p>Via NPM <strong>(recommended)</strong>:</p>
+      <div><pre><code class="language-shell">npm install smooth-scrollbar --save</code></pre></div>
+      <p>Via Bower:</p>
+      <div><pre><code class="language-shell">bower install smooth-scrollbar --save</code></pre></div>
+      <h2>Browser Compatibility</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: left">Browser</th>
+            <th style="text-align: center">Version</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: left">IE</td>
+            <td style="text-align: center">10+</td>
+          </tr>
+          <tr>
+            <td style="text-align: left">Chrome</td>
+            <td style="text-align: center">22+</td>
+          </tr>
+          <tr>
+            <td style="text-align: left">Firefox</td>
+            <td style="text-align: center">16+</td>
+          </tr>
+          <tr>
+            <td style="text-align: left">Safari</td>
+            <td style="text-align: center">8+</td>
+          </tr>
+          <tr>
+            <td style="text-align: left">Android Browser</td>
+            <td style="text-align: center">4+</td>
+          </tr>
+          <tr>
+            <td style="text-align: left">Chrome for Android</td>
+            <td style="text-align: center">32+</td>
+          </tr>
+          <tr>
+            <td style="text-align: left">iOS Safari</td>
+            <td style="text-align: center">7+</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Usage</h2>
+      <p>Since this package has a <a target="_blank" href="https://github.com/rollup/rollup/wiki/pkg.module">pkg.module</a> filed, it&#39;s highly recommended to import it as an ES6 module with some bundlers like <a target="_blank" href="https://webpack.js.org/">webpack</a> or <a target="_blank" href="https://rollupjs.org/">rollup</a>:</p>
+      <div><pre><code class="language-javascript">import Scrollbar from &#39;smooth-scrollbar&#39;;
 
-        <article id="content">
-            <section class="setup">
-                <h4>Install</h4>
-                <p>Via npm: <pre class="language-bash"><code>npm install smooth-scrollbar --save</code></pre></p>
-                <p>Via bower: <pre class="language-bash"><code>bower install smooth-scrollbar --save</code></pre></p>
-            </section>
-            <section class="compatibility">
-                <h4>Browser Compatibility</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Browser</th>
-                            <th>Version</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>IE</td>
-                            <td>10+</td>
-                        </tr>
-                        <tr>
-                            <td>Chrome</td>
-                            <td>22+</td>
-                        </tr>
-                        <tr>
-                            <td>Firefox</td>
-                            <td>16+</td>
-                        </tr>
-                        <tr>
-                            <td>Safari</td>
-                            <td>8+</td>
-                        </tr>
-                        <tr>
-                            <td>Android Browser</td>
-                            <td>4+</td>
-                        </tr>
-                        <tr>
-                            <td>Chrome for Android</td>
-                            <td>32+</td>
-                        </tr>
-                        <tr>
-                            <td>iOS Safari</td>
-                            <td>7+</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-            <section class="explain">
-                <h4>Why is native scrolling slow?</h4>
-                <p>As is explained in <a href="http://www.html5rocks.com/en/tutorials/speed/scrolling/" target="_blank">this article</a>, browser repaint every frame in scrolling. <strong>Less painting is better.</strong></p>
-                <p>To avoid repainting, I use <code class="language-css">translate3d</code> in scroll content to create composite layers and force hardware accelerating.</p>
-            </section>
-            <section class="usage">
-                <h4>Usage</h4>
-                <p>Smooth scrollbar is defined as an UMD module which named <code class="language-js">Scrollbar</code>, you can use any loader to load it:</p>
-                <pre class="language-js"><code>import Scrollbar from 'smooth-scrollbar';</code></pre>
-                <p>Or get it from <code class="language-js">window</code> object:</p>
-                <pre class="language-js"><code>const { Scrollbar } = window;</code></pre>
-                <p>Don't forget to include the stylesheet in your page:</p>
-                <pre class="language-html"><code>&lt;link rel="stylesheet" href="dist/smooth-scrollbar.css"&gt;</code></pre>
-                <p>Here're three ways to tell the plugin which element should be a smooth scrollbar:</p>
-                <ol>
-                    <li>
-                        As an element:
-                        <pre class="language-html"><code>&lt;scrollbar&gt;
-    ...
-&lt;/scrollbar&gt;</code></pre>
-                    </li>
-                    <li>
-                        As an attribute:
-                        <pre class="language-html"><code>&lt;section scrollbar&gt;
-    ...
-&lt;/section&gt;</code></pre>
-                    </li>
-                    <li>
-                        As a data-attribute:
-                        <pre class="language-html"><code>&lt;section data-scrollbar&gt;
-    ...
-&lt;/section&gt;</code></pre>
-                    </li>
-                </ol>
-                <p>Then init all scrollbars:</p>
-                <pre class="language-js"><code>Scrollbar.initAll(options);</code></pre>
-                <p>Or you can call <code class="language-js">Scrollbar.init(elem, options)</code> to manually init the scrollbar.</p>
-            </section>
-            <section class="options">
-                <h4>Available Options for Scrollbar</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>parameter</th>
-                            <th>type</th>
-                            <th>default</th>
-                            <th>description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>speed</td>
-                            <td>Number</td>
-                            <td>1</td>
-                            <td>Scrolling speed scale.</td>
-                        </tr>
-                        <tr>
-                            <td>damping</td>
-                            <td>Number</td>
-                            <td>0.1</td>
-                            <td>Delta reduce damping, a float value between (0, 1), the lower the value is, the more smooth the scrolling will be.</td>
-                        </tr>
-                        <tr>
-                            <td>thumbMinSize</td>
-                            <td>Number</td>
-                            <td>20</td>
-                            <td>Minimal size for scrollbar thumb.</td>
-                        </tr>
-                        <tr>
-                            <td>renderByPixels</td>
-                            <td>Boolean</td>
-                            <td>true</td>
-                            <td>Render scrolling by integer pixels, set to <code>true</code> to improve performance.</td>
-                        </tr>
-                        <tr>
-                            <td>alwaysShowTracks</td>
-                            <td>Boolean</td>
-                            <td>false</td>
-                            <td>Keep scrollbar tracks visible whether it's scrolling or not.</td>
-                        </tr>
-                        <tr>
-                            <td>continuousScrolling</td>
-                            <td>Boolean|String</td>
-                            <td>'auto'</td>
-                            <td>Whether allow upper scrollable content to continue scrolling when current scrollbar reaches edge. <strong>When set to 'auto', it will be enabled on nested scrollbars, and disabled on first-class scrollbars.</strong></td>
-                        </tr>
-                        <tr>
-                            <td>overscrollEffect</td>
-                            <td>Boolean|String</td>
-                            <td>false</td>
-                            <td>Experimental overscroll effect, <code>'bounce'</code> for iOS style effect and <code>'glow'</code> for Android style effect. <strong>Be careful when you enable this feature!</strong></td>
-                        </tr>
-                        <tr>
-                            <td>overscrollEffectColor</td>
-                            <td>String</td>
-                            <td>'#87ceeb'</td>
-                            <td>Canvas paint color with 'glow' effect.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-            <section class="structure">
-                <h4>DOM Structure</h4>
-                <p>Following is the DOM structure that Scrollbar generated:</p>
-<pre class="language-html"><code>&lt;scrollbar&gt;
-    &lt;article class="scroll-content"&gt;
+Scrollbar.init(document.querySelector(&#39;#my-scrollbar&#39;), options);</code></pre></div>
+      <p>If you are not using any bundlers, you can just load the UMD bundle:</p>
+      <div><pre><code class="language-markup">&lt;script src=&quot;dist/smooth-scrollbar.js&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  var Scrollbar = window.Scrollbar;
+
+  Scrollbar.init(document.querySelector(&#39;#my-scrollbar&#39;), options);
+&lt;/script&gt;</code></pre></div>
+      <h2>Common mistakes</h2>
+      <h4>Initialize a scrollbar without a limited width or height</h4>
+      <p>Likes the native scrollbars, a scrollable area means <strong>the content insides it is larger than the container itself</strong>, for example, a <code>500*500</code> area with a content which size is <code>1000*1000</code>:</p>
+      <div><pre><code class="language-none">              container
+                 /
+       +--------+
+  #####################
+  #    |        |     #
+  #    |        |     #
+  #    +--------+     # -- content
+  #                   #
+  #                   #
+  #####################</code></pre></div>
+      <p>Therefore, it&#39;s necessary to set the <code>width</code> or <code>height</code> for the container element:</p>
+      <div><pre><code class="language-css">#my-scrollbar {
+  width: 500px;
+  height: 500px;
+  overflow: auto;
+}</code></pre></div>
+      <p>If the container element is natively scrollable before initializing the Scrollbar, it means you are on the correct way.</p>
+      <h2>Available Options for Scrollbar</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center">parameter</th>
+            <th style="text-align: center">type</th>
+            <th style="text-align: center">default</th>
+            <th style="text-align: left">description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center">damping</td>
+            <td style="text-align: center"><code>number</code></td>
+            <td style="text-align: center"><code>0.1</code></td>
+            <td style="text-align: left">Momentum reduction damping factor, a float value between <code>(0, 1)</code>, the lower the value is, the more smooth the scrolling will be (also the more paint frames).</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">thumbMinSize</td>
+            <td style="text-align: center"><code>number</code></td>
+            <td style="text-align: center"><code>20</code></td>
+            <td style="text-align: left">Minimal size for scrollbar thumbs.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">renderByPixels</td>
+            <td style="text-align: center"><code>boolean</code></td>
+            <td style="text-align: center"><code>true</code></td>
+            <td style="text-align: left">Render every frame in integer pixel values, set to <code>true</code> to improve scrolling performance.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">alwaysShowTracks</td>
+            <td style="text-align: center"><code>boolean</code></td>
+            <td style="text-align: center"><code>false</code></td>
+            <td style="text-align: left">Keep scrollbar tracks always visible.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">continuousScrolling</td>
+            <td style="text-align: center"><code>boolean</code></td>
+            <td style="text-align: center"><code>true</code></td>
+            <td style="text-align: left">Set to <code>true</code> to allow outer scrollbars continue scrolling when current scrollbar reaches edge.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">wheelEventTarget</td>
+            <td style="text-align: center"><code>EventTarget</code></td>
+            <td style="text-align: center"><code>null</code></td>
+            <td style="text-align: left">Element to be used as a listener for mouse wheel scroll events. By default, the container element is used. This option will be useful for dealing with fixed elements.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">plugins</td>
+            <td style="text-align: center"><code>object</code></td>
+            <td style="text-align: center"><code>{}</code></td>
+            <td style="text-align: left">Options for plugins, see <a target="_blank" href="https://github.com/idiotWu/smooth-scrollbar/docs/plugin.md">Plugin System</a>.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><strong>Confusing with the option field? Try real-time edit tool on the bottom left!</strong></p>
+      <h2>DOM Structure</h2>
+      <p>The following is the DOM structure that Scrollbar yields:</p>
+      <div><pre><code class="language-markup">&lt;scrollbar&gt;
+    &lt;div class=&quot;scroll-content&quot;&gt;
         your contents here...
-    &lt;/article&gt;
-    &lt;aside class="scrollbar-track scrollbar-track-x"&gt;
-        &lt;div class="scrollbar-thumb scrollbar-thumb-x"&gt;&lt;/div&gt;
-    &lt;/aside&gt;
-    &lt;aside class="scrollbar-track scrollbar-track-y"&gt;
-        &lt;div class="scrollbar-thumb scrollbar-thumb-y"&gt;&lt;/div&gt;
-    &lt;/aside&gt;
-&lt;/scrollbar&gt;
-</code></pre>
-            </section>
-
-            <section class="documents">
-                <h4>Documents</h4>
-                <p>Check Wiki page <a href="https://github.com/idiotWu/smooth-scrollbar/wiki" target="_blank">here</a>.</p>
-            </section>
-
-            <section class="demo">
-                <h4>Demo</h4>
-                <p>Okay, Let's try it:</p>
-<pre class="language-html"><code>&lt;section data-scrollbar&gt;
-    &lt;img src="xxx.jpg"&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;scrollbar-track scrollbar-track-x&quot;&gt;
+        &lt;div class=&quot;scrollbar-thumb scrollbar-thumb-x&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;scrollbar-track scrollbar-track-y&quot;&gt;
+        &lt;div class=&quot;scrollbar-thumb scrollbar-thumb-y&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/scrollbar&gt;</code></pre></div>
+      <h2>Documentation</h2>
+      <table>
+        <thead>
+          <tr>
+            <th><a target="_blank" href="https://github.com/idiotWu/smooth-scrollbar/docs">latest</a></th>
+            <th><a target="_blank" href="https://github.com/idiotWu/smooth-scrollbar/tree/7.x">7.x</a></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <h2>Demo</h2>
+      <p>Okay, Let's try it:</p>
+      <pre class="language-markup"><code>&lt;section data-scrollbar&gt;
+  &lt;img src="xxx.jpg"&gt;
 &lt;/section&gt;
 
-&lt;script&gt; Scrollbar.initAll(); &lt;/script&gt;
-</code></pre>
-                <p>Wow, it works! Now change options' value in the controll panel and see what will happen :), be careful that this may affect all scrollbars, aha!</p>
-
-                <div id="inner-scrollbar" data-scrollbar>
-                    <img src="images/your_diary.jpg" height="1080" width="1920">
-                </div>
-            </section>
-        </article>
-
-        <footer>
-            Created by <a href="https://github.com/idiotWu" target="_blank">Dolphin Wood</a> with love.
-        </footer>
-    </main>
-    <script src="app.js"></script>
+&lt;script&gt; Scrollbar.initAll(); &lt;/script&gt;</code></pre>
+      <p>Wow, it works! Now change the value of options in the control panel and see what will happen :), be careful that this may affect all scrollbars, aha!</p>
+      <div id="inner-scrollbar" data-scrollbar>
+        <img src="images/your_diary.jpg" height="1080" width="1920">
+      </div>
+    </article>
+    <footer>
+      Created by <a target="_blank" href="https://github.com/idiotWu" target="_blank">Dolphin Wood</a> with love.
+    </footer>
+  </main>
+  <script src="app.js"></script>
 </body>
 
 </html>

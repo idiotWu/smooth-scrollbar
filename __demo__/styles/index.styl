@@ -25,8 +25,9 @@ html, body
 *
   -webkit-tap-highlight-color: transparent
 
-img
-  display: block
+#inner-scrollbar
+  img
+    display: block
 
 [data-scrollbar]
   overflow: auto
@@ -68,18 +69,20 @@ header
 
   .repo
     display: inline-block
-    margin-top: 1em
-    padding: 0.5em 1em
+    margin: 1em
+    padding: 0.5em 2em
     color: #fff
     text-decoration: none
     opacity: 0.85
     border: 1px solid currentColor
-    border-radius: 5px
-    transition: all .3s
+    border-radius: 2em
 
-    &:hover
+    &.doc
       opacity: 1
       background: rgba(255, 255, 255, 0.3)
+
+    &:hover
+      transform: translate3d(0, 2px, 0)
 
   .version-note
     position: absolute
@@ -90,7 +93,7 @@ header
 
 #content
   font-size: pxToRem(16)
-  padding: 1em 2em
+  padding: 1em 2em 2em
 
   table
     font-size: .85em
@@ -108,20 +111,15 @@ header
     padding: 0.5em 1em
     border: 1px solid #ddd
 
-  section
-    padding-left: 1em
+  p::after
+    content: ''
+    display: table
+    clear: both
 
-    &::after
-      content: ''
-      display: table
-      clear: both
-
-    > h4
-      margin-left: -1em
-
-  h4
+  h2
     color: $main-blue
     font-size: 1.2em
+    margin-left: -10px
 
     &::before
       content: '#'
@@ -220,3 +218,25 @@ footer
   border: 3px solid #ccc
   box-sizing: border-box
   cursor: ew-resize
+
+//
+.github-corner:hover
+  .octo-arm
+    animation: octocat-wave 560ms ease-in-out
+
+@keyframes octocat-wave
+  0%, 100%
+    transform: rotate(0)
+
+  20%, 60%
+    transform: rotate(-25deg)
+
+  40%, 80%
+    transform: rotate(10deg)
+
+@media (max-width:500px)
+  .github-corner:hover .octo-arm
+    animation: none
+
+  .github-corner .octo-arm
+    animation: octocat-wave 560ms ease-in-out

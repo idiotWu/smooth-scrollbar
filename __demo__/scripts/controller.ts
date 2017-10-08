@@ -61,8 +61,6 @@ f1.open();
 });
 
 const f2 = controller.addFolder('Overscroll Plugin Options');
-f2.open();
-
 [
   f2.add(overscrollOptions, 'enable'),
   f2.add(overscrollOptions, 'effect', ['bounce', 'glow']),
