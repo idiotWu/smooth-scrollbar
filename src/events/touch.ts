@@ -33,7 +33,7 @@ export function touchHandler(scrollbar: I.Scrollbar) {
     // save damping
     if (pointerCount === 0) {
       damping = scrollbar.options.damping;
-      scrollbar.options.damping = 1; // disable easing on touchmove
+      scrollbar.options.damping = Math.max(damping, 0.5); // less frames on touchmove
     }
 
     pointerCount++;
