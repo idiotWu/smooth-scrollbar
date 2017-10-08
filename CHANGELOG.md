@@ -1,3 +1,9 @@
+## [8.0.2](https://github.com/idiotWu/smooth-scrollbar/compare/v8.0.0...v8.0.2) (2017-10-09)
+
+## Bug Fixes
+
+- **touch**: restore damping factor when all pointers are released
+
 ## [8.0.0](https://github.com/idiotWu/smooth-scrollbar/compare/v7.4.1...v8.0.0) (2017-10-09)
 
 ## Breaking Changes
