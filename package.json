@@ -5,7 +5,7 @@
   "main": "dist/smooth-scrollbar.js",
   "jsnext:main": "index.js",
   "module": "index.js",
-  "typings": "index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
     "start": "node ./scripts/serve.js",
     "lint": "tslint --type-check -p . -t stylish {src,__demo__}/**/*.ts",
