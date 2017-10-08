@@ -1,3 +1,5 @@
+# Migration from 7.x
+
 > The following sections describe the major changes from 7.x to 8.x.
 
 ## Plugin System

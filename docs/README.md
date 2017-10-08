@@ -1,3 +1,5 @@
+# Smooth Scrollbar
+
 > This is the API documentation for `smooth-scrollbar@8.x`, check [here](https://github.com/idiotWu/smooth-scrollbar/tree/7.x) for the docs of version 7.x.
 
 > Looking for migration guides? See [migration guide](migration.md) for details.
