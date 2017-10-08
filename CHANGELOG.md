@@ -1,3 +1,20 @@
+## [8.0.0](https://github.com/idiotWu/smooth-scrollbar/compare/v7.4.1...v8.0.0) (2017-10-09)
+
+## Breaking Changes
+
+- Refactored with TypeScript.
+- Removed overscroll effect from bundle.
+- [...more](https://github.com/idiotWu/smooth-scrollbar/blob/develop/docs/migration.md)
+
+## Bug Fixes
+
+- **track**: prevent contents being selected while dragging. [#48](https://github.com/idiotWu/smooth-scrollbar/issues/48)
+- **IE/touch**: enable touch event capturing in IE11. [#39](https://github.com/idiotWu/smooth-scrollbar/issues/39)
+
+## New Features
+
+- [Plugin System](https://github.com/idiotWu/smooth-scrollbar/blob/develop/docs/plugin.md).
+
 ## [7.4.1](https://github.com/idiotWu/smooth-scrollbar/compare/v7.4.0...v7.4.1) (2017-08-31)
 
 ### Bug Fixes
