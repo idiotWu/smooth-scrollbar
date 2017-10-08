@@ -9,12 +9,12 @@ module.exports = Object.assign(baseConfig, {
   entry: [
     `webpack-dev-server/client?http://${ip.address()}:3000`,
     joinRoot('src/polyfill'),
-    joinRoot('test/scripts/index.js'),
+    joinRoot('__demo__/scripts/index.ts'),
   ],
   output: {
-    path: joinRoot('build/'),
+    path: joinRoot('build/js/'),
     filename: 'app.js',
-    publicPath: '/build/',
+    publicPath: '/build/js/',
   },
   module: {
     rules: baseConfig.module.rules.concat([{
@@ -31,13 +31,19 @@ module.exports = Object.assign(baseConfig, {
       }],
       include: [
         joinRoot('src'),
-        joinRoot('test'),
+        joinRoot('__demo__'),
       ],
     }, {
-      // FIXME
+      test: /\.css$/,
+      use: [
+        'style-loader',
+        'css-loader',
+      ],
+    }, {
       test: /\.styl$/,
       use: [
         'style-loader',
+        'css-loader',
         {
           loader: 'postcss-loader',
           options: {
@@ -48,22 +54,7 @@ module.exports = Object.assign(baseConfig, {
         'stylus-loader',
       ],
       include: [
-        joinRoot('test'),
-      ],
-    }, {
-      // TODO: remove this block
-      test: /\.js$/,
-      enforce: 'pre',
-      use: [ 'eslint-loader' ],
-      include: [
-        joinRoot('test'),
-      ],
-    }, {
-      // TODO: remove this block
-      test: /\.js$/,
-      use: [ 'babel-loader' ],
-      include: [
-        joinRoot('test'),
+        joinRoot('__demo__'),
       ],
     }]),
   },

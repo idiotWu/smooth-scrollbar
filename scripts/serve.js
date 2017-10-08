@@ -7,7 +7,7 @@ const config = require('./webpack.config.dev');
 
 new Server(webpack(config), {
   disableHostCheck: true,
-  contentBase: path.join(__dirname, '..', 'test'),
+  contentBase: path.join(__dirname, '..', '__demo__'),
   publicPath: config.output.publicPath,
   stats: "minimal",
 }).listen(3000, '0.0.0.0', (err) => {

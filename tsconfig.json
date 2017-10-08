@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es5",
+    "module": "es6",
     "lib": [
       "dom",
       "es6"
@@ -17,7 +18,8 @@
     "declaration": true,
     "sourceMap": true,
     "paths": {
-      "smooth-scrollbar": [ "src/index.ts" ]
+      "smooth-scrollbar": [ "src/index" ],
+      "smooth-scrollbar/*": [ "src/*" ]
     }
   },
   "exclude": [

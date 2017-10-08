@@ -7,7 +7,7 @@ const joinRoot = path.join.bind(path, __dirname, '..');
 
 module.exports = {
   resolve: {
-    extensions: ['.js', '.ts', '.css', '.styl' /* FIXME */],
+    extensions: ['.js', '.ts', '.css', '.styl'],
     alias: {
       'smooth-scrollbar': joinRoot('src'),
     },
@@ -18,7 +18,7 @@ module.exports = {
       use: [ 'ts-loader' ],
       include: [
         joinRoot('src'),
-        joinRoot('test'),
+        joinRoot('__demo__'),
       ],
     }],
   },
