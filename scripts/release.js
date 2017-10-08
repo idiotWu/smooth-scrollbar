@@ -122,7 +122,10 @@ function runTask(options) {
     },
   }, {
     title: 'Push to GitHub',
-    task: () => execa.shell('git push --follow-tags'),
+    task: async () => {
+      await execa.shell('git push');
+      await execa.shell('git push --tags');
+    },
   }]);
 
   return tasks.run();
