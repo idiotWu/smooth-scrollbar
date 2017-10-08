@@ -1,10 +1,11 @@
 const ip = require('ip');
 const path = require('path');
+const merge = require('webpack-merge');
 const baseConfig = require('./webpack.config.base');
 
 const joinRoot = path.join.bind(path, __dirname, '..');
 
-module.exports = Object.assign(baseConfig, {
+module.exports = merge(baseConfig, {
   devtool: 'cheap-module-source-map',
   entry: [
     `webpack-dev-server/client?http://${ip.address()}:3000`,
@@ -16,7 +17,7 @@ module.exports = Object.assign(baseConfig, {
     publicPath: '/build/js/',
   },
   module: {
-    rules: baseConfig.module.rules.concat([{
+    rules: [{
       test: /\.ts$/,
       enforce: 'pre',
       use: [{
@@ -55,6 +56,6 @@ module.exports = Object.assign(baseConfig, {
       include: [
         joinRoot('__demo__'),
       ],
-    }]),
+    }],
   },
 });
