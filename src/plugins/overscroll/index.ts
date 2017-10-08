@@ -15,7 +15,7 @@ export type Data2d = {
 };
 
 export type OverscrollOptions = {
-  effect: OverscrollEffect,
+  effect?: OverscrollEffect,
   damping: number,
   maxOverscroll: number,
   glowColor: string,
@@ -78,22 +78,25 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
       get() {
         return effect;
       },
-      set(v) {
-        if (v && v !== OverscrollEffect.BOUNCE && v !== OverscrollEffect.GLOW) {
-          throw new TypeError(`unknow overscroll effect: ${v}`);
+      set(val) {
+        if (!val) {
+          effect = undefined;
+          return;
         }
 
-        effect = v;
+        if (val !== OverscrollEffect.BOUNCE && val !== OverscrollEffect.GLOW) {
+          throw new TypeError(`unknow overscroll effect: ${val}`);
+        }
 
-        if (v) {
-          scrollbar.options.continuousScrolling = false;
+        effect = val;
 
-          if (v === OverscrollEffect.GLOW) {
-            _glow.mount();
-            _glow.adjust();
-          } else {
-            _glow.unmount();
-          }
+        scrollbar.options.continuousScrolling = false;
+
+        if (val === OverscrollEffect.GLOW) {
+          _glow.mount();
+          _glow.adjust();
+        } else {
+          _glow.unmount();
         }
       },
     });

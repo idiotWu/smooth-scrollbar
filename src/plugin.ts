@@ -11,13 +11,13 @@ export class ScrollbarPlugin implements I.ScrollbarPlugin {
 
   constructor(
     scrollbar: Scrollbar,
-    options: any = {},
+    options: any,
   ) {
     this.scrollbar = scrollbar;
-    this.options = {
-      ...new.target.defaultOptions,
-      ...options,
-    };
+
+    // DO NOT use { ...options } here
+    // we need options to be real-time
+    this.options = Object.assign(options, new.target.defaultOptions);
   }
 
   onInit() {}
@@ -64,10 +64,14 @@ export function initPlugins(
 ): ScrollbarPlugin[] {
   return Array.from(globalPlugins.order)
     .filter((pluginName: string) => {
-      return !!options[pluginName];
+      return options[pluginName] !== false;
     })
     .map((pluginName: string) => {
       const Plugin = globalPlugins.constructors[pluginName];
+
+      if (!options[pluginName]) {
+        options[pluginName] = {};
+      }
 
       return new Plugin(scrollbar, options[pluginName]);
     });

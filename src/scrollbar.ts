@@ -81,7 +81,7 @@ export class Scrollbar implements I.Scrollbar {
 
   private _renderID: number;
   private _observer: MutationObserver;
-  private _plugins: I.ScrollbarPlugin[];
+  private _plugins: I.ScrollbarPlugin[] = [];
 
   private _momentum = { x: 0, y: 0 };
   private _listeners = new Set<I.ScrollListener>();
@@ -130,7 +130,7 @@ export class Scrollbar implements I.Scrollbar {
     this.size = this.getSize();
 
     // init plugins
-    this._plugins = initPlugins(this, this.options.plugins);
+    this._lazyInitPlugins();
 
     // observe
     if (typeof GLOBAL_ENV.MutationObserver === 'function') {
@@ -303,6 +303,12 @@ export class Scrollbar implements I.Scrollbar {
     });
 
     this._render();
+  }
+
+  private _lazyInitPlugins() {
+    requestAnimationFrame(() => {
+      this._plugins = initPlugins(this, this.options.plugins);
+    });
   }
 
   @debounce(100, { leading: true })
