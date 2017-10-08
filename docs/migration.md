@@ -11,6 +11,10 @@
 * [Deprecated Methods](#deprecated-methods)
 * [Imcompatible Methods](#imcompatible-methods)
 
+## CSS-in-JS bundle
+
+`smooth-scrollbar.css` has been removed from 8.x, you just need to import the main js module/bundle 🙌.
+
 ## Plugin System
 
 See [Plugin System](plugin.md) for details;
