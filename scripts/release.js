@@ -89,12 +89,10 @@ function runTask(options) {
     title: 'Create bundle',
     task: () => execa.shell('npm run bundle'),
   }, {
-    title: `Bump version: ${pkg.version} -> ${options.version}`,
+    title: `Bump Bower version: ${pkg.version} -> ${options.version}`,
     task: () => {
-      pkg.version = options.version;
       bowerPkg.version = options.version;
 
-      fs.writeFileSync(joinRoot('package.json'), JSON.stringify(pkg, null, 2));
       fs.writeFileSync(joinRoot('bower.json'), JSON.stringify(bowerPkg, null, 2));
     },
   }, {
@@ -111,8 +109,10 @@ function runTask(options) {
     task: async () => {
       await execa.shell('git add --all');
       await execa.shell(`git commit -m "[build] ${options.version}"`);
-      await execa.shell(`git tag ${options.version}`);
     }
+  }, {
+    title: `Bump NPM version: ${pkg.version} -> ${options.version}`,
+    task: () => execa.shell(`npm version ${options.version}`),
   }, {
     title: `Publish ${options.version}`,
     task: () => {
