@@ -39,25 +39,47 @@ import * as eventHandlers from './events/';
 import * as I from './interfaces/';
 
 export class Scrollbar implements I.Scrollbar {
-  readonly options: I.ScrollbarOptions;
+  /**
+   * Options for current scrollbar instancs
+   */
+  readonly options: Options;
 
+  readonly track: TrackController;
+
+  /**
+   * The element that you initialized scrollbar to
+   */
   readonly containerEl: HTMLElement;
-  readonly contentEl: HTMLDivElement;
 
-  readonly track: I.TrackController;
+  /**
+   * The wrapper element that contains your contents
+   */
+  readonly contentEl: HTMLElement;
 
+  /**
+   * Geometry infomation for current scrollbar instance
+   */
   size: I.ScrollbarSize;
 
+  /**
+   * Current scrolling offsets
+   */
   offset = {
     x: 0,
     y: 0,
   };
 
+  /**
+   * Max-allowed scrolling offsets
+   */
   limit = {
     x: Infinity,
     y: Infinity,
   };
 
+  /**
+   * Container bounding rect
+   */
   bounding = {
     top: 0,
     right: 0,
@@ -65,6 +87,9 @@ export class Scrollbar implements I.Scrollbar {
     left: 0,
   };
 
+  /**
+   * Gets or sets `scrollbar.offset.y`
+   */
   get scrollTop() {
     return this.offset.y;
   }
@@ -72,6 +97,9 @@ export class Scrollbar implements I.Scrollbar {
     this.setPosition(this.scrollLeft, y);
   }
 
+  /**
+   * Gets or sets `scrollbar.offset.x`
+   */
   get scrollLeft() {
     return this.offset.x;
   }
@@ -152,10 +180,20 @@ export class Scrollbar implements I.Scrollbar {
     });
   }
 
+  /**
+   * Returns the size of the scrollbar container element
+   * and the content wrapper element
+   */
   getSize(): I.ScrollbarSize {
     return getSize(this);
   }
 
+  /**
+   * Forces scrollbar to update geometry infomation.
+   *
+   * By default, scrollbars are automatically updated with `100ms` debounce (or `MutationObserver` fires).
+   * You can call this method to force an update when you modified contents
+   */
   update() {
     update(this);
 
@@ -164,10 +202,16 @@ export class Scrollbar implements I.Scrollbar {
     });
   }
 
+  /**
+   * Checks if an element is visible in the current view area
+   */
   isVisible(elem: HTMLElement): boolean {
     return isVisible(this, elem);
   }
 
+  /**
+   * Sets the scrollbar to the given offset without easing
+   */
   setPosition(
     x = this.offset.x,
     y = this.offset.y,
@@ -184,6 +228,9 @@ export class Scrollbar implements I.Scrollbar {
     });
   }
 
+  /**
+   * Scrolls to given position with easing function
+   */
   scrollTo(
     x = this.offset.x,
     y = this.offset.y,
@@ -193,6 +240,10 @@ export class Scrollbar implements I.Scrollbar {
     scrollTo(this, x, y, duration, options);
   }
 
+  /**
+   * Scrolls the target element into visible area of scrollbar,
+   * likes the DOM method `element.scrollIntoView().
+   */
   scrollIntoView(
     elem: HTMLElement,
     options: Partial<I.ScrollIntoViewOptions> = {},
@@ -200,14 +251,23 @@ export class Scrollbar implements I.Scrollbar {
     scrollIntoView(this, elem, options);
   }
 
+  /**
+   * Adds scrolling listener
+   */
   addListener(fn: I.ScrollListener) {
     this._listeners.add(fn);
   }
 
+  /**
+   * Removes listener previously registered with `scrollbar.addListener()`
+   */
   removeListener(fn: I.ScrollListener) {
     this._listeners.delete(fn);
   }
 
+  /**
+   * Adds momentum and applys delta transfomers.
+   */
   addTransformableMomentum(x: number, y: number, fromEvent: Event) {
     this._updateDebounced();
 
@@ -218,6 +278,9 @@ export class Scrollbar implements I.Scrollbar {
     this.addMomentum(finalDelta.x, finalDelta.y);
   }
 
+  /**
+   * Increases scrollbar's momentum
+   */
   addMomentum(x: number, y: number) {
     this.setMomentum(
       this._momentum.x + x,
@@ -225,6 +288,9 @@ export class Scrollbar implements I.Scrollbar {
     );
   }
 
+  /**
+   * Sets scrollbar's momentum to given value
+   */
   setMomentum(x: number, y: number) {
     if (this.limit.x === 0) {
       x = 0;

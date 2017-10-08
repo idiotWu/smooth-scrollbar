@@ -9,6 +9,9 @@ import {
 export class ScrollbarTrack implements I.ScrollbarTrack {
   readonly thumb: ScrollbarThumb;
 
+  /**
+   * Track element
+   */
   readonly element = document.createElement('div');
 
   private _isShown = false;
@@ -27,10 +30,18 @@ export class ScrollbarTrack implements I.ScrollbarTrack {
     this.thumb.attachTo(this.element);
   }
 
+  /**
+   * Attach to scrollbar container element
+   *
+   * @param scrollbarContainer Scrollbar container element
+   */
   attachTo(scrollbarContainer: HTMLElement) {
     scrollbarContainer.appendChild(this.element);
   }
 
+  /**
+   * Show track immediately
+   */
   show() {
     if (this._isShown) {
       return;
@@ -40,6 +51,9 @@ export class ScrollbarTrack implements I.ScrollbarTrack {
     this.element.classList.add('show');
   }
 
+  /**
+   * Hide track immediately
+   */
   hide() {
     if (!this._isShown) {
       return;

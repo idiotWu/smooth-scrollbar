@@ -23,6 +23,9 @@ export class TrackController implements I.TrackController {
     this.yAxis.attachTo(_scrollbar.containerEl);
   }
 
+  /**
+   * Updates track appearance
+   */
   update() {
     const {
       size,
@@ -33,6 +36,9 @@ export class TrackController implements I.TrackController {
     this.yAxis.update(offset.y, size.container.height, size.content.height);
   }
 
+  /**
+   * Automatically hide tracks when scrollbar is in idle state
+   */
   @debounce(300)
   autoHideOnIdle() {
     if (this._scrollbar.options.alwaysShowTracks) {

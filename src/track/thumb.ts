@@ -3,10 +3,25 @@ import { TrackDirection } from './direction';
 import { setStyle } from '../utils/';
 
 export class ScrollbarThumb implements I.ScrollbarThumb {
+  /**
+   * Thumb element
+   */
   readonly element = document.createElement('div');
 
+  /**
+   * Display size of the thumb
+   * will always be greater than `scrollbar.options.thumbMinSize`
+   */
   displaySize = 0;
+
+  /**
+   * Actual size of the thumb
+   */
   realSize = 0;
+
+  /**
+   * Thumb offset to the top
+   */
   offset = 0;
 
   constructor(
@@ -16,7 +31,12 @@ export class ScrollbarThumb implements I.ScrollbarThumb {
     this.element.className = `scrollbar-thumb scrollbar-thumb-${_direction}`;
   }
 
-  attachTo(trackEl: HTMLDivElement) {
+  /**
+   * Attach to track element
+   *
+   * @param trackEl Track element
+   */
+  attachTo(trackEl: HTMLElement) {
     trackEl.appendChild(this.element);
   }
 
