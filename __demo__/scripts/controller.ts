@@ -13,6 +13,7 @@ const options = {
 };
 
 const overscrollOptions = {
+  enable: true,
   effect: 'bounce',
   damping: 0.2,
   maxOverscroll: 150,
@@ -29,7 +30,10 @@ function updateScrollbar() {
   scrollbars.forEach((s) => {
     // real-time options
     Object.assign(s.options, options);
-    Object.assign(s.options.plugins.overscroll, overscrollOptions);
+    Object.assign(s.options.plugins.overscroll, {
+      ...overscrollOptions,
+      effect: overscrollOptions.enable ? overscrollOptions.effect : undefined,
+    });
 
     if (options.alwaysShowTracks) {
       s.track.xAxis.show();
@@ -57,15 +61,8 @@ f1.open();
 const f2 = controller.addFolder('Overscroll Plugin Options');
 f2.open();
 
-f2.add({
-  enable: true,
-}, 'enable').onChange((val) => {
-  scrollbars.forEach((s) => {
-    s.options.plugins.overscroll.effect = val ? overscrollOptions.effect : null;
-  });
-});
-
 [
+  f2.add(overscrollOptions, 'enable'),
   f2.add(overscrollOptions, 'effect', ['bounce', 'glow']),
   f2.add(overscrollOptions, 'damping', 0.01, 1),
   f2.add(overscrollOptions, 'maxOverscroll', 30, 300),
