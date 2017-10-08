@@ -209,6 +209,8 @@ export class Scrollbar implements I.Scrollbar {
   }
 
   addTransformableMomentum(x: number, y: number, fromEvent: Event) {
+    this._updateDebounced();
+
     const finalDelta = this._plugins.reduce((delta, plugin) => {
       return plugin.transformDelta(delta, fromEvent) || delta;
     }, { x, y });
@@ -230,12 +232,6 @@ export class Scrollbar implements I.Scrollbar {
     if (this.limit.y === 0) {
       y = 0;
     }
-
-    if (x === this._momentum.x && y === this._momentum.y) {
-      return;
-    }
-
-    this._updateDebounced();
 
     if (this.options.renderByPixels) {
       x = Math.round(x);
