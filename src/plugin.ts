@@ -6,11 +6,11 @@ export class ScrollbarPlugin implements I.ScrollbarPlugin {
   static pluginName = '';
   static defaultOptions: any = {};
 
-  readonly scrollbar: I.Scrollbar;
+  readonly scrollbar: Scrollbar;
   readonly options: any;
 
   constructor(
-    scrollbar: I.Scrollbar,
+    scrollbar: Scrollbar,
     options: any = {},
   ) {
     this.scrollbar = scrollbar;
