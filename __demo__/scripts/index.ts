@@ -18,12 +18,13 @@ Prism.highlightAll(false);
 if (window.innerWidth < 800) {
   Array.from(document.querySelectorAll('pre, table')).forEach((el: HTMLElement) => {
     const wrap = document.createElement('div');
-    wrap.className = 'wrap';
-    wrap.appendChild(el);
 
     if (el.parentNode) {
       el.parentNode.insertBefore(wrap, el);
     }
+
+    wrap.className = 'wrap';
+    wrap.appendChild(el);
 
     Scrollbar.init(wrap, {
       plugins: {
