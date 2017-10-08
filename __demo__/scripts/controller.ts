@@ -21,7 +21,9 @@ const overscrollOptions = {
 };
 
 const scrollbars = [
-  Scrollbar.init(document.getElementById('main-scrollbar') as HTMLElement),
+  Scrollbar.init(document.getElementById('main-scrollbar') as HTMLElement, {
+    wheelEventTarget: document,
+  }),
   Scrollbar.init(document.getElementById('inner-scrollbar') as HTMLElement),
 ];
 const controller = new dat.GUI();
