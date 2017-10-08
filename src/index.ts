@@ -28,7 +28,7 @@ export { ScrollbarPlugin };
  */
 
 export default class SmoothScrollbar extends Scrollbar {
-  static init(elem: HTMLElement, options?: I.ScrollbarOptions): Scrollbar {
+  static init(elem: HTMLElement, options?: Partial<I.ScrollbarOptions>): Scrollbar {
     if (!elem || elem.nodeType !== 1) {
       throw new TypeError(`expect element to be DOM Element, but got ${typeof elem}`);
     }
@@ -43,7 +43,7 @@ export default class SmoothScrollbar extends Scrollbar {
     return new Scrollbar(elem, options);
   }
 
-  static initAll(options?: I.ScrollbarOptions): Scrollbar[] {
+  static initAll(options?: Partial<I.ScrollbarOptions>): Scrollbar[] {
     return Array.from(document.querySelectorAll('[data-scrollbar]'), (elem: HTMLElement) => {
       return SmoothScrollbar.init(elem, options);
     });

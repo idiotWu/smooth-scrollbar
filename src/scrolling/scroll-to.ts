@@ -1,16 +1,13 @@
 import clamp from 'lodash-es/clamp';
 
-import {
-  Scrollbar,
-  ScrollToOptions,
-} from '../interfaces/';
+import * as I from '../interfaces/';
 
 export function scrollTo(
-  scrollbar: Scrollbar,
+  scrollbar: I.Scrollbar,
   x: number,
   y: number,
   duration = 0,
-  { easing = defaultEasing, callback = null } = {} as ScrollToOptions,
+  { easing = defaultEasing, callback = null }: Partial<I.ScrollToOptions> = {},
 ) {
   const {
     options,

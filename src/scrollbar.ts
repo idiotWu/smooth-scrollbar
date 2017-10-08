@@ -171,7 +171,7 @@ export class Scrollbar implements I.Scrollbar {
   setPosition(
     x = this.offset.x,
     y = this.offset.y,
-    options: I.SetPositionOptions = {},
+    options: Partial<I.SetPositionOptions> = {},
   ) {
     const status = setPosition(this, x, y);
 
@@ -188,14 +188,14 @@ export class Scrollbar implements I.Scrollbar {
     x = this.offset.x,
     y = this.offset.y,
     duration = 0,
-    options: I.ScrollToOptions = {},
+    options: Partial<I.ScrollToOptions> = {},
   ) {
     scrollTo(this, x, y, duration, options);
   }
 
   scrollIntoView(
     elem: HTMLElement,
-    options: I.ScrollIntoViewOptions = {},
+    options: Partial<I.ScrollIntoViewOptions> = {},
   ) {
     scrollIntoView(this, elem, options);
   }

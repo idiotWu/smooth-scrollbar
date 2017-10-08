@@ -45,24 +45,24 @@ export interface ScrollListener {
 }
 
 // `scrollTo` options
-export type ScrollToOptions = Partial<{
+export type ScrollToOptions = {
   callback: (this: Scrollbar) => void,
   easing: (percent: number) => number;
-}>;
+};
 
 // `setPosition` options
-export type SetPositionOptions = Partial<{
+export type SetPositionOptions = {
   withoutCallbacks: boolean,
-}>;
+};
 
 // `scrollIntoView` options
-export type ScrollIntoViewOptions = Partial<{
+export type ScrollIntoViewOptions = {
   alignToTop: boolean,
   onlyScrollIfNeeded: boolean,
   offsetTop: number,
   offsetLeft: number,
   offsetBottom: number,
-}>;
+};
 
 // Scrollbar Class
 export interface Scrollbar {
@@ -95,7 +95,7 @@ export interface Scrollbar {
   addMomentum(x: number, y: number): void;
   setMomentum(x: number, y: number): void;
 
-  scrollTo(x?: number, y?: number, duration?: number, options?: ScrollToOptions): void;
-  setPosition(x?: number, y?: number, options?: SetPositionOptions): void;
-  scrollIntoView(elem: HTMLElement, options?: ScrollIntoViewOptions): void;
+  scrollTo(x?: number, y?: number, duration?: number, options?: Partial<ScrollToOptions>): void;
+  setPosition(x?: number, y?: number, options?: Partial<SetPositionOptions>): void;
+  scrollIntoView(elem: HTMLElement, options?: Partial<ScrollIntoViewOptions>): void;
 }

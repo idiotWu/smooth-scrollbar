@@ -9,7 +9,7 @@ export function scrollIntoView(
     offsetTop = 0,
     offsetLeft = 0,
     offsetBottom = 0,
-  } = {} as I.ScrollIntoViewOptions,
+  }: Partial<I.ScrollIntoViewOptions> = {},
 ) {
   const { containerEl, bounding } = scrollbar;
 
