@@ -21,6 +21,7 @@ export function touchHandler(scrollbar: I.Scrollbar) {
   const addEvent = eventScope(scrollbar);
 
   let damping: number;
+  let pointerCount = 0;
 
   addEvent(container, 'touchstart', (evt: TouchEvent) => {
     // start records
@@ -30,8 +31,12 @@ export function touchHandler(scrollbar: I.Scrollbar) {
     scrollbar.setMomentum(0, 0);
 
     // save damping
-    damping = scrollbar.options.damping;
-    scrollbar.options.damping = Math.max(damping, 0.5);
+    if (pointerCount === 0) {
+      damping = scrollbar.options.damping;
+      scrollbar.options.damping = 1; // disable easing on touchmove
+    }
+
+    pointerCount++;
   });
 
   addEvent(container, 'touchmove', (evt: TouchEvent) => {
@@ -68,7 +73,13 @@ export function touchHandler(scrollbar: I.Scrollbar) {
       evt,
     );
 
-    scrollbar.options.damping = damping;
+    pointerCount--;
+
+    // restore damping
+    if (pointerCount === 0) {
+      scrollbar.options.damping = damping;
+    }
+
     touchRecord.release(evt);
     activeScrollbar = null;
   });
