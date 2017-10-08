@@ -29,6 +29,8 @@ export { ScrollbarPlugin };
  */
 
 export default class SmoothScrollbar extends Scrollbar {
+  static ScrollbarPlugin = ScrollbarPlugin;
+
   static init(elem: HTMLElement, options?: Partial<I.ScrollbarOptions>): Scrollbar {
     if (!elem || elem.nodeType !== 1) {
       throw new TypeError(`expect element to be DOM Element, but got ${elem}`);
