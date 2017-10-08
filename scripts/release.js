@@ -100,7 +100,7 @@ function runTask(options) {
   }, {
     title: 'Copy files to working directory',
     task: () => {
-
+      cpx.copySync(joinRoot('dist/**'), `${BUILD_DIR}/dist`);
       cpx.copySync(joinRoot('package.json'), BUILD_DIR);
       cpx.copySync(joinRoot('README.md'), BUILD_DIR);
       cpx.copySync(joinRoot('CHANGELOG.md'), BUILD_DIR);
