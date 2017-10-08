@@ -1,14 +1,14 @@
-import Scrollbar from '../../src/';
+import Scrollbar from 'smooth-scrollbar';
 import { controller } from './controller';
 
 const DPR = window.devicePixelRatio;
 const TIME_RANGE_MAX = 20 * 1e3;
 
-const monitor = document.getElementById('monitor');
-const thumb = document.getElementById('thumb');
-const track = document.getElementById('track');
-const canvas = document.getElementById('chart');
-const ctx = canvas.getContext('2d');
+const monitor = document.getElementById('monitor') as HTMLCanvasElement;
+const thumb = document.getElementById('thumb') as HTMLCanvasElement;
+const track = document.getElementById('track') as HTMLCanvasElement;
+const canvas = document.getElementById('chart') as HTMLCanvasElement;
+const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 const size = {
   width: 300,
   height: 200,
@@ -18,8 +18,40 @@ canvas.width = size.width * DPR;
 canvas.height = size.height * DPR;
 ctx.scale(DPR, DPR);
 
-const scrollbar = Scrollbar.get(document.getElementById('main-scrollbar'));
+const scrollbar = Scrollbar.get(document.getElementById('main-scrollbar') as HTMLElement) as Scrollbar;
 const monitorCtrl = controller.addFolder('Monitor');
+
+type Coord2d = [number, number];
+
+type RecordPoint = {
+  offset: number,
+  time: number,
+  reduce: number,
+  speed: number,
+};
+
+type TangentPoint = {
+  coord: Coord2d,
+  point: RecordPoint,
+};
+
+const records: RecordPoint[] = [];
+
+let thumbWidth = 0;
+let endOffset = 0;
+
+let shouldUpdate = true;
+
+let tangentPoint: TangentPoint | null = null;
+let tangentPointPre: TangentPoint | null = null;
+
+let hoverLocked = false;
+let hoverPrecision = 'ontouchstart' in document ? 5 : 1;
+
+let hoverPointerX: number | undefined;
+let pointerDownOnTrack: number | undefined;
+let renderLoopID: number;
+
 const monitorOptions = {
   show: window.innerWidth > 600,
   data: 'offset',
@@ -33,18 +65,6 @@ const monitorOptions = {
     sliceRecord();
   },
 };
-let thumbWidth = 0;
-let endOffset = 0;
-let records = [];
-
-let shouldUpdate = true;
-
-let tangentPoint = null;
-let tangentPointPre = null;
-
-let hoverLocked = false;
-let hoverPrecision = 'ontouchstart' in document ? 5 : 1;
-let hoverPointerX, pointerDownOnTrack, renderLoopID;
 
 if (monitorOptions.show) {
   monitor.style.display = 'block';
@@ -79,7 +99,7 @@ monitorCtrl.add(monitorOptions, 'duration', 1, 20)
     }
   });
 
-function notation(num = 0) {
+function notation(num: number = 0) {
   if (!num || Math.abs(num) > 10 ** -2) return num.toFixed(2);
 
   let exp = -3;
@@ -93,32 +113,33 @@ function notation(num = 0) {
   }
 
   return (num * 10 ** -exp).toFixed(2) + 'e' + exp;
-};
+}
 
-function addEvent(elems, evts, handler) {
+function addEvent(elems: EventTarget | EventTarget[], evts: string, handler: (e: Event) => void) {
   evts.split(/\s+/).forEach((name) => {
-    [].concat(elems).forEach((el) => {
-      el.addEventListener(name, (...args) => {
-        handler(...args);
+    ([] as EventTarget[]).concat(elems).forEach((el) => {
+      el.addEventListener(name, (e) => {
+        handler(e);
         shouldUpdate = true;
       });
     });
   });
-};
+}
 
-function sliceRecord() {
+function sliceRecord(): RecordPoint[] {
+  const last = records[records.length - 1];
+
   let endIdx = Math.floor(records.length * (1 - endOffset));
-  let last = records[records.length - 1];
   let dropIdx = 0;
 
-  let result = records.filter((pt, idx) => {
+  const result = records.filter((pt, idx) => {
     if (last.time - pt.time > TIME_RANGE_MAX) {
       dropIdx++;
       endIdx--;
       return;
     }
 
-    let end = records[endIdx - 1];
+    const end = records[endIdx - 1];
 
     return end.time - pt.time <= monitorOptions.duration * 1e3 && idx <= endIdx;
   });
@@ -130,9 +151,9 @@ function sliceRecord() {
   thumb.style.right = endOffset * 100 + '%';
 
   return result;
-};
+}
 
-function getLimit(points) {
+function getLimit(points: RecordPoint[]): { max: number, min: number } {
   return points.reduce((pre, cur) => {
     let val = cur[monitorOptions.data];
     return {
@@ -140,17 +161,17 @@ function getLimit(points) {
       min: Math.min(pre.min, val),
     };
   }, { max: -Infinity, min: Infinity });
-};
+}
 
-function assignProps(props) {
+function assignProps(props: any) {
   if (!props) return;
 
   Object.keys(props).forEach((name) => {
     ctx[name] = props[name];
   });
-};
+}
 
-function drawLine(p0, p1, options) {
+function drawLine(p0: Coord2d, p1: Coord2d, options: any) {
   let x0 = p0[0];
   let y0 = p0[1];
   let x1 = p1[0];
@@ -167,9 +188,9 @@ function drawLine(p0, p1, options) {
   ctx.stroke();
   ctx.closePath();
   ctx.restore();
-};
+}
 
-function adjustText(content, p, options) {
+function adjustText(content: string, p: Coord2d, options: any) {
   let x = p[0];
   let y = p[1];
 
@@ -184,16 +205,16 @@ function adjustText(content, p, options) {
   }
 
   ctx.fillText(content, x, -y);
-};
+}
 
-function fillText(content, p, options) {
+function fillText(content: string, p: Coord2d, options: any) {
   assignProps(options.props);
 
   ctx.save();
   ctx.transform(1, 0, 0, 1, 0, size.height);
   adjustText(content, p, options);
   ctx.restore();
-};
+}
 
 function drawMain() {
   let points = sliceRecord();
@@ -207,7 +228,7 @@ function drawMain() {
   let totalX = thumbWidth === 1 ? monitorOptions.duration * 1e3 : end.time - start.time;
   let totalY = (limit.max - limit.min) || 1;
 
-  let grd = ctx.createLinearGradient(0, size.height, 0, 0);
+  const grd = ctx.createLinearGradient(0, size.height, 0, 0);
   grd.addColorStop(0, 'rgb(170, 215, 255)');
   grd.addColorStop(1, 'rgba(170, 215, 255, 0.2)');
 
@@ -220,11 +241,11 @@ function drawMain() {
   ctx.beginPath();
   ctx.moveTo(0, 0);
 
-  let lastPoint = points.reduce((pre, cur, idx) => {
-    let time = cur.time;
-    let value = cur[monitorOptions.data];
-    let x = (time - start.time) / totalX * size.width;
-    let y = (value - limit.min) / totalY * (size.height - 20);
+  const lastPoint = points.reduce((pre: Coord2d, cur: RecordPoint, idx: number) => {
+    const time = cur.time;
+    const value = cur[monitorOptions.data];
+    const x = (time - start.time) / totalX * size.width;
+    const y = (value - limit.min) / totalY * (size.height - 20);
 
     ctx.lineTo(x, y);
 
@@ -241,7 +262,7 @@ function drawMain() {
     }
 
     return [x, y];
-  }, []);
+  }, []) as Coord2d;
 
   ctx.stroke();
   ctx.lineTo(lastPoint[0], 0);
@@ -271,14 +292,18 @@ function drawMain() {
       font: '16px sans-serif',
     },
   });
-};
+}
 
 function drawTangentLine() {
-  let coord = tangentPoint.coord;
-  let coordPre = tangentPointPre.coord;
+  if (!tangentPoint || !tangentPointPre) {
+    return;
+  }
 
-  let k = (coord[1] - coordPre[1]) / (coord[0] - coordPre[0]) || 0;
-  let b = coord[1] - k * coord[0];
+  const coord = tangentPoint.coord;
+  const coordPre = tangentPointPre.coord;
+
+  const k = (coord[1] - coordPre[1]) / (coord[0] - coordPre[0]) || 0;
+  const b = coord[1] - k * coord[0];
 
   drawLine([0, b], [size.width, k * size.width + b], {
     props: {
@@ -287,7 +312,7 @@ function drawTangentLine() {
     },
   });
 
-  let realK = (tangentPoint.point[monitorOptions.data] - tangentPointPre.point[monitorOptions.data]) /
+  const realK = (tangentPoint.point[monitorOptions.data] - tangentPointPre.point[monitorOptions.data]) /
     (tangentPoint.point.time - tangentPointPre.point.time);
 
   fillText('dy/dx: ' + notation(realK), [size.width / 2, 0], {
@@ -298,7 +323,7 @@ function drawTangentLine() {
       font: 'bold 12px sans-serif',
     },
   });
-};
+}
 
 function drawHover() {
   if (!tangentPoint) return;
@@ -341,7 +366,7 @@ function drawHover() {
       font: 'bold 12px sans-serif',
     },
   });
-};
+}
 
 function render() {
   if (!shouldUpdate) {
@@ -380,7 +405,7 @@ function render() {
   shouldUpdate = false;
 
   renderLoopID = requestAnimationFrame(render);
-};
+}
 
 let lastTime = Date.now();
 let lastOffset = 0;
@@ -412,9 +437,9 @@ scrollbar.addListener(() => {
   shouldUpdate = true;
 });
 
-function getPointer(e) {
+function getPointer(e: any) {
   return e.touches ? e.touches[e.touches.length - 1] : e;
-};
+}
 
 // hover
 addEvent(canvas, 'mousemove touchmove', (e) => {
@@ -429,7 +454,7 @@ function resetHover() {
   hoverPointerX = 0;
   tangentPoint = null;
   tangentPointPre = null;
-};
+}
 
 addEvent([canvas, window], 'mouseleave touchend', () => {
   if (hoverLocked) return;
