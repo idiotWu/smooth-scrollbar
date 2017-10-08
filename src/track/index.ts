@@ -35,6 +35,10 @@ export class TrackController implements I.TrackController {
 
   @debounce(300)
   autoHideOnIdle() {
+    if (this._scrollbar.options.alwaysShowTracks) {
+      return;
+    }
+
     this.xAxis.hide();
     this.yAxis.hide();
   }
