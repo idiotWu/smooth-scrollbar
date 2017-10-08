@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-const baseConfig = require('./webpack.config.base');
+const baseConfig = require('./webpack.base');
 
 const joinRoot = path.join.bind(path, __dirname, '..');
 
