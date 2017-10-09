@@ -131,6 +131,47 @@ Reason: can be implemented with `ScrollbarPlugin`.
 
 Reason: use `scrollbar.setMomentum(0, 0)`.
 
+### `scrollbar.registerEvents()`, `scrollbar.unregisterEvents()`
+
+Reason: could be implemented via plugin system:
+
+```js
+import Scrollbar, { ScrollbarPlugin } from 'smooth-scrollbar';
+
+class FilterEventPlugin extends ScrollbarPlugin {
+  static pluginName = 'filterEvent';
+
+  static defaultOptions = {
+    blacklist: [],
+  };
+
+  transformDelta(delta, fromEvent) {
+    if (this.shouldBlockEvent(fromEvent)) {
+      return { x: 0, y: 0 };
+    }
+
+    return delta;
+  }
+
+  shouldBlockEvent(fromEvent) {
+    return this.options.blacklist.some(rule => fromEvent.type.match(rule));
+  }
+}
+
+Scrollbar.use(FilterEventPlugin);
+
+const scrollbar = Scrollbar.init(elem);
+
+// block events
+// 8.0.x
+scrollbar.options.plugins.filterEvent.blacklist = [/wheel/, /touchstart/];
+
+// 8.1.x
+scrollbar.updatePluginOption('filterEvent', {
+  blacklist: [/wheel/, /touchstart/],
+});
+```
+
 ## Imcompatible Methods
 
 ### `scrollbar.setPosition()`
