@@ -69,9 +69,13 @@ export function initPlugins(
     .map((pluginName: string) => {
       const Plugin = globalPlugins.constructors[pluginName];
 
-      if (!options[pluginName]) {
-        options[pluginName] = {};
-      }
+      // convert to read-only
+      Object.defineProperty(options, pluginName, {
+        value: options[pluginName] || {},
+        writable: false,
+        enumerable: true,
+        configurable: false,
+      });
 
       return new Plugin(scrollbar, options[pluginName]);
     });

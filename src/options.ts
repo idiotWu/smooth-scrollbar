@@ -53,11 +53,19 @@ export class Options {
    * Options for plugins. Syntax:
    *   plugins[pluginName] = pluginOptions: any
    */
-  plugins: any = {};
+  readonly plugins: any;
 
   constructor(config: Partial<ScrollbarOptions> = {}) {
     Object.keys(config).forEach((prop) => {
       this[prop] = config[prop];
+    });
+
+    // ensure read-only
+    Object.defineProperty(this, 'plugins', {
+      value: this.plugins || {},
+      writable: false,
+      enumerable: true,
+      configurable: false,
     });
   }
 }
