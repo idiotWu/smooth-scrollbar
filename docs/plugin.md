@@ -4,18 +4,20 @@
 
 > Looking for migration guides? See [migration guide](migration.md) for details.
 
-The most exciting feature in v8 is the 💥plugin system💥. The following section explains the lifecycle of a scrollbar the mechanism inside plugins.
+The most exciting feature in v8 is the plugin system💥. The following section explains the lifecycle of a scrollbar the mechanism inside plugins.
 
 ## Table of Contents
-* [The Scrollbar Lifecycle](#the-scrollbar-lifecycle)
-* [Plugin System](#plugin-system)
-   * [onInit()](#oninit)
-   * [onUpdate()](#onupdate)
-   * [transformDelta()](#transformdelta)
-   * [onRender()](#onrender)
-   * [onDestroy()](#ondestroy)
-* [Plugin Options](#plugin-options)
-   * [Plugin Order](#plugin-order)
+- [The Scrollbar Lifecycle](#the-scrollbar-lifecycle)
+- [Plugin System](#plugin-system)
+  - [onInit()](#oninit)
+  - [onUpdate()](#onupdate)
+  - [transformDelta()](#transformdelta)
+  - [onRender()](#onrender)
+  - [onDestroy()](#ondestroy)
+- [Plugin Options](#plugin-options)
+  - [Update Plugin Options](#update-plugin-options)
+- [Plugin Order](#plugin-order)
+- [Example: invert delta](#example-invert-delta)
 
 ## The Scrollbar Lifecycle
 
@@ -216,7 +218,28 @@ class MeowPlugin extends ScrollbarPlugin {
 }
 ```
 
-### Plugin Order
+### Update Plugin Options
+
+Plugin options is a read-only object, so you should avoid the following operation:
+
+```js
+// ❌ wrong
+scrollbar.options.plugins = {
+  overscroll: {
+    effect: 'glow',
+  },
+};
+```
+
+Instead, you can update plugin options through `scrollbar.updatePluginOptions` API (available since `8.1.0`):
+
+```js
+scrollbar.updatePluginOptions('overscroll', {
+  effect: 'glow',
+});
+```
+
+## Plugin Order
 
 Scrollbar plugins are invoked from left to right (FIFO):
 
@@ -278,4 +301,45 @@ As the above section demonstrated, if you are using multiple plugins, be care of
 
 ```js
 Scrollbar.use(PluginA, PluginB, PluginC, ..., OverscrollPlugin);
+```
+
+### Example: invert delta
+
+This plugin allows you to invert delta for particular events.
+
+```js
+import Scrollbar, { ScrollbarPlugin } from 'smooth-scrollbar';
+
+class InvertDeltaPlugin extends ScrollbarPlugin {
+  static pluginName = 'invertDelta';
+
+  static defaultOptions = {
+    events: [],
+  };
+
+  transformDelta(delta, fromEvent) {
+    if (this.shouldInvertDelta(fromEvent)) {
+      return {
+        x: delta.y,
+        y: delta.x,
+      };
+    }
+
+    return delta;
+  }
+
+  shouldInvertDelta(fromEvent) {
+    return this.options.events.some(rule => fromEvent.type.match(rule));
+  }
+}
+
+Scrollbar.use(InvertDeltaPlugin);
+
+const scrollbar = Scrollbar.init(elem, {
+  plugins: {
+    invertDelta: {
+      events: [/wheel/],
+    },
+  },
+});
 ```
