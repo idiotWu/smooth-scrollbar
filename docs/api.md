@@ -37,6 +37,7 @@ In this documentation, we are using `Scrollbar` (in capitalized) to represent th
   - [scrollbar.isVisible()](#scrollbarisvisible)
   - [scrollbar.addMomentum()](#scrollbaraddmomentum)
   - [scrollbar.setMomentum()](#scrollbarsetmomentum)
+  - [scrollbar.updatePluginOptions()](#scrollbarupdatepluginoptions)
   - [scrollbar.addListener()](#scrollbaraddlistener)
   - [scrollbar.removeListener()](#scrollbarremovelistener)
   - [scrollbar.destroy()](#scrollbardestroy-1)
@@ -605,6 +606,25 @@ Sets scrollbar's momentum to given value. This method will **NOT** fire `plugin.
 
 ```js
 scrollbar.setMomentum(100, 100);
+```
+
+### scrollbar.updatePluginOptions()
+
+> This method is available since `8.1.0`.
+
+```js
+scrollbar.updatePluginOptions(pluginName, options): void
+```
+
+| Param | Type | Description |
+| --- | :-: | --- |
+| `pluginName` | `string` | Name of the plugin. |
+| `options` | `object` | An object includes the properties that you want to update. |
+
+```js
+scrollbar.updatePluginOptions('overscroll', {
+  effect: 'glow',
+});
 ```
 
 ### scrollbar.addListener()
