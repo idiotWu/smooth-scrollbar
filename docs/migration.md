@@ -164,11 +164,11 @@ const scrollbar = Scrollbar.init(elem);
 
 // block events
 // 8.0.x
-scrollbar.options.plugins.filterEvent.blacklist = [/wheel/, /touchstart/];
+scrollbar.options.plugins.filterEvent.blacklist = [/wheel/, /touch/];
 
 // 8.1.x
 scrollbar.updatePluginOption('filterEvent', {
-  blacklist: [/wheel/, /touchstart/],
+  blacklist: [/wheel/, /touch/],
 });
 ```
 
