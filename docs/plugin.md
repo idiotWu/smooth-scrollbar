@@ -77,7 +77,7 @@ Each plugin has several hooks that bring you into the scrollbar lifecycle.
 
 ### onInit()
 
-```js
+```ts
 class MyPlugin extends ScrollbarPlugin {
   static pluginName = 'myPlugin';
 
@@ -93,7 +93,7 @@ class MyPlugin extends ScrollbarPlugin {
 
 ### onUpdate()
 
-```js
+```ts
 class MyPlugin extends ScrollbarPlugin {
   static pluginName = 'myPlugin';
 
@@ -109,11 +109,16 @@ class MyPlugin extends ScrollbarPlugin {
 
 ### transformDelta()
 
-```js
+```ts
+type Delta = {
+  x: number,
+  y: number,
+};
+
 class MyPlugin extends ScrollbarPlugin {
   static pluginName = 'myPlugin';
 
-  transformDelta(delta, fromEvent) {
+  transformDelta(delta: Delta, fromEvent: Event): Delta {
     return {
       x: delta.x * 2,
       y: delta.y * 2,
@@ -128,11 +133,16 @@ So this hook will be invoked **immediately after DOM event occurs, and before th
 
 ### onRender()
 
-```js
+```ts
+type Momentum = {
+  x: number,
+  y: number,
+};
+
 class MyPlugin extends ScrollbarPlugin {
   static pluginName = 'myPlugin';
 
-  onRender(remainMomentum) {
+  onRender(remainMomentum: Momentum) {
     this._remain = {
       ...remainMomentum,
     };
@@ -149,11 +159,12 @@ Scrollbar is render in a `requestAnimationFrame` loop, so **DO NOT** perform any
 
 ### onDestroy()
 
-```js
+```ts
 class MyPlugin extends ScrollbarPlugin {
   static pluginName = 'myPlugin';
 
-  onDestroy(remainMomentum) {
+  onDestroy() {
+    console.log('goodbye');
     this._unmount();
   }
 }
@@ -165,7 +176,7 @@ As the name shows, `onDestroy()` will be called **after** a scrollbar instance i
 
 Your lovely `pluginName` property is the only tunnel that connects your plugin and users. For example, suppose that we have a plugin named `meow`:
 
-```js
+```ts
 class MeowPlugin extends ScrollbarPlugin {
   static pluginName = 'meow';
 
@@ -177,7 +188,7 @@ class MeowPlugin extends ScrollbarPlugin {
 
 When someone wants to use the `MeowPlugin`, he or she needs:
 
-```js
+```ts
 import Scrollbar from 'smooth-scrollbar';
 import MeowPlugin from 'meow-plugin';
 
@@ -196,7 +207,7 @@ Scrollbar.init(elem, {
 
 If someone wants to disable the plugin, simply set `plugin[pluginName]=false`:
 
-```js
+```ts
 Scrollbar.init(devil, {
   plugin: {
     meow: false,
@@ -208,7 +219,7 @@ Scrollbar.init(devil, {
 
 You can provide default options through `defaultOptions` property:
 
-```js
+```ts
 class MeowPlugin extends ScrollbarPlugin {
   static pluginName = 'meow';
 
@@ -222,7 +233,7 @@ class MeowPlugin extends ScrollbarPlugin {
 
 Plugin options is a read-only object, so you should avoid the following operation:
 
-```js
+```ts
 // ❌ wrong
 scrollbar.options.plugins = {
   overscroll: {
@@ -233,7 +244,7 @@ scrollbar.options.plugins = {
 
 Instead, you can update plugin options through `scrollbar.updatePluginOptions` API (available since `8.1.0`):
 
-```js
+```ts
 scrollbar.updatePluginOptions('overscroll', {
   effect: 'glow',
 });
@@ -243,7 +254,7 @@ scrollbar.updatePluginOptions('overscroll', {
 
 Scrollbar plugins are invoked from left to right (FIFO):
 
-```js
+```ts
 Scrollbar.use(PluginA, PluginB, PluginC);
 
 // hooks executing order:
@@ -252,7 +263,7 @@ Scrollbar.use(PluginA, PluginB, PluginC);
 
 Let's say we have multiple plugins:
 
-```js
+```ts
 class ScaleDeltaPlugin extends ScrollbarPlugin {
   static pluginName = 'scaleDelta';
 
@@ -277,7 +288,7 @@ class NoopPlugin extends ScrollbarPlugin {
 
 Now let's apply `delta = { x: 100, y: 100 }` to the scrollbar:
 
-```js
+```ts
 Scrollbar.use(ScaleDeltaPlugin, NoopPlugin);
 
 // apply delta...
@@ -287,7 +298,7 @@ Scrollbar.use(ScaleDeltaPlugin, NoopPlugin);
 
 Delta is first transformed by `ScaleDeltaPlugin` and then the `NoopPlugin`. What if we change the order?
 
-```js
+```ts
 Scrollbar.use(NoopPlugin, ScaleDeltaPlugin);
 
 // apply delta...
@@ -299,7 +310,7 @@ Ah, `NoopPlugin` is invoked first.
 
 As the above section demonstrated, if you are using multiple plugins, be care of the loading order! Usually plugins like `OverscrollPlugin` that will change the layout are supposed to be the last man:
 
-```js
+```ts
 Scrollbar.use(PluginA, PluginB, PluginC, ..., OverscrollPlugin);
 ```
 
@@ -307,7 +318,7 @@ Scrollbar.use(PluginA, PluginB, PluginC, ..., OverscrollPlugin);
 
 This plugin allows you to invert delta for particular events.
 
-```js
+```ts
 import Scrollbar, { ScrollbarPlugin } from 'smooth-scrollbar';
 
 class InvertDeltaPlugin extends ScrollbarPlugin {
