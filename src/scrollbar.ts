@@ -126,9 +126,6 @@ export class Scrollbar implements I.Scrollbar {
     // mark as a scroll element
     containerEl.setAttribute('data-scrollbar', 'true');
 
-    // reset scroll position
-    containerEl.scrollTop = containerEl.scrollLeft = 0;
-
     // make container focusable
     containerEl.setAttribute('tabindex', '1');
     setStyle(containerEl, {
@@ -159,6 +156,13 @@ export class Scrollbar implements I.Scrollbar {
 
     // init plugins
     this._lazyInitPlugins();
+
+    // preserve scroll offset
+    const { scrollLeft, scrollTop } = containerEl;
+    containerEl.scrollLeft = containerEl.scrollTop = 0;
+    this.setPosition(scrollLeft, scrollTop, {
+      withoutCallbacks: true,
+    });
 
     // observe
     if (typeof GLOBAL_ENV.MutationObserver === 'function') {
