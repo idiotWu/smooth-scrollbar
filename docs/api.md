@@ -621,6 +621,8 @@ scrollbar.updatePluginOptions(pluginName, options): void
 | `pluginName` | `string` | Name of the plugin. |
 | `options` | `object` | An object includes the properties that you want to update. |
 
+Updates options for specific plugin.
+
 ```js
 scrollbar.updatePluginOptions('overscroll', {
   effect: 'glow',
@@ -658,10 +660,15 @@ type ScrollStatus = {
 };
 ```
 
-
 Since scrollbars will not fire a native `scroll` event, we need to registers scrolling listeners through `scrollbar.addListener()` method.
 
 > **Notice**: the callback functions will be invoked in every small scrolling, so be careful not to add time-consuming listeners which will slow down scrolling.
+
+```js
+scrollbar.addListener((status) => {
+  ...
+});
+```
 
 ### scrollbar.removeListener()
 
@@ -674,6 +681,15 @@ scrollbar.removeListener(listener): void
 | `listener` | `ScrollListener` | The registered listener function. |
 
 Removes listener previously registered with `scrollbar.addListener()`, just likes the DOM method [`EventTarget.removeEventListener()`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener).
+
+```js
+function listener(status) {
+  // ...
+}
+
+scrollbar.addListener(listener);
+scrollbar.removeListener(listener);
+```
 
 ### scrollbar.destroy()
 
