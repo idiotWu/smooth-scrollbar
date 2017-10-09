@@ -32,7 +32,7 @@ function updateScrollbar() {
   scrollbars.forEach((s) => {
     // real-time options
     Object.assign(s.options, options);
-    Object.assign(s.options.plugins.overscroll, {
+    s.updatePluginOptions('overscroll', {
       ...overscrollOptions,
       effect: overscrollOptions.enable ? overscrollOptions.effect : undefined,
     });

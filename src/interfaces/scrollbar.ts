@@ -98,4 +98,6 @@ export interface Scrollbar {
   scrollTo(x?: number, y?: number, duration?: number, options?: Partial<ScrollToOptions>): void;
   setPosition(x?: number, y?: number, options?: Partial<SetPositionOptions>): void;
   scrollIntoView(elem: HTMLElement, options?: Partial<ScrollIntoViewOptions>): void;
+
+  updatePluginOptions(pluginName: string, options?: any): void;
 }
