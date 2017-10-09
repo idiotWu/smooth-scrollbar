@@ -1,3 +1,9 @@
+## [8.1.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.0...v8.1.1) (2017-10-10)
+
+### Bug Fixes
+
+- **init**: preserve scrolling position
+
 ## [8.1.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.0.2...v8.1.0) (2017-10-10)
 
 ## New Features
