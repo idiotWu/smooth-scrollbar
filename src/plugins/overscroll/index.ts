@@ -38,9 +38,20 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
   private _glow = new Glow(this.scrollbar);
   private _bounce = new Bounce(this.scrollbar);
 
-  private _back = false;
+  private _scrollBack = {
+    x: false,
+    y: false,
+  };
+  private _lockWheel = {
+    x: false,
+    y: false,
+  };
+
+  private get _isWheelLocked() {
+    return this._lockWheel.x || this._lockWheel.y;
+  }
+
   private _paused = false;
-  private _wheelLocked = false;
 
   private _lastEventType: string;
 
@@ -61,7 +72,8 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
   // since we can't detect whether user release touchpad
   // handle it with debounce is the best solution now, as a trade-off
   private _releaseWheel = debounce(() => {
-    this._wheelLocked = false;
+    this._lockWheel.x = false;
+    this._lockWheel.y = false;
   }, 30);
 
   onInit() {
@@ -150,7 +162,7 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
       return delta;
     }
 
-    if (this._wheelLocked && /wheel/.test(fromEvent.type)) {
+    if (this._isWheelLocked && /wheel/.test(fromEvent.type)) {
       this._releaseWheel();
 
       if (this._willOverscroll('x', delta.x)) {
@@ -166,12 +178,12 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
 
     if (this._willOverscroll('x', delta.x)) {
       nextX = 0;
-      this._addAmplitude('x', delta.x, fromEvent);
+      this._addAmplitude('x', delta.x);
     }
 
     if (this._willOverscroll('y', delta.y)) {
       nextY = 0;
-      this._addAmplitude('y', delta.y, fromEvent);
+      this._addAmplitude('y', delta.y);
     }
 
     switch (fromEvent.type) {
@@ -197,6 +209,11 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
   private _willOverscroll(direction: 'x' | 'y', delta: number): boolean {
     if (!delta) {
       return false;
+    }
+
+    // has unrendered momentum
+    if (this._amplitude[direction]) {
+      return true;
     }
 
     const offset = this.scrollbar.offset[direction];
@@ -227,7 +244,7 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
     _amplitude[direction] = clamp(remainMomentum, -options.maxOverscroll, options.maxOverscroll);
   }
 
-  private _addAmplitude(direction: 'x' | 'y', delta: number, fromEvent: Event) {
+  private _addAmplitude(direction: 'x' | 'y', delta: number) {
     const {
       options,
       scrollbar,
@@ -245,7 +262,8 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
       // opposite direction
       friction = 0;
     } else {
-      friction = this._back ? 1 : Math.abs(currentAmp / options.maxOverscroll);
+      friction = this._scrollBack[direction] ?
+        1 : Math.abs(currentAmp / options.maxOverscroll);
     }
 
     const amp = currentAmp + delta * (1 - friction);
@@ -254,8 +272,8 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
       /*    top | left  */ clamp(amp, -options.maxOverscroll, 0) :
       /* bottom | right */ clamp(amp, 0, options.maxOverscroll);
 
-    if (isOpposite && fromEvent.type.match(/wheel/)) {
-      // wheel scroll back
+    if (isOpposite) {
+      // scroll back
       _position[direction] = _amplitude[direction];
     }
   }
@@ -307,12 +325,12 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
     const nextPos = pos + distance - (distance * t | 0);
 
     if (Math.abs(nextPos) < Math.abs(pos)) {
-      this._back = true;
-      this._wheelLocked = true;
+      this._scrollBack[direction] = true;
     }
 
-    if (nextPos * pos < 0 || Math.abs(nextPos) <= 1) {
-      this._back = false;
+    if (this._scrollBack[direction] && Math.abs(nextPos) <= 1) {
+      this._scrollBack[direction] = false;
+      this._lockWheel[direction] = true;
     }
 
     return {
