@@ -22,6 +22,14 @@ function checkBranch() {
   });
 }
 
+function compareWithDevelop() {
+  return execa.shell('git diff develop master').then((result) => {
+    if (result.stdout !== 'master') {
+      throw new Error(chalk.bold.red('master branch is not up-to-date with develop branch'));
+    }
+  });
+}
+
 function checkWorkingTree() {
   return execa.shell('git status -s').then((result) => {
     if (result.stdout !== '') {
@@ -133,6 +141,7 @@ function runTask(options) {
 
 checkBranch()
   .then(checkWorkingTree)
+  .then(compareWithDevelop)
   .then(prompt)
   .then(runTask)
   .catch((err) => {
