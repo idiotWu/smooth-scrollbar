@@ -36,7 +36,7 @@ bower install smooth-scrollbar --save
 
 ## Demo
 
-[http://idiotwu.github.io/smooth-scrollbar/](http://idiotwu.github.io/smooth-scrollbar/)
+https://idiotwu.github.io/smooth-scrollbar/
 
 ## Usage
 
