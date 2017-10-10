@@ -62,11 +62,6 @@ export class Glow {
     this._touchY = touch.clientY;
   }
 
-  clearTouch() {
-    delete this._touchX;
-    delete this._touchY;
-  }
-
   render({ x = 0, y = 0 }, color: string) {
     if (!x && !y) {
       setStyle(this._canvas, {

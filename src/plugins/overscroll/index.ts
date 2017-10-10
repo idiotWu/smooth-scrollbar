@@ -196,7 +196,6 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
       case 'touchcancel':
       case 'touchend':
         this._paused = false;
-        this._glow.clearTouch();
         break;
     }
 
