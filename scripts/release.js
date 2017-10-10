@@ -23,7 +23,7 @@ function checkBranch() {
 }
 
 function compareWithDevelop() {
-  return execa.shell('git diff develop master').then((result) => {
+  return execa.shell('git diff --name-status develop master').then((result) => {
     if (result.stdout !== 'master') {
       throw new Error(chalk.bold.red('master branch is not up-to-date with develop branch'));
     }
