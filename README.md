@@ -67,3 +67,5 @@ If you are not using any bundlers, you can just load the UMD bundle:
 ## License
 
 [MIT](LICENSE)
+
+[![Sponsor](https://app.codesponsor.io/embed/haJ2RqCqwBLZtPKnMNBYgn4M/idiotWu/smooth-scrollbar.svg)](https://app.codesponsor.io/link/haJ2RqCqwBLZtPKnMNBYgn4M/idiotWu/smooth-scrollbar)
