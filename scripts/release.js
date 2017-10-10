@@ -23,8 +23,8 @@ function checkBranch() {
 }
 
 function compareWithDevelop() {
-  return execa.shell('git diff --name-status develop master').then((result) => {
-    if (result.stdout !== 'master') {
+  return execa.shell('git rev-list --count master..develop').then((result) => {
+    if (result.stdout !== '0') {
       throw new Error(chalk.bold.red('master branch is not up-to-date with develop branch'));
     }
   });
