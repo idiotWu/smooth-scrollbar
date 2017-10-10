@@ -99,11 +99,6 @@ header
     font-size: .85em
     border-collapse: collapse
 
-  pre
-    display: table
-    min-width: 100%
-    box-sizing: border-box
-
   thead, tr:nth-child(even)
     background-color: #f5f2f0
 
@@ -240,3 +235,15 @@ footer
 
   .github-corner .octo-arm
     animation: octocat-wave 560ms ease-in-out
+
+  .badges
+    display: none
+
+  #options
+    th, td
+      &:nth-child(2)
+      &:nth-child(3)
+        display: none
+
+  code
+    white-space: pre-wrap !important
