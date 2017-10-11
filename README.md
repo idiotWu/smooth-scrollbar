@@ -39,7 +39,7 @@ https://idiotwu.github.io/smooth-scrollbar/
 
 ## Usage
 
-Since this package has a [pkg.module](https://github.com/rollup/rollup/wiki/pkg.module) filed, it's highly recommended to import it as an ES6 module with some bundlers like [webpack](https://webpack.js.org/) or [rollup](https://rollupjs.org/):
+Since this package has a [pkg.module](https://github.com/rollup/rollup/wiki/pkg.module) field, it's highly recommended to import it as an ES6 module with some bundlers like [webpack](https://webpack.js.org/) or [rollup](https://rollupjs.org/):
 
 ```js
 import Scrollbar from 'smooth-scrollbar';
