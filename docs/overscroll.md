@@ -40,7 +40,7 @@ OR
 
 | parameter | type | default | description |
 | :--------: | :--: | :-----: | :---------- |
-| effect | `'bounce'` &#124; `'glow'` | `'glow'` | Overscroll effect, `'bounce'` for iOS style effect and `'glow'` for Android style effect.|
+| effect | `'bounce'` &#124; `'glow'` | `'bounce'` | Overscroll effect, `'bounce'` for iOS style effect and `'glow'` for Android style effect.|
 | damping | `number` | `0.2` | Momentum reduction damping factor, a float value between `(0, 1)`. The lower the value is, the more smooth the overscrolling will be (also the more paint frames). |
 | maxOverscroll | `number` | `150` | Max-allowed overscroll distance. |
 | glowColor | `string` | `'#87ceeb'` | Canvas paint color for `'glow'` effect. |
