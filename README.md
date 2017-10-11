@@ -64,6 +64,11 @@ If you are not using any bundlers, you can just load the UMD bundle:
 | [latest](docs) | [7.x](https://github.com/idiotWu/smooth-scrollbar/tree/7.x) |
 |----|----|
 
+## Who's Using It
+
+- [lp.anzi.kr](http://lp.anzi.kr/): Listeners Playlist.
+- Feel free to add yours here 🤗.
+
 ## License
 
 [MIT](LICENSE)
