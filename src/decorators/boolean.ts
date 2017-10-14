@@ -6,7 +6,14 @@ export function boolean(proto: any, key: string) {
       return this[alias];
     },
     set(val?: boolean) {
-      this[alias] = !!val;
+      Object.defineProperty(this, alias, {
+        value: !!val,
+        enumerable: false,
+        writable: true,
+        configurable: true,
+      });
     },
+    enumerable: true,
+    configurable: true,
   });
 }

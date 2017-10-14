@@ -9,8 +9,15 @@ export function range(min = -Infinity, max = Infinity) {
         return this[alias];
       },
       set(val: number) {
-        this[alias] = clamp(val, min, max);
+        Object.defineProperty(this, alias, {
+          value: clamp(val, min, max),
+          enumerable: false,
+          writable: true,
+          configurable: true,
+        });
       },
+      enumerable: true,
+      configurable: true,
     });
   };
 }
