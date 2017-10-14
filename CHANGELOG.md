@@ -1,9 +1,15 @@
+## [8.1.4](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.3...v8.1.4) (2017-10-14)
+
+### Bug Fixes
+
+- **options**: make properties enumerable.
+
 ## [8.1.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.2...v8.1.3) (2017-10-10)
 
 ### Bug Fixes
 
 - **plugin/overscroll**: preserve touch position when touch ends.
--
+
 ## [8.1.2](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.1...v8.1.2) (2017-10-10)
 
 ### Bug Fixes
