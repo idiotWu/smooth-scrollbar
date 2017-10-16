@@ -22,7 +22,17 @@ If you are logging a bug, make sure to include the following:
 - The browser you are running on
 - Steps to reproduce the behavior
 
-### 4. Be patient
+### 4. Provide an online demo if possible
+
+An online demo is a lifesaver! You can create an online demo on [codepan](codepan.net) with the following steps:
+
+1. Open https://codepan.net/gist/4653b46f9e2d4c2f3585cebc1828859d
+2. Modify the code as you want
+3. Click **"..."** on the top right
+4. Click **"Save Anonymous Gist"** (or "Save New Gist" if you've logged in)
+5. Copy and paste the **URL** into issue body
+
+### 5. Be patient
 
 We want to fix all the issues as soon as possible, but we can't make guarantees about how fast your issue can be resolved. Your understanding and patience is greatly appreciated.
 
