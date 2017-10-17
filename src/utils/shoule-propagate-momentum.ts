@@ -18,6 +18,11 @@ export function shoulePropagateMomentum(
 
   if (!options.continuousScrolling) return false;
 
+  // force an update when scrollbar is "unscrollable", see #106
+  if (offset.x === 0 && offset.y === 0) {
+    scrollbar.update();
+  }
+
   const destX = clamp(deltaX + offset.x, 0, limit.x);
   const destY = clamp(deltaY + offset.y, 0, limit.y);
   let res = true;
