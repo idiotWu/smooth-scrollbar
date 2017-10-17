@@ -155,7 +155,7 @@ export class Scrollbar implements I.Scrollbar {
     this.size = this.getSize();
 
     // init plugins
-    this._lazyInitPlugins();
+    this._plugins = initPlugins(this, this.options.plugins);
 
     // preserve scroll offset
     const { scrollLeft, scrollTop } = containerEl;
@@ -385,12 +385,6 @@ export class Scrollbar implements I.Scrollbar {
     });
 
     this._render();
-  }
-
-  private _lazyInitPlugins() {
-    requestAnimationFrame(() => {
-      this._plugins = initPlugins(this, this.options.plugins);
-    });
   }
 
   @debounce(100, { leading: true })
