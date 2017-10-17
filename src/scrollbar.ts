@@ -259,6 +259,10 @@ export class Scrollbar implements I.Scrollbar {
    * Adds scrolling listener
    */
   addListener(fn: I.ScrollListener) {
+    if (typeof fn !== 'function') {
+      throw new TypeError('[smooth-scrollbar] scrolling listener should be a function');
+    }
+
     this._listeners.add(fn);
   }
 
