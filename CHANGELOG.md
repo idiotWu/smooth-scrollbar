@@ -1,4 +1,4 @@
-## [8.1.5](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.4...v8.1.6) (2017-10-17)
+## [8.1.6](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.4...v8.1.6) (2017-10-17)
 
 ### Minor Changes
 
