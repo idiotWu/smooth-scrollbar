@@ -72,6 +72,11 @@ export function initPlugins(
     .map((pluginName: string) => {
       const Plugin = globalPlugins.constructors[pluginName];
 
-      return new Plugin(scrollbar, options[pluginName]);
+      const instance = new Plugin(scrollbar, options[pluginName]);
+
+      // bind plugin options to `scrollbar.options`
+      options[pluginName] = instance.options;
+
+      return instance;
     });
 }
