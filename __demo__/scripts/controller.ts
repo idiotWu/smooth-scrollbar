@@ -14,17 +14,26 @@ const options = {
 
 const overscrollOptions = {
   enable: true,
-  effect: 'bounce',
+  effect: navigator.userAgent.match(/Android/) ? 'glow' : 'bounce',
   damping: 0.2,
   maxOverscroll: 150,
-  glowColor: '#87ceeb',
+  glowColor: '#222a2d',
 };
 
 const scrollbars = [
   Scrollbar.init(document.getElementById('main-scrollbar') as HTMLElement, {
+    ...options,
     wheelEventTarget: document,
+    plugins: {
+      overscroll: { ...overscrollOptions },
+    },
   }),
-  Scrollbar.init(document.getElementById('inner-scrollbar') as HTMLElement),
+  Scrollbar.init(document.getElementById('inner-scrollbar') as HTMLElement, {
+    ...options,
+    plugins: {
+      overscroll: { ...overscrollOptions },
+    },
+  }),
 ];
 const controller = new dat.GUI();
 
