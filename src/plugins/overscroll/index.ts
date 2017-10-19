@@ -38,7 +38,7 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
   private _glow = new Glow(this.scrollbar);
   private _bounce = new Bounce(this.scrollbar);
 
-  private _scrollBack = {
+  private _wheelScrollBack = {
     x: false,
     y: false,
   };
@@ -51,7 +51,7 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
     return this._lockWheel.x || this._lockWheel.y;
   }
 
-  private _paused = false;
+  private _touching = false;
 
   private _lastEventType: string;
 
@@ -189,13 +189,13 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
     switch (fromEvent.type) {
       case 'touchstart':
       case 'touchmove':
-        this._paused = true;
+        this._touching = true;
         this._glow.recordTouch(fromEvent as TouchEvent);
         break;
 
       case 'touchcancel':
       case 'touchend':
-        this._paused = false;
+        this._touching = false;
         break;
     }
 
@@ -261,7 +261,7 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
       // opposite direction
       friction = 0;
     } else {
-      friction = this._scrollBack[direction] ?
+      friction = this._wheelScrollBack[direction] ?
         1 : Math.abs(currentAmp / options.maxOverscroll);
     }
 
@@ -319,16 +319,16 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
     const amp = _amplitude[direction];
     const pos = _position[direction];
 
-    const nextAmp = this._paused ? amp : (amp * t | 0);
+    const nextAmp = this._touching ? amp : (amp * t | 0);
     const distance = nextAmp - pos;
     const nextPos = pos + distance - (distance * t | 0);
 
-    if (Math.abs(nextPos) < Math.abs(pos)) {
-      this._scrollBack[direction] = true;
+    if (!this._touching && Math.abs(nextPos) < Math.abs(pos)) {
+      this._wheelScrollBack[direction] = true;
     }
 
-    if (this._scrollBack[direction] && Math.abs(nextPos) <= 1) {
-      this._scrollBack[direction] = false;
+    if (this._wheelScrollBack[direction] && Math.abs(nextPos) <= 1) {
+      this._wheelScrollBack[direction] = false;
       this._lockWheel[direction] = true;
     }
 
