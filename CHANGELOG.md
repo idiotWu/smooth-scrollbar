@@ -1,3 +1,9 @@
+## [8.1.7](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.6...v8.1.7) (2017-10-19)
+
+### Bug Fixes
+
+- **plugin**: `plugin.options = new Object`.
+
 ## [8.1.6](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.4...v8.1.6) (2017-10-17)
 
 ### Minor Changes
