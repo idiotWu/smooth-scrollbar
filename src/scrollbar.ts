@@ -323,13 +323,11 @@ export class Scrollbar implements I.Scrollbar {
    * @param [options] An object includes the properties that you want to update
    */
   updatePluginOptions(pluginName: string, options?: any) {
-    const pluginOptions = this.options.plugins[pluginName];
-
-    if (!pluginOptions) {
-      throw new Error(`plugin ${pluginName} not found in this scrollbar`);
-    }
-
-    Object.assign(pluginOptions, options);
+    this._plugins.forEach((plugin) => {
+      if (plugin.name === pluginName) {
+        Object.assign(plugin.options, options);
+      }
+    });
   }
 
   destroy() {

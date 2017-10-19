@@ -8,6 +8,7 @@ import { Data2d } from './data-2d';
 export interface ScrollbarPlugin {
   readonly scrollbar: Scrollbar;
   readonly options: any;
+  readonly name: string;
 
   onInit(): void;
   onDestory(): void;

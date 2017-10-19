@@ -8,16 +8,19 @@ export class ScrollbarPlugin implements I.ScrollbarPlugin {
 
   readonly scrollbar: Scrollbar;
   readonly options: any;
+  readonly name: string;
 
   constructor(
     scrollbar: Scrollbar,
-    options: any,
+    options?: any,
   ) {
     this.scrollbar = scrollbar;
+    this.name = new.target.pluginName;
 
-    // DO NOT use { ...options } here
-    // we need options to be real-time
-    this.options = Object.assign(options, new.target.defaultOptions);
+    this.options = {
+      ...new.target.defaultOptions,
+      ...options,
+    };
   }
 
   onInit() {}
@@ -68,14 +71,6 @@ export function initPlugins(
     })
     .map((pluginName: string) => {
       const Plugin = globalPlugins.constructors[pluginName];
-
-      // convert to read-only
-      Object.defineProperty(options, pluginName, {
-        value: options[pluginName] || {},
-        writable: false,
-        enumerable: true,
-        configurable: false,
-      });
 
       return new Plugin(scrollbar, options[pluginName]);
     });
