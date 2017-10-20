@@ -21,6 +21,11 @@ export class TrackController implements I.TrackController {
 
     this.xAxis.attachTo(_scrollbar.containerEl);
     this.yAxis.attachTo(_scrollbar.containerEl);
+
+    if (_scrollbar.options.alwaysShowTracks) {
+      this.xAxis.show();
+      this.yAxis.show();
+    }
   }
 
   /**
