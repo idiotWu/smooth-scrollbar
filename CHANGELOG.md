@@ -1,3 +1,10 @@
+## [8.1.8](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.7...v8.1.8) (2017-10-20)
+
+### Bug Fixes
+
+- **track**: show track on init when `alwaysShowTracks=true`. [#108](https://github.com/idiotWu/smooth-scrollbar/issues/108)
+- **plugin/overscroll**: hide canvas on init. [#109](https://github.com/idiotWu/smooth-scrollbar/issues/109)
+
 ## [8.1.7](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.6...v8.1.7) (2017-10-19)
 
 ### Bug Fixes
