@@ -8,9 +8,6 @@ export const GLOBAL_ENV = memoize({
   get TOUCH_SUPPORTED(): boolean {
     return 'ontouchstart' in document;
   },
-  get EASING_MULTIPLIER(): number {
-    return navigator.userAgent.match(/Android/) ? 0.5 : 0.25;
-  },
   get WHEEL_EVENT(): 'wheel' | 'mousewheel' {
     // is standard `wheel` event supported check
     return 'onwheel' in window ? 'wheel' : 'mousewheel';

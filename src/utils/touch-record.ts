@@ -26,10 +26,10 @@ export class Tracker {
     };
 
     const duration = (now - updateTime) || 16;
-    const vx = delta.x / duration * 1e3;
-    const vy = delta.y / duration * 1e3;
-    velocity.x = vx * 0.8 + velocity.x * 0.2;
-    velocity.y = vy * 0.8 + velocity.y * 0.2;
+    const vx = delta.x / duration * 16;
+    const vy = delta.y / duration * 16;
+    velocity.x = vx * 0.9 + velocity.x * 0.1;
+    velocity.y = vy * 0.9 + velocity.y * 0.1;
 
     this.delta = delta;
     this.updateTime = now;
