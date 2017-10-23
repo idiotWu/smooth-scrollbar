@@ -1,10 +1,6 @@
 import * as I from '../interfaces/';
 
 import {
-  GLOBAL_ENV,
-} from '../shared/';
-
-import {
   eventScope,
   shoulePropagateMomentum,
 } from '../utils/';
@@ -23,7 +19,7 @@ export function wheelHandler(scrollbar: I.Scrollbar) {
 
   const target = scrollbar.options.wheelEventTarget || scrollbar.containerEl;
 
-  addEvent(target, GLOBAL_ENV.WHEEL_EVENT, (evt: WheelEvent) => {
+  addEvent(target, 'onwheel' in window ? 'wheel' : 'mousewheel', (evt: WheelEvent) => {
     const { x, y } = normalizeDelta(evt);
 
     if (shoulePropagateMomentum(scrollbar, x, y)) {

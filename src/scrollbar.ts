@@ -26,7 +26,6 @@ import {
 } from './scrolling/';
 
 import {
-  GLOBAL_ENV,
   scrollbarMap,
 } from './shared/';
 
@@ -164,9 +163,12 @@ export class Scrollbar implements I.Scrollbar {
       withoutCallbacks: true,
     });
 
+    const global: any = window;
+    const MutationObserver = global.MutationObserver || global.WebKitMutationObserver || global.MozMutationObserver;
+
     // observe
-    if (typeof GLOBAL_ENV.MutationObserver === 'function') {
-      this._observer = new GLOBAL_ENV.MutationObserver(() => {
+    if (typeof MutationObserver === 'function') {
+      this._observer = new MutationObserver(() => {
         this.update();
       });
 
