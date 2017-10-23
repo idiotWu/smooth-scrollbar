@@ -1,3 +1,10 @@
+## [8.1.9](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.8...v8.1.9) (2017-10-23)
+
+### Minor Changes
+
+- **Scrollbar**: add `Scrollbar.version`.
+- **event/touch**: improve velocity based easing algorithm.
+
 ## [8.1.8](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.7...v8.1.8) (2017-10-20)
 
 ### Bug Fixes
