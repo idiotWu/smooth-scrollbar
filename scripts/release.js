@@ -105,7 +105,9 @@ function runTask(options) {
       const entry = `${BUILD_DIR}/index.js`;
       const content = fs.readFileSync(entry, 'utf8');
 
-      fs.writeFileSync(entry, content.replace('__SCROLLBAR_VERSION__', options.version));
+      fs.writeFileSync(entry,
+        content.replace('__SCROLLBAR_VERSION__', JSON.stringify(options.version)),
+      );
     },
   }, {
     title: `Bump Bower version: ${pkg.version} -> ${options.version}`,
@@ -131,15 +133,6 @@ function runTask(options) {
       cpx.copySync(joinRoot('README.md'), BUILD_DIR);
       cpx.copySync(joinRoot('CHANGELOG.md'), BUILD_DIR);
       cpx.copySync(joinRoot('LICENSE'), BUILD_DIR);
-    },
-  }, {
-    title: 'Check SSR',
-    task: () => {
-      const s = require(BUILD_DIR);
-
-      if (s.version !== options.version) {
-        throw new Error(`Version Mismatched: expected ${options.version}, got ${s.version}`);
-      }
     },
   }, {
     title: `Publish ${options.version}`,
