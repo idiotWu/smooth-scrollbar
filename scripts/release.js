@@ -91,11 +91,31 @@ function runTask(options) {
   }
 
   const tasks = new Listr([{
-    title: 'Compile TypeScript',
-    task: () => execa.shell('npm run compile'),
-  }, {
     title: 'Create bundle',
-    task: () => execa.shell('npm run bundle'),
+    task: () => execa.shell('npm run bundle', {
+      env: {
+        SCROLLBAR_VERSION: options.version,
+      },
+    }),
+  }, {
+    title: 'Compile TypeScript',
+    task: async () => {
+      await execa.shell('npm run compile');
+
+      const entry = `${BUILD_DIR}/index.js`;
+      const content = fs.readFileSync(entry, 'utf8');
+
+      fs.writeFileSync(entry, content.replace('__SCROLLBAR_VERSION__', options.version));
+    },
+  }, {
+    title: 'Check SSR',
+    task: () => {
+      const s = require(BUILD_DIR);
+
+      if (s.version !== options.version) {
+        throw new Error(`Version Mismatched: expected ${options.version}, got ${s.version}`);
+      }
+    },
   }, {
     title: `Bump Bower version: ${pkg.version} -> ${options.version}`,
     task: () => {

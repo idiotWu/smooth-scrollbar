@@ -18,6 +18,8 @@ import {
 
 export { ScrollbarPlugin };
 
+declare var __SCROLLBAR_VERSION__: string;
+
 /*!
  * cast `I.Scrollbar` to `Scrollbar` to avoid error
  *
@@ -28,6 +30,8 @@ export { ScrollbarPlugin };
  */
 
 export default class SmoothScrollbar extends Scrollbar {
+  static version = __SCROLLBAR_VERSION__;
+
   static ScrollbarPlugin = ScrollbarPlugin;
 
   /**
