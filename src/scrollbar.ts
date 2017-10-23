@@ -449,7 +449,7 @@ export class Scrollbar implements I.Scrollbar {
     const current = offset[direction];
     const remain = _momentum[direction];
 
-    if (Math.abs(remain) <= 1) {
+    if (Math.abs(remain) <= 0.1) {
       return {
         momentum: 0,
         position: current + remain,
