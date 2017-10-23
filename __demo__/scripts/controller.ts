@@ -7,7 +7,7 @@ Scrollbar.use(OverscrollPlugin);
 const options = {
   damping: 0.1,
   thumbMinSize: 20,
-  renderByPixels: true,
+  renderByPixels: !('ontouchstart' in document),
   alwaysShowTracks: false,
   continuousScrolling: true,
 };
