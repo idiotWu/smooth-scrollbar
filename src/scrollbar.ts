@@ -26,16 +26,16 @@ import {
 } from './scrolling/';
 
 import {
-  scrollbarMap,
-} from './shared/';
-
-import {
   initPlugins,
 } from './plugin';
 
 import * as eventHandlers from './events/';
 
 import * as I from './interfaces/';
+
+// DO NOT use WeakMap here
+// .getAll() methods requires `scrollbarMap.values()`
+export const scrollbarMap = new Map<HTMLElement, Scrollbar>();
 
 export class Scrollbar implements I.Scrollbar {
   /**
@@ -85,6 +85,25 @@ export class Scrollbar implements I.Scrollbar {
     bottom: 0,
     left: 0,
   };
+
+  /**
+   * Parent scrollbar
+   */
+  get parent() {
+    let elem = this.containerEl.parentElement;
+
+    while (elem) {
+      const parentScrollbar = scrollbarMap.get(elem);
+
+      if (parentScrollbar) {
+        return parentScrollbar;
+      }
+
+      elem = elem.parentElement;
+    }
+
+    return null;
+  }
 
   /**
    * Gets or sets `scrollbar.offset.y`

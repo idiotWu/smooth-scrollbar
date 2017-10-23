@@ -66,6 +66,8 @@ export type ScrollIntoViewOptions = {
 
 // Scrollbar Class
 export interface Scrollbar {
+  readonly parent: Scrollbar | null;
+
   readonly containerEl: HTMLElement;
   readonly contentEl: HTMLElement;
 

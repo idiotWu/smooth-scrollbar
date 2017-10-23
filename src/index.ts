@@ -1,11 +1,10 @@
 import './polyfills';
 import * as I from './interfaces/';
 
-import { Scrollbar } from './scrollbar';
-
 import {
   scrollbarMap,
-} from './shared/';
+  Scrollbar,
+} from './scrollbar';
 
 import {
   addPlugins,

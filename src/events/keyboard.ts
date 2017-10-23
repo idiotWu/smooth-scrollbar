@@ -5,10 +5,6 @@ import {
   shoulePropagateMomentum,
 } from '../utils/';
 
-import {
-  scrollbarMap,
-} from '../shared/';
-
 enum KEY_CODE {
   SPACE = 32,
   PAGE_UP,
@@ -40,7 +36,11 @@ export function keyboardHandler(scrollbar: I.Scrollbar) {
 
     if (shoulePropagateMomentum(scrollbar, x, y)) {
       container.blur();
-      focusParentScrollbar(scrollbar);
+
+      if (scrollbar.parent) {
+        scrollbar.parent.containerEl.focus();
+      }
+
       return;
     }
 
@@ -78,20 +78,5 @@ function getKeyDelta(scrollbar: I.Scrollbar, keyCode: number) {
       return [0, 40];
     default:
       return null;
-  }
-}
-
-function focusParentScrollbar(scrollbar: I.Scrollbar) {
-  let elem = scrollbar.containerEl.parentElement;
-
-  while (elem) {
-    const parentScrollbar = scrollbarMap.get(elem);
-
-    if (parentScrollbar) {
-      parentScrollbar.containerEl.focus();
-      return;
-    }
-
-    elem = elem.parentElement;
   }
 }
