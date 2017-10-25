@@ -1,3 +1,9 @@
+## [8.1.12](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.11...v8.1.12) (2017-10-25)
+
+### Minor Changes
+
+- **event/touch**: use `devicePixelRatio` as easing multiplier.
+
 ## [8.1.11](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.9...v8.1.11) (2017-10-23)
 
 ### Minor Changes
