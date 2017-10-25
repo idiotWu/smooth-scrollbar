@@ -1,12 +1,12 @@
 # Caveats
 
-Custom scrollbars is always a controversial issue. On the one hand, they provide full control of scrollbars. But on the other hand, they degrade user experience because native behavior is unmatchable. As the author of this script, I don't really want you to use it unless you are sure about what you are doing.
+Customizing scrollbars is always a controversial issue. On the one hand, they provide full control of scrollbars. But on the other hand, they degrade user experience because native behavior is unmatchable. As the author of this script, I don't really want you to use it unless you are sure about what you are doing.
 
 If you just want to customize your scrollbars, you can try out something like [SimpleBar](https://github.com/Grsmto/simplebar) which follows native scrolling.
 
 ## Native behavior is unmatchable
 
-Although this script trys to make scrolling experience as smooth as the native one, it still behaves weird especially the inertial scrolling. You may upset your users who are using a trackpad or mobile device with touch screen.
+Although this script trys to make scrolling experience as smooth as the native one, it still behaves weirdly especially the inertial scrolling. You may upset your users who are using a trackpad or mobile device with touch screen.
 
 Keep in mind that **native scrollbars are always the best ones**.
 
