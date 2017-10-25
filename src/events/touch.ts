@@ -6,7 +6,7 @@ import {
   shoulePropagateMomentum,
 } from '../utils/';
 
-const MIN_VELOCITY = 50;
+const MIN_VELOCITY = 100;
 
 let activeScrollbar: I.Scrollbar | null;
 
@@ -56,7 +56,7 @@ export function touchHandler(scrollbar: I.Scrollbar) {
     const movement = { x: 0, y: 0 };
 
     Object.keys(velocity).forEach(dir => {
-      const value = velocity[dir] / damping * 1.5;
+      const value = velocity[dir] / damping * (window.devicePixelRatio || 1);
 
       // throw small values
       movement[dir] = Math.abs(value) > MIN_VELOCITY ? value : 0;
