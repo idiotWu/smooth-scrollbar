@@ -1,6 +1,6 @@
 # Caveats
 
-Customizing scrollbars is always a controversial issue. On the one hand, they provide full control of scrollbars. But on the other hand, they degrade user experience because native behavior is unmatchable. As the author of this script, I don't really want you to use it unless you are sure about what you are doing.
+Customizing scrollbars is always a controversial issue. On the one hand, it provides full control of scrollbars. But on the other hand, it degrades user experience because native behavior is unmatchable. As the author of this script, I don't really want you to use it unless you are sure about what you are doing.
 
 If you just want to customize your scrollbars, you can try out something like [SimpleBar](https://github.com/Grsmto/simplebar) which follows native scrolling.
 
