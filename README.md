@@ -5,6 +5,8 @@
 [![license](https://img.shields.io/npm/l/smooth-scrollbar.svg?style=flat-square)](LICENSE)
 [![Travis](https://img.shields.io/travis/idiotWu/smooth-scrollbar.svg)](https://travis-ci.org/idiotWu/smooth-scrollbar)
 
+> ⚠️ DO NOT use custom scrollbars unless you know what you are doing. [Read more](docs/caveats.md)
+
 Customizable, Flexible, and High Performance Scrollbars!
 
 ## Installation
