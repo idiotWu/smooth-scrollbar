@@ -1,6 +1,8 @@
 # Caveats
 
-Custom scrollbars is always a controversial issue. On one hand, they provide full control of scrollbars. But on the other hand, they degrade user experience because native behavior is unmatchable. As the author of this script, I don't really want you to use it unless you are sure about what you are doing.
+Custom scrollbars is always a controversial issue. On the one hand, they provide full control of scrollbars. But on the other hand, they degrade user experience because native behavior is unmatchable. As the author of this script, I don't really want you to use it unless you are sure about what you are doing.
+
+If you just want to customize your scrollbars, you can try out something like [react-custom-scrollbars](https://github.com/malte-wessel/react-custom-scrollbars) which follows native scrolling.
 
 ## Native behavior is unmatchable
 
@@ -10,7 +12,7 @@ Keep in mind that **native scrollbars are always the best ones**.
 
 ## Performace issues
 
-This script is using `translate3d` to perform smooth scrolling. However, the larger the scrollable area is, the lower the performace will be. And scrolling may also be jittery and inconsistent on some old devices.
+This script is using `translate3d` to perform smooth scrolling. However, the larger the scrollable area is, the lower the performace will be. And scrolling may also be jittery on some old devices.
 
 ## Incompatible with Pointer Event API
 
