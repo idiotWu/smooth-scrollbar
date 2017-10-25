@@ -167,7 +167,7 @@ const scrollbar = Scrollbar.init(elem);
 scrollbar.options.plugins.filterEvent.blacklist = [/wheel/, /touch/];
 
 // 8.1.x
-scrollbar.updatePluginOption('filterEvent', {
+scrollbar.updatePluginOptions('filterEvent', {
   blacklist: [/wheel/, /touch/],
 });
 ```
