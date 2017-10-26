@@ -44,7 +44,7 @@ OR
 | damping | `number` | `0.2` | Momentum reduction damping factor, a float value between `(0, 1)`. The lower the value is, the more smooth the overscrolling will be (also the more paint frames). |
 | maxOverscroll | `number` | `150` | Max-allowed overscroll distance. |
 | glowColor | `string` | `'#87ceeb'` | Canvas paint color for `'glow'` effect. |
-| onScroll | `function` | `null` | See details below. |
+| onScroll | `function` | `null` | See details below. **This option is available since `8.2.0`** |
 
 ### options.onScroll
 
