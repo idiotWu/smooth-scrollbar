@@ -6,11 +6,12 @@ import {
   shoulePropagateMomentum,
 } from '../utils/';
 
-const MIN_VELOCITY = 100;
-
 let activeScrollbar: I.Scrollbar | null;
 
 export function touchHandler(scrollbar: I.Scrollbar) {
+  const MIN_EAING_MOMENTUM = 50;
+  const EASING_MULTIPLIER = /Android/.test(navigator.userAgent) ? 3 : 2;
+
   const container = scrollbar.containerEl;
   const touchRecord = new TouchRecord();
   const addEvent = eventScope(scrollbar);
@@ -53,18 +54,18 @@ export function touchHandler(scrollbar: I.Scrollbar) {
 
   addEvent(container, 'touchcancel touchend', (evt: TouchEvent) => {
     const velocity = touchRecord.getVelocity();
-    const movement = { x: 0, y: 0 };
+    const momentum = { x: 0, y: 0 };
 
     Object.keys(velocity).forEach(dir => {
-      const value = velocity[dir] / damping * (window.devicePixelRatio || 1);
+      const s = velocity[dir] / damping;
 
       // throw small values
-      movement[dir] = Math.abs(value) > MIN_VELOCITY ? value : 0;
+      momentum[dir] = Math.abs(s) < MIN_EAING_MOMENTUM ? 0 : s * EASING_MULTIPLIER;
     });
 
     scrollbar.addTransformableMomentum(
-      movement.x,
-      movement.y,
+      momentum.x,
+      momentum.y,
       evt,
     );
 
