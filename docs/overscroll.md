@@ -44,6 +44,48 @@ OR
 | damping | `number` | `0.2` | Momentum reduction damping factor, a float value between `(0, 1)`. The lower the value is, the more smooth the overscrolling will be (also the more paint frames). |
 | maxOverscroll | `number` | `150` | Max-allowed overscroll distance. |
 | glowColor | `string` | `'#87ceeb'` | Canvas paint color for `'glow'` effect. |
+| onScroll | `function` | `null` | See details below. |
+
+### options.onScroll
+
+```ts
+onScroll(this: OverscrollPlugin, position: Position): void
+
+type Position = {
+  x: number,
+  y: number,
+};
+```
+
+You can listen to overscroll events by setting `option.onScroll`:
+
+```js
+{
+  plugins: {
+    overscroll: {
+      onScroll(position) {
+        console.log(posision); // > { x: 12, y: 34 }
+      }
+    }
+  }
+}
+```
+
+The `position` parameter is a x,y coordinate that indicates current overscroll position:
+
+```
+* MAX stands for option.maxOverscroll
+
+                 y: [-MAX, 0]
+                      ↑
+               +--------------+
+               |  scrollable  |
+x: [-MAX, 0] ← |      *       | → x: [0, MAX]
+               |     area     |
+               +--------------+
+                      ↓
+                 y: [0, MAX]
+```
 
 ## How to disable this plugin
 
