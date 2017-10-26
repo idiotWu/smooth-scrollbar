@@ -1,3 +1,13 @@
+## [8.2.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.0...v8.2.0) (2017-10-26)
+
+### New Features
+
+- **plugin/overscroll**: add `onScroll` option. [doc](https://github.com/idiotWu/smooth-scrollbar/blob/develop/docs/overscroll.md#optionsonscroll)
+
+### Minor Changes
+
+- **event/touch**: use platform based easing multiplier.
+
 ## [8.1.12](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.11...v8.1.12) (2017-10-25)
 
 ### Minor Changes
