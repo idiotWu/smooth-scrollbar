@@ -14,8 +14,11 @@ export type Data2d = {
   y: number,
 };
 
+export type OnScrollCallback = (this: OverscrollPlugin, position: Data2d) => void;
+
 export type OverscrollOptions = {
   effect?: OverscrollEffect,
+  onScroll?: OnScrollCallback,
   damping: number,
   maxOverscroll: number,
   glowColor: string,
@@ -28,6 +31,7 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
 
   static defaultOptions: OverscrollOptions = {
     effect: OverscrollEffect.BOUNCE,
+    onScroll: undefined,
     damping: 0.2,
     maxOverscroll: 150,
     glowColor: '#87ceeb',
@@ -210,8 +214,8 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
       return false;
     }
 
-    // has unrendered momentum
-    if (this._amplitude[direction]) {
+    // away from origin
+    if (this._position[direction]) {
       return true;
     }
 
@@ -304,6 +308,10 @@ export default class OverscrollPlugin extends ScrollbarPlugin {
         case OverscrollEffect.GLOW:
           this._glow.render(_position, this.options.glowColor);
           break;
+      }
+
+      if (typeof options.onScroll === 'function') {
+        options.onScroll.call(this, { ..._position });
       }
     }
   }
