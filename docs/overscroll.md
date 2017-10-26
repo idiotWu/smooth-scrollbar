@@ -57,7 +57,7 @@ type Position = {
 };
 ```
 
-You can listen to overscroll events by setting `option.onScroll`:
+You can listen to overscroll events by setting `options.onScroll`:
 
 ```js
 {
@@ -74,13 +74,13 @@ You can listen to overscroll events by setting `option.onScroll`:
 The `position` parameter is a x,y coordinate that indicates current overscroll position:
 
 ```
-* MAX stands for option.maxOverscroll
+* MAX stands for options.maxOverscroll
 
                  y: [-MAX, 0]
                       ↑
                +--------------+
                |  scrollable  |
-x: [-MAX, 0] ← |      *       | → x: [0, MAX]
+x: [-MAX, 0] ← |      +       | → x: [0, MAX]
                |     area     |
                +--------------+
                       ↓
@@ -89,7 +89,7 @@ x: [-MAX, 0] ← |      *       | → x: [0, MAX]
 
 ## How to disable this plugin
 
-Simply set `plugin.overscroll=false` when initializing scrollbars:
+Simply set `plugins.overscroll=false` when initializing scrollbars:
 
 ```js
 Scrollbar.init(elem, {
