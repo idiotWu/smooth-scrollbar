@@ -1,15 +1,21 @@
 # Smooth Scrollbar
 
-[![npm](https://img.shields.io/npm/v/smooth-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/smooth-scrollbar)
-[![downloads](https://img.shields.io/npm/dt/smooth-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/smooth-scrollbar)
-[![license](https://img.shields.io/npm/l/smooth-scrollbar.svg?style=flat-square)](LICENSE)
-[![Travis](https://img.shields.io/travis/idiotWu/smooth-scrollbar.svg)](https://travis-ci.org/idiotWu/smooth-scrollbar)
-
-> ⚠️ DO NOT use custom scrollbars unless you know what you are doing. [Read more](docs/caveats.md)
-
 Customizable, Flexible, and High Performance Scrollbars!
 
+----
+
+[![npm][npm-version-badge]](https://www.npmjs.com/package/smooth-scrollbar)
+[![downloads][npm-downloads-badge]](https://www.npmjs.com/package/smooth-scrollbar)
+[![core size][size-badge]](dist/smooth-scrollbar.js)
+[![gzip size][gzip-size-badge]](dist/smooth-scrollbar.js)
+[![license][license-badge]](LICENSE)
+[![Build status][travis-badge]](https://travis-ci.org/idiotWu/smooth-scrollbar)
+
+[![Sponsor][codesponsor]](https://app.codesponsor.io/link/haJ2RqCqwBLZtPKnMNBYgn4M/idiotWu/smooth-scrollbar)
+
 ## Installation
+
+> ⚠️ DO NOT use custom scrollbars unless you know what you are doing. [Read more](docs/caveats.md)
 
 Via NPM **(recommended)**:
 
@@ -75,4 +81,10 @@ If you are not using any bundlers, you can just load the UMD bundle:
 
 [MIT](LICENSE)
 
-[![Sponsor](https://app.codesponsor.io/embed/haJ2RqCqwBLZtPKnMNBYgn4M/idiotWu/smooth-scrollbar.svg)](https://app.codesponsor.io/link/haJ2RqCqwBLZtPKnMNBYgn4M/idiotWu/smooth-scrollbar)
+[npm-version-badge]: https://img.shields.io/npm/v/smooth-scrollbar.svg
+[npm-downloads-badge]: https://img.shields.io/npm/dt/smooth-scrollbar.svg
+[license-badge]: https://img.shields.io/npm/l/smooth-scrollbar.svg
+[travis-badge]: https://img.shields.io/travis/idiotWu/smooth-scrollbar.svg
+[codesponsor]: https://app.codesponsor.io/embed/haJ2RqCqwBLZtPKnMNBYgn4M/idiotWu/smooth-scrollbar.svg
+[size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=core%20size
+[gzip-size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=core%20size&compression=gzip
