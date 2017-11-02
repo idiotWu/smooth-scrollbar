@@ -9,6 +9,7 @@ Customizable, Flexible, and High Performance Scrollbars!
 [![core size][size-badge]](dist/smooth-scrollbar.js)
 [![gzip size][gzip-size-badge]](dist/smooth-scrollbar.js)
 [![Build status][travis-badge]](https://travis-ci.org/idiotWu/smooth-scrollbar)
+[![Dependency Status][dependency-badge]](https://dependencyci.com/github/idiotWu/smooth-scrollbar)
 [![license][license-badge]](LICENSE)
 
 [![Sponsor][codesponsor]](https://app.codesponsor.io/link/haJ2RqCqwBLZtPKnMNBYgn4M/idiotWu/smooth-scrollbar)
@@ -87,4 +88,5 @@ If you are not using any bundlers, you can just load the UMD bundle:
 [travis-badge]: https://img.shields.io/travis/idiotWu/smooth-scrollbar.svg?style=flat-square
 [size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=core%20size&style=flat-square
 [gzip-size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=gzip%20size&compression=gzip&style=flat-square
+[dependency-badge]: https://dependencyci.com/github/idiotWu/smooth-scrollbar/badge?style=flat-square
 [codesponsor]: https://app.codesponsor.io/embed/haJ2RqCqwBLZtPKnMNBYgn4M/idiotWu/smooth-scrollbar.svg
