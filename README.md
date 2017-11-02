@@ -2,8 +2,6 @@
 
 Customizable, Flexible, and High Performance Scrollbars!
 
-----
-
 [![npm][npm-version-badge]](https://www.npmjs.com/package/smooth-scrollbar)
 [![downloads][npm-downloads-badge]](https://www.npmjs.com/package/smooth-scrollbar)
 [![core size][size-badge]](dist/smooth-scrollbar.js)
