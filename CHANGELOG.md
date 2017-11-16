@@ -1,3 +1,9 @@
+## [8.2.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.0...v8.2.1) (2017-11-16)
+
+### Bug Fixes
+
+- **shouldPropagateMomentum**: call `shouldPropagateMomentum` after delta is transformed. [#117](https://github.com/idiotWu/smooth-scrollbar/issues/117)
+
 ## [8.2.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.1.0...v8.2.0) (2017-10-26)
 
 ### New Features
