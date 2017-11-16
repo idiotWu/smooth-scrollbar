@@ -1,3 +1,9 @@
+## [8.2.2](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.1...v8.2.2) (2017-11-17)
+
+### Minor Changes
+
+- **utils/eventHub**: remove `defaultPrevented` filter.
+
 ## [8.2.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.0...v8.2.1) (2017-11-16)
 
 ### Bug Fixes
