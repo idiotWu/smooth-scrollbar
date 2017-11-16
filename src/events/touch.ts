@@ -3,7 +3,7 @@ import * as I from '../interfaces/';
 import {
   eventScope,
   TouchRecord,
-  shoulePropagateMomentum,
+  shouldPropagateMomentum,
 } from '../utils/';
 
 let activeScrollbar: I.Scrollbar | null;
@@ -42,7 +42,7 @@ export function touchHandler(scrollbar: I.Scrollbar) {
 
     const { x, y } = touchRecord.getDelta();
 
-    if (shoulePropagateMomentum(scrollbar, x, y)) {
+    if (shouldPropagateMomentum(scrollbar, x, y)) {
       return;
     }
 

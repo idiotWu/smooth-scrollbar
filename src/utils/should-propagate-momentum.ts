@@ -5,7 +5,7 @@ import { Scrollbar } from '../interfaces/';
 // this situations are considered as `true`:
 //         1. continuous scrolling is enabled (automatically disabled when overscroll is enabled)
 //         2. scrollbar reaches one side and is not about to scroll on the other direction
-export function shoulePropagateMomentum(
+export function shouldPropagateMomentum(
   scrollbar: Scrollbar,
   deltaX = 0,
   deltaY = 0,

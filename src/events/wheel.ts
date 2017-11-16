@@ -2,7 +2,7 @@ import * as I from '../interfaces/';
 
 import {
   eventScope,
-  shoulePropagateMomentum,
+  shouldPropagateMomentum,
 } from '../utils/';
 
 const DELTA_SCALE = {
@@ -22,7 +22,7 @@ export function wheelHandler(scrollbar: I.Scrollbar) {
   addEvent(target, 'onwheel' in window ? 'wheel' : 'mousewheel', (evt: WheelEvent) => {
     const { x, y } = normalizeDelta(evt);
 
-    if (shoulePropagateMomentum(scrollbar, x, y)) {
+    if (shouldPropagateMomentum(scrollbar, x, y)) {
       return;
     }
 

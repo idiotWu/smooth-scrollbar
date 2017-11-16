@@ -2,7 +2,7 @@ import * as I from '../interfaces/';
 
 import {
   eventScope,
-  shoulePropagateMomentum,
+  shouldPropagateMomentum,
 } from '../utils/';
 
 enum KEY_CODE {
@@ -34,7 +34,7 @@ export function keyboardHandler(scrollbar: I.Scrollbar) {
 
     const [x, y] = delta;
 
-    if (shoulePropagateMomentum(scrollbar, x, y)) {
+    if (shouldPropagateMomentum(scrollbar, x, y)) {
       container.blur();
 
       if (scrollbar.parent) {
