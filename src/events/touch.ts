@@ -3,7 +3,6 @@ import * as I from '../interfaces/';
 import {
   eventScope,
   TouchRecord,
-  shouldPropagateMomentum,
 } from '../utils/';
 
 let activeScrollbar: I.Scrollbar | null;
@@ -41,12 +40,6 @@ export function touchHandler(scrollbar: I.Scrollbar) {
     touchRecord.update(evt);
 
     const { x, y } = touchRecord.getDelta();
-
-    if (shouldPropagateMomentum(scrollbar, x, y)) {
-      return;
-    }
-
-    evt.preventDefault();
 
     scrollbar.addTransformableMomentum(x, y, evt);
     activeScrollbar = scrollbar;

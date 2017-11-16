@@ -1,3 +1,5 @@
+import clamp from 'lodash-es/clamp';
+
 import { Options } from './options';
 
 import {
@@ -295,7 +297,7 @@ export class Scrollbar implements I.Scrollbar {
   }
 
   /**
-   * Adds momentum and applys delta transfomers.
+   * Adds momentum and applys delta transformers.
    */
   addTransformableMomentum(x: number, y: number, fromEvent: Event) {
     this._updateDebounced();
@@ -304,7 +306,15 @@ export class Scrollbar implements I.Scrollbar {
       return plugin.transformDelta(delta, fromEvent) || delta;
     }, { x, y });
 
-    this.addMomentum(finalDelta.x, finalDelta.y);
+    if (this._shouldPropagateMomentum(finalDelta.x, finalDelta.y)) {
+      if (document.activeElement === this.containerEl && this.parent !== null) {
+        this.containerEl.blur();
+        this.parent.containerEl.focus();
+      }
+    } else {
+      fromEvent.preventDefault();
+      this.addMomentum(finalDelta.x, finalDelta.y);
+    }
   }
 
   /**
@@ -413,6 +423,39 @@ export class Scrollbar implements I.Scrollbar {
   @debounce(100, { leading: true })
   private _updateDebounced() {
     this.update();
+  }
+
+  // check whether to propagate monmentum to parent scrollbar
+  // this situations are considered as `true`:
+  //         1. continuous scrolling is enabled (automatically disabled when overscroll is enabled)
+  //         2. scrollbar reaches one side and is not about to scroll on the other direction
+  private _shouldPropagateMomentum(deltaX = 0, deltaY = 0): boolean {
+    const {
+      options,
+      offset,
+      limit,
+    } = this;
+
+    if (!options.continuousScrolling) return false;
+
+    // force an update when scrollbar is "unscrollable", see #106
+    if (limit.x === 0 && limit.y === 0) {
+      this._updateDebounced();
+    }
+
+    const destX = clamp(deltaX + offset.x, 0, limit.x);
+    const destY = clamp(deltaY + offset.y, 0, limit.y);
+    let res = true;
+
+    // offsets are not about to change
+    // `&=` operator is not allowed for boolean types
+    res = res && (destX === offset.x);
+    res = res && (destY === offset.y);
+
+    // current offsets are on the edge
+    res = res && (offset.x === limit.x || offset.x === 0 || offset.y === limit.y || offset.y === 0);
+
+    return res;
   }
 
   private _render() {

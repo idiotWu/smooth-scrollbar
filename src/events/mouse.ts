@@ -119,7 +119,6 @@ export function mouseHandler(scrollbar: I.Scrollbar) {
   addEvent(window, 'mousemove', (evt) => {
     if (!isMouseDown) return;
 
-    evt.preventDefault();
     isMouseMoving = true;
 
     const { offset } = scrollbar;

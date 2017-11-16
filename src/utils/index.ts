@@ -3,5 +3,4 @@ export * from './get-pointer-data';
 export * from './get-position';
 export * from './is-one-of';
 export * from './set-style';
-export * from './should-propagate-momentum';
 export * from './touch-record';
