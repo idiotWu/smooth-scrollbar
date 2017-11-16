@@ -1,3 +1,9 @@
+## [8.2.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.2...v8.2.3) (2017-11-17)
+
+### Bug Fixes
+
+- **event**: call `event.preventDefault()` only in touchmove events.
+
 ## [8.2.2](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.1...v8.2.2) (2017-11-17)
 
 ### Minor Changes
