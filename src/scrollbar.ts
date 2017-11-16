@@ -426,7 +426,7 @@ export class Scrollbar implements I.Scrollbar {
   }
 
   // check whether to propagate monmentum to parent scrollbar
-  // this situations are considered as `true`:
+  // the following situations are considered as `true`:
   //         1. continuous scrolling is enabled (automatically disabled when overscroll is enabled)
   //         2. scrollbar reaches one side and is not about to scroll on the other direction
   private _shouldPropagateMomentum(deltaX = 0, deltaY = 0): boolean {
