@@ -37,6 +37,8 @@ export function touchHandler(scrollbar: I.Scrollbar) {
   addEvent(container, 'touchmove', (evt: TouchEvent) => {
     if (activeScrollbar && activeScrollbar !== scrollbar) return;
 
+    evt.preventDefault();
+
     touchRecord.update(evt);
 
     const { x, y } = touchRecord.getDelta();

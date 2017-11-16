@@ -312,7 +312,6 @@ export class Scrollbar implements I.Scrollbar {
         this.parent.containerEl.focus();
       }
     } else {
-      fromEvent.preventDefault();
       this.addMomentum(finalDelta.x, finalDelta.y);
     }
   }
