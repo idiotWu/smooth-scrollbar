@@ -20,17 +20,8 @@ export function eventScope(scrollbar: Scrollbar) {
   return function addEvent(
     elem: EventTarget,
     events: string,
-    fn: EventHandler,
+    handler: EventHandler,
    ) {
-    function handler(event: any) {
-      // ignore default prevented events
-      if ((!event.type.match(/drag/) && event.defaultPrevented)) {
-        return;
-      }
-
-      fn(event);
-    }
-
     events.split(/\s+/g).forEach((eventName) => {
       configs.push({ elem, eventName, handler });
 
