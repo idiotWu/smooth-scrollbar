@@ -33,7 +33,17 @@ export function keyboardHandler(scrollbar: I.Scrollbar) {
 
     const [x, y] = delta;
 
-    scrollbar.addTransformableMomentum(x, y, evt);
+    scrollbar.addTransformableMomentum(x, y, evt, (willScroll) => {
+      if (willScroll) {
+        evt.preventDefault();
+      } else {
+        scrollbar.containerEl.blur();
+
+        if (scrollbar.parent) {
+          scrollbar.parent.containerEl.focus();
+        }
+      }
+    });
   });
 }
 

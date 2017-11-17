@@ -37,14 +37,16 @@ export function touchHandler(scrollbar: I.Scrollbar) {
   addEvent(container, 'touchmove', (evt: TouchEvent) => {
     if (activeScrollbar && activeScrollbar !== scrollbar) return;
 
-    evt.preventDefault();
-
     touchRecord.update(evt);
 
     const { x, y } = touchRecord.getDelta();
 
-    scrollbar.addTransformableMomentum(x, y, evt);
-    activeScrollbar = scrollbar;
+    scrollbar.addTransformableMomentum(x, y, evt, (willScroll) => {
+      if (willScroll) {
+        evt.preventDefault();
+        activeScrollbar = scrollbar;
+      }
+    });
   });
 
   addEvent(container, 'touchcancel touchend', (evt: TouchEvent) => {

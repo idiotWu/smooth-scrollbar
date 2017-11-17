@@ -299,20 +299,26 @@ export class Scrollbar implements I.Scrollbar {
   /**
    * Adds momentum and applys delta transformers.
    */
-  addTransformableMomentum(x: number, y: number, fromEvent: Event) {
+  addTransformableMomentum(
+    x: number,
+    y: number,
+    fromEvent: Event,
+    callback?: I.AddTransformableMomentumCallback,
+  ) {
     this._updateDebounced();
 
     const finalDelta = this._plugins.reduce((delta, plugin) => {
       return plugin.transformDelta(delta, fromEvent) || delta;
     }, { x, y });
 
-    if (this._shouldPropagateMomentum(finalDelta.x, finalDelta.y)) {
-      if (document.activeElement === this.containerEl && this.parent !== null) {
-        this.containerEl.blur();
-        this.parent.containerEl.focus();
-      }
-    } else {
+    const willScroll = !this._shouldPropagateMomentum(finalDelta.x, finalDelta.y);
+
+    if (willScroll) {
       this.addMomentum(finalDelta.x, finalDelta.y);
+    }
+
+    if (callback) {
+      callback.call(this, willScroll);
     }
   }
 

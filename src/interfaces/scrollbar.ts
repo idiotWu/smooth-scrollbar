@@ -47,7 +47,7 @@ export interface ScrollListener {
 // `scrollTo` options
 export type ScrollToOptions = {
   callback: (this: Scrollbar) => void,
-  easing: (percent: number) => number;
+  easing: (percent: number) => number,
 };
 
 // `setPosition` options
@@ -63,6 +63,10 @@ export type ScrollIntoViewOptions = {
   offsetLeft: number,
   offsetBottom: number,
 };
+
+export interface AddTransformableMomentumCallback {
+  (this: Scrollbar, willScroll: boolean): void;
+}
 
 // Scrollbar Class
 export interface Scrollbar {
@@ -93,7 +97,7 @@ export interface Scrollbar {
   addListener(fn: ScrollListener): void;
   removeListener(fn: ScrollListener): void;
 
-  addTransformableMomentum(x: number, y: number, fromEvent: Event): void;
+  addTransformableMomentum(x: number, y: number, fromEvent: Event, callback?: AddTransformableMomentumCallback): void;
   addMomentum(x: number, y: number): void;
   setMomentum(x: number, y: number): void;
 

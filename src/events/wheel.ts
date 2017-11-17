@@ -21,7 +21,11 @@ export function wheelHandler(scrollbar: I.Scrollbar) {
   addEvent(target, 'onwheel' in window ? 'wheel' : 'mousewheel', (evt: WheelEvent) => {
     const { x, y } = normalizeDelta(evt);
 
-    scrollbar.addTransformableMomentum(x, y, evt);
+    scrollbar.addTransformableMomentum(x, y, evt, (willScroll) => {
+      if (willScroll) {
+        evt.preventDefault();
+      }
+    });
   });
 }
 
