@@ -1,3 +1,9 @@
+## [8.2.4](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.3...v8.2.4) (2017-11-17)
+
+### Bug Fixes
+
+- **event**: fix event propagation.
+
 ## [8.2.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.2...v8.2.3) (2017-11-17)
 
 ### Bug Fixes
