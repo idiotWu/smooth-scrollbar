@@ -5,6 +5,8 @@ import {
   TouchRecord,
 } from '../utils/';
 
+let activeScrollbar: I.Scrollbar | null;
+
 export function touchHandler(scrollbar: I.Scrollbar) {
   const MIN_EAING_MOMENTUM = 50;
   const EASING_MULTIPLIER = /Android/.test(navigator.userAgent) ? 3 : 2;
@@ -33,13 +35,18 @@ export function touchHandler(scrollbar: I.Scrollbar) {
   });
 
   addEvent(container, 'touchmove', (evt: TouchEvent) => {
-    evt.preventDefault();
+    if (activeScrollbar && activeScrollbar !== scrollbar) return;
 
     touchRecord.update(evt);
 
     const { x, y } = touchRecord.getDelta();
 
-    scrollbar.addTransformableMomentum(x, y, evt);
+    scrollbar.addTransformableMomentum(x, y, evt, (willScroll) => {
+      if (willScroll) {
+        evt.preventDefault();
+        activeScrollbar = scrollbar;
+      }
+    });
   });
 
   addEvent(container, 'touchcancel touchend', (evt: TouchEvent) => {
@@ -67,5 +74,6 @@ export function touchHandler(scrollbar: I.Scrollbar) {
     }
 
     touchRecord.release(evt);
+    activeScrollbar = null;
   });
 }
