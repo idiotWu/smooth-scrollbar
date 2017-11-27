@@ -72,6 +72,7 @@ If you are not using any bundlers, you can just load the UMD bundle:
 
 ## Who's Using It
 
+- [conference.awwwards.com](https://conference.awwwards.com/): Awwwards Conference - An Event for UX / UI Designers and Web Developers.
 - [lp.anzi.kr](http://lp.anzi.kr/): Listeners Playlist.
 - Feel free to add yours here 🤗.
 
