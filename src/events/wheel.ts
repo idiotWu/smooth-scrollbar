@@ -1,3 +1,4 @@
+import normalizeWheel from 'normalize-wheel';
 import * as I from '../interfaces/';
 
 import {
