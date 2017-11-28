@@ -17,8 +17,9 @@ export function wheelHandler(scrollbar: I.Scrollbar) {
   const addEvent = eventScope(scrollbar);
 
   const target = scrollbar.options.wheelEventTarget || scrollbar.containerEl;
+  const eventName = 'onwheel' in window || document.implementation.hasFeature('Events.wheel', '3.0') ? 'wheel' : 'mousewheel';
 
-  addEvent(target, 'onwheel' in window ? 'wheel' : 'mousewheel', (evt: WheelEvent) => {
+  addEvent(target, eventName, (evt: WheelEvent) => {
     const { x, y } = normalizeDelta(evt);
 
     scrollbar.addTransformableMomentum(x, y, evt, (willScroll) => {
