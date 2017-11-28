@@ -1,3 +1,9 @@
+## [8.2.5](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.4...v8.2.5) (2017-11-28)
+
+### Bug Fixes
+
+- **event/wheel**: fix wheel event name in IE10. [#124](https://github.com/idiotWu/smooth-scrollbar/pull/124)
+
 ## [8.2.4](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.3...v8.2.4) (2017-11-17)
 
 ### Bug Fixes
