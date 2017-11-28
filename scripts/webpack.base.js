@@ -31,8 +31,8 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       __SCROLLBAR_VERSION__: JSON.stringify(
-        process.env.SCROLLBAR_VERSION || require('../package.json').version,
-      ),
+        process.env.SCROLLBAR_VERSION || require('../package.json').version
+      )
     }),
     new CircularDependencyPlugin({
       exclude: /node_modules/,
