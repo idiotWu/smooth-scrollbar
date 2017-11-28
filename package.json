@@ -80,7 +80,6 @@
   "dependencies": {
     "core-js": "^2.5.1",
     "lodash-es": "^4.17.4",
-    "normalize-wheel": "^1.0.1",
     "tslib": "^1.7.1"
   }
 }
