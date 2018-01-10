@@ -10,7 +10,7 @@ Although this script trys to make scrolling experience as smooth as the native o
 
 Keep in mind that **native scrollbars are always the best ones**.
 
-## Performace issues
+## Performance issues
 
 This script is using `translate3d` to perform smooth scrolling. However, the larger the scrollable area is, the lower the performace will be. And scrolling may also be jittery on some old devices.
 
