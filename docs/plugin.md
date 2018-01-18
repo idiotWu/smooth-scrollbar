@@ -16,6 +16,7 @@ The most exciting feature in v8 is the plugin system💥. The following section 
   - [onDestroy()](#ondestroy)
 - [Plugin Options](#plugin-options)
   - [Update Plugin Options](#update-plugin-options)
+- [Disable Specific Plugins](#disable-specific-plugins)
 - [Plugin Order](#plugin-order)
 - [Example: invert delta](#example-invert-delta)
 
@@ -195,7 +196,7 @@ import MeowPlugin from 'meow-plugin';
 Scrollbar.use(MeowPlugin);
 
 Scrollbar.init(elem, {
-  plugin: {
+  plugins: {
     meow: {
       age: '10m',
     },
@@ -203,18 +204,6 @@ Scrollbar.init(elem, {
 });
 
 // > 'meow' { age: '10m' }
-```
-
-If someone wants to disable the plugin, simply set `plugin[pluginName]=false`:
-
-```ts
-Scrollbar.init(devil, {
-  plugin: {
-    meow: false,
-  },
-});
-
-// MeowPlugin will NEVER be constructed on this scrollbar instance!
 ```
 
 You can provide default options through `defaultOptions` property:
@@ -248,6 +237,20 @@ Instead, you can update plugin options through `scrollbar.updatePluginOptions` A
 scrollbar.updatePluginOptions('overscroll', {
   effect: 'glow',
 });
+```
+
+## Disable Specific Plugins
+
+If you want to disable the plugin, simply set `plugin[pluginName]=false`:
+
+```ts
+Scrollbar.init(devil, {
+  plugins: {
+    meow: false,
+  },
+});
+
+// MeowPlugin will NEVER be constructed on this scrollbar instance!
 ```
 
 ## Plugin Order
