@@ -22,10 +22,26 @@ export function wheelHandler(scrollbar: I.Scrollbar) {
   });
 }
 
-// Normalizing wheel delta
+const getStandardDeltaScale = () => {
+  const UA = navigator.userAgent;
+  const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+  const isEdge = UA.indexOf('Edge/') > -1;
+  const isFF = UA.indexOf('Firefox') > -1;
+  const isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+  
+  if (isMac) {
+    if (isFF) return 0.85;
+  } else {
+    if (isFF) return 0.35;
+    if (isEdge) return 0.91;
+    if (isChrome) return 0.44;
+  }
+
+  return 1;
+}
 
 const DELTA_SCALE = {
-  STANDARD: 1,
+  STANDARD: getStandardDeltaScale(),
   OTHERS: -3,
 };
 
@@ -36,7 +52,7 @@ const getDeltaMode = (mode) => DELTA_MODE[mode] || DELTA_MODE[0];
 function normalizeDelta(evt: WheelEvent) {
   if ('deltaX' in evt) {
     const mode = getDeltaMode(evt.deltaMode);
-
+    
     return {
       x: evt.deltaX / DELTA_SCALE.STANDARD * mode,
       y: evt.deltaY / DELTA_SCALE.STANDARD * mode,
