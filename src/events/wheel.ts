@@ -52,7 +52,7 @@ const getDeltaMode = (mode) => DELTA_MODE[mode] || DELTA_MODE[0];
 function normalizeDelta(evt: WheelEvent) {
   if ('deltaX' in evt) {
     const mode = getDeltaMode(evt.deltaMode);
-    
+
     return {
       x: evt.deltaX / DELTA_SCALE.STANDARD * mode,
       y: evt.deltaY / DELTA_SCALE.STANDARD * mode,
