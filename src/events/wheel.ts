@@ -28,7 +28,7 @@ const getStandardDeltaScale = () => {
   const isEdge = UA.indexOf('Edge/') > -1;
   const isFF = UA.indexOf('Firefox') > -1;
   const isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-  
+
   if (isMac) {
     if (isFF) return 0.85;
   } else {
