@@ -1,3 +1,5 @@
+import clamp from 'lodash-es/clamp';
+
 import * as I from '../interfaces/';
 
 export function scrollIntoView(
@@ -11,7 +13,12 @@ export function scrollIntoView(
     offsetBottom = 0,
   }: Partial<I.ScrollIntoViewOptions> = {},
 ) {
-  const { containerEl, bounding } = scrollbar;
+  const {
+    containerEl,
+    bounding,
+    offset,
+    limit,
+  } = scrollbar;
 
   if (!elem || !containerEl.contains(elem)) return;
 
@@ -19,8 +26,10 @@ export function scrollIntoView(
 
   if (onlyScrollIfNeeded && scrollbar.isVisible(elem)) return;
 
+  const delta = alignToTop ? targetBounding.top - bounding.top - offsetTop : targetBounding.bottom - bounding.bottom - offsetBottom;
+
   scrollbar.setMomentum(
     targetBounding.left - bounding.left - offsetLeft,
-    alignToTop ? targetBounding.top - bounding.top - offsetTop : targetBounding.bottom - bounding.bottom - offsetBottom,
+    clamp(delta, -offset.y, limit.y - offset.y),
   );
 }
