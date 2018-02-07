@@ -1,3 +1,9 @@
+## [8.2.6](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.5...v8.2.6) (2018-02-07)
+
+### Bug Fixes
+
+- **scrollIntoView**: clamp delta within scrollable offset.
+
 ## [8.2.5](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.4...v8.2.5) (2017-11-28)
 
 ### Bug Fixes
