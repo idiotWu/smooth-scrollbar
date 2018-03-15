@@ -1,3 +1,9 @@
+## [8.2.7](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.6...v8.2.7) (2018-03-15)
+
+### Bug Fixes
+
+- **event/select**: remove `user-select` rules. [#151](https://github.com/idiotWu/smooth-scrollbar/issues/151)
+
 ## [8.2.6](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.5...v8.2.6) (2018-02-07)
 
 ### Bug Fixes
