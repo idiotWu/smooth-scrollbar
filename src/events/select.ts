@@ -2,7 +2,6 @@ import clamp from 'lodash-es/clamp';
 import * as I from '../interfaces/';
 
 import {
-  setStyle,
   eventScope,
   getPosition,
 } from '../utils/';
@@ -48,28 +47,12 @@ export function selectHandler(scrollbar: I.Scrollbar) {
     cancelAnimationFrame(animationID);
 
     isSelected = true;
-
-    setStyle(document.body, {
-      '-user-select': 'none',
-    });
-
-    setStyle(containerEl, {
-      '-user-select': 'auto',
-    });
   });
 
   addEvent(window, 'mouseup blur', () => {
     cancelAnimationFrame(animationID);
 
     isSelected = false;
-
-    setStyle(document.body, {
-      '-user-select': '',
-    });
-
-    setStyle(containerEl, {
-      '-user-select': '',
-    });
   });
 
   // patch for touch devices
