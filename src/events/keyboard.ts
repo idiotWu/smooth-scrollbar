@@ -21,7 +21,13 @@ export function keyboardHandler(scrollbar: I.Scrollbar) {
   const container = scrollbar.containerEl;
 
   addEvent(container, 'keydown', (evt: KeyboardEvent) => {
-    if (document.activeElement !== container) {
+    const { activeElement } = document;
+
+    if (activeElement !== container && !container.contains(activeElement)) {
+      return;
+    }
+
+    if (isEditable(activeElement)) {
       return;
     }
 
@@ -76,4 +82,20 @@ function getKeyDelta(scrollbar: I.Scrollbar, keyCode: number) {
     default:
       return null;
   }
+}
+
+function isEditable(elem: any): boolean {
+  if (elem.tagName === 'INPUT' || elem.tagName === 'TEXTAREA') {
+    return true;
+  }
+
+  while (elem) {
+    if (elem.contentEditable === 'true') {
+      return true;
+    }
+
+    elem = elem.parentElement;
+  }
+
+  return false;
 }
