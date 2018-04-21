@@ -26,7 +26,7 @@ export function scrollIntoView(
 
   if (onlyScrollIfNeeded && scrollbar.isVisible(elem)) return;
 
-  const delta = alignToTop ? targetBounding.top - bounding.top - offsetTop : targetBounding.bottom - bounding.bottom - offsetBottom;
+  const delta = alignToTop ? targetBounding.top - bounding.top - offsetTop : targetBounding.bottom - bounding.bottom + offsetBottom;
 
   scrollbar.setMomentum(
     targetBounding.left - bounding.left - offsetLeft,
