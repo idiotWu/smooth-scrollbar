@@ -5,6 +5,7 @@ import {
 } from '../utils/';
 
 enum KEY_CODE {
+  TAB = 9,
   SPACE = 32,
   PAGE_UP,
   PAGE_DOWN,
@@ -61,6 +62,8 @@ function getKeyDelta(scrollbar: I.Scrollbar, keyCode: number) {
   } = scrollbar;
 
   switch (keyCode) {
+    case KEY_CODE.TAB:
+      return handleTabKey(scrollbar);
     case KEY_CODE.SPACE:
       return [0, 200];
     case KEY_CODE.PAGE_UP:
@@ -82,6 +85,16 @@ function getKeyDelta(scrollbar: I.Scrollbar, keyCode: number) {
     default:
       return null;
   }
+}
+
+function handleTabKey(scrollbar: I.Scrollbar) {
+  // handle in next frame
+  requestAnimationFrame(() => {
+    scrollbar.scrollIntoView(document.activeElement as HTMLElement, {
+      offsetTop: scrollbar.size.container.height / 2,
+      onlyScrollIfNeeded: true,
+    });
+  });
 }
 
 function isEditable(elem: any): boolean {
