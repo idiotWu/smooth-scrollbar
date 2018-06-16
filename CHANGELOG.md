@@ -1,3 +1,14 @@
+## [8.3.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.0...v8.3.0) (2018-06-16)
+
+### Bug Fixes
+
+- **scrollIntoView**: fix `offsetBottom` calculation.
+- **events**: add passive event detection.
+
+### Feature
+
+- **options**: add `delegateTo` option. [#162](https://github.com/idiotWu/smooth-scrollbar/issues/162)
+
 ## [8.2.7](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.6...v8.2.7) (2018-03-15)
 
 ### Bug Fixes
