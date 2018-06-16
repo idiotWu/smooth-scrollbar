@@ -100,7 +100,7 @@ If the container element is natively scrollable before initializing the Scrollba
 | renderByPixels | `boolean` | `true` | Render every frame in integer pixel values, set to `true` to improve scrolling performance. |
 | alwaysShowTracks | `boolean` | `false` | Keep scrollbar tracks visible. |
 | continuousScrolling | `boolean` | `true` | Set to `true` to allow outer scrollbars continue scrolling when current scrollbar reaches edge. |
-| wheelEventTarget | `EventTarget` | `null` | Element to be used as a listener for mouse wheel scroll events. By default, the container element is used. This option will be useful for dealing with fixed elements.  |
+| delegateTo | `EventTarget` | `null` | Delegate _wheel events_ and _touch events_ to the given element. By default, the container element is used. This option will be useful for dealing with fixed elements.  |
 | plugins | `object` | `{}` | Options for plugins, see [Plugin System](plugin.md). |
 
 **Confusing with the option field? Try real-time edit tool on [demo page](http://idiotwu.github.io/smooth-scrollbar/)!**
