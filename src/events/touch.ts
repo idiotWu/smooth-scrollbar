@@ -11,14 +11,14 @@ export function touchHandler(scrollbar: I.Scrollbar) {
   const MIN_EAING_MOMENTUM = 50;
   const EASING_MULTIPLIER = /Android/.test(navigator.userAgent) ? 3 : 2;
 
-  const container = scrollbar.containerEl;
+  const target = scrollbar.options.delegateTo || scrollbar.containerEl;
   const touchRecord = new TouchRecord();
   const addEvent = eventScope(scrollbar);
 
   let damping: number;
   let pointerCount = 0;
 
-  addEvent(container, 'touchstart', (evt: TouchEvent) => {
+  addEvent(target, 'touchstart', (evt: TouchEvent) => {
     // start records
     touchRecord.track(evt);
 
@@ -34,7 +34,7 @@ export function touchHandler(scrollbar: I.Scrollbar) {
     pointerCount++;
   });
 
-  addEvent(container, 'touchmove', (evt: TouchEvent) => {
+  addEvent(target, 'touchmove', (evt: TouchEvent) => {
     if (activeScrollbar && activeScrollbar !== scrollbar) return;
 
     touchRecord.update(evt);
@@ -49,7 +49,7 @@ export function touchHandler(scrollbar: I.Scrollbar) {
     });
   });
 
-  addEvent(container, 'touchcancel touchend', (evt: TouchEvent) => {
+  addEvent(target, 'touchcancel touchend', (evt: TouchEvent) => {
     const velocity = touchRecord.getVelocity();
     const momentum = { x: 0, y: 0 };
 

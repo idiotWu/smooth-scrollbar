@@ -11,6 +11,7 @@ export type ScrollbarOptions = {
   renderByPixels: boolean,
   alwaysShowTracks: boolean,
   continuousScrolling: boolean,
+  delegateTo: EventTarget | null,
   wheelEventTarget: EventTarget | null,
   plugins: any,
 };

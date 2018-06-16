@@ -23,7 +23,7 @@ const overscrollOptions = {
 const scrollbars = [
   Scrollbar.init(document.getElementById('main-scrollbar') as HTMLElement, {
     ...options,
-    wheelEventTarget: document,
+    delegateTo: document,
     plugins: {
       overscroll: { ...overscrollOptions },
     },

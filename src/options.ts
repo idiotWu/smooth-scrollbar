@@ -43,11 +43,21 @@ export class Options {
   continuousScrolling = true;
 
   /**
-   * Element to be used as a listener for mouse wheel scroll events.
+   * Delegate wheel events and touch events to the given element.
    * By default, the container element is used.
    * This option will be useful for dealing with fixed elements.
    */
-  wheelEventTarget: EventTarget | null = null;
+  delegateTo: EventTarget | null = null;
+
+  get wheelEventTarget() {
+    return this.delegateTo;
+  }
+
+  set wheelEventTarget(el: EventTarget | null) {
+    console.warn('[smooth-scrollbar]: `options.wheelEventTarget` is deprecated and will be removed in the future, use `options.delegateTo` instead.');
+
+    this.delegateTo = el;
+  }
 
   /**
    * Options for plugins. Syntax:

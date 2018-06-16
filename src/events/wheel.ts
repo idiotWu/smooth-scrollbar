@@ -7,7 +7,7 @@ import {
 export function wheelHandler(scrollbar: I.Scrollbar) {
   const addEvent = eventScope(scrollbar);
 
-  const target = scrollbar.options.wheelEventTarget || scrollbar.containerEl;
+  const target = scrollbar.options.delegateTo || scrollbar.containerEl;
 
   const eventName = ('onwheel' in window || document.implementation.hasFeature('Events.wheel', '3.0')) ? 'wheel' : 'mousewheel';
 
