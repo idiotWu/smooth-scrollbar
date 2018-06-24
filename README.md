@@ -1,13 +1,12 @@
 # Smooth Scrollbar
 
-Customizable, Flexible, and High Performance Scrollbars!
-
 [![npm][npm-version-badge]](https://www.npmjs.com/package/smooth-scrollbar)
-[![downloads][npm-downloads-badge]](https://www.npmjs.com/package/smooth-scrollbar)
+[![monthly downloads][npm-downloads-badge]](https://www.npmjs.com/package/smooth-scrollbar)
 [![core size][size-badge]](dist/smooth-scrollbar.js)
 [![gzip size][gzip-size-badge]](dist/smooth-scrollbar.js)
 [![Build status][travis-badge]](https://travis-ci.org/idiotWu/smooth-scrollbar)
-[![license][license-badge]](LICENSE)
+
+Customizable, Flexible, and High Performance Scrollbars!
 
 ## Installation
 
@@ -78,9 +77,8 @@ If you are not using any bundlers, you can just load the UMD bundle:
 
 [MIT](LICENSE)
 
-[npm-version-badge]: https://img.shields.io/npm/v/smooth-scrollbar.svg?style=flat-square
-[npm-downloads-badge]: https://img.shields.io/npm/dt/smooth-scrollbar.svg?style=flat-square
-[license-badge]: https://img.shields.io/npm/l/smooth-scrollbar.svg?style=flat-square
-[travis-badge]: https://img.shields.io/travis/idiotWu/smooth-scrollbar.svg?style=flat-square
-[size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=core%20size&style=flat-square
-[gzip-size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=gzip%20size&compression=gzip&style=flat-square
+[npm-version-badge]: https://img.shields.io/npm/v/smooth-scrollbar.svg?style=for-the-badge
+[npm-downloads-badge]: https://img.shields.io/npm/dm/smooth-scrollbar.svg?style=for-the-badge
+[travis-badge]: https://img.shields.io/travis/idiotWu/smooth-scrollbar.svg?style=for-the-badge
+[size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=core%20size&style=for-the-badge
+[gzip-size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=gzip%20size&compression=gzip&style=for-the-badge
