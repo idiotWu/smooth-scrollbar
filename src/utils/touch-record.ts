@@ -38,7 +38,6 @@ export class Tracker {
 }
 
 export class TouchRecord {
-  private _lastTouch: Tracker;
   private _activeTouchID: number;
   private _touchList: { [id: number]: Tracker } = {};
 
@@ -135,7 +134,6 @@ export class TouchRecord {
 
   private _setActiveID(touches: TouchList) {
     this._activeTouchID = touches[touches.length - 1].identifier;
-    this._lastTouch = this._touchList[this._activeTouchID];
   }
 
   private _getActiveTracker(): Tracker {

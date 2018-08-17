@@ -9,7 +9,7 @@ export function scrollTo(
   x: number,
   y: number,
   duration = 0,
-  { easing = defaultEasing, callback = null }: Partial<I.ScrollToOptions> = {},
+  { easing = defaultEasing, callback }: Partial<I.ScrollToOptions> = {},
 ) {
   const {
     options,
