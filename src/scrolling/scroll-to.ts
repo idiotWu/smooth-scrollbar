@@ -2,6 +2,8 @@ import clamp from 'lodash-es/clamp';
 
 import * as I from '../interfaces/';
 
+const animationIDStorage = new WeakMap<I.Scrollbar, number>();
+
 export function scrollTo(
   scrollbar: I.Scrollbar,
   x: number,
@@ -43,10 +45,12 @@ export function scrollTo(
         callback.call(scrollbar);
       }
     } else {
-      requestAnimationFrame(scroll);
+      const animationID = requestAnimationFrame(scroll);
+      animationIDStorage.set(scrollbar, animationID);
     }
   }
 
+  cancelAnimationFrame(animationIDStorage.get(scrollbar) as number);
   scroll();
 }
 
