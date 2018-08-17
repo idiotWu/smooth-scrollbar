@@ -8,6 +8,7 @@ const baseConfig = require('./webpack.base');
 const joinRoot = path.join.bind(path, __dirname, '..');
 
 module.exports = merge(baseConfig, {
+  mode: 'production',
   entry: [
     joinRoot('src/index.ts'),
   ],
