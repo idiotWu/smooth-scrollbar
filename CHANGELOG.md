@@ -1,3 +1,9 @@
+## [8.3.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.3.0...v8.3.1) (2018-08-17)
+
+### Bug Fixes
+
+- **scrollTo**: cancel previous animation. [#168](https://github.com/idiotWu/smooth-scrollbar/issues/168)
+
 ## [8.3.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.2.0...v8.3.0) (2018-06-16)
 
 ### Bug Fixes
