@@ -66,7 +66,9 @@ export function attachStyle() {
   styleEl.id = STYLE_ID;
   styleEl.textContent = SCROLLBAR_STYLE;
 
-  document.head.appendChild(styleEl);
+  if (document.head) {
+    document.head.appendChild(styleEl);
+  }
 
   isStyleAttached = true;
 }
