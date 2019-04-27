@@ -54,8 +54,9 @@ export class Options {
   }
 
   set wheelEventTarget(el: EventTarget | null) {
-    console.warn('[smooth-scrollbar]: `options.wheelEventTarget` is deprecated and will be removed in the future, use `options.delegateTo` instead.');
-
+   if(el){
+       console.warn('[smooth-scrollbar]: `options.wheelEventTarget` is deprecated and will be removed in the future, use `options.delegateTo` instead.');
+    }
     this.delegateTo = el;
   }
 
