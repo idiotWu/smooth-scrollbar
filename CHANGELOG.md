@@ -1,3 +1,10 @@
+## [8.4.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.3.1...v8.4.0) (2019-05-13)
+
+### Feature
+
+- Sets `tabindex` to `-1` to improve accessibility. [#160](https://github.com/idiotWu/smooth-scrollbar/pull/160)
+- Enables <kbd>tab</kbd> navigation. [#160](https://github.com/idiotWu/smooth-scrollbar/pull/160)
+
 ## [8.3.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.3.0...v8.3.1) (2018-08-17)
 
 ### Bug Fixes
