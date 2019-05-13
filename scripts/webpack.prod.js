@@ -20,11 +20,7 @@ module.exports = merge(baseConfig, {
     libraryExport: 'default',
   },
   plugins: [
-    new UglifyJSPlugin({
-      output: {
-        comments: false,
-      },
-    }),
+    new UglifyJSPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
   ],
 });

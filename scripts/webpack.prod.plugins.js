@@ -28,11 +28,7 @@ module.exports = merge(baseConfig, {
     },
   },
   plugins: [
-    new UglifyJSPlugin({
-      output: {
-        comments: false,
-      },
-    }),
+    new UglifyJSPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
   ],
 });
