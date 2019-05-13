@@ -5,6 +5,7 @@ import {
 } from '../utils/';
 
 enum KEY_CODE {
+  TAB = 9,
   SPACE = 32,
   PAGE_UP,
   PAGE_DOWN,
@@ -21,7 +22,13 @@ export function keyboardHandler(scrollbar: I.Scrollbar) {
   const container = scrollbar.containerEl;
 
   addEvent(container, 'keydown', (evt: KeyboardEvent) => {
-    if (document.activeElement !== container) {
+    const { activeElement } = document;
+
+    if (activeElement !== container && !container.contains(activeElement)) {
+      return;
+    }
+
+    if (isEditable(activeElement)) {
       return;
     }
 
@@ -55,6 +62,8 @@ function getKeyDelta(scrollbar: I.Scrollbar, keyCode: number) {
   } = scrollbar;
 
   switch (keyCode) {
+    case KEY_CODE.TAB:
+      return handleTabKey(scrollbar);
     case KEY_CODE.SPACE:
       return [0, 200];
     case KEY_CODE.PAGE_UP:
@@ -76,4 +85,22 @@ function getKeyDelta(scrollbar: I.Scrollbar, keyCode: number) {
     default:
       return null;
   }
+}
+
+function handleTabKey(scrollbar: I.Scrollbar) {
+  // handle in next frame
+  requestAnimationFrame(() => {
+    scrollbar.scrollIntoView(document.activeElement as HTMLElement, {
+      offsetTop: scrollbar.size.container.height / 2,
+      onlyScrollIfNeeded: true,
+    });
+  });
+}
+
+function isEditable(elem: any): boolean {
+  if (elem.tagName === 'INPUT' || elem.tagName === 'TEXTAREA') {
+    return !elem.disabled;
+  }
+
+  return false;
 }

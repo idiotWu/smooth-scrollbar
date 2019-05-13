@@ -147,7 +147,7 @@ export class Scrollbar implements I.Scrollbar {
     containerEl.setAttribute('data-scrollbar', 'true');
 
     // make container focusable
-    containerEl.setAttribute('tabindex', '1');
+    containerEl.setAttribute('tabindex', '-1');
     setStyle(containerEl, {
       overflow: 'hidden',
       outline: 'none',
