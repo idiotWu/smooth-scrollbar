@@ -58,7 +58,7 @@ abstract class ScrollbarPlugin {
 
   onRender(remainMomentum: Data2d): void;
 
-  onDestory(): void;
+  onDestroy(): void;
 }
 ```
 
