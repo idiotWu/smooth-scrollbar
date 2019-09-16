@@ -1,3 +1,9 @@
+## [8.4.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.4.0...v8.4.1) (2019-09-16)
+
+### Bug Fixes
+
+- **keyboard**: detected `contentEditable` element. @Alecyrus [#210](https://github.com/idiotWu/smooth-scrollbar/pull/210)
+
 ## [8.4.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.3.1...v8.4.0) (2019-05-13)
 
 ### Feature
