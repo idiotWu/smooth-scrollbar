@@ -101,7 +101,7 @@ function isEditable(elem: any): boolean {
  if (
     elem.tagName === "INPUT" ||
     elem.tagName === "TEXTAREA" ||
-    elem.contentEditable === "true"
+    elem.isContentEditable
   ) {
     return !elem.disabled;
   }
