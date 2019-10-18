@@ -402,9 +402,9 @@ export class Scrollbar implements I.Scrollbar {
     containerEl.scrollTop = this.scrollTop;
     containerEl.scrollLeft = this.scrollLeft;
 
-    // invoke plugin.onDestory
+    // invoke plugin.onDestroy
     this._plugins.forEach((plugin) => {
-      plugin.onDestory();
+      plugin.onDestroy();
     });
     this._plugins.length = 0;
   }
