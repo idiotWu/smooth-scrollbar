@@ -11,7 +11,7 @@ export interface ScrollbarPlugin {
   readonly name: string;
 
   onInit(): void;
-  onDestory(): void;
+  onDestroy(): void;
 
   onUpdate(): void;
   onRender(remainMomentum: Data2d): void;

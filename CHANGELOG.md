@@ -183,7 +183,7 @@
 
 ### Minor Changes
 
-- **init/destory**: perserve scroll offset. [#67](https://github.com/idiotWu/smooth-scrollbar/issues/67)
+- **init/destroy**: perserve scroll offset. [#67](https://github.com/idiotWu/smooth-scrollbar/issues/67)
 
 ## [7.3.1](https://github.com/idiotWu/smooth-scrollbar/compare/v7.3.0...v7.3.1) (2017-05-26)
 

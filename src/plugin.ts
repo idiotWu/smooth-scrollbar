@@ -24,7 +24,7 @@ export class ScrollbarPlugin implements I.ScrollbarPlugin {
   }
 
   onInit() {}
-  onDestory() {}
+  onDestroy() {}
 
   onUpdate() {}
   onRender(_remainMomentum: I.Data2d) {}
