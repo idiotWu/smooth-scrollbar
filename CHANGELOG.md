@@ -1,3 +1,7 @@
+## [8.5.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.4.1...v8.5.0) (2019-10-20)
+
+- **plugin.onDestroy**: fix type. @adamcoulombe [#219](https://github.com/idiotWu/smooth-scrollbar/pull/219)
+
 ## [8.4.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.4.0...v8.4.1) (2019-09-16)
 
 ### Bug Fixes
