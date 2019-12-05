@@ -1,4 +1,13 @@
+## [8.5.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.5.0...v8.5.1) (2019-12-06)
+
+### Bug Fixes
+
+- **keyboard**: prevent keyboard navigating on `select` field. @bbtimx [#228](https://github.com/idiotWu/smooth-scrollbar/pull/228)
+
+
 ## [8.5.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.4.1...v8.5.0) (2019-10-20)
+
+### Bug Fixes
 
 - **plugin.onDestroy**: fix typo. @adamcoulombe [#219](https://github.com/idiotWu/smooth-scrollbar/pull/219)
 
