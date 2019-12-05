@@ -99,6 +99,7 @@ function handleTabKey(scrollbar: I.Scrollbar) {
 
 function isEditable(elem: any): boolean {
   if (elem.tagName === 'INPUT' ||
+      elem.tagName === 'SELECT' ||
       elem.tagName === 'TEXTAREA' ||
       elem.isContentEditable) {
     return !elem.disabled;
