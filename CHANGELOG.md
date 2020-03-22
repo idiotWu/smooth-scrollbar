@@ -1,3 +1,10 @@
+## [8.5.2](https://github.com/idiotWu/smooth-scrollbar/compare/v8.5.1...v8.5.2) (2020-03-22)
+
+### Bug Fixes
+
+- **webpack**: make UMD build available on both browsers and Node.js. @hanjeahwan [#244](https://github.com/idiotWu/smooth-scrollbar/pull/244)
+
+
 ## [8.5.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.5.0...v8.5.1) (2019-12-06)
 
 ### Bug Fixes
