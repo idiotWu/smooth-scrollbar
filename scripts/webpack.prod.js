@@ -18,6 +18,7 @@ module.exports = merge(baseConfig, {
     library: 'Scrollbar',
     libraryTarget: 'umd',
     libraryExport: 'default',
+    globalObject: 'this'
   },
   plugins: [
     new UglifyJSPlugin(),
