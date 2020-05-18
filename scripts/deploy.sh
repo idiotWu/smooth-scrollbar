@@ -12,6 +12,8 @@ fi
 
 # Save some useful information
 REPO=`git config remote.origin.url`
+COMMIT_AUTHOR_NAME=`git show -s --format='%an'`
+COMMIT_AUTHOR_EMAIL=`git show -s --format='%ae'`
 SSH_REPO=${REPO/\/\/github.com/\/\/$GITHUB_TOKEN@github.com}
 SHA=`git rev-parse --verify HEAD`
 
