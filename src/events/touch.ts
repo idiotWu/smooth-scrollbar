@@ -42,7 +42,7 @@ export function touchHandler(scrollbar: I.Scrollbar) {
     const { x, y } = touchRecord.getDelta();
 
     scrollbar.addTransformableMomentum(x, y, evt, (willScroll) => {
-      if (willScroll) {
+      if (willScroll && evt.cancelable) {
         evt.preventDefault();
         activeScrollbar = scrollbar;
       }
