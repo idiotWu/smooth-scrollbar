@@ -1,3 +1,9 @@
+## [8.5.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.5.2...v8.5.3) (2020-09-17)
+
+### Bug Fixes
+
+- **events**: ignored attempt to cancel an event with `cancelable=false`. @milkamil93 [#276](https://github.com/idiotWu/smooth-scrollbar/pull/276)
+
 ## [8.5.2](https://github.com/idiotWu/smooth-scrollbar/compare/v8.5.1...v8.5.2) (2020-03-22)
 
 ### Bug Fixes
