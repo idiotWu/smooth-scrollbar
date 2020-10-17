@@ -5,6 +5,7 @@
 [![core size][size-badge]](dist/smooth-scrollbar.js)
 [![gzip size][gzip-size-badge]](dist/smooth-scrollbar.js)
 [![Build status][travis-badge]](https://travis-ci.org/idiotWu/smooth-scrollbar)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/from-referrer/)
 
 Customizable, Flexible, and High Performance Scrollbars!
 
