@@ -90,3 +90,7 @@ $ npm start
 ```
 
 to start a dev server at `http://localhost:3000`.
+
+Alternatively you can use Gitpod(an Online IDE which is free for Open Source) for contributing. With a single click it will launch a workspace and automatically clone the `smooth-scrollbar` repo, install the dependencies and run `npm start`.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
