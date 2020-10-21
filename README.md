@@ -5,7 +5,7 @@
 [![core size][size-badge]](dist/smooth-scrollbar.js)
 [![gzip size][gzip-size-badge]](dist/smooth-scrollbar.js)
 [![Build status][travis-badge]](https://travis-ci.org/idiotWu/smooth-scrollbar)
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/from-referrer/)
+[![Gitpod Ready-to-Code][gitpod-badge]](https://gitpod.io/from-referrer/)
 
 Customizable, Flexible, and High Performance Scrollbars!
 
@@ -84,3 +84,4 @@ If you are not using any bundlers, you can just load the UMD bundle:
 [travis-badge]: https://img.shields.io/travis/idiotWu/smooth-scrollbar.svg?style=for-the-badge
 [size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=core%20size&style=for-the-badge
 [gzip-size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=gzip%20size&compression=gzip&style=for-the-badge
+[gitpod-badge]: https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?style=for-the-badge
