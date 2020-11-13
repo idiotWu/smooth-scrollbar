@@ -480,7 +480,7 @@ Details:
 ```ts
 type ScrollToOptions = {
   /**
-   * Callback function that will be invoked when easing animaiton is done
+   * Callback function that will be invoked when easing animation is done
    */
   callback: (this: Scrollbar) => void,
 
