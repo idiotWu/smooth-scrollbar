@@ -72,10 +72,10 @@ If you are not using any bundlers, you can just load the UMD bundle:
 
 ## FAQ
 
-- How to **temporarily stop scrolling**? [#119](https://github.com/idiotWu/smooth-scrollbar/issues/119)
-- How to **enable hash/anchor scrolling**? [#128](https://github.com/idiotWu/smooth-scrollbar/issues/128)
-- How to **direct all scrolling to a particular direction**? [#181](https://github.com/idiotWu/smooth-scrollbar/issues/181)
-- How to **disable scrolling in a particular direction**? [#206](https://github.com/idiotWu/smooth-scrollbar/issues/206)
+- How to **temporarily stop scrolling**? [#119](https://github.com/idiotWu/smooth-scrollbar/issues/119#issuecomment-346227113)
+- How to **enable hash/anchor scrolling**? [#128](https://github.com/idiotWu/smooth-scrollbar/issues/128#issuecomment-390980479)
+- How to **direct all scrolling to a particular direction**? [#181](https://github.com/idiotWu/smooth-scrollbar/issues/181#issuecomment-458646086)
+- How to **disable scrolling in a particular direction**? [#206](https://github.com/idiotWu/smooth-scrollbar/issues/206#issuecomment-526831135)
 - [more...](https://github.com/idiotWu/smooth-scrollbar/issues?q=label%3AFAQ)
 
 ## Who's Using It
