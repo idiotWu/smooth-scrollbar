@@ -72,6 +72,7 @@ If you are not using any bundlers, you can just load the UMD bundle:
 
 ## FAQ
 
+- How to **deal with `position: fixed` elements**? [#49](https://github.com/idiotWu/smooth-scrollbar/issues/49#issuecomment-265358197)
 - How to **temporarily stop scrolling**? [#119](https://github.com/idiotWu/smooth-scrollbar/issues/119#issuecomment-346227113)
 - How to **enable hash/anchor scrolling**? [#128](https://github.com/idiotWu/smooth-scrollbar/issues/128#issuecomment-390980479)
 - How to **direct all scrolling to a particular direction**? [#181](https://github.com/idiotWu/smooth-scrollbar/issues/181#issuecomment-458646086)
