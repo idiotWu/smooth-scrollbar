@@ -5,6 +5,7 @@
 [![core size][size-badge]](dist/smooth-scrollbar.js)
 [![gzip size][gzip-size-badge]](dist/smooth-scrollbar.js)
 [![Build status][travis-badge]](https://travis-ci.org/idiotWu/smooth-scrollbar)
+[![Gitpod Ready-to-Code][gitpod-badge]](https://gitpod.io/from-referrer/)
 
 Customizable, Flexible, and High Performance Scrollbars!
 
@@ -67,6 +68,17 @@ If you are not using any bundlers, you can just load the UMD bundle:
 | [latest](docs) | [7.x](https://github.com/idiotWu/smooth-scrollbar/tree/7.x) |
 |----|----|
 
+
+
+## FAQ
+
+- How to **deal with `position: fixed` elements**? [#49](https://github.com/idiotWu/smooth-scrollbar/issues/49#issuecomment-265358197)
+- How to **temporarily stop scrolling**? [#119](https://github.com/idiotWu/smooth-scrollbar/issues/119#issuecomment-346227113)
+- How to **enable hash/anchor scrolling**? [#128](https://github.com/idiotWu/smooth-scrollbar/issues/128#issuecomment-390980479)
+- How to **direct all scrolling to a particular direction**? [#181](https://github.com/idiotWu/smooth-scrollbar/issues/181#issuecomment-458646086)
+- How to **disable scrolling in a particular direction**? [#206](https://github.com/idiotWu/smooth-scrollbar/issues/206#issuecomment-526831135)
+- [more...](https://github.com/idiotWu/smooth-scrollbar/issues?q=label%3AFAQ)
+
 ## Who's Using It
 
 - [conference.awwwards.com](https://conference.awwwards.com/): Awwwards Conference - An Event for UX / UI Designers and Web Developers.
@@ -83,3 +95,4 @@ If you are not using any bundlers, you can just load the UMD bundle:
 [travis-badge]: https://img.shields.io/travis/idiotWu/smooth-scrollbar.svg?style=for-the-badge
 [size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=core%20size&style=for-the-badge
 [gzip-size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=gzip%20size&compression=gzip&style=for-the-badge
+[gitpod-badge]: https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?style=for-the-badge

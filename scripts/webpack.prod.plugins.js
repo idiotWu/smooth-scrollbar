@@ -18,6 +18,7 @@ module.exports = merge(baseConfig, {
     library: 'OverscrollPlugin',
     libraryTarget: 'umd',
     libraryExport: 'default',
+    globalObject: 'this'
   },
   externals: {
     'smooth-scrollbar': {
