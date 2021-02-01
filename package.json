@@ -79,7 +79,7 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-    "core-js": "^2.6.9",
+    "core-js": "^3.6.4",
     "lodash-es": "^4.17.15",
     "tslib": "^1.10.0"
   }

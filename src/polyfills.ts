@@ -1,5 +1,5 @@
-import 'core-js/fn/map';
-import 'core-js/fn/set';
-import 'core-js/fn/weak-map';
-import 'core-js/fn/array/from';
-import 'core-js/fn/object/assign';
+import 'core-js/es/map';
+import 'core-js/es/set';
+import 'core-js/es/weak-map';
+import 'core-js/es/array/from';
+import 'core-js/es/object/assign';
