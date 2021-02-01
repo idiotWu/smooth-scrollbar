@@ -1,3 +1,9 @@
+## [8.6.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.5.3...v8.6.0) (2021-02-01)
+
+### Breaking Changes
+
+- Upgrade core-js to v3. @milewski [#234](https://github.com/idiotWu/smooth-scrollbar/pull/234)
+
 ## [8.5.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.5.2...v8.5.3) (2020-09-17)
 
 ### Bug Fixes
