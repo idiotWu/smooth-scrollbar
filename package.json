@@ -80,7 +80,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
-    "lodash-es": "^4.17.15",
+    "lodash-es": "^4.17.21",
     "tslib": "^1.10.0"
   }
 }
