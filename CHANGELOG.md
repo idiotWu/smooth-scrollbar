@@ -1,3 +1,9 @@
+## [8.6.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.6.0...v8.6.1) (2021-03-19)
+
+### Bug Fixes
+
+- **dependencies**: upgrade lodash-es to 4.17.21 (non-vulnerable version) @huggingpixels [#306](https://github.com/idiotWu/smooth-scrollbar/pull/306)
+
 ## [8.6.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.5.3...v8.6.0) (2021-02-01)
 
 ### Breaking Changes
