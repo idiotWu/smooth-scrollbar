@@ -8,7 +8,7 @@ import {
 
 export function selectHandler(scrollbar: I.Scrollbar) {
   const addEvent = eventScope(scrollbar);
-  const { containerEl, contentEl, offset } = scrollbar;
+  const { containerEl, contentEl } = scrollbar;
 
   let isSelected = false;
   let animationID: number;
@@ -16,7 +16,7 @@ export function selectHandler(scrollbar: I.Scrollbar) {
   function scroll({ x, y }) {
     if (!x && !y) return;
 
-    let limit = scrollbar.limit;
+    const { offset, limit } = scrollbar;
     // DISALLOW delta transformation
     scrollbar.setMomentum(
       clamp(offset.x + x, 0, limit.x) - offset.x,
