@@ -2,7 +2,7 @@
 
 ### Bug Fixes
 
-- **event/select**: get new limit value when scroll function is called @longvudai [#314](https://github.com/idiotWu/smooth-scrollbar/pull/14)
+- **event/select**: get new limit value when scroll function is called @longvudai [#314](https://github.com/idiotWu/smooth-scrollbar/pull/314)
 
 ## [8.6.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.6.0...v8.6.1) (2021-03-19)
 
