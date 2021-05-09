@@ -13,6 +13,8 @@ Customizable, Flexible, and High Performance Scrollbars!
 
 > ⚠️ DO NOT use custom scrollbars unless you know what you are doing. [Read more](docs/caveats.md)
 
+> Tell me [why are you using this plugin?](https://github.com/idiotWu/smooth-scrollbar/discussions/317)
+
 Via NPM **(recommended)**:
 
 ```
