@@ -74,12 +74,12 @@ If you are not using any bundlers, you can just load the UMD bundle:
 
 ## FAQ
 
-- How to **deal with `position: fixed` elements**? [#49](https://github.com/idiotWu/smooth-scrollbar/issues/49#issuecomment-265358197)
-- How to **temporarily stop scrolling**? [#119](https://github.com/idiotWu/smooth-scrollbar/issues/119#issuecomment-346227113)
-- How to **enable hash/anchor scrolling**? [#128](https://github.com/idiotWu/smooth-scrollbar/issues/128#issuecomment-390980479)
-- How to **direct all scrolling to a particular direction**? [#181](https://github.com/idiotWu/smooth-scrollbar/issues/181#issuecomment-458646086)
-- How to **disable scrolling in a particular direction**? [#206](https://github.com/idiotWu/smooth-scrollbar/issues/206#issuecomment-526831135)
-- [more...](https://github.com/idiotWu/smooth-scrollbar/issues?q=label%3AFAQ)
+- How to **deal with `position: fixed` elements**? [#362](https://github.com/idiotWu/smooth-scrollbar/discussions/362#discussioncomment-854090)
+- How to **temporarily stop scrolling**? [#361](https://github.com/idiotWu/smooth-scrollbar/discussions/361#discussioncomment-854079)
+- How to **enable hash/anchor scrolling**? [#360](https://github.com/idiotWu/smooth-scrollbar/discussions/360#discussioncomment-854071)
+- How to **direct all scrolling to a particular direction**? [#359](https://github.com/idiotWu/smooth-scrollbar/discussions/359#discussioncomment-854052)
+- How to **disable scrolling in a particular direction**? [#357](https://github.com/idiotWu/smooth-scrollbar/discussions/357#discussioncomment-854036)
+- [more...](https://github.com/idiotWu/smooth-scrollbar/discussions/categories/faq)
 
 ## Who's Using It
 
