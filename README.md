@@ -13,7 +13,7 @@ Customizable, Flexible, and High Performance Scrollbars!
 
 > ⚠️ DO NOT use custom scrollbars unless you know what you are doing. [Read more](docs/caveats.md)
 
-> Tell me [why are you using this plugin?](https://github.com/idiotWu/smooth-scrollbar/discussions/317)
+> Tell me [why you are using this plugin?](https://github.com/idiotWu/smooth-scrollbar/discussions/317)
 
 Via NPM **(recommended)**:
 
@@ -83,8 +83,8 @@ If you are not using any bundlers, you can just load the UMD bundle:
 
 ## Who's Using It
 
-- [conference.awwwards.com](https://conference.awwwards.com/): Awwwards Conference - An Event for UX / UI Designers and Web Developers.
-- [lp.anzi.kr](http://lp.anzi.kr/): Listeners Playlist.
+- [Awwwards Conference](https://conference.awwwards.com/): An Event for UX / UI Designers and Web Developers.
+- [Listeners Playlist](http://lp.anzi.kr/): A cool music player designed by Jiyong Ahn sharing musics from the facebook group 'Listeners Playlist'.
 - [Matter](https://matterapp.com/): A new and better way to grow your professional skills.
 - [Parsons Branding](https://www.parsonsbranding.com/): Brand strategy and design studio based in Cape Town.
 - Feel free to add yours here 🤗.
