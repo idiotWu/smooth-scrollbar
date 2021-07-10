@@ -21,6 +21,20 @@ export function keyboardHandler(scrollbar: I.Scrollbar) {
   const addEvent = eventScope(scrollbar);
   const container = scrollbar.containerEl;
 
+  if (scrollbar.options.horizontalScrollWithShift) {
+    addEventListener('keydown', (evt: KeyboardEvent) => {
+      if (evt.key === 'Shift') {
+        scrollbar.horizontalMode = true;
+      }
+    });
+
+    addEventListener('keyup', (evt: KeyboardEvent) => {
+      if (evt.key === 'Shift') {
+        scrollbar.horizontalMode = false;
+      }
+    });
+  }
+
   addEvent(container, 'keydown', (evt: KeyboardEvent) => {
     const { activeElement } = document;
 

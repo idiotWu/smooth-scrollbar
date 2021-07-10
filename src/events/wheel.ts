@@ -12,7 +12,13 @@ export function wheelHandler(scrollbar: I.Scrollbar) {
   const eventName = ('onwheel' in window || document.implementation.hasFeature('Events.wheel', '3.0')) ? 'wheel' : 'mousewheel';
 
   addEvent(target, eventName, (evt: WheelEvent) => {
-    const { x, y } = normalizeDelta(evt);
+    let { x, y } = normalizeDelta(evt);
+
+    if (scrollbar.options.horizontalScrollWithShift) {
+      if (scrollbar.horizontalMode) {
+        [x, y] = [y, x];
+      }
+    }
 
     scrollbar.addTransformableMomentum(x, y, evt, (willScroll) => {
       if (willScroll) {

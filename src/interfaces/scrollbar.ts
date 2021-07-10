@@ -11,6 +11,7 @@ export type ScrollbarOptions = {
   renderByPixels: boolean,
   alwaysShowTracks: boolean,
   continuousScrolling: boolean,
+  horizontalScrollWithShift: boolean,
   delegateTo: EventTarget | null,
   wheelEventTarget: EventTarget | null,
   plugins: any,
@@ -79,6 +80,8 @@ export interface Scrollbar {
   readonly track: TrackController;
 
   readonly options: ScrollbarOptions;
+
+  horizontalMode: boolean;
 
   bounding: ScrollbarBounding;
   size: ScrollbarSize;

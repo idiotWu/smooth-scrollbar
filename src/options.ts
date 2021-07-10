@@ -43,6 +43,13 @@ export class Options {
   continuousScrolling = true;
 
   /**
+   * Set to `true` to support horizontal scroll
+   * by holding Shift + mouse wheel
+   */
+  @boolean
+  horizontalScrollWithShift = false;
+
+  /**
    * Delegate wheel events and touch events to the given element.
    * By default, the container element is used.
    * This option will be useful for dealing with fixed elements.

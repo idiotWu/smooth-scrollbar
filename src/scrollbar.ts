@@ -58,6 +58,11 @@ export class Scrollbar implements I.Scrollbar {
   readonly contentEl: HTMLElement;
 
   /**
+   * Indicates if user is holding shift and should scroll horizontally (if enabled)
+   */
+  horizontalMode: boolean;
+
+  /**
    * Geometry infomation for current scrollbar instance
    */
   size: I.ScrollbarSize;
