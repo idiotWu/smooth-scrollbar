@@ -4,7 +4,7 @@
 [![monthly downloads][npm-downloads-badge]](https://www.npmjs.com/package/smooth-scrollbar)
 [![core size][size-badge]](dist/smooth-scrollbar.js)
 [![gzip size][gzip-size-badge]](dist/smooth-scrollbar.js)
-[![Build status][travis-badge]](https://travis-ci.org/idiotWu/smooth-scrollbar)
+[![Build status][travis-badge]](https://travis-ci.com/idiotWu/smooth-scrollbar)
 [![Gitpod Ready-to-Code][gitpod-badge]](https://gitpod.io/from-referrer/)
 
 Customizable, Flexible, and High Performance Scrollbars!
