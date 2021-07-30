@@ -1,3 +1,9 @@
+## [8.6.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.6.2...v8.6.3) (2021-07-30)
+
+### Bug Fixes
+
+- **geometry**: add container's paddings to content's size.
+
 ## [8.6.2](https://github.com/idiotWu/smooth-scrollbar/compare/v8.6.1...v8.6.2) (2021-05-04)
 
 ### Bug Fixes
