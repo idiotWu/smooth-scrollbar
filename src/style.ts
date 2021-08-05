@@ -1,6 +1,7 @@
 const TRACK_BG = 'rgba(222, 222, 222, .75)';
 const THUMB_BG = 'rgba(0, 0, 0, .5)';
 
+// sets content's display type to `flow-root` to suppress margin collapsing
 const SCROLLBAR_STYLE = `
 [data-scrollbar] {
   display: block;
@@ -8,6 +9,7 @@ const SCROLLBAR_STYLE = `
 }
 
 .scroll-content {
+  display: flow-root;
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
