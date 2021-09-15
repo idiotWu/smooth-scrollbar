@@ -72,6 +72,7 @@ export class ScrollbarTrack implements I.ScrollbarTrack {
       display: pageSize <= containerSize ? 'none' : 'block',
     });
 
-    this.thumb.update(scrollOffset, containerSize, pageSize);
+    const trackHeightOffset = this.element.offsetHeight - containerSize;
+    this.thumb.update(scrollOffset, containerSize + trackHeightOffset, pageSize + trackHeightOffset);
   }
 }
