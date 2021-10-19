@@ -17,7 +17,7 @@ export class ScrollbarTrack implements I.ScrollbarTrack {
   private _isShown = false;
 
   constructor(
-    direction: TrackDirection,
+    private direction: TrackDirection,
     thumbMinSize: number = 0,
   ) {
     this.element.className = `scrollbar-track scrollbar-track-${direction}`;
@@ -72,6 +72,7 @@ export class ScrollbarTrack implements I.ScrollbarTrack {
       display: pageSize <= containerSize ? 'none' : 'block',
     });
 
-    this.thumb.update(scrollOffset, containerSize, pageSize);
+    const trackHeightOffset = (this.direction === TrackDirection.Y ? this.element.offsetHeight : this.element.offsetWidth) - containerSize;
+    this.thumb.update(scrollOffset, containerSize + trackHeightOffset, pageSize + trackHeightOffset);
   }
 }
