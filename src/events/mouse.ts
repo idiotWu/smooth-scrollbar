@@ -15,24 +15,26 @@ export function mouseHandler(scrollbar: I.Scrollbar) {
   const container = scrollbar.containerEl;
   const { xAxis, yAxis } = scrollbar.track;
 
-  function calcOffset(
+  function calcMomentum(
     direction: Direction,
     clickPosition: number,
   ): number {
     const {
       size,
+      limit,
+      offset,
     } = scrollbar;
 
     if (direction === Direction.X) {
       const totalWidth = size.container.width + (xAxis.thumb.realSize - xAxis.thumb.displaySize);
 
-      return clickPosition / totalWidth * size.content.width;
+      return clamp(clickPosition / totalWidth * size.content.width, 0, limit.x) - offset.x;
     }
 
     if (direction === Direction.Y) {
       const totalHeight = size.container.height + (yAxis.thumb.realSize - yAxis.thumb.displaySize);
 
-      return clickPosition / totalHeight * size.content.height;
+      return clamp(clickPosition / totalHeight * size.content.height, 0, limit.y) - offset.y;
     }
 
     return 0;
@@ -55,7 +57,7 @@ export function mouseHandler(scrollbar: I.Scrollbar) {
   let isMouseDown: boolean;
   let isMouseMoving: boolean;
   let startOffsetToThumb: { x: number, y: number };
-  let startTrackDirection: Direction | undefined;
+  let trackDirection: Direction | undefined;
   let containerRect: ClientRect;
 
   addEvent(container, 'click', (evt: MouseEvent) => {
@@ -68,22 +70,14 @@ export function mouseHandler(scrollbar: I.Scrollbar) {
     const rect = track.getBoundingClientRect();
     const clickPos = getPosition(evt);
 
-    const { offset, limit } = scrollbar;
-
     if (direction === Direction.X) {
       const offsetOnTrack = clickPos.x - rect.left - xAxis.thumb.displaySize / 2;
-      scrollbar.setMomentum(
-        clamp(calcOffset(direction, offsetOnTrack) - offset.x, -offset.x, limit.x - offset.x),
-        0,
-      );
+      scrollbar.setMomentum(calcMomentum(direction, offsetOnTrack), 0);
     }
 
     if (direction === Direction.Y) {
       const offsetOnTrack = clickPos.y - rect.top - yAxis.thumb.displaySize / 2;
-      scrollbar.setMomentum(
-        0,
-        clamp(calcOffset(direction, offsetOnTrack) - offset.y, -offset.y, limit.y - offset.y),
-      );
+      scrollbar.setMomentum(0, calcMomentum(direction, offsetOnTrack));
     }
   });
 
@@ -98,7 +92,7 @@ export function mouseHandler(scrollbar: I.Scrollbar) {
     const cursorPos = getPosition(evt);
     const thumbRect = thumb.getBoundingClientRect();
 
-    startTrackDirection = getTrackDirection(thumb);
+    trackDirection = getTrackDirection(thumb);
 
     // pointer offset to thumb
     startOffsetToThumb = {
@@ -121,26 +115,19 @@ export function mouseHandler(scrollbar: I.Scrollbar) {
 
     isMouseMoving = true;
 
-    const { offset } = scrollbar;
     const cursorPos = getPosition(evt);
 
-    if (startTrackDirection === Direction.X) {
+    if (trackDirection === Direction.X) {
       // get percentage of pointer position in track
       // then tranform to px
       // don't need easing
       const offsetOnTrack = cursorPos.x - startOffsetToThumb.x - containerRect.left;
-      scrollbar.setPosition(
-        calcOffset(startTrackDirection, offsetOnTrack),
-        offset.y,
-      );
+      scrollbar.setMomentum(calcMomentum(trackDirection, offsetOnTrack), 0);
     }
 
-    if (startTrackDirection === Direction.Y) {
+    if (trackDirection === Direction.Y) {
       const offsetOnTrack = cursorPos.y - startOffsetToThumb.y - containerRect.top;
-      scrollbar.setPosition(
-        offset.x,
-        calcOffset(startTrackDirection, offsetOnTrack),
-      );
+      scrollbar.setMomentum(0, calcMomentum(trackDirection, offsetOnTrack));
     }
   });
 
