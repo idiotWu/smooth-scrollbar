@@ -20,7 +20,7 @@ export { ScrollbarPlugin };
 
 declare var __SCROLLBAR_VERSION__: string;
 
-/*!
+/**
  * cast `I.Scrollbar` to `Scrollbar` to avoid error
  *
  * `I.Scrollbar` is not assignable to `Scrollbar`:
