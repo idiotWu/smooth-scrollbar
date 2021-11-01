@@ -24,7 +24,7 @@ module.exports = {
       }],
       include: [
         joinRoot('src'),
-        joinRoot('__demo__'),
+        joinRoot('demo'),
       ],
     }],
   },

@@ -10,10 +10,10 @@ const joinRoot = path.join.bind(path, __dirname, '..');
 module.exports = merge(baseConfig, {
   mode: 'production',
   entry: [
-    joinRoot('__demo__/scripts/index.ts'),
+    joinRoot('demo/scripts/index.ts'),
   ],
   output: {
-    path: joinRoot('.tmp'),
+    path: joinRoot('ghpages'),
     filename: 'app.js',
     publicPath: '/',
   },
@@ -39,7 +39,7 @@ module.exports = merge(baseConfig, {
         'stylus-loader',
       ],
       include: [
-        joinRoot('__demo__'),
+        joinRoot('demo'),
       ],
     }],
   },
