@@ -1,3 +1,9 @@
+## [8.7.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.6.3...v8.7.0) (2021-11-01)
+
+### Features
+
+- **event/mouse**: smoothen scrolling while dragging thumbs.
+
 ## [8.6.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.6.2...v8.6.3) (2021-07-30)
 
 ### Bug Fixes
