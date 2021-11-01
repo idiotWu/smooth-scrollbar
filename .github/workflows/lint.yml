@@ -1,0 +1,24 @@
+name: Lint Frontend Code
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - run: npm install
+
+    - name: Lint
+      run: npm run lint

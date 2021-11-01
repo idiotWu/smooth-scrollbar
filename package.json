@@ -22,8 +22,9 @@
     "bundle:main": "webpack --config ./scripts/webpack.prod.js",
     "bundle:plugin": "webpack --config scripts/webpack.prod.plugins.js",
     "bundle": "npm-run-all bundle:main bundle:plugin",
-    "preghpages": "rimraf ./.tmp",
+    "preghpages": "rimraf ./ghpages",
     "ghpages": "webpack --config ./scripts/webpack.ghpages.js",
+    "postghpages": "cpx 'demo/{images/*,index.html}' ghpages -v",
     "deploy": "./scripts/deploy.sh",
     "test": "npm run lint && tsc --noEmit",
     "release": "node ./scripts/release.js"
