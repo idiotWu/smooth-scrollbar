@@ -4,8 +4,10 @@ import OverscrollPlugin from 'smooth-scrollbar/plugins/overscroll';
 
 Scrollbar.use(OverscrollPlugin);
 
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 const options = {
-  damping: 0.1,
+  damping: isMobile ? 0.05 : 0.1,
   thumbMinSize: 20,
   renderByPixels: !('ontouchstart' in document),
   alwaysShowTracks: false,

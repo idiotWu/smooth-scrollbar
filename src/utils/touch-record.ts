@@ -1,6 +1,8 @@
 import { getPosition } from './get-position';
 
 export class Tracker {
+  readonly velocityMultiplier = /Android/.test(navigator.userAgent) ? 2.5 : 1.5;
+
   updateTime = Date.now();
   delta = { x: 0, y: 0 };
   velocity = { x: 0, y: 0 };
@@ -25,11 +27,11 @@ export class Tracker {
       y: -(position.y - lastPosition.y),
     };
 
-    const duration = (now - updateTime) || 16;
-    const vx = delta.x / duration * 16;
-    const vy = delta.y / duration * 16;
-    velocity.x = vx * 0.9 + velocity.x * 0.1;
-    velocity.y = vy * 0.9 + velocity.y * 0.1;
+    const duration = (now - updateTime) || 16.7;
+    const vx = delta.x / duration * 16.7;
+    const vy = delta.y / duration * 16.7;
+    velocity.x = vx * this.velocityMultiplier;
+    velocity.y = vy * this.velocityMultiplier;
 
     this.delta = delta;
     this.updateTime = now;
@@ -67,6 +69,29 @@ export class TouchRecord {
     }
 
     return { ...tracker.velocity };
+  }
+
+  getEasingDistance(damping: number) {
+    const deAcceleration = 1 - damping;
+
+    let distance = {
+      x: 0,
+      y: 0,
+    };
+
+    const vel = this.getVelocity();
+
+    Object.keys(vel).forEach(dir => {
+      // ignore small velocity
+      let v = Math.abs(vel[dir]) <= 10 ? 0 : vel[dir];
+
+      while (v !== 0) {
+        distance[dir] += v;
+        v = (v * deAcceleration) | 0;
+      }
+    });
+
+    return distance;
   }
 
   track(evt: TouchEvent) {
