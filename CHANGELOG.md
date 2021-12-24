@@ -1,3 +1,9 @@
+## [8.7.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.0...v8.7.1) (2021-12-25)
+
+### Minor Changes
+
+- **touch**: calculate scrolling delta based on the touch moving velocity.
+
 ## [8.7.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.6.3...v8.7.0) (2021-11-01)
 
 ### Features
