@@ -8,7 +8,7 @@
   "types": "index.d.ts",
   "scripts": {
     "start": "node ./scripts/serve.js",
-    "lint": "tslint --type-check -p . -t stylish {src,__demo__}/**/*.ts",
+    "lint": "tslint --type-check -p . -t stylish {src,demo}/**/*.ts",
     "clean:compile": "rimraf ./build",
     "clean:dist": "rimraf ./dist",
     "clean": "npm-run-all clean:compile clean:dist",

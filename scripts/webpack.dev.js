@@ -10,7 +10,7 @@ module.exports = merge(baseConfig, {
   devtool: 'cheap-module-source-map',
   entry: [
     `webpack-dev-server/client?${publicUrl(3000)}`,
-    joinRoot('__demo__/scripts/index.ts'),
+    joinRoot('demo/scripts/index.ts'),
   ],
   output: {
     path: joinRoot('.tmp'),
@@ -32,7 +32,7 @@ module.exports = merge(baseConfig, {
       }],
       include: [
         joinRoot('src'),
-        joinRoot('__demo__'),
+        joinRoot('demo'),
       ],
     }, {
       test: /\.css$/,
@@ -55,7 +55,7 @@ module.exports = merge(baseConfig, {
         'stylus-loader',
       ],
       include: [
-        joinRoot('__demo__'),
+        joinRoot('demo'),
       ],
     }],
   },

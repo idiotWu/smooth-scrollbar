@@ -7,7 +7,7 @@ const publicUrl = require('./public-url');
 
 new Server(webpack(config), {
   disableHostCheck: true,
-  contentBase: path.join(__dirname, '..', '__demo__'),
+  contentBase: path.join(__dirname, '..', 'demo'),
   publicPath: config.output.publicPath,
   public: publicUrl(3000),
   stats: {
