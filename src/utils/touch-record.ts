@@ -1,7 +1,7 @@
 import { getPosition } from './get-position';
 
 export class Tracker {
-  readonly velocityMultiplier = /Android/.test(navigator.userAgent) ? 2.5 : 1.5;
+  readonly velocityMultiplier = /Android/.test(navigator.userAgent) ? window.devicePixelRatio : 1;
 
   updateTime = Date.now();
   delta = { x: 0, y: 0 };
