@@ -1,3 +1,9 @@
+## [8.7.2](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.1...v8.7.2) (2021-12-25)
+
+### Minor Changes
+
+- **touch**: multiply touch moving velocity by `devicePixelRatio` on Android.
+
 ## [8.7.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.0...v8.7.1) (2021-12-25)
 
 ### Minor Changes
