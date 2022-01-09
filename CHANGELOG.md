@@ -1,3 +1,9 @@
+## [8.7.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.2...v8.7.3) (2022-01-10)
+
+### Minor Changes
+
+- **geometry**: use `ResizeObserver` instead of `MutationObserver` to apply automatic re-calculates. (This is a temporary optimization and we will refactor the code in v9.)
+
 ## [8.7.2](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.1...v8.7.2) (2021-12-25)
 
 ### Minor Changes
