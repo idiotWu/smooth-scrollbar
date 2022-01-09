@@ -128,7 +128,8 @@ export class Scrollbar implements I.Scrollbar {
   }
 
   private _renderID: number;
-  private _observer: MutationObserver;
+  private _observer: any; // FIXME: we need to update typescript version to support `ResizeObserver`
+  // private _observer: ResizeObserver;
   private _plugins: I.ScrollbarPlugin[] = [];
 
   private _momentum = { x: 0, y: 0 };
@@ -184,19 +185,16 @@ export class Scrollbar implements I.Scrollbar {
       withoutCallbacks: true,
     });
 
-    const global: any = window;
-    const MutationObserver = global.MutationObserver || global.WebKitMutationObserver || global.MozMutationObserver;
+    // FIXME: update typescript
+    const ResizeObserver = (window as any).ResizeObserver;
 
     // observe
-    if (typeof MutationObserver === 'function') {
-      this._observer = new MutationObserver(() => {
+    if (typeof ResizeObserver === 'function') {
+      this._observer = new ResizeObserver(() => {
         this.update();
       });
 
-      this._observer.observe(contentEl, {
-        subtree: true,
-        childList: true,
-      });
+      this._observer.observe(contentEl);
     }
 
     scrollbarMap.set(containerEl, this);
