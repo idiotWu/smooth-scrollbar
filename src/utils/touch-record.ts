@@ -131,7 +131,8 @@ export class TouchRecord {
 
   private _add(touch: Touch) {
     if (this._has(touch)) {
-      return;
+      // reset tracker
+      this._delete(touch);
     }
 
     const tracker = new Tracker(touch);
