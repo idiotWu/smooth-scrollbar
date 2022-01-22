@@ -1,0 +1,22 @@
+name: ":rocket: Feature Request"
+description: Share an idea
+labels: ["idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for sharing your idea to make smooth-scrollbar better.
+
+        Please fill out the following form as detailed as possible.
+  - type: textarea
+    attributes:
+      label: Motivation
+      description: What brings you here?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposal
+      description: How can you solve the problem?
+    validations:
+      required: true

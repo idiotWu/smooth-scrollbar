@@ -1,0 +1,33 @@
+name: ":bug: Bug Report"
+description: File a bug report
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue.
+
+        Please fill out the following form as detailed as possible to help us fix the bug.
+  - type: checkboxes
+    attributes:
+      label: Checks
+      description: Before posting a report, make sure you have searched for duplicates.
+      options:
+        - label: "Not a duplicate."
+          required: true
+  - type: input
+    validations:
+      required: true
+    attributes:
+      label: Version
+      description: The version of smooth-scrollbar.
+  - type: textarea
+    attributes:
+      label: Description
+      description: Describe the bug and the steps to reproduce it.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Online Demo (Optional but Recommended)
+      description: Provide a URL to an online demo that reproduces the bug.
+      placeholder: "https://codesandbox.io/your-project"
