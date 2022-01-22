@@ -45,4 +45,4 @@ body:
     attributes:
       label: Online Demo
       description: Provide a URL to an online demo that reproduces the bug. (Optional but recommended)
-      placeholder: "https://codesandbox.io/your-project"
+      placeholder: "https://codesandbox.io/s/your-project"

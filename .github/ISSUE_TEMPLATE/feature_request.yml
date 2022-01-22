@@ -17,6 +17,6 @@ body:
   - type: textarea
     attributes:
       label: Proposal
-      description: How can you solve the problem?
+      description: How can we solve the problem?
     validations:
       required: true
