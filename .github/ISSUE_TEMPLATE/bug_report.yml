@@ -21,19 +21,28 @@ body:
       label: Version
       description: The version of smooth-scrollbar.
   - type: textarea
+    validations:
+      required: true
     attributes:
       label: Description
       description: Describe the bug and the expected behavior.
+      placeholder: |
+        **Summary**
+        ...
+
+        **Expected Behavior**
+        ...
+  - type: textarea
     validations:
       required: true
-  - type: textarea
     attributes:
       label: Steps to Reproduce
       description: Tell us how to reproduce it.
-    validations:
-      required: true
+      placeholder: |
+        1. ...
+        2. ...
   - type: input
     attributes:
-      label: Online Demo (Optional but Recommended)
-      description: Provide a URL to an online demo that reproduces the bug.
+      label: Online Demo
+      description: Provide a URL to an online demo that reproduces the bug. (Optional but recommended)
       placeholder: "https://codesandbox.io/your-project"
