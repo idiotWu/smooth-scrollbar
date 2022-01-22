@@ -1,3 +1,9 @@
+## [8.7.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.3...v8.7.4) (2022-01-22)
+
+### Bug Fixes
+
+- **event/touch**: reset touch trackers on `touchstart`, resolves #435
+
 ## [8.7.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.2...v8.7.3) (2022-01-10)
 
 ### Minor Changes
