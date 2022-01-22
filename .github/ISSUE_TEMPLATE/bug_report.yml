@@ -1,4 +1,4 @@
-name: ":bug: Bug Report"
+name: "\U0001F41B Bug Report"
 description: File a bug report
 body:
   - type: markdown
