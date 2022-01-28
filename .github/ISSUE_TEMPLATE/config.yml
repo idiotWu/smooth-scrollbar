@@ -1,3 +1,4 @@
+blank_issues_enabled: false
 contact_links:
   - name: "🙏 Need help with smooth-scrollbar?"
     url: https://github.com/idiotWu/smooth-scrollbar/discussions/new?category=q-a
