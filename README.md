@@ -98,7 +98,7 @@ If you are not using any bundlers, you can just load the UMD bundle:
 
 ## Credits
 
-- LOGO by Kainoa Kanter ([@ThatOneCalculator](https://github.com/ThatOneCalculator))
+- [Logo](https://github.com/idiotWu/smooth-scrollbar/discussions/461) by Kainoa Kanter ([@ThatOneCalculator](https://github.com/ThatOneCalculator))
 
 ## License
 
