@@ -1,13 +1,24 @@
-# Smooth Scrollbar
-
+<div align="center">
+  <h1>Smooth Scrollbar
+    <br><br>
+    <img src="docs/assets/logo.svg" height="150px"/>
+    <h3>
+      Customizable, Flexible, and High Performance Scrollbars!
+    </h3>
+	</h1>
+    <p align="center">
+      
 [![npm][npm-version-badge]](https://www.npmjs.com/package/smooth-scrollbar)
 [![monthly downloads][npm-downloads-badge]](https://www.npmjs.com/package/smooth-scrollbar)
 [![core size][size-badge]](dist/smooth-scrollbar.js)
 [![gzip size][gzip-size-badge]](dist/smooth-scrollbar.js)
 [![Build status][github-action-badge]](https://github.com/idiotWu/smooth-scrollbar/actions/workflows/deploy.yml)
 [![Gitpod Ready-to-Code][gitpod-badge]](https://gitpod.io/from-referrer/)
+   
+  </p>
+  <br>
+</div>
 
-Customizable, Flexible, and High Performance Scrollbars!
 
 ## Installation
 
@@ -87,6 +98,7 @@ If you are not using any bundlers, you can just load the UMD bundle:
 - [Listeners Playlist](http://lp.anzi.kr/): A cool music player designed by Jiyong Ahn sharing musics from the facebook group 'Listeners Playlist'.
 - [Matter](https://matterapp.com/): A new and better way to grow your professional skills.
 - [Parsons Branding](https://www.parsonsbranding.com/): Brand strategy and design studio based in Cape Town.
+- [zer0bin](https://zer0b.in): Just a place to paste
 - Feel free to add yours here 🤗.
 
 ## License
