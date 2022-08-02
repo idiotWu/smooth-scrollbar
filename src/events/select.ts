@@ -45,6 +45,12 @@ export function selectHandler(scrollbar: I.Scrollbar) {
     isContextMenuOpened = true;
   });
 
+  // reset context menu flag on mouse down
+  // to ensure the scrolling is allowed in the next selection
+  addEvent(contentEl, 'mousedown', () => {
+    isContextMenuOpened = false;
+  });
+
   addEvent(contentEl, 'selectstart', () => {
     if (isContextMenuOpened) {
       return;
