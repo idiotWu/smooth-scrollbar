@@ -11,6 +11,7 @@ export function selectHandler(scrollbar: I.Scrollbar) {
   const { containerEl, contentEl } = scrollbar;
 
   let isSelected = false;
+  let isContextMenuOpened = false; // flag to prevent selection when context menu is opened
   let animationID: number;
 
   function scroll({ x, y }) {
@@ -38,8 +39,17 @@ export function selectHandler(scrollbar: I.Scrollbar) {
     scroll(dir);
   });
 
-  addEvent(contentEl, 'selectstart', (evt: Event) => {
-    evt.stopPropagation();
+  // prevent scrolling when context menu is opened
+  addEvent(contentEl, 'contextmenu', () => {
+    isSelected = false;
+    isContextMenuOpened = true;
+  });
+
+  addEvent(contentEl, 'selectstart', () => {
+    if (isContextMenuOpened) {
+      return;
+    }
+
     cancelAnimationFrame(animationID);
 
     isSelected = true;
@@ -49,6 +59,7 @@ export function selectHandler(scrollbar: I.Scrollbar) {
     cancelAnimationFrame(animationID);
 
     isSelected = false;
+    isContextMenuOpened = false;
   });
 
   // patch for touch devices
