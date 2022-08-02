@@ -40,9 +40,17 @@ export function selectHandler(scrollbar: I.Scrollbar) {
   });
 
   // prevent scrolling when context menu is opened
+  // NOTE: `contextmenu` event may be fired
+  //          1. BEFORE `selectstart`: when user right-clicks on the text content -> prevent future scrolling,
+  //          2. AFTER `selectstart`: when user right-clicks on the blank area -> cancel current scrolling,
+  //        so we need to both set the flag and cancel current scrolling
   addEvent(contentEl, 'contextmenu', () => {
-    isSelected = false;
+    // set the flag to prevent future scrolling
     isContextMenuOpened = true;
+
+    // stop current scrolling
+    cancelAnimationFrame(animationID);
+    isSelected = false;
   });
 
   // reset context menu flag on mouse down
