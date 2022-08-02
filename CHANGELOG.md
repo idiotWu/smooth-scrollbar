@@ -1,4 +1,10 @@
-## [8.7.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.3...v8.7.4) (2022-01-22)
+## [8.7.5](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.4...v8.7.5) (2022-08-02)
+
+### Bug Fixes
+
+- **event/select**: prevent scrolling when context menu opened, resolves #489
+
+## [8.7.4](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.3...v8.7.4) (2022-01-22)
 
 ### Bug Fixes
 
