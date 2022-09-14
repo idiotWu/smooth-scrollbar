@@ -1,4 +1,4 @@
-import clamp from 'lodash-es/clamp';
+import { clamp } from '../decorators/clamp';
 
 import * as I from '../interfaces/';
 

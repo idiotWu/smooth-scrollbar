@@ -47,7 +47,6 @@
   "homepage": "https://github.com/idiotWu/smooth-scrollbar#readme",
   "devDependencies": {
     "@types/dat-gui": "^0.6.3",
-    "@types/lodash-es": "^4.17.3",
     "@types/prismjs": "^1.16.0",
     "autoprefixer": "^7.2.6",
     "chalk": "^2.4.2",
@@ -81,7 +80,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
-    "lodash-es": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
     "tslib": "^1.10.0"
   }
 }
