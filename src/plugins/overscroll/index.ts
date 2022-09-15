@@ -1,4 +1,4 @@
-import { clamp } from '../../decorators/clamp';
+import clamp from 'lodash.clamp';
 import debounce from 'lodash.debounce';
 import { ScrollbarPlugin } from 'smooth-scrollbar';
 import { Bounce } from './bounce';
