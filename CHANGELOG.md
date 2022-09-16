@@ -1,3 +1,9 @@
+## [8.8.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.5...v8.8.0) (2022-09-15)
+
+### Breaking Changes
+
+- Reduce lodash usage to prevent vulnerability warnings, resolves #307. @j-turner28 [#496](https://github.com/idiotWu/smooth-scrollbar/pull/496)
+
 ## [8.7.5](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.4...v8.7.5) (2022-08-02)
 
 ### Bug Fixes
