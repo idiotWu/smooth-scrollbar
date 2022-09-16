@@ -92,6 +92,7 @@ function handleTabKey(scrollbar: I.Scrollbar) {
   requestAnimationFrame(() => {
     scrollbar.scrollIntoView(document.activeElement as HTMLElement, {
       offsetTop: scrollbar.size.container.height / 2,
+      offsetLeft: scrollbar.size.container.width / 2,
       onlyScrollIfNeeded: true,
     });
   });
