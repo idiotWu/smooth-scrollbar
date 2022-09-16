@@ -1,4 +1,4 @@
-import clamp from 'lodash-es/clamp';
+import clamp from 'lodash.clamp';
 
 import { Options } from './options';
 

@@ -1,5 +1,5 @@
-import clamp from 'lodash-es/clamp';
-import debounce from 'lodash-es/debounce';
+import clamp from 'lodash.clamp';
+import debounce from 'lodash.debounce';
 import { ScrollbarPlugin } from 'smooth-scrollbar';
 import { Bounce } from './bounce';
 import { Glow } from './glow';

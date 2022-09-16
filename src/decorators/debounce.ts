@@ -1,4 +1,4 @@
-import $debounce from 'lodash-es/debounce';
+import $debounce from 'lodash.debounce';
 
 export function debounce(...options) {
   return (_proto: any, key: string, descriptor: PropertyDescriptor) => {
