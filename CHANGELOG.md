@@ -1,3 +1,11 @@
+## [8.8.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.0...v8.8.1) (2022-09-15)
+
+### Bug Fixes
+
+- **event/touch**: use `devicePixelRatio` as velocity multiplier to fix the issue that scrolling is slow on iOS 16.
+- **event/keyboard**: add `offsetLeft` to tab key handler, fixes #421.
+
+
 ## [8.8.0](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.5...v8.8.0) (2022-09-15)
 
 ### Breaking Changes
