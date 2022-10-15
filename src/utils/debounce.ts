@@ -18,8 +18,8 @@ export function debounce<T extends (...args: any) => ReturnType<T>>(fn: T, wait?
 
   let lastArgs;
   let lastThis: unknown;
-  let timerId;
-  let lastCallTime;
+  let timerId: number | null = null;
+  let lastCallTime: number | null = null;
   let lastInvokeTime = 0;
   let leading = false;
   let maxing = false;
@@ -29,7 +29,7 @@ export function debounce<T extends (...args: any) => ReturnType<T>>(fn: T, wait?
   const useRAF = !wait && wait !== 0 && typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function';
 
   if (typeof fn !== 'function') {
-    throw new TypeError('Expected a function')
+    throw new TypeError('Expected a function');
   }
 
   wait = +wait! || 0;
@@ -52,7 +52,7 @@ export function debounce<T extends (...args: any) => ReturnType<T>>(fn: T, wait?
 
   function startTimer(pendingFunc: () => void, wait: number) {
     if (useRAF) {
-      window.cancelAnimationFrame(timerId);
+      window.cancelAnimationFrame(timerId!);
       return window.requestAnimationFrame(pendingFunc);
     }
     return setTimeout(pendingFunc, wait);
@@ -63,7 +63,7 @@ export function debounce<T extends (...args: any) => ReturnType<T>>(fn: T, wait?
   }
 
   function shouldInvoke(time: number) {
-    const timeSinceLastCall = time - lastCallTime;
+    const timeSinceLastCall = time - lastCallTime!;
     const timeSinceLastInvoke = time - lastInvokeTime;
 
     return (
@@ -80,12 +80,12 @@ export function debounce<T extends (...args: any) => ReturnType<T>>(fn: T, wait?
       return trailingEdge(time);
     }
 
-    const timeSinceLastCall = time - lastCallTime;
+    const timeSinceLastCall = time - lastCallTime!;
     const timeSinceLastInvoke = time - lastInvokeTime;
     const timeWaiting = wait! - timeSinceLastCall;
     const remainingWait = maxing ? Math.min(timeWaiting, maxWait! - timeSinceLastInvoke) : timeWaiting;
 
-    timerId = startTimer(timerExpired, remainingWait);
+    timerId = startTimer(timerExpired, remainingWait) as number;
   }
 
   function trailingEdge(time: number) {
@@ -125,16 +125,16 @@ export function debounce<T extends (...args: any) => ReturnType<T>>(fn: T, wait?
     if (isInvoking) {
       if (!timerId) {
         lastInvokeTime = time;
-        timerId = startTimer(timerExpired, wait!);
+        timerId = startTimer(timerExpired, wait!) as number;
         return leading ? invokeFunc(time) : result;
       }
       if (maxing) {
-        timerId = startTimer(timerExpired, wait!);
+        timerId = startTimer(timerExpired, wait!) as number;
         return invokeFunc(lastCallTime);
       }
     }
     if (!timerId) {
-      timerId = startTimer(timerExpired, wait!);
+      timerId = startTimer(timerExpired, wait!) as number;
     }
     return result;
   }
