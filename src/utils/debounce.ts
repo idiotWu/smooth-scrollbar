@@ -24,9 +24,13 @@ export function debounce<T extends (...args: any) => ReturnType<T>>(fn: T, wait?
   let leading = false;
   let maxing = false;
   let trailing = true;
-  let result: ReturnType<T>;
+  let result;
 
   const useRAF = !wait && wait !== 0 && typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function';
+
+  if (typeof fn !== 'function') {
+    throw new TypeError('Expected a function')
+  }
 
   wait = +wait! || 0;
   options = options || {};
