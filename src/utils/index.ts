@@ -4,3 +4,5 @@ export * from './get-position';
 export * from './is-one-of';
 export * from './set-style';
 export * from './touch-record';
+export { clamp } from './clamp';
+export { debounce } from './debounce';
