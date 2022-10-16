@@ -423,7 +423,7 @@ export class Scrollbar implements I.Scrollbar {
     this._render();
   }
 
-  @debounce(100, { leading: true })
+  @debounce(100, true)
   private _updateDebounced() {
     this.update();
   }
