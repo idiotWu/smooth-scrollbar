@@ -1,5 +1,5 @@
 export function debounce<T extends (...args: any[]) => void>(fn: T, wait: number = 0, leading?: boolean) {
-  let timer: number;
+  let timer: ReturnType<typeof setTimeout>;
   let lastCalledAt = -Infinity;
 
   return function debouncedFn(this: unknown, ...args: Parameters<T>) {
@@ -17,7 +17,7 @@ export function debounce<T extends (...args: any[]) => void>(fn: T, wait: number
 
     clearTimeout(timer);
 
-    timer = window.setTimeout(() => {
+    timer = setTimeout(() => {
       fn.apply(this, args);
     }, wait);
   };
