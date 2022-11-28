@@ -228,21 +228,54 @@ console.log(scrollbar.contentEl.className); // 'scroll-content'
 
 ### scrollbar.options
 
-- Type: `ScrollbarOptions`
+- Interface: `ScrollbarOptions`
 
 Options for current scrollbar instance:
 
 ```ts
-type ScrollbarOptions = {
-  damping: number,
-  thumbMinSize: number,
-  renderByPixels: boolean,
-  alwaysShowTracks: boolean,
-  continuousScrolling: boolean,
-  wheelEventTarget: EventTarget | null,
-  plugins: any,
-};
+export interface ScrollbarOptions {
+  /**
+   * Momentum reduction damping factor, a float value between `(0, 1)`. The lower the value is, the more smooth the scrolling will be (also the more paint frames).
+   * @default 0.1
+   */
+  damping?: number
+  /**
+   *  Minimal size for scrollbar thumbs.
+   * @default 20
+   */
+  thumbMinSize?: number
+  /**
+   * Render every frame in integer pixel values, set to `true` to **improve** scrolling performance.
+   * @default true
+   */
+  renderByPixels?: boolean
+  /**
+   * Keep scrollbar tracks visible.
+   * @default false
+   */
+  alwaysShowTracks?: boolean
+  /**
+   * Set to `true` to allow outer scrollbars continue scrolling when current scrollbar reaches edge.
+   * @default true
+   */
+  continuousScrolling?: boolean
+  /**
+   * Delegate wheel events and touch events to the given element. By default, the container element is used. This option will be useful for dealing with fixed elements.
+   * @since 5.2.0
+   * @default null
+   */
+  delegateTo?: EventTarget | null
+  /**
+   * @deprecated `wheelEventTarget` is deprecated and will be removed in the future, use `delegateTo` instead.
+   */
+  wheelEventTarget?: EventTarget | null
+  /**
+   * Options for plugins, see {@link https://github.com/idiotWu/smooth-scrollbar/blob/develop/docs/plugin.md Plugin System}.
+   */
+  plugins?: any
+}
 ```
+
 
 ### scrollbar.size
 
