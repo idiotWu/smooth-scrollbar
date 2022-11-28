@@ -137,7 +137,7 @@ export class Scrollbar implements I.Scrollbar {
 
   constructor(
     containerEl: HTMLElement,
-    options?: Partial<I.ScrollbarOptions>,
+    options?: I.ScrollbarOptions,
   ) {
     this.containerEl = containerEl;
     const contentEl = this.contentEl = document.createElement('div');

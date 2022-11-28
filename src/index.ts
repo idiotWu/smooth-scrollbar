@@ -40,7 +40,7 @@ export default class SmoothScrollbar extends Scrollbar {
    * @param elem The DOM element that you want to initialize scrollbar to
    * @param [options] Initial options
    */
-  static init(elem: HTMLElement, options?: Partial<I.ScrollbarOptions>): Scrollbar {
+  static init(elem: HTMLElement, options?: I.ScrollbarOptions): Scrollbar {
     if (!elem || elem.nodeType !== 1) {
       throw new TypeError(`expect element to be DOM Element, but got ${elem}`);
     }
@@ -60,7 +60,7 @@ export default class SmoothScrollbar extends Scrollbar {
    *
    * @param options Initial options
    */
-  static initAll(options?: Partial<I.ScrollbarOptions>): Scrollbar[] {
+  static initAll(options?: I.ScrollbarOptions): Scrollbar[] {
     return Array.from(document.querySelectorAll('[data-scrollbar]'), (elem: HTMLElement) => {
       return SmoothScrollbar.init(elem, options);
     });
