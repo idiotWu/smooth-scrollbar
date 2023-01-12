@@ -140,7 +140,7 @@ export class Scrollbar implements I.Scrollbar {
     options?: Partial<I.ScrollbarOptions>,
   ) {
     this.containerEl = containerEl;
-    const contentEl = this.contentEl = document.createElement('div');
+    const contentEl = this.contentEl = this.containerEl.querySelector('.scroll-content') as HTMLElement;
 
     this.options = new Options(options);
 
@@ -159,15 +159,6 @@ export class Scrollbar implements I.Scrollbar {
     if (window.navigator.msPointerEnabled) {
       containerEl.style.msTouchAction = 'none';
     }
-
-    // mount content
-    contentEl.className = 'scroll-content';
-
-    Array.from(containerEl.childNodes).forEach((node) => {
-      contentEl.appendChild(node);
-    });
-
-    containerEl.appendChild(contentEl);
 
     // attach track
     this.track = new TrackController(this);
@@ -367,7 +358,6 @@ export class Scrollbar implements I.Scrollbar {
   destroy() {
     const {
       containerEl,
-      contentEl,
     } = this;
 
     clearEventsOn(this);
@@ -381,17 +371,6 @@ export class Scrollbar implements I.Scrollbar {
     }
 
     scrollbarMap.delete(this.containerEl);
-
-    // restore contents
-    const childNodes = Array.from(contentEl.childNodes);
-
-    while (containerEl.firstChild) {
-      containerEl.removeChild(containerEl.firstChild);
-    }
-
-    childNodes.forEach((el) => {
-      containerEl.appendChild(el);
-    });
 
     // reset scroll position
     setStyle(containerEl, {
