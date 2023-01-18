@@ -106,7 +106,7 @@ If you are not using any bundlers, you can just load the UMD bundle:
 
 [npm-version-badge]: https://img.shields.io/npm/v/smooth-scrollbar.svg?style=for-the-badge
 [npm-downloads-badge]: https://img.shields.io/npm/dm/smooth-scrollbar.svg?style=for-the-badge
-[github-action-badge]: https://img.shields.io/github/workflow/status/idiotWu/smooth-scrollbar/Deploy%20to%20GitHub%20Pages?style=for-the-badge
+[github-action-badge]: https://img.shields.io/github/actions/workflow/status/idiotWu/smooth-scrollbar/deploy.yml?branch=master&style=for-the-badge
 [size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=core%20size&style=for-the-badge
 [gzip-size-badge]: http://img.badgesize.io/idiotWu/smooth-scrollbar/master/dist/smooth-scrollbar.js?label=gzip%20size&compression=gzip&style=for-the-badge
 [gitpod-badge]: https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?style=for-the-badge
