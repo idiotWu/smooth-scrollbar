@@ -24,8 +24,10 @@ function getOptions(): typeof eventListenerOptions {
   try {
     const noop = () => {};
     const options = Object.defineProperty({}, 'passive', {
+      enumerable: true,
       get() {
         supportPassiveEvent = true;
+        return true;
       },
     });
     window.addEventListener('testPassive', noop, options);
