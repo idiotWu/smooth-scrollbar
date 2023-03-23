@@ -1,4 +1,10 @@
-## [8.8.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.7.0...v8.8.1) (2022-09-15)
+## [8.8.2](https://github.com/idiotWu/smooth-scrollbar/compare/v8.8.1...v8.8.2) (2023-03-23)
+
+### Bug Fixes
+
+- **utils/event-hub**: define `options.passive` as `enumerable` for compatibility when detecting browser support for passive events. [#520](https://github.com/idiotWu/smooth-scrollbar/pull/520)
+
+## [8.8.1](https://github.com/idiotWu/smooth-scrollbar/compare/v8.8.0...v8.8.1) (2022-09-15)
 
 ### Bug Fixes
 
