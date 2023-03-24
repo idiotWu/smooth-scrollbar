@@ -1,4 +1,4 @@
-## [8.8.2](https://github.com/idiotWu/smooth-scrollbar/compare/v8.8.1...v8.8.2) (2023-03-23)
+## [8.8.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.8.1...v8.8.3) (2023-03-24)
 
 ### Bug Fixes
 
