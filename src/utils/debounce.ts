@@ -11,7 +11,6 @@ export function debounce<T extends (...args: any[]) => void>(fn: T, wait: number
       if (elapsed >= wait) {
         fn.apply(this, args);
       }
-      return;
     }
 
     clearTimeout(timer);
