@@ -1,3 +1,9 @@
+## [8.8.4](https://github.com/idiotWu/smooth-scrollbar/compare/v8.8.3...v8.8.4) (2023-06-05)
+
+### Bug Fixes
+
+- **utils/debounce**: fix timer scheduling. @sadeghbarati [#538](https://github.com/idiotWu/smooth-scrollbar/pull/538)
+
 ## [8.8.3](https://github.com/idiotWu/smooth-scrollbar/compare/v8.8.1...v8.8.3) (2023-03-24)
 
 ### Bug Fixes
